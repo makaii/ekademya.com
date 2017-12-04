@@ -15,8 +15,8 @@ class Signin extends CI_Controller {
 			'page_title' => 'Signin',
 		);
 
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[30]');
-		$this->form_validation->set_rules('password', 'Password', 'required|max_length[16]');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
 		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
 
 		$email = $this->input->post('email');

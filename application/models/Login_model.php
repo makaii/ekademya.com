@@ -36,10 +36,15 @@ class Login_model extends CI_Model
 		}
 		elseif($can_log_in == true)
 		{
-			$get_acc_info_qeury = $this->db->select('*')->from('user_tbl')->where('user_email', $email)->where('user_password', $password)->where('user_status', 1)->get();
+			$get_acc_info_qeury = $this->db->select('*')->where('user_email', $email)->where('user_password', $password)->where('user_status', 1)->get('user_tbl');
 			if ($get_acc_info_qeury->num_rows() == 1)
 			{
 				return $get_acc_info_qeury->row();
+				// $password_hash = $get_acc_info_qeury->row()->user_password;
+				// if ($password == password_verify($password, $password_hash))
+				// {
+				// 	return true;
+				// }
 			}
 			else
 			{

@@ -15,8 +15,8 @@ class Signup extends CI_Controller {
 			'page_title' => 'Signup',
 		);
 
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user_tbl.user_email]|max_length[30]|min_length[8]',array('is_unique' => 'Email is already taken'));
-		$this->form_validation->set_rules('password', 'Password', 'required|max_length[16]|min_length[8]');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user_tbl.user_email]|max_length[320]|min_length[6]', array('is_unique' => 'Email is already taken'));
+		$this->form_validation->set_rules('password', 'Password', 'required|max_length[60]|min_length[8]');
 		$this->form_validation->set_rules('repassword', 'Confirm Password', 'required|matches[password]');
 		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
 

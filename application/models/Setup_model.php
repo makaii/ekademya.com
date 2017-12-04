@@ -42,5 +42,11 @@ class Setup_model extends CI_Model
 		}
 	}
 
+	public function getTableStructure($tableName)
+	{
+		$fields = $this->db->field_data($tableName);
+		return $fields;
+	}
+
 }
  ?>
