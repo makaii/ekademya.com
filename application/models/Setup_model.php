@@ -6,7 +6,7 @@ class Setup_model extends CI_Model
 	
 	public function __construct()
 	{
-		parent::__construct();	
+		parent::__construct();
 		$this->load->dbforge();
 	}
 
@@ -35,7 +35,6 @@ class Setup_model extends CI_Model
 
 		if (!empty($fields))
 		{
-			// $this->dbforge->create_database('ekademya_db', true);
 			$this->dbforge->add_field($fields);
 			$this->dbforge->add_key('user_id', true);
 			$this->dbforge->create_table('user_tbl', true);

@@ -11,7 +11,6 @@ class Setup extends CI_Controller {
 
 	public function index()
 	{
-		
 		$this->Setup_model->createTablesSchema();
 		$page_data = array(
 			'page_title' => 'Database Installation',
