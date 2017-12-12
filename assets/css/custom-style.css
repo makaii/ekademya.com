@@ -7,59 +7,19 @@ fe424d 254,66,77
 
 .c1
 {
-	background-color: #2a363b;
+	background-color: #26c281;
 }
 .c2
 {
-	background-color: #e84a5f;
+	background-color: #2abb9b;
+}
+.c2:hover
+{
+	background-color: #049372;
 }
 .c3
 {
-	background-color: #ff847c;
-}
-.c4
-{
-	background-color: #fecea8
-}
-.c5
-{
-	background-color: #99b898;
-}
-.c6
-{
-	background-color: #355c7d;
-}
-.c7
-{
-	background-color: #6c5b7b;
-}
-.c8
-{
-	background-color: #c06c84;
-}
-.c9
-{
-	background-color: #f67280;
-}
-.c10
-{
-	background-color: #f8b195;
-}
-
-.bg1{
-	background-color: #515bd4;
-}
-.bg2{
-	background-color: #8134af;
-}
-.bg3{
-	background-color: #dd2a7b;
-}
-.bg4{
-	background-color: #feda77;
-}
-.bg5{
-	background-color: #f58529;
+	background-color: #006442;
 }
 
 

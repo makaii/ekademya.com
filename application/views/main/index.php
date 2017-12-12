@@ -14,8 +14,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/custom-style.css'); ?>">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="<?php echo base_url(); ?>">E K A D E M Y A</a>
+    <nav class="navbar navbar-expand-lg navbar-light c1">
+      <a class="navbar-brand text-white" href="<?php echo base_url(); ?>">E K A D E M Y A</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Categories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -40,18 +40,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
           </li>
           <li>
-            <button class="btn btn-outline-primary">Become an Instructor</button>
-            <a href="<?php echo base_url('signin'); ?>"><button class="btn btn-outline-secondary">Signin</button></a>
+            <button class="btn btn-light">Become an Instructor</button>
+            <a href="<?php echo base_url('signin'); ?>"><button class="btn btn-light c2 text-white">Signin</button></a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Explore Courses" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </nav>
 
-    <div class="jumbotron jumbotron-header" style="padding: 8em;">
+    <div class="jumbotron jumbotron-header" style="padding: 8em; margin-bottom: 0rem;">
       <div class="container text-center">
         <div class="display-4">Classes by expert practitioners</div>
         <p class="lead" style="margin-top: 1rem;">Learn new things anywhere, anytime</p>
@@ -61,16 +61,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </div>
 
-    <div class="jumbotron bg-white" style="">
+    <div class="jumbotron bg-white" style="margin-bottom: 0rem;">
       <div class="container">
         <h4 class="text-center">Access our Classes</h4>
       </div>
     </div>
 
-    <div class="jumbotron">
+    <div class="jumbotron c1" style="margin-bottom: 0rem;">
       <div class="container text-center">
-        <p class="display-4">Why Ekademya?</p>
-        <hr>
+        <p class="display-4 text-white">Why Ekademya?</p>
+        <hr style="background-color: #ffffff;">
         <div class="card-deck">
           <div class="card">
             <div class="card-body">
@@ -114,16 +114,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </div>
 
-    <div class="jumbotron" style="padding: 10em;">
+    <div class="jumbotron" style="padding: 10em; margin-bottom: 0rem;">
       <div class="container text-center">
         <h4>Teach on Ekademya</h4>
         <p class="lead">Earn money. Share your expertise. Build your personal brand.</p>
       </div>
     </div>
 
-    <footer class="bg-info text-light text-center">
+    <footer class="c3 text-light text-center" style="padding-top: 1rem; padding-bottom: .25rem;">
       <div class="container-fluid">
-        QWERTeam&#8482
+        <div class="row">
+          <div class="col">
+            <small>something</small>
+          </div>
+          <div class="col">
+            <small>QWERTeam&#8482</small>
+          </div>
+          <div class="col">
+            <small>something</small>
+          </div>
+        </div>
       </div>
     </footer>
 
