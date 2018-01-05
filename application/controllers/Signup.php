@@ -7,6 +7,14 @@ class Signup extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Login_model');
+		if (!$this->session->has_userdata('logged_in'))
+		{
+			$this->session->set_userdata('logged_in', false);
+		}
+		if ($this->session->userdata('logged_in') == true)
+		{
+			redirect(base_url('account'));
+		}
 	}
 
 	public function index()
@@ -29,12 +37,28 @@ class Signup extends CI_Controller {
 		}
 		else
 		{
+			// login successful
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 			if ($this->Login_model->register($email,$password) == true)
 			{
-				redirect(base_url('signin'));
+				$this->session->set_userdata('signup_success', true);
+				redirect(base_url('signup/success'));
 			}
 		}
+	}
+
+	public function success()
+	{
+		if ($this->session->userdata('signup_success') == true)
+		{
+			$this->session->unset_userdata('signup_success');
+			$this->load->view('template/header');
+			$this->load->view('login/signup_success_view');
+			$this->load->view('template/footer');
+		}
+		else
+			redirect(base_url('signup'));
+		
 	}
 }

@@ -9,6 +9,21 @@ class Test extends CI_Controller {
 		$this->load->model('Test_model');
 	}
 
+	public function bool()
+	{
+		if (true == 1)
+		{
+			echo "true is == to 1"."<br>";
+		}
+		if (true === 1)
+		{
+			echo "true is == to 1"."<br>";
+		}
+		else{
+			echo "true is not  === to 1"."<br>";
+		}
+	}
+
 	public function hash()
 	{
 		$password = '';

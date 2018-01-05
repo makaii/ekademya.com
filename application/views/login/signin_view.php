@@ -1,4 +1,4 @@
-<div class="container" style="margin-top: 5rem;margin-bottom: 8rem;">
+<div class="container mt-5" style="margin-bottom: 8rem;">
 	<div class="row">
 		<div class="col"></div>
 		<div class="col-4">
@@ -15,7 +15,7 @@
 						</div>
 						<div class="form-group">
 							<label>Password <a href="<?php echo base_url(); ?>"><small class="font-weight-light">(forgot password?)</small></a></label>
-							<input class="form-control form-control-sm" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" name="password" value="<?php echo set_value('password'); ?>"></input>
+							<input class="form-control form-control-sm" type="password" name="password" value="<?php echo set_value('password'); ?>"></input>
 							<?php echo form_error('password'); ?>
 							<small class="text-danger">
 			                	<?php echo $this->session->flashdata('error'); ?>

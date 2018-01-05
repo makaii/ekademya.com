@@ -7,6 +7,14 @@ class Signin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Login_model');
+		if (!$this->session->has_userdata('logged_in'))
+		{
+			$this->session->set_userdata('logged_in', false);
+		}
+		if ($this->session->userdata('logged_in') == true)
+		{
+			redirect(base_url('account'));
+		}
 	}
 
 	public function index()
@@ -42,6 +50,7 @@ class Signin extends CI_Controller {
 			// login successful
 			$acc = $this->Login_model->get_acc_info($email, $password, true);
 			$this->session->set_userdata('email', $acc->user_email);
+			$this->session->set_userdata('logged_in', true);
 			redirect(base_url('account'));
 		}
 	}

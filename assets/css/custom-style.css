@@ -23,14 +23,23 @@ fe424d 254,66,77
 }
 
 
-/*.jumbotron-header
+.jumbotron-header
 {
-	background-image: url('../img/1.jpeg');
-	background-color: #17234E;
+	background-image: url('../img/main.jpeg');
 	margin-bottom: 0;
 	min-height: 50%;
 	background-repeat: no-repeat;
 	background-position: center;
 	-webkit-background-size: cover;
 	background-size: cover;
-}*/
+}
+.teach-header
+{
+	background-image: url('../img/main2.jpeg');
+	margin-bottom: 0;
+	min-height: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
