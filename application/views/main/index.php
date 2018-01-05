@@ -10,10 +10,10 @@
 
     <div class="jumbotron bg-white" style="margin-bottom: 0rem;">
       <div class="container">
-        <h4 class="text-center">Access our Classes</h4>
+        <h4 class="text-center display-4">Access our Classes</h4>
         <div class="card-deck" style="margin-top: 1rem;">
           <div class="card border-success">
-            <img class="card-image-top" src="" alt="<?php  ?>"></img>
+            <img class="card-image-top img-fluid" src="<?php echo base_url('assets/img/1.jpeg'); ?>" alt="<?php  ?>"></img>
             <div class="card-body pb-0">
               <p class="card-title">Course Title</p>
               <small>author</small>
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="card border-success">
-            <img class="card-image-top" src="" alt="<?php  ?>"></img>
+            <img class="card-image-top img-fluid" src="<?php echo base_url('assets/img/2.jpeg'); ?>" alt="<?php  ?>"></img>
             <div class="card-body pb-0">
               <p class="card-title">Course Title</p>
               <small>author</small>
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="card border-success">
-            <img class="card-image-top" src="" alt="<?php  ?>"></img>
+            <img class="card-image-top img-fluid" src="<?php echo base_url('assets/img/3.jpeg'); ?>" alt="<?php  ?>"></img>
             <div class="card-body pb-0">
               <p class="card-title">Course Title</p>
               <small>author</small>
@@ -49,7 +49,7 @@
             </div>
           </div>
           <div class="card border-success">
-            <img class="card-image-top" src="" alt="<?php  ?>"></img>
+            <img class="card-image-top img-fluid" src="<?php echo base_url('assets/img/4.jpeg'); ?>" alt="<?php  ?>"></img>
             <div class="card-body pb-0">
               <p class="card-title">Course Title</p>
               <small>author</small>
