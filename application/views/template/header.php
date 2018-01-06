@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <a class="dropdown-item" href="<?php echo base_url('courses/film'); ?>">Film & Photography</a>
               <a class="dropdown-item" href="<?php echo base_url('courses/technology'); ?>">Technology</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item disabled" href="">Something else here</a>
             </div>
           </li>
           <li>
@@ -48,8 +48,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <a href="<?php echo base_url('signin'); ?>"><button class="btn btn-light c2 text-white">Signin</button></a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Explore Courses" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" action="<?php echo base_url('courses/search'); ?>">
+          <input class="form-control mr-sm-2" type="search" placeholder="Explore Courses" name="searchInput" aria-label="Search">
           <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>

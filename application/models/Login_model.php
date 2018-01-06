@@ -17,7 +17,7 @@ class Login_model extends CI_Model
 		}
 		else
 		{
-			$can_login_query = $this->db->select('*')->from('user_tbl')->where('user_email', $email)->where('user_password', $password)->where('user_status', 1)->get();
+			$can_login_query = $this->db->select('*')->from('user_tbl')->where('user_email', $email)->where('user_status', 1)->get();
 			if ($can_login_query->num_rows() == 1)
 			{
 				return true;
@@ -36,15 +36,14 @@ class Login_model extends CI_Model
 		}
 		elseif($can_log_in == true)
 		{
-			$get_acc_info_qeury = $this->db->select('*')->where('user_email', $email)->where('user_password', $password)->where('user_status', 1)->get('user_tbl');
+			$get_acc_info_qeury = $this->db->select('*')->where('user_email', $email)->where('user_status', 1)->get('user_tbl');
 			if ($get_acc_info_qeury->num_rows() == 1)
 			{
-				return $get_acc_info_qeury->row();
-				// $password_hash = $get_acc_info_qeury->row()->user_password;
-				// if ($password == password_verify($password, $password_hash))
-				// {
-				// 	return true;
-				// }
+				// return $get_acc_info_qeury->row();
+				if ($this->authenticate($email, $password))
+				{
+					return $get_acc_info_qeury->row();
+				}
 			}
 			else
 			{
@@ -63,12 +62,18 @@ class Login_model extends CI_Model
 		{
 			$data = array(
 				'user_email' => $email,
-				'user_password' => $password,
+				'user_password' => password_hash($password, PASSWORD_BCRYPT),
 				 );
 			$this->db->insert('user_tbl', $data);
 			return true;
 		}
 		
+	}
+
+	private function authenticate($email, $password)
+	{
+		$hash = $this->db->where('user_email', $email)->get('user_tbl')->row()->user_password;
+		return password_verify($password, $hash);
 	}
 
 }

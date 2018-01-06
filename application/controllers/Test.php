@@ -7,6 +7,7 @@ class Test extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Test_model');
+		$this->load->model('Login_model');
 	}
 
 	public function bool()
@@ -26,21 +27,7 @@ class Test extends CI_Controller {
 
 	public function hash()
 	{
-		$password = '';
-		// echo $this->config->item('encryption_key');
-		$hash = password_hash($password, PASSWORD_BCRYPT);
-		// echo $hash."<br>";
-		// echo strlen($hash)."<br>";
-
-		$hash = $this->Test_model->get_hash_pass($password);
-		// echo print_r($hash);
-
-		if (password_verify($password, $hash))
-		{
-			echo "good";
-		}
-		else
-			echo "bad";
+		echo $this->Login_model->authenticate('abc@gmail.com', 'markmark');
 
 
 	}

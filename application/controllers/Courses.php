@@ -6,20 +6,22 @@ class Courses extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('url');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
-		}
-		if ($this->session->userdata('logged_in') == true) 
-		{
-			redirect(base_url('courses'));
-		}
-		$this->load->helper('url');
+		}		
+	}
+
+	public function search()
+	{
+		$search_string = $this->input->get('searchInput');
+		echo $search_string;
+		// $search_result = $this->model_Search->search($search_string);
 	}
 
 	public function art_design()
 	{
-		
 		$page_data = array(
 			'page_title' => 'Art & Design Course',
 		);
@@ -31,9 +33,18 @@ class Courses extends CI_Controller {
 			'n4' => anchor(base_url('courses/film'),'Film & Photography', 'class="nav-link"'),
 			'n5' => anchor(base_url('courses/technology'),'Technology', 'class="nav-link"'),
 		);
-		$this->load->view('template/header', $page_data);
-		$this->load->view('courses/index', $nav_data);
-		$this->load->view('template/footer');
+		if ($_SESSION['logged_in'] == true)
+		{
+			$this->load->view('template/headerUser', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$this->load->view('template/header', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
 	}
 
 	public function business()
@@ -49,9 +60,18 @@ class Courses extends CI_Controller {
 			'n4' => anchor(base_url('courses/film'),'Film & Photography', 'class="nav-link"'),
 			'n5' => anchor(base_url('courses/technology'),'Technology', 'class="nav-link"'),
 		);
-		$this->load->view('template/header', $page_data);
-		$this->load->view('courses/index', $nav_data);
-		$this->load->view('template/footer');
+		if ($_SESSION['logged_in'] == true)
+		{
+			$this->load->view('template/headerUser', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$this->load->view('template/header', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
 	}
 
 	public function culinary()
@@ -67,9 +87,18 @@ class Courses extends CI_Controller {
 			'n4' => anchor(base_url('courses/film'),'Film & Photography', 'class="nav-link"'),
 			'n5' => anchor(base_url('courses/technology'),'Technology', 'class="nav-link"'),
 		);
-		$this->load->view('template/header', $page_data);
-		$this->load->view('courses/index', $nav_data);
-		$this->load->view('template/footer');
+		if ($_SESSION['logged_in'] == true)
+		{
+			$this->load->view('template/headerUser', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$this->load->view('template/header', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
 	}
 
 	public function film()
@@ -85,9 +114,18 @@ class Courses extends CI_Controller {
 			'n4' => anchor(base_url('courses/film'),'Film & Photography', 'class="nav-link active"'),
 			'n5' => anchor(base_url('courses/technology'),'Technology', 'class="nav-link"'),
 		);
-		$this->load->view('template/header', $page_data);
-		$this->load->view('courses/index', $nav_data);
-		$this->load->view('template/footer');
+		if ($_SESSION['logged_in'] == true)
+		{
+			$this->load->view('template/headerUser', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$this->load->view('template/header', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
 	}
 
 	public function Technology()
@@ -103,8 +141,17 @@ class Courses extends CI_Controller {
 			'n4' => anchor(base_url('courses/film'),'Film & Photography', 'class="nav-link"'),
 			'n5' => anchor(base_url('courses/technology'),'Technology', 'class="nav-link active"'),
 		);
-		$this->load->view('template/header', $page_data);
-		$this->load->view('courses/index', $nav_data);
-		$this->load->view('template/footer');
+		if ($_SESSION['logged_in'] == true)
+		{
+			$this->load->view('template/headerUser', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$this->load->view('template/header', $page_data);
+			$this->load->view('courses/index', $nav_data);
+			$this->load->view('template/footer');
+		}
 	}
 }

@@ -23,7 +23,7 @@ class Account extends CI_Controller {
 			'page_title' => 'welcome',
 		);
 		$this->load->view('template/headerUser', $page_data);
-		$this->load->view('user/index');
+		// $this->load->view('main/index');
 		$this->load->view('template/footer');
 	}
 }
