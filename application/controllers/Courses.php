@@ -13,14 +13,14 @@ class Courses extends CI_Controller {
 		}		
 	}
 
-	public function search()
+	public function search($search)
 	{
 		$search_string = $this->input->get('searchInput');
 		echo $search_string;
 		// $search_result = $this->model_Search->search($search_string);
 	}
 
-	public function art_design()
+	public function art_design($page = 0)
 	{
 		$page_data = array(
 			'page_title' => 'Art & Design Course',
@@ -47,7 +47,7 @@ class Courses extends CI_Controller {
 		}
 	}
 
-	public function business()
+	public function business($page = 0)
 	{
 		$page_data = array(
 			'page_title' => 'Business Courses',
@@ -74,7 +74,7 @@ class Courses extends CI_Controller {
 		}
 	}
 
-	public function culinary()
+	public function culinary($page = 0)
 	{
 		$page_data = array(
 			'page_title' => 'Culinary Courses',
@@ -101,7 +101,7 @@ class Courses extends CI_Controller {
 		}
 	}
 
-	public function film()
+	public function film($page = 0)
 	{
 		$page_data = array(
 			'page_title' => 'Film Courses',
@@ -128,7 +128,7 @@ class Courses extends CI_Controller {
 		}
 	}
 
-	public function Technology()
+	public function Technology($page = 0)
 	{
 		$page_data = array(
 			'page_title' => 'Technology Courses',

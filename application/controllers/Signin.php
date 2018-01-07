@@ -38,7 +38,7 @@ class Signin extends CI_Controller {
 			$this->load->view('login/signin_view');
 			$this->load->view('template/footer');
 		}
-		elseif ($this->Login_model->can_login($email, $password) == false)
+		elseif ($this->Login_model->authenticate($email, $password) == false)
 		{
 			$this->session->set_flashdata('error','invalid email or password');
 			$this->load->view('template/header', $page_data);

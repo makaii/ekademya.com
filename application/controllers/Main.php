@@ -20,7 +20,7 @@ class Main extends CI_Controller {
 	{
 		$page_data = array
 		(
-			'page_title' => 'welcome',
+			'page_title' => 'Welcome',
 		);
 		$this->load->view('template/header', $page_data);
 		$this->load->view('main/index');

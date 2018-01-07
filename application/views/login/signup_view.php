@@ -1,7 +1,7 @@
 <div class="container mt-5" style="margin-bottom: 8rem;">
 	<div class="row">
 		<div class="col"></div>
-		<div class="col-4">
+		<div class="col-5">
 			<div class="card">
 				<?php echo form_open(base_url('signup')); ?>
 					<div class="card-header bg-secondary text-white text-center">

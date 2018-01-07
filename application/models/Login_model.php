@@ -9,7 +9,13 @@ class Login_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function can_login($email, $password)
+	// private function authenticate($email, $password)
+	// {
+	// 	$hash = $this->db->where('user_email', $email)->get('user_tbl')->row()->user_password;
+	// 	return password_verify($password, $hash); 
+	// }
+
+	public function authenticate($email, $password)
 	{
 		if (empty($email) && empty($password))
 		{
@@ -17,8 +23,11 @@ class Login_model extends CI_Model
 		}
 		else
 		{
-			$can_login_query = $this->db->select('*')->from('user_tbl')->where('user_email', $email)->where('user_status', 1)->get();
-			if ($can_login_query->num_rows() == 1)
+			$authenticate_query = $this->db->select('*')->from('user_tbl')->where('user_email', $email)->where('user_status', 1)->get();
+
+			$hash = $this->db->where('user_email', $email)->get('user_tbl')->row()->user_password;
+			$password_verify = password_verify($password, $hash);
+			if (($authenticate_query->num_rows()) == 1 &&($password_verify == 1))
 			{
 				return true;
 			}
@@ -36,14 +45,14 @@ class Login_model extends CI_Model
 		}
 		elseif($can_log_in == true)
 		{
-			$get_acc_info_qeury = $this->db->select('*')->where('user_email', $email)->where('user_status', 1)->get('user_tbl');
+			$get_acc_info_qeury = $this->db->select('*')->where('user_email', $email)->where('user_password', $password)->where('user_status', 1)->get('user_tbl');
 			if ($get_acc_info_qeury->num_rows() == 1)
 			{
-				// return $get_acc_info_qeury->row();
-				if ($this->authenticate($email, $password))
-				{
-					return $get_acc_info_qeury->row();
-				}
+				return $get_acc_info_qeury->row();
+				// if ($this->authenticate($email, $password))
+				// {
+				// 	return $get_acc_info_qeury->row();
+				// }
 			}
 			else
 			{
@@ -63,6 +72,7 @@ class Login_model extends CI_Model
 			$data = array(
 				'user_email' => $email,
 				'user_password' => password_hash($password, PASSWORD_BCRYPT),
+				// 'user_password' => $password,
 				 );
 			$this->db->insert('user_tbl', $data);
 			return true;
@@ -70,10 +80,11 @@ class Login_model extends CI_Model
 		
 	}
 
-	private function authenticate($email, $password)
+	public function register_instructor($data, $instructor_data)
 	{
-		$hash = $this->db->where('user_email', $email)->get('user_tbl')->row()->user_password;
-		return password_verify($password, $hash);
+		$this->db->insert('instructor_tbl',$instructor_data);
+		$this->register($data['user_email'], $data['user_password']);
+		return true;
 	}
 
 }

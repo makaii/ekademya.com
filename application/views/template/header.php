@@ -14,11 +14,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="icon" href="<?php echo base_url('assets/img/favicon/favicon.ico'); ?>" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
+      <!-- CDN Link -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+      <!-- Local Link -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
+      <!-- Custom Style -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/custom-style.css'); ?>">
 
-    <!-- Open Iconic -->
+
+    <!-- Icons -->
     <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>">
   </head>
   <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-light c1">
@@ -44,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
           </li>
           <li>
-            <button class="btn btn-light">Become an Instructor</button>
+            <a href="<?php echo base_url('signup/instructor'); ?>"><button class="btn btn-light">Become an Instructor</button></a>
             <a href="<?php echo base_url('signin'); ?>"><button class="btn btn-light c2 text-white">Signin</button></a>
           </li>
         </ul>
