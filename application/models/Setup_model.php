@@ -99,6 +99,39 @@ class Setup_model extends CI_Model
 			$this->dbforge->add_key('instructor_id', true);
 			$this->dbforge->create_table('instructor_tbl', true);
 		}
+
+		$admin_tbl_fields = array(
+			'admin_id' => array(
+				'type' => 'INT',
+				'constraint' => 7,
+				'auto_increment' => true
+			),
+			'admin_email' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 30
+			),
+			'admin_password' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 60
+			),
+			'admin_date_joined' => array(
+				'type' => 'DATETIME',
+			),
+			'admin_status' => array(
+				'type' => 'TINYINT',
+				'constraint' => 1,
+				'default' => 1
+			)
+		);
+
+		if (!empty($admin_tbl_fields))
+		{
+			$this->dbforge->add_field($admin_tbl_fields);
+			$this->dbforge->add_key('admin_id', true);
+			$this->dbforge->create_table('admin_tbl', true);
+		}
+
+
 	}
 
 	public function getTableStructure($tableName)

@@ -54,3 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
+$route['course/(:any)'] = 'lookup/instructor_profile/$1';

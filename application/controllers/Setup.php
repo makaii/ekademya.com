@@ -15,7 +15,8 @@ class Setup extends CI_Controller {
 		$page_data = array(
 			'page_title' => 'Database Installation',
 			'user' => $this->Setup_model->getTableStructure('user_tbl'),
-			'instructor' => $this->Setup_model->getTableStructure('instructor_tbl')
+			'instructor' => $this->Setup_model->getTableStructure('instructor_tbl'),
+			'admin' => $this->Setup_model->getTableStructure('admin_tbl'),
 		);
 		$this->load->view('template/headerWoNav', $page_data);
 		$this->load->view('setup/success_view');

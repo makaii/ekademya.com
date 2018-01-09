@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             Settings <span class="oi oi-cog"></span>
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">account</a>
+            <a class="dropdown-item" href="#">Profile</a>
             <a class="dropdown-item" href="<?php echo base_url('signout'); ?>">signout</a>
           </div>
         </div>

@@ -9,12 +9,6 @@ class Login_model extends CI_Model
 		parent::__construct();
 	}
 
-	// private function authenticate($email, $password)
-	// {
-	// 	$hash = $this->db->where('user_email', $email)->get('user_tbl')->row()->user_password;
-	// 	return password_verify($password, $hash); 
-	// }
-
 	public function authenticate($email, $password)
 	{
 		if (empty($email) && empty($password))
@@ -25,16 +19,22 @@ class Login_model extends CI_Model
 		{
 			$authenticate_query = $this->db->select('*')->from('user_tbl')->where('user_email', $email)->where('user_status', 1)->get();
 
-			$hash = $this->db->where('user_email', $email)->get('user_tbl')->row()->user_password;
-			$password_verify = password_verify($password, $hash);
-			if (($authenticate_query->num_rows()) == 1 &&($password_verify == 1))
+			$hash_query = $this->db->where('user_email', $email)->get('user_tbl');
+			if ($hash_query->num_rows==1)
 			{
-				return true;
+				$hash = $hash_query->row()->user_password;				
+				$password_verify = password_verify($password, $hash);
+				if (($authenticate_query->num_rows()) == 1 && ($password_verify == 1))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 			else
-			{
 				return false;
-			}
 		}
 	}
 
