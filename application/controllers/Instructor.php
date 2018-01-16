@@ -22,7 +22,8 @@ class Instructor extends CI_Controller {
 		$page_data = array(
 			'page_title' => 'Welcome',
 		);
-		$this->load->view('template/header', $page_data);
+		$this->load->view('template/headerInstructor', $page_data);
+		$this->load->view('instructor/index');
 		$this->load->view('template/footer');
 	}
 

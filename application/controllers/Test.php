@@ -17,4 +17,11 @@ class Test extends CI_Controller {
 			 );
 		$this->Login_model->register_instructor($data);
 	}
+	public function hash()
+	{
+		$email = "mork@gmail.com";
+		$password = "morkmork";
+
+		echo $this->Login_model->authenticate($email, $password);
+	}
 }

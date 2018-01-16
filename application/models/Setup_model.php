@@ -26,6 +26,10 @@ class Setup_model extends CI_Model
 				'type' => 'VARCHAR',
 				'constraint' => 60
 			),
+			'user_type' => array(
+				'type' => 'text',
+				'constraint' => 10
+			),
 			'user_date_joined' => array(
 				'type' => 'DATETIME',
 			),

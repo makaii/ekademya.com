@@ -20,8 +20,9 @@ class Admin extends CI_Controller {
 		{
 			$page_data = array(
 				'page_title' => 'Welcome Admin',
+				'admin_email' => $this->session->userdata('admin_email'),
 			);
-			$this->load->view('admin/template/header', $page_data);
+			$this->load->view('admin/template/admin-header', $page_data);
 			$this->load->view('admin/pages/index');
 			$this->load->view('admin/template/footer');
 		}

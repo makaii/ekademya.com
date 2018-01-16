@@ -26,14 +26,4 @@ class Account extends CI_Controller {
 		// $this->load->view('main/index');
 		$this->load->view('template/footer');
 	}
-
-	public function forgot_password()
-	{
-		$email = $this->input->post('email');
-		$this->load->model('Account_model');
-		if ($email)
-		{
-			
-		}
-	}
 }

@@ -53,5 +53,11 @@ $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// login routes
+$route['signup'] = 'login/signup_user';
+$route['signup/instructor'] = 'login/signup_instructor';
+$route['signin'] = 'login/signin';
+$route['signup/success'] = 'login/signup_success';
+
 $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
 $route['course/(:any)'] = 'lookup/instructor_profile/$1';

@@ -11,21 +11,24 @@ class Login_model extends CI_Model
 
 	public function authenticate($email, $password)
 	{
-		if (empty($email) && empty($password))
+		if (!empty($email) && !empty($password))
 		{
-			return false;
-		}
-		else
-		{
-			$authenticate_query = $this->db->select('*')->from('user_tbl')->where('user_email', $email)->where('user_status', 1)->get();
+			$authenticate_query = $this->db->select('*')
+			->from('user_tbl')
+			->where('user_email', $email)
+			->where('user_status', 1)
+			->get();
 
-			$hash_query = $this->db->where('user_email', $email)->get('user_tbl');
-			if ($hash_query->num_rows==1)
+			if ($authenticate_query->num_rows()==1)
 			{
-				$hash = $hash_query->row()->user_password;				
+				$hash = $authenticate_query->row()->user_password;				
 				$password_verify = password_verify($password, $hash);
-				if (($authenticate_query->num_rows()) == 1 && ($password_verify == 1))
+				if ($password_verify == 1)
 				{
+					$email = $authenticate_query->row()->user_email;
+					$this->session->set_userdata('email', $email);
+					$user_type = $authenticate_query->row()->user_type;
+					$this->session->set_userdata('user_type', $user_type);
 					return true;
 				}
 				else
@@ -34,57 +37,45 @@ class Login_model extends CI_Model
 				}
 			}
 			else
-				return false;
-		}
-	}
-
-	public function get_acc_info($email, $password, $can_log_in=false)
-	{
-		if (empty($email) && $can_log_in == false) {
-			return false;
-		}
-		elseif($can_log_in == true)
-		{
-			$get_acc_info_qeury = $this->db->select('*')->where('user_email', $email)->where('user_password', $password)->where('user_status', 1)->get('user_tbl');
-			if ($get_acc_info_qeury->num_rows() == 1)
-			{
-				return $get_acc_info_qeury->row();
-				// if ($this->authenticate($email, $password))
-				// {
-				// 	return $get_acc_info_qeury->row();
-				// }
-			}
-			else
 			{
 				return false;
 			}
-		}
-	}
-
-	public function register($email, $password)
-	{
-		if (empty($email) && empty($password))
-		{
-			return false;
 		}
 		else
+		{
+			return false;
+		}
+	}
+
+	public function register($email, $password, $user_type)
+	{
+		if (!empty($email) && !empty($password))
 		{
 			$data = array(
 				'user_email' => $email,
 				'user_password' => password_hash($password, PASSWORD_BCRYPT),
-				// 'user_password' => $password,
+				'user_type' => $user_type
 				 );
 			$this->db->insert('user_tbl', $data);
 			return true;
 		}
+		else
+			return false;
+			
 		
 	}
 
 	public function register_instructor($data, $instructor_data)
 	{
-		$this->db->insert('instructor_tbl',$instructor_data);
-		$this->register($data['user_email'], $data['user_password']);
-		return true;
+		if (!empty($data) && !empty($instructor_data))
+		{
+			$this->db->insert('instructor_tbl',$instructor_data);
+			$this->register($data['user_email'], $data['user_password'], "instructor");
+			return true;
+		}
+		else
+			return false;
+		
 	}
 
 }
