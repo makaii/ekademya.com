@@ -60,4 +60,6 @@ $route['signin'] = 'login/signin';
 $route['signup/success'] = 'login/signup_success';
 
 $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
-$route['course/(:any)'] = 'lookup/instructor_profile/$1';
+$route['course/(:any)'] = '';
+
+$route['search'] = 'courses/search';

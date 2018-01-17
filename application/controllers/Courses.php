@@ -7,17 +7,40 @@ class Courses extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->model('Courses_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
 		}		
 	}
 
-	public function search($search)
+	public function search()
 	{
-		$search_string = $this->input->get('searchInput');
-		echo $search_string;
-		// $search_result = $this->model_Search->search($search_string);
+		$search_string = $this->input->get('data');
+		$search_result = $this->Courses_model->search_course($search_string);
+		$page_data = array(
+			'page_title' => 'Result of '.$search_string, 
+		);
+
+		if ($this->session->has_userdata('user_type'))
+		{
+			$user_type = $this->session->userdata('user_type');
+			if ($user_type == 'user')
+			{
+				$this->load->view('template/headerUser',$page_data);
+				$this->load->view('template/footer');
+			}
+			elseif ($user_type == 'instructor')
+			{
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('template/footer');
+			}
+		}
+		else
+		{
+			$this->load->view('template/header',$page_data);
+			$this->load->view('template/footer');
+		}
 	}
 
 	public function art_design($page = 0)

@@ -48,8 +48,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
   	      </li>
           <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0 text-left" method="GET" action="<?php echo base_url('course/search'); ?>">
-              <input class="form-control mr-sm-2" type="search" placeholder="Explore Courses" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0" action="<?php echo base_url('search'); ?>" method="GET">
+              <input class="form-control mr-sm-2" type="search" placeholder="Explore Courses" name="data" aria-label="Search">
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
           </li>
@@ -57,10 +57,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <span class="navbar-text text-white mr-2 ml-2">
           <?php echo $this->session->userdata('email'); ?>
         </span>
-        <!-- <a href="<?php echo base_url('courses/art'); ?>"><span class="oi oi-cog text-white mr-2"></span></a> -->
-        <!-- <form class="form-inline my-2 my-lg-0" method="POST" action="<?php echo base_url('signout'); ?>"> -->
-          <!-- <a href=""><span class="oi oi-account-logout text-white"></span></a> -->
-          <!-- <button class="btn btn-sm btn-outline-dark my-2 my-sm-0" type="submit">Logout</button> -->
         <div class="dropdown">
           <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Settings <span class="oi oi-cog"></span>

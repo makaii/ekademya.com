@@ -24,4 +24,12 @@ class Test extends CI_Controller {
 
 		echo $this->Login_model->authenticate($email, $password);
 	}
+	public function test_search()
+	{
+		$this->load->model('Courses_model');
+		$this->Courses_model->search_course('data');
+		echo "<pre>";
+		print_r($this->db->last_query());
+		echo "</pre>";
+	}
 }
