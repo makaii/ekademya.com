@@ -6,6 +6,7 @@ class Account extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('Account_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
@@ -23,7 +24,7 @@ class Account extends CI_Controller {
 			'page_title' => 'welcome',
 		);
 		$this->load->view('template/headerUser', $page_data);
-		// $this->load->view('main/index');
+		$this->load->view('account/index');
 		$this->load->view('template/footer');
 	}
 }

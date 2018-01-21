@@ -27,5 +27,22 @@ class Courses_model extends CI_Model
 					->group_end()->get();
 	}
 
+	public function save_course($title, $author, $date, $category)
+	{
+		if (!empty($title))
+		{
+			$course_data = array(
+				'course_title' => $title ,
+				'course_author' => $author,
+				'course_creation_date' => $date,
+				'course_category' => $category,
+			);
+			$this->db->insert('course_tbl', $course_data);
+			return true;
+		}
+		else
+			return false;
+	}
+
 }
  ?>

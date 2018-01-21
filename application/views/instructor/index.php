@@ -5,7 +5,9 @@
 				<h3>Instructor Dashboard</h3>
 			</div>
 			<div class="col">
-				<button class="float-right btn">Create New Course</button>
+				<a href="<?php echo base_url('course/create') ?>">
+					<button class="float-right btn">Create New Course</button>
+				</a>
 			</div>
 		</div>
 	</dic>

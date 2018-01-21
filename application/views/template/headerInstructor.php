@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </head>
   <body>
   	<nav class="navbar sticky-top navbar-expand-lg navbar-light c1">
-  	  <a class="navbar-brand text-white" href="<?php echo base_url(); ?>">E K A D E M Y A</a>
+  	  <a class="navbar-brand text-white" href="<?php echo base_url('instructor'); ?>">E K A D E M Y A</a>
   	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   	    <span class="navbar-toggler-icon"></span>
   	  </button>

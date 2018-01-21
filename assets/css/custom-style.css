@@ -43,3 +43,8 @@ fe424d 254,66,77
 	-webkit-background-size: cover;
 	background-size: cover;
 }
+
+.course-thumb-img
+{
+	/*min-height: 130px;*/
+}

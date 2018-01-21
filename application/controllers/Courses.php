@@ -43,6 +43,55 @@ class Courses extends CI_Controller {
 		}
 	}
 
+	public function create_course()
+	{
+		if (($_SESSION['logged_in']==true) && ($_SESSION['user_type']=="instructor"))
+		{
+			$this->form_validation->set_error_delimiters('<small class="text-danger">','</small>');
+			$this->form_validation->set_rules('courseTitle', 'Course Title', 'required');
+			$this->form_validation->set_rules('courseCategory', 'Course Category', 'required');
+			if ($this->form_validation->run()==false)
+			{
+				// create fail
+				$page_data = array('page_title' => 'Create Course', );
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('instructor/create_course');
+				$this->load->view('template/footer');
+			}
+			else
+			{
+				// create success
+				$title = $this->input->post('courseTitle');
+				$author = $this->session->userdata('email');
+				$date = date('Y-m-d H:i:s');
+				$category = $this->input->post('courseCategory');
+				// $this->session->set_userdata('title', $this->input->post('courseTitle'));
+				// $this->session->set_userdata('author', $this->session->userdata('email'));
+				// $this->session->set_userdata('date', date('Y-m-d'));
+				// $this->session->set_userdata('category', $this->input->post('courseCategory'));
+				if ($this->Courses_model->save_course($title, $author, $date, $category))
+				{
+					redirect(base_url('course/manage'));
+				}
+			}
+		}
+		else
+		{
+			show_404();
+		}
+	}
+
+	public function manage()
+	{
+		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type'])=='instructor')
+		{
+			$page_data = array('page_title' => 'Manage Course', );
+			$this->load->view('template/headerInstructor',$page_data);
+			$this->load->view('instructor/course_manage');
+			$this->load->view('template/footer');
+		}
+	}
+
 	public function art_design($page = 0)
 	{
 		$page_data = array(
