@@ -64,4 +64,4 @@ $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
 
 $route['search'] = 'courses/search';
 $route['course/create'] = 'courses/create_course';
-$route['course/manage'] = 'courses/manage';
+$route['course/manage/(:any)'] = 'courses/manage/$1';

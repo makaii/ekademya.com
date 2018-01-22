@@ -81,15 +81,40 @@ class Courses extends CI_Controller {
 		}
 	}
 
-	public function manage()
+	public function manage($switch = null)
 	{
 		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type'])=='instructor')
 		{
-			$page_data = array('page_title' => 'Manage Course', );
-			$this->load->view('template/headerInstructor',$page_data);
-			$this->load->view('instructor/course_manage');
-			$this->load->view('template/footer');
+			switch ($switch)
+			{
+				case 'goals':
+					$page_data = array('page_title' => 'Manage Course Goals', );
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_goals');
+					$this->load->view('template/footer');
+					break;
+
+				case 'landing_page':
+					$page_data = array('page_title' => 'Manage Course Langind Page', );
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_landing_page');
+					$this->load->view('template/footer');
+					break;
+
+				case 'curriculum':
+					$page_data = array('page_title' => 'Manage Course Curriculum', );
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_curriculum');
+					$this->load->view('template/footer');
+					break;
+				
+				default:
+					# code...
+					break;
+			}
 		}
+		else
+			show_404();
 	}
 
 	public function art_design($page = 0)
