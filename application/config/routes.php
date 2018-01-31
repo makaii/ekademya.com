@@ -59,9 +59,15 @@ $route['signup/instructor'] = 'login/signup_instructor';
 $route['signin'] = 'login/signin';
 $route['signup/success'] = 'login/signup_success';
 
+// search routes
 $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
+$route['search'] = 'lookup/search_course';
 // $route['course/(:any)'] = 'courses/$1';
 
-$route['search'] = 'courses/search';
-$route['course/create'] = 'courses/create_course';
-$route['course/manage/(:any)'] = 'courses/manage/$1';
+// intructor routes
+$route['course/create'] = 'instructor/create_course';
+$route['course/delete'] = 'instructor/delete_course';
+$route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
+$route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1';
+
+// user routes

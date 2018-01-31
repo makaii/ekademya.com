@@ -6,7 +6,7 @@ class Lookup extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Instructor_model');
+		$this->load->model('Lookup_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
@@ -17,7 +17,7 @@ class Lookup extends CI_Controller {
 	{
 		
 		$this->load->library('Parsedown/Parsedown.php');
-		$row = $this->Instructor_model->get_instructor_profile($data);
+		$row = $this->Lookup_model->get_instructor_profile($data);
 
 
 		if (empty($row))
@@ -42,6 +42,35 @@ class Lookup extends CI_Controller {
 			$this->load->view('instructor/profile_view', $profile_data);
 			$this->load->view('template/footer');
 		}		
+	}
+
+	public function search_course()
+	{
+		$search_string = $this->input->get('data');
+		$search_result = $this->Lookup_model->search_course($search_string);
+		$page_data = array(
+			'page_title' => 'Result of '.$search_string, 
+		);
+
+		if ($this->session->has_userdata('user_type'))
+		{
+			$user_type = $this->session->userdata('user_type');
+			if ($user_type == 'user')
+			{
+				$this->load->view('template/headerUser',$page_data);
+				$this->load->view('template/footer');
+			}
+			elseif ($user_type == 'instructor')
+			{
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('template/footer');
+			}
+		}
+		else
+		{
+			$this->load->view('template/header',$page_data);
+			$this->load->view('template/footer');
+		}
 	}
 
 		

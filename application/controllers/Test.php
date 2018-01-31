@@ -6,7 +6,6 @@ class Test extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Test_model');
 		$this->load->model('Login_model');
 	}
 
@@ -31,5 +30,28 @@ class Test extends CI_Controller {
 		echo "<pre>";
 		print_r($this->db->last_query());
 		echo "</pre>";
+	}
+	public function get_id()
+	{
+		$this->load->model('Courses_model');
+
+		$id = $this->Courses_model->get_course_id('Python Programming',$_SESSION['email']);
+		echo $id;
+	}
+	public function display_courses()
+	{
+		$this->load->model('Instructor_model');
+		$courses = $this->Instructor_model->get_instructors_courses($_SESSION['email']);
+		echo "<pre>";
+		print_r($courses);
+		echo "</pre>";
+	}
+	public function delete_course()
+	{
+		$title = "Python Programming";
+		$author = "kramkram@gmail.com";
+		$this->load->model('Instructor_model');
+		$result = $this->Instructor_model->archieve_course($title,$author);
+		echo $result;
 	}
 }

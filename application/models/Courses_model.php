@@ -9,36 +9,18 @@ class Courses_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function search_course($input)
+	public function show_courses_by_category($category)
 	{
-		$query = $this->db->select()->from('course_tbl')
-				->where('course_status', 1)
-					->group_start()
-						->where('course_title',$input)
-						->or_where('course_description',$input)
-						->or_group_start()
-							->like('course_title',$input,'before')
-							->or_like('course_title',$input,'after')
-							->or_like('course_title',$input,'both')
-							->or_like('course_description',$input,'after')
-							->or_like('course_description',$input,'after')
-							->or_like('course_description',$input,'both')
-						->group_end()
-					->group_end()->get();
-	}
-
-	public function save_course($title, $author, $date, $category)
-	{
-		if (!empty($title))
+		if (!empty($category))
 		{
-			$course_data = array(
-				'course_title' => $title ,
-				'course_author' => $author,
-				'course_creation_date' => $date,
-				'course_category' => $category,
-			);
-			$this->db->insert('course_tbl', $course_data);
-			return true;
+			$query = $this->db->select()->from('course_tbl')->where('course_category',$category)->where('course_published',1)->get();
+			if ($query->num_rows()>=1)
+			{
+				$query = $query->result_array();
+				return $query;
+			}
+			else
+				return null;
 		}
 		else
 			return false;
