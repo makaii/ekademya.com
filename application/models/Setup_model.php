@@ -45,7 +45,7 @@ class Setup_model extends CI_Model
 				instructor_id  INT(7) AUTO_INCREMENT PRIMARY KEY,
 				instructor_name VARCHAR(30) NOT NULL,
 				instructor_headline VARCHAR(50) NOT NULL,
-				instructor_bio VARCHAR(2000) NOT NULL,
+				instructor_bio VARCHAR(1000) NOT NULL,
 				instructor_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
 				instructor_website VARCHAR(50) NOT NULL,
 				instructor_facebook VARCHAR(50) NOT NULL,
@@ -59,7 +59,7 @@ class Setup_model extends CI_Model
 			CREATE TABLE IF NOT EXISTS course_tbl (
 				course_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 				course_title VARCHAR(45) NOT NULL,
-				course_description VARCHAR(60) NOT NULL,
+				course_description VARCHAR(1000) NOT NULL,
 				course_author VARCHAR(30) NOT NULL,
 				course_category VARCHAR(25) NOT NULL,
 				course_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',

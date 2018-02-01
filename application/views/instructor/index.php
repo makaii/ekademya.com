@@ -1,4 +1,4 @@
-<div class="jumbotron pb-1">
+<div class="jumbotron pb-1" style="background-color: #E4F1FE;">
 	<dic class="container">
 		<div class="row">
 			<div class="col-md-3">
@@ -6,7 +6,7 @@
 			</div>
 			<div class="col-md-9">
 				<a href="<?php echo base_url('course/create') ?>">
-					<button class="float-right btn">Create New Course</button>
+					<button class="float-right btn btn text-white" style="background-color: #336E7B;">Create New Course</button>
 				</a>
 			</div>
 		</div>
@@ -27,9 +27,10 @@
 						<div class="card-header">
 							<?php echo $data['course_title']; ?>
 						</div>
-						<div class="card-body">
+						<div class="card-body pt-1 pb-1">
 							<div class="card-text">
-								<?php echo $data['course_description']; ?>
+								<?php $desc = $data['course_description']; ?>
+								<?php echo substr($desc, 0,200).' ...'; ?>
 							</div>
 						</div>
 						<div class="card-footer">

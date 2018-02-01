@@ -34,13 +34,13 @@
 				<div class="card-body">
 					<?php echo form_open(base_url('course/manage/landing_page/'.$_SESSION['course_id'])); ?>
 						<div class="form-group">
-							<label>Course Title</label>
+							<label>Course Title</label><small class="text-muted"> max 45 chars</small>
 							<input class="form-control" maxlength="45" type="text" name="courseTitle" value="<?php if(set_value('courseTitle')==null){echo $course_title;}else echo set_value('courseTitle'); ?>">
 							<?php echo form_error('courseTitle'); ?>
 						</div>
 						<div class="form-group">
-							<label>Course Description</label>
-							<textarea class="form-control" maxlength="2000" name="courseDescription"><?php if(set_value('courseDescription')==null){echo $course_description;}else echo set_value('courseDescription'); ?></textarea>
+							<label>Course Description</label><small class="text-muted"> max 1,000 chars</small>
+							<textarea class="form-control" rows="8" maxlength="1000" name="courseDescription"><?php if(set_value('courseDescription')==null){echo $course_description;}else echo set_value('courseDescription'); ?></textarea>
 							<?php echo form_error('courseDescription'); ?>
 						</div>
 						<div class="form-group">
