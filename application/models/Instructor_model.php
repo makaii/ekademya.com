@@ -16,7 +16,7 @@ class Instructor_model extends CI_Model
 			$course_data = array(
 				'course_title' => $title ,
 				'course_author' => $author,
-				'course_creation_date' => $date,
+				'course_date_created' => $date,
 				'course_category' => $category,
 			);
 			$this->db->insert('course_tbl', $course_data);
@@ -114,6 +114,42 @@ class Instructor_model extends CI_Model
 		else
 			return false;
 
+	}
+
+	public function manage_course_goals($tools,$audience,$achievement,$id,$author)
+	{
+		if ((isset($tools))&&(isset($audience))&&(isset($achievement))&&(isset($id))&&(isset($author)))
+		{
+			$this->db->set('course_title',$tools);
+			$this->db->set('course_audience',$audience);
+			$this->db->set('course_achievement',$achievement);
+			$this->db->where('course_id',$id);
+			$this->db->where('course_author',$author);
+			$this->db->update('course_tbl');
+			if ($this->db->affected_rows()==1)
+			{
+				return true;
+			}
+			else return false;
+		}
+		else return false;
+	}
+	public function manage_coourse_landing_page($title,$description,$id,$author)
+	{
+		if ((isset($title))&&(isset($description))&&(isset($id))&&(isset($author)))
+		{
+			$this->db->set('course_title',$title);
+			$this->db->set('course_description',$description);
+			$this->db->where('course_id',$id);
+			$this->db->where('course_author',$author);
+			$this->db->update('course_tbl');
+			if ($this->db->affected_rows()==1)
+			{
+				return true;
+			}
+			else return false;
+		}
+		else return false;
 	}
 
 }

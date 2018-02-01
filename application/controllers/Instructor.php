@@ -70,7 +70,7 @@ class Instructor extends CI_Controller {
 				{
 					$id = $this->Instructor_model->get_course_id($title,$_SESSION['email']);
 					$this->session->set_userdata('course_id', $id);
-					redirect(base_url('course/manage/'.$id.'/goals'));
+					redirect(base_url('course/manage/goals/'.$id));
 				}
 			}
 		}
@@ -133,11 +133,47 @@ class Instructor extends CI_Controller {
 				$page_data = array(
 					'page_title' => 'Manage Course Goals',
 					'course_title' => $course['course_title'],
-					'course_author' =>$course['course_author'],
-				 );
-				$this->load->view('template/headerInstructor',$page_data);
-				$this->load->view('instructor/course_goals');
-				$this->load->view('template/footer');
+					'course_author' => $course['course_author'],
+					'course_tools' => $course['course_tools'],
+					'course_audience' => $course['course_audience'],
+					'course_achievement' => $course['course_achievement'],
+				);
+				$this->form_validation->set_rules('courseTools','Course Knowledge and Requirement','required');
+				$this->form_validation->set_rules('courseAudience','Course Audience','required');
+				$this->form_validation->set_rules('courseAchievement','Course Achievements','required');
+				$author = $course['course_author'];
+				$tools = $this->input->post('courseTools');
+				$audience = $this->input->post('courseAudience');
+				$achievement = $this->input->post('courseAchievement');
+				if ($this->form_validation->run()==false)
+				{
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_goals');
+					$this->load->view('template/footer');
+				}
+				elseif ($this->Instructor_model->manage_course_goals($tools,$audience,$achievement,$id,$author))
+				{
+					$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
+					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
+					$page_data = array(
+						'page_title' => 'Manage Course Goals',
+						'page_alert' => $update_alert,
+						'course_title' => $course['course_title'],
+						'course_author' => $course['course_author'],
+						'course_tools' => $course['course_tools'],
+						'course_audience' => $course['course_audience'],
+						'course_achievement' => $course['course_achievement'],
+					);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_goals');
+					$this->load->view('template/footer');
+				}
+				else
+				{
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_goals');
+					$this->load->view('template/footer');
+				}
 			}
 			else
 				show_404();
@@ -153,19 +189,34 @@ class Instructor extends CI_Controller {
 			if ($this->Instructor_model->check_if_their_course($_SESSION['email'],$id))
 			{
 				$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
-				$this->Instructor_model->get_course_id($course['course_title'],$_SESSION['email']);
-				$this->session->set_userdata('course_id',$id);
 				$page_data = array(
 					'page_title' => 'Manage Course Goals',
 					'course_title' => $course['course_title'],
 					'course_author' => $course['course_author'],
 					'course_description' => $course['course_description'],
 				);
-				$this->form_validation->set_rules('courseTitle','Course Title');
-				$this->form_validation->set_rules('courseDescription','Course Description');
-				$this->form_validation->set_error_delimiters('<small class="text-error"','</small>');
+				$this->form_validation->set_rules('courseTitle','Course Title','required');
+				$this->form_validation->set_rules('courseDescription','Course Description','required');
+				$author = $course['course_author'];
+				$title = $this->input->post('courseTitle');
+				$description = $this->input->post('courseDescription');
 				if ($this->form_validation->run()==false)
 				{
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_landing_page');
+					$this->load->view('template/footer');
+				}
+				elseif ($this->Instructor_model->manage_coourse_landing_page($title,$description,$id,$author))
+				{
+					$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
+					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
+					$page_data = array(
+						'page_title' => 'Manage Course Goals',
+						'page_alert' => $update_alert,
+						'course_title' => $course['course_title'],
+						'course_author' => $course['course_author'],
+						'course_description' => $course['course_description'],
+					);
 					$this->load->view('template/headerInstructor',$page_data);
 					$this->load->view('instructor/course_landing_page');
 					$this->load->view('template/footer');

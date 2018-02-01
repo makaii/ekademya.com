@@ -10,6 +10,77 @@ class Setup_model extends CI_Model
 		$this->load->dbforge();
 	}
 
+	public function create_tables()
+	{
+		$admin_tbl = $this->db->query("
+			CREATE TABLE IF NOT EXISTS admin_tbl (
+				admin_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+				admin_email VARCHAR(30) NOT NULL,
+				admin_password VARCHAR(30) NOT NULL,
+				admin_date_joined DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				admin_status TINYINT(1) NOT NULL DEFAULT 1
+			);"
+		);
+		$admin_check = $this->db->select()->where('admin_id',1)->get('admin_tbl');
+		if ($admin_check->num_rows()!=1)
+		{
+			$admin_data = array(
+				'admin_email' => 'admin@ekademya.com',
+				'admin_password' => 'adminadmin',
+			);
+			$this->db->insert('admin_tbl',$admin_data);
+		}
+		$user_tbl = $this->db->query("
+			CREATE TABLE IF NOT EXISTS user_tbl (
+				user_id  INT(7) AUTO_INCREMENT PRIMARY KEY,
+				user_email VARCHAR(30) NOT NULL,
+				user_password VARCHAR(60) NOT NULL,
+				user_type TEXT(10) NOT NULL,
+				user_date_joined DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				user_status TINYINT(1) NOT NULL DEFAULT 1
+			);"
+		);
+		$instructor_tbl = $this->db->query("
+			CREATE TABLE IF NOT EXISTS instructor_tbl (
+				instructor_id  INT(7) AUTO_INCREMENT PRIMARY KEY,
+				instructor_name VARCHAR(30) NOT NULL,
+				instructor_headline VARCHAR(50) NOT NULL,
+				instructor_bio VARCHAR(2000) NOT NULL,
+				instructor_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
+				instructor_website VARCHAR(50) NOT NULL,
+				instructor_facebook VARCHAR(50) NOT NULL,
+				instructor_googleplus VARCHAR(50) NOT NULL,
+				instructor_linkedin VARCHAR(50) NOT NULL,
+				instructor_twitter VARCHAR(50) NOT NULL,
+				instructor_youtube VARCHAR(50) NOT NULL
+			);"
+		);
+		$course_tbl = $this->db->query("
+			CREATE TABLE IF NOT EXISTS course_tbl (
+				course_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+				course_title VARCHAR(45) NOT NULL,
+				course_description VARCHAR(60) NOT NULL,
+				course_author VARCHAR(30) NOT NULL,
+				course_category VARCHAR(25) NOT NULL,
+				course_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
+				course_tools VARCHAR(255) NOT NULL,
+				course_audience VARCHAR(255) NOT NULL,
+				course_achievement VARCHAR(255) NOT NULL,
+				course_date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				course_status TINYINT(1) NOT NULL DEFAULT 1,
+				course_published TINYINT(1) NOT NULL DEFAULT 0
+			);"
+		);
+		$enroll_tbl = $this->db->query("
+			CREATE TABLE IF NOT EXISTS enroll_tbl (
+				enroll_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+				enroll_email VARCHAR(30) NOT NULL,
+				enroll_course VARCHAR(45) NOT NULL,
+				enroll_status TINYINT(1) NOT NULL DEFAULT 1
+			);"
+		);
+	}
+
 	public function createTablesSchema()
 	{
 		$user_tbl_fields = array(

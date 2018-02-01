@@ -10,9 +10,10 @@
 		<div class="col-md-2">
 			<img class="rounded img-thumbnail" src="https://www.udemy.com/staticx/udemy/images/course/200_H/placeholder.png">
 		</div>
-		<div class="col-md-10">
+		<div class="col-md-8">
 			<h3 class="font-weight-light"><?php echo $course_title; ?></h3>
 			<p class="font-weight-light"><?php echo $course_author; ?></p>
+			<?php if (isset($page_alert)){echo $page_alert;} ?>
 		</div>
 	</div>
 </div>
@@ -31,23 +32,21 @@
 					<h3>Course Landing Page</h3>
 				</div>
 				<div class="card-body">
-					<form>
+					<?php echo form_open(base_url('course/manage/landing_page/'.$_SESSION['course_id'])); ?>
 						<div class="form-group">
 							<label>Course Title</label>
-							<input class="form-control" type="text" name="courseTitle" value="<?php if(set_value('courseTitle')==null){echo $course_title;}else echo set_value('courseTitle'); ?>">
+							<input class="form-control" maxlength="45" type="text" name="courseTitle" value="<?php if(set_value('courseTitle')==null){echo $course_title;}else echo set_value('courseTitle'); ?>">
+							<?php echo form_error('courseTitle'); ?>
 						</div>
 						<div class="form-group">
 							<label>Course Description</label>
-							<textarea class="form-control" name="courseDescription"><?php if(set_value('courseDescription')==null){echo $course_description;}else echo set_value('courseDescription'); ?></textarea>
-						</div>
-						<div class="custom-file">
-						  <input type="file" class="custom-file-input" id="customFile">
-						  <label class="custom-file-label" for="customFile">Choose file</label>
+							<textarea class="form-control" maxlength="2000" name="courseDescription"><?php if(set_value('courseDescription')==null){echo $course_description;}else echo set_value('courseDescription'); ?></textarea>
+							<?php echo form_error('courseDescription'); ?>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-primary">Save</button>
+							<button class="btn btn-primary" type="submit">Save</button>
 						</div>
-					</form>
+					<?php echo form_close(); ?>
 				</div>
 			</div>
 		</div>

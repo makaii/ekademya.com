@@ -15,11 +15,11 @@
 <?php $courses = $this->Instructor_model->get_instructors_courses($_SESSION['email']); ?>
 <?php if($this->Instructor_model->get_instructors_courses($_SESSION['email'])): ?>
 	<div class="container mb-5">
-		<div class="row">
-			<?php foreach ($courses as $data): ?>
-				<div class="col-md-2 mb-3">
+		<?php foreach ($courses as $data): ?>
+			<div class="row mb-3">	
+				<div class="col-md-2">
 					<div class="card">
-						<img style="max-height: 200px; max-width: 200px;" class="card-img img-responsive" src="<?php echo base_url('z/course/'.$data['course_img']); ?>" alt="<?php echo $data['course_title']; ?>">
+						<img style="max-height: 200px; max-width: 200px;" class="card-img img-responsive" src="<?php echo base_url('z/course/'.$data['course_img_url']); ?>" alt="<?php echo $data['course_title']; ?>">
 					</div>
 				</div>
 				<div class="col-md-10">
@@ -38,9 +38,9 @@
 							<a href="<?php echo base_url('course/delete'); ?>"><button class="btn btn-sm btn-danger float-right">Delete</button></a>
 						</div>
 					</div>
-				</div>
-			<?php endforeach; ?>
-		</div>
+				</div>	
+			</div>
+		<?php endforeach; ?>
 	</div>
 <?php elseif($this->Instructor_model->get_instructors_courses($_SESSION['email'])===null): ?>
 	<div class="container mb-5">

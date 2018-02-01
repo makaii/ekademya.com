@@ -7,7 +7,37 @@
 	</div>
 </div>
 <div class="container">
-	<h4>User_tbl</h4>
+	<h4>admin_tbl</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Type</th>
+				<th scope="col">Max. Length</th>
+				<th scope="col">Default</th>
+				<th scope="col">Primary Key</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $row_count = 1; ?>
+			<?php foreach ($admin as $field): ?>
+			<tr>
+				<th scope="row"><?php echo $row_count; ?></th>
+				<td><?php echo $field->name; ?></td>
+				<td><?php echo $field->type; ?></td>
+				<td><?php echo $field->max_length; ?></td>
+				<td><?php echo $field->default; ?></td>
+				<td><?php echo $field->primary_key; ?></td>
+			</tr>
+			<?php $row_count +=1; ?>
+			<?php endforeach; ?>
+			<?php $row_count = 1; ?>
+		</tbody>
+	</table>
+</div>
+<div class="container">
+	<h4>user_tbl</h4>
 	<table class="table">
 		<thead>
 			<tr>
@@ -37,7 +67,7 @@
 	</table>
 </div>
 <div class="container">
-	<h4>Instructor_tbl</h4>
+	<h4>instructor_tbl</h4>
 	<table class="table">
 		<thead>
 			<tr>
@@ -67,7 +97,7 @@
 	</table>
 </div>
 <div class="container">
-	<h4>admin_tbl</h4>
+	<h4>course_tbl</h4>
 	<table class="table">
 		<thead>
 			<tr>
@@ -81,7 +111,37 @@
 		</thead>
 		<tbody>
 			<?php $row_count = 1; ?>
-			<?php foreach ($admin as $field): ?>
+			<?php foreach ($course as $field): ?>
+			<tr>
+				<th scope="row"><?php echo $row_count; ?></th>
+				<td><?php echo $field->name; ?></td>
+				<td><?php echo $field->type; ?></td>
+				<td><?php echo $field->max_length; ?></td>
+				<td><?php echo $field->default; ?></td>
+				<td><?php echo $field->primary_key; ?></td>
+			</tr>
+			<?php $row_count +=1; ?>
+			<?php endforeach; ?>
+			<?php $row_count = 1; ?>
+		</tbody>
+	</table>
+</div>
+<div class="container">
+	<h4>enroll_tbl</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Type</th>
+				<th scope="col">Max. Length</th>
+				<th scope="col">Default</th>
+				<th scope="col">Primary Key</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $row_count = 1; ?>
+			<?php foreach ($enrollees as $field): ?>
 			<tr>
 				<th scope="row"><?php echo $row_count; ?></th>
 				<td><?php echo $field->name; ?></td>

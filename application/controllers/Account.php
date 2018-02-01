@@ -15,6 +15,10 @@ class Account extends CI_Controller {
 		{
 			redirect(base_url());
 		}
+		if ($this->session->userdata('user_type')=='instructor')
+		{
+			redirect(base_url('instructor'));
+		}
 	}
 
 	public function index()

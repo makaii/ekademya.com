@@ -54,4 +54,17 @@ class Test extends CI_Controller {
 		$result = $this->Instructor_model->archieve_course($title,$author);
 		echo $result;
 	}
+	public function make_tables()
+	{
+		$this->load->model('Instructor_model');
+		$title = 'Python Gaming';
+		$desc = 'hey';
+		$id = 4;
+		$author = 'kramkram@gmail.com';
+		
+		if ($this->Instructor_model->manage_coourse_landing_page($title,$desc,$id,$author))
+		{
+			echo "yes";
+		}
+	}
 }

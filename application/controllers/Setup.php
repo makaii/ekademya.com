@@ -11,12 +11,14 @@ class Setup extends CI_Controller {
 
 	public function index()
 	{
-		$this->Setup_model->createTablesSchema();
+		$this->Setup_model->create_tables();
 		$page_data = array(
 			'page_title' => 'Database Installation',
+			'admin' => $this->Setup_model->getTableStructure('admin_tbl'),
 			'user' => $this->Setup_model->getTableStructure('user_tbl'),
 			'instructor' => $this->Setup_model->getTableStructure('instructor_tbl'),
-			'admin' => $this->Setup_model->getTableStructure('admin_tbl'),
+			'course' => $this->Setup_model->getTableStructure('course_tbl'),
+			'enrollees' => $this->Setup_model->getTableStructure('enroll_tbl'),
 		);
 		$this->load->view('template/headerWoNav', $page_data);
 		$this->load->view('setup/success_view');
