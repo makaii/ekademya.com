@@ -67,4 +67,10 @@ class Test extends CI_Controller {
 			echo "yes";
 		}
 	}
+	public function js()
+	{
+		$this->load->view('template/header');
+		$this->load->view('');
+		$this->load->view('template/footer');
+	}
 }

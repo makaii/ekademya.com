@@ -9,8 +9,8 @@
 				<div class="card-body">
 					<form method="POST" action="<?php echo base_url('course/create'); ?>">
 						<div class="form-group">
-							<label>Enter a working Course Title:</label>
-							<input class="form-control" type="text" name="courseTitle" placeholder="e.g. Learn Python Programming from Scratch 2018" value="<?php echo set_value('courseTitle'); ?>"></input>
+							<label>Enter a working Course Title:</label><small class="text-muted text-xs"> (max 50 chars)</small>
+							<input class="form-control" type="text" maxlength="50" name="courseTitle" placeholder="e.g. Learn Python Programming from Scratch 2018" value="<?php echo set_value('courseTitle'); ?>"></input>
 							<?php echo form_error('courseTitle'); ?>
 						</div>
 						<div class="form-group">

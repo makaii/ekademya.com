@@ -41,15 +41,15 @@
 							<?php echo form_error('username'); ?>
 						</div>
 						<div class="form-group">
-							<label>Headline</label>
+							<label>Headline</label><small class="text-muted text-xs"> max 50 chars</small>
 							<input class="form-control form-control-sm" type="text" maxlength="50" name="headline" value="<?php echo set_value('headline'); ?>"></input>
 							<small class="text-muted text-xs">Add a professional headline like, 'Engineer at Google' or 'Architect.'</small>
 							<br>
 							<?php echo form_error('headline'); ?>
 						</div>
 						<div class="form-group">
-							<label>Bio</label>
-							<textarea class="form-control form-control-sm" type="text" maxlength="600" rows="8" name="bio" value="<?php echo set_value('bio'); ?>"></textarea>
+							<label>Bio</label><small class="text-muted text-xs"> max 1000 chars</small>
+							<textarea class="form-control form-control-sm" type="text" maxlength="1000" rows="8" name="bio" value="<?php echo set_value('bio'); ?>"></textarea>
 							<small class="text-muted text-xs">Links are not allowed here but are allowed in the link section below. Instructors, your biography should have at least 50 words.</small>
 							<br>
 							<?php echo form_error('bio'); ?>

@@ -38,9 +38,24 @@ class Lookup extends CI_Controller {
 				'bio' => $this->parsedown->text($row->instructor_bio),
 				'instructor_img_url' => $row->instructor_img_url
 				 );
-			$this->load->view('template/header', $page_data);
-			$this->load->view('instructor/profile_view', $profile_data);
-			$this->load->view('template/footer');
+			if ($this->session->userdata('user_type')=='user')
+			{
+				$this->load->view('template/headerUser', $page_data);
+				$this->load->view('instructor/profile_view', $profile_data);
+				$this->load->view('template/footer');
+			}
+			elseif ($this->session->userdata('user_type')=='instructor')
+			{
+				$this->load->view('template/headerInstructor', $page_data);
+				$this->load->view('instructor/profile_view', $profile_data);
+				$this->load->view('template/footer');
+			}
+			else
+			{
+				$this->load->view('template/header', $page_data);
+				$this->load->view('instructor/profile_view', $profile_data);
+				$this->load->view('template/footer');
+			}
 		}		
 	}
 

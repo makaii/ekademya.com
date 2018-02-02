@@ -58,7 +58,7 @@ class Setup_model extends CI_Model
 		$course_tbl = $this->db->query("
 			CREATE TABLE IF NOT EXISTS course_tbl (
 				course_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-				course_title VARCHAR(45) NOT NULL,
+				course_title VARCHAR(50) NOT NULL,
 				course_description VARCHAR(1000) NOT NULL,
 				course_author VARCHAR(30) NOT NULL,
 				course_category VARCHAR(25) NOT NULL,

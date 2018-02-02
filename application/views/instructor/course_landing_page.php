@@ -39,7 +39,7 @@
 							<?php echo form_error('courseTitle'); ?>
 						</div>
 						<div class="form-group">
-							<label>Course Description</label><small class="text-muted"> max 1,000 chars</small>
+							<label>Course Description</label><small class="text-muted"> max 1000 chars</small>
 							<textarea class="form-control" rows="8" maxlength="1000" name="courseDescription"><?php if(set_value('courseDescription')==null){echo $course_description;}else echo set_value('courseDescription'); ?></textarea>
 							<?php echo form_error('courseDescription'); ?>
 						</div>
