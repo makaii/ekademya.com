@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Login_model');
+		$this->load->model('Admin_model');
 		$this->load->library('parsedown/Parsedown.php');
 
 		if (!$this->session->has_userdata('logged_in'))

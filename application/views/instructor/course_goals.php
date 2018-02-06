@@ -23,7 +23,7 @@
 			<div class="list-group">
 				<a href="<?php echo base_url('course/manage/goals/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action active"><span class="badge badge-dark">1</span> Goals</a>
 				<a href="<?php echo base_url('course/manage/landing_page/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">2</span> Landing Page</a>
-				<a href="#" class="list-group-item list-group-item-action"><span class="badge badge-dark">3</span> Curriculum</a>
+				<a href="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">3</span> Outline</a>
 			</div>
 		</div>
 		<div class="col-md-8">

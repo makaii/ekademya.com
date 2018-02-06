@@ -14,6 +14,7 @@ class Main extends CI_Controller {
 		{
 			redirect(base_url('account'));
 		}
+		$this->load->model('Admin_model');
 	}
 
 	public function index()

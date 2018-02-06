@@ -17,6 +17,7 @@ class Setup_model extends CI_Model
 				admin_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 				admin_email VARCHAR(30) NOT NULL,
 				admin_password VARCHAR(30) NOT NULL,
+				admin_type TEXT(11) NOT NULL,
 				admin_date_joined DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 				admin_status TINYINT(1) NOT NULL DEFAULT 1
 			);"
@@ -27,8 +28,24 @@ class Setup_model extends CI_Model
 			$admin_data = array(
 				'admin_email' => 'admin@ekademya.com',
 				'admin_password' => 'adminadmin',
+				'admin_type' => 'super admin',
 			);
 			$this->db->insert('admin_tbl',$admin_data);
+		}
+		$settings_tbl = $this->db->query("SHOW TABLES LIKE 'settings_tbl';");
+		if ($settings_tbl->num_rows()==0)
+		{
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS settings_tbl (
+					display_userdata TINYINT(1) NOT NULL DEFAULT 1,
+					display_feedback TINYINT(1) NOT NULL DEFAULT 1
+				)
+			;");
+		}
+		else
+		{
+			// update table
 		}
 		$user_tbl = $this->db->query("
 			CREATE TABLE IF NOT EXISTS user_tbl (

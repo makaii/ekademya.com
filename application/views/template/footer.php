@@ -2,7 +2,7 @@
       <div class="container-fluid">
         <div>
           <small>
-            <pre class="text-white"><?php print_r($this->session->all_userdata()); ?></pre>
+            <pre class="text-white"><?php $userdata = $this->Admin_model->display_userdata();if($userdata==1){print_r($this->session->all_userdata());} ?></pre>
           </small>
         </div>
         <div class="row text-center">

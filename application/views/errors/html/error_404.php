@@ -5,6 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 <meta charset="utf-8">
 <title>404 Page Not Found</title>
+<!-- Favico -->
+<link rel="shortcut icon" href="assets/img/favicon/favicon.ico" type="image/x-icon">
 <style type="text/css">
 
 ::selection { background-color: #E13300; color: white; }

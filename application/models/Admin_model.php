@@ -20,6 +20,7 @@ class Admin_model extends CI_Model
 				$this->session->set_userdata('admin_logged_in', 1);
 				$this->session->set_userdata('admin_data', $admin);
 				$this->session->set_userdata('admin_email', $admin->admin_email);
+				$this->session->set_userdata('admin_type', $admin->admin_type);
 				return true;
 			}			
 		}
@@ -27,6 +28,44 @@ class Admin_model extends CI_Model
 		{
 			return false;
 		}
+	}
+
+	// settings functions
+	public function display_userdata()
+	{
+		$query = $this->db->select('display_userdata')->get('settings_tbl');
+		$query = $query->row_array();
+		if ($query['display_userdata']==1)
+		{
+			return true;
+		}
+		else return false;
+	}
+	public function set_display_userdata($bool)
+	{
+		if (isset($bool))
+		{
+			$this->db->query("UPDATE settings_tbl SET display_userdata=$bool LIMIT 1");
+		}
+		else return false;
+	}
+	public function display_feedback()
+	{
+		$query = $this->db->select('display_feedback')->get('settings_tbl');
+		$query = $query->row_array();
+		if ($query['display_feedback']==1)
+		{
+			return true;
+		}
+		else return false;
+	}
+	public function set_display_feedback($bool)
+	{
+		if (isset($bool))
+		{
+			$this->db->query("UPDATE settings_tbl SET display_feedback=$bool LIMIT 1");
+		}
+		else return false;
 	}
 
 }

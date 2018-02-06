@@ -18,12 +18,12 @@
 			<a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
 			
 			<ul class="nav nav-pills flex-column sidebar-nav">
-				<li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin'); ?>"><em class="fa fa-dashboard"></em> Dashboard <span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin'); ?>"><em class="fa fa-dashboard"></em> Dashboard</a></li>
 				<li class="nav-item"><a class="nav-link" href="widgets.html"><em class="fa fa-calendar-o"></em> Widgets</a></li>
 				<li class="nav-item"><a class="nav-link" href="charts.html"><em class="fa fa-bar-chart"></em> Charts</a></li>
 				<li class="nav-item"><a class="nav-link" href="elements.html"><em class="fa fa-hand-o-up"></em> UI Elements</a></li>
 				<li class="nav-item"><a class="nav-link" href="cards.html"><em class="fa fa-clone"></em> Cards</a></li>
-				<li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin/settings'); ?>"><em class="fa fa-gear"></em> Settings</a></li>
+				<li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/settings'); ?>"><em class="fa fa-gear"></em> Settings <span class="sr-only">(current)</span></a></li>
 			</ul>
 			
 			<a href="<?php echo base_url('signout'); ?>" class="logout-button"><em class="fa fa-power-off"></em> Signout</a>
@@ -32,7 +32,7 @@
 		<main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
 			<header class="page-header row justify-center">
 				<div class="col-md-6 col-lg-8" >
-					<h1 class="float-left text-center text-md-left">Dashboard</h1>
+					<h1 class="float-left text-center text-md-left">Settings</h1>
 				</div>
 				
 				<div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right"><a class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,29 +54,51 @@
 			</header>
 			
 			<section class="row">
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-body text-center p-2">
-							<i class="fa fa-users fa-5x"></i>
+				<div class="col-sm-12">
+					<section class="row">
+						<div class="col-md-12">
+							<div class="card p-3">
+								<div class="card p-3">
+									<?php echo form_open(base_url('admin/settings')); ?>
+										<div class="form-group">
+											<section>
+												<legend class="col-form-label">Enable Userdata</legend>
+												<div class="form-check">
+													<input class="form-input-check" type="radio" id="enableUserdata" name="userdata" value="1" <?php if($this->Admin_model->display_userdata()){echo "checked";} ?>></input>
+													<label class="form-check-label" for="enableUserdata">Enable</label>
+												</div>
+												<div class="form-check">
+													<input class="form-input-check" type="radio" id="disableUserdata" name="userdata" value="0" <?php if(!$this->Admin_model->display_userdata()){echo "checked";} ?>></input>
+													<label class="form-check-label" for="disableUserdata">Disabled</label>
+												</div>
+											</section>
+											<section>
+												<div class="form-group">
+													<legend class="col-form-label">Enable Feedback</legend>
+													<div class="form-check">
+														<input class="form-input-check" type="radio" id="enableFeedback" name="feedback" value="1" <?php if($this->Admin_model->display_feedback()){echo "checked";} ?>></input>
+														<label class="form-check-label" for="enableFeedback">Enable</label>
+													</div>
+													<div class="form-check">
+														<input class="form-input-check" type="radio" id="disableFeedback" name="feedback" value="0" <?php if(!$this->Admin_model->display_userdata()){echo "checked";} ?>></input>
+														<label class="form-check-label" for="disableFeedback">Disabled</label>
+													</div>
+												</div>
+											</section>
+											<section>
+												<div class="form-group">
+													<button class="btn btn-primary" type="submimt">save</button>
+												</div>
+											</section>
+										</div>
+									<?php echo form_close(); ?>
+								</div>
+							</div>
 						</div>
-						<div class="card-footer">Users</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-body text-center p-2">
-							<i class="fa fa-graduation-cap fa-5x"></i>
-						</div>
-						<div class="card-footer">Instructors</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-body text-center p-2">
-							<i class="fa fa-book fa-5x"></i>
-						</div>
-						<div class="card-footer">Courses</div>
-					</div>
+					</section>
+					<section class="row">
+						<div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com">Medialoot</a></div>
+					</section>
 				</div>
 			</section>
 		</main>

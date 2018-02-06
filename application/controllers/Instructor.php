@@ -7,11 +7,12 @@ class Instructor extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Instructor_model');
+		$this->load->model('Admin_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
 		}
-		if ($this->session->userdata('logged_in') == false)
+		if ($this->session->userdata('logged_in') == false && $this->session->userdata('user_type')!='instructor')
 		{
 			redirect(base_url());
 		}
@@ -233,6 +234,29 @@ class Instructor extends CI_Controller {
 		}
 		else
 			show_404();
+	}
+
+	public function manage_outline($id=null)
+	{
+		if ($this->Instructor_model->check_if_their_course($_SESSION['email'],$id))
+		{
+			$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
+			$page_data = array(
+				'page_title' => 'Manage Course Outline',
+				'course_title' => $course['course_title'],
+				'course_author' => $course['course_author'],
+				'course_description' => $course['course_description'],
+			);
+			if (!$this->form_validation->run())
+			{
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('instructor/course_outline');
+				$this->load->view('template/footer');
+			}
+		}
+		else show_404();
+
+		
 	}
 		
 }

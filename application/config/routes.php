@@ -69,5 +69,6 @@ $route['course/create'] = 'instructor/create_course';
 $route['course/delete'] = 'instructor/delete_course';
 $route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
 $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1';
+$route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 
 // user routes
