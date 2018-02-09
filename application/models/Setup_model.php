@@ -88,6 +88,14 @@ class Setup_model extends CI_Model
 				course_published TINYINT(1) NOT NULL DEFAULT 0
 			);"
 		);
+		$outline_tbl = $this->db->query("
+			CREATE TABLE IF NOT EXISTS outline_tbl(
+				outline_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+				outline_course_id INT(7) NOT NULL,
+				outline_type TEXT(10) NOT NULL,
+				outline_content 
+			);"
+		);
 		$enroll_tbl = $this->db->query("
 			CREATE TABLE IF NOT EXISTS enroll_tbl (
 				enroll_id INT(7) AUTO_INCREMENT PRIMARY KEY,

@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Open Iconic -->
     <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
+
   </head>
   <body>
   	<nav class="navbar sticky-top navbar-expand-lg navbar-light c1">

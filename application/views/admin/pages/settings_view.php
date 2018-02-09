@@ -80,7 +80,7 @@
 														<label class="form-check-label" for="enableFeedback">Enable</label>
 													</div>
 													<div class="form-check">
-														<input class="form-input-check" type="radio" id="disableFeedback" name="feedback" value="0" <?php if(!$this->Admin_model->display_userdata()){echo "checked";} ?>></input>
+														<input class="form-input-check" type="radio" id="disableFeedback" name="feedback" value="0" <?php if(!$this->Admin_model->display_feedback()){echo "checked";} ?>></input>
 														<label class="form-check-label" for="disableFeedback">Disabled</label>
 													</div>
 												</div>

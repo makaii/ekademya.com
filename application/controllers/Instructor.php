@@ -247,16 +247,25 @@ class Instructor extends CI_Controller {
 				'course_author' => $course['course_author'],
 				'course_description' => $course['course_description'],
 			);
-			if (!$this->form_validation->run())
-			{
+			// if (!$this->form_validation->run())
+			// {
 				$this->load->view('template/headerInstructor',$page_data);
 				$this->load->view('instructor/course_outline');
 				$this->load->view('template/footer');
-			}
+			// }
 		}
 		else show_404();
 
 		
 	}
-		
+
+	public function add_outline_course_section()
+	{
+		$data = array(
+		'section' => $this->input->post('section'),
+		);
+
+		//Either you can print value or you can send value to database
+		echo json_encode($data);
+	}
 }

@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Icons -->
     <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>">
+    
   </head>
   <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-light c1">
