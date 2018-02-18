@@ -26,10 +26,6 @@
 							<?php echo form_error('courseCategory'); ?>
 						</div>
 						<div class="form-group">
-							<input type="checkbox" name="testCheck" id="testcheck" disabled="">
-							<label for="testcheck">This is a practice test-only course</label>
-						</div>
-						<div class="form-group">
 							<button class="btn btn-primary float-right" type="submit">Save</button>
 						</div>
 					</form>

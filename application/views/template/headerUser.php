@@ -14,15 +14,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="icon" href="<?php echo base_url('assets/img/favicon/favicon.ico'); ?>" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
-      <!-- CDN Link -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-      <!-- Local Link -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
-      <!-- Custom Style -->
+    <!-- Local Link -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.css'); ?>">
+    <!-- Custom Style -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/custom-style.css'); ?>">
 
-    <!-- Open Iconic -->
+    <!-- Icons -->
     <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>">
 
   </head>
   <body>
@@ -54,19 +53,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
           </li>
-  	    </ul>
-        <span class="navbar-text text-white mr-2 ml-2">
-          <?php echo $this->session->userdata('email'); ?>
-        </span>
-        <div class="dropdown">
+        </ul>
+        <a href="<?php echo base_url('student'); ?>">
+          <span class="navbar-text text-white mr-2 ml-2">
+            <?php echo $this->session->userdata('user_name'); ?>
+          </span>
+        </a>
+        <div class="nav-item dropdown">
           <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Settings <span class="oi oi-cog"></span>
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Profile</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="<?php echo base_url('profile'); ?>">Profile</a>
+            <a class="dropdown-item" href="<?php echo base_url('profile/account/edit'); ?>">Account</a>
             <a class="dropdown-item" href="<?php echo base_url('signout'); ?>">signout</a>
           </div>
         </div>
-        <!-- </form> -->
   	  </div>
   	</nav>

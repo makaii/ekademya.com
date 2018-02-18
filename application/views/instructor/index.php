@@ -30,7 +30,7 @@
 						<div class="card-body pt-1 pb-1">
 							<div class="card-text">
 								<?php $desc = $data['course_description']; ?>
-								<?php echo substr($desc, 0,200).' ...'; ?>
+								<?php if(strlen($desc)>=200){echo substr($desc, 0,200).' ...';}else echo $desc; ?>
 							</div>
 						</div>
 						<div class="card-footer">

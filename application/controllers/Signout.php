@@ -23,6 +23,6 @@ class Signout extends CI_Controller {
 			
 		}
 		else
-			show_404();		
+			show_404();
 	}
 }

@@ -29,17 +29,6 @@ class Instructor extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	public function profile()
-	{
-		$page_data = array(
-			'page_title' => 'Instructor Profile', 
-		);
-		$this->load->view('template/headerInstructor', $page_data);
-		// $this->load->view('instructor/profile');
-		$this->load->view('template/footer');
-
-	}
-
 	public function edit_profile()
 	{
 
@@ -207,7 +196,7 @@ class Instructor extends CI_Controller {
 					$this->load->view('instructor/course_landing_page');
 					$this->load->view('template/footer');
 				}
-				elseif ($this->Instructor_model->manage_coourse_landing_page($title,$description,$id,$author))
+				elseif ($this->Instructor_model->manage_course_landing_page($title,$description,$id,$author))
 				{
 					$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
 					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
@@ -261,11 +250,6 @@ class Instructor extends CI_Controller {
 
 	public function add_outline_course_section()
 	{
-		$data = array(
-		'section' => $this->input->post('section'),
-		);
-
-		//Either you can print value or you can send value to database
-		echo json_encode($data);
+		// $this->session->set_userdata('asd', $this->input->post('section'));
 	}
 }

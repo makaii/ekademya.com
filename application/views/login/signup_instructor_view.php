@@ -15,17 +15,20 @@
 					</div>
 					<div class="card-body bg-light">
 						<div class="form-group">
-							<label>Email</label>
-							<input class="form-control form-control-sm" type="email" maxlength="320" minlength="3" placeholder="abc@domain.com" name="email" value="<?php echo set_value('email'); ?>"></input>
+							<label class="text-info"><span class="text-warning">*</span> fields are required</label>
+						</div>
+						<div class="form-group">
+							<label>Email <span class="text-warning">*</span></label>
+							<input class="form-control form-control-sm" type="email" maxlength="30" placeholder="abc@domain.com" name="email" value="<?php echo set_value('email'); ?>"></input>
 							<?php echo form_error('email'); ?>
 						</div>
 						<div class="form-group">
-							<label>Password</label>
+							<label>Password <span class="text-warning">*</span></label>
 							<input class="form-control form-control-sm" type="password" maxlength="60" minlength="8" placeholder="password" name="password" value="<?php echo set_value('password'); ?>"></input>
 							<?php echo form_error('password'); ?>
 						</div>
 						<div class="form-group">
-							<label>Confirm Password</label>
+							<label>Confirm Password <span class="text-warning">*</span> </label>
 							<input class="form-control form-control-sm" type="password" maxlength="60" minlength="8" placeholder="confirm password" name="repassword" value="<?php echo set_value('repassword'); ?>"></input>
 							<?php echo form_error('repassword'); ?>
 						</div>
@@ -36,9 +39,20 @@
 						<!-- Basics -->
 						<p class="lead">Basics  Info:</p>
 						<div class="form-group">
-							<label>Name</label>
-							<input class="form-control form-control-sm" type="text" maxlength="30" minlength="2" placeholder="Johny Doe" name="username" value="<?php echo set_value('username'); ?>"></input>
-							<?php echo form_error('username'); ?>
+							<label>First Name <span class="text-warning">*</span></label>
+							<input class="form-control form-control-sm" type="text" maxlength="30" name="fname" value="<?php echo set_value('fname'); ?>"></input>
+							<?php echo form_error('fname'); ?>
+						</div>
+						<div class="form-group">
+							<label>Last Name <span class="text-warning">*</span></label>
+							<input class="form-control form-control-sm" type="text" maxlength="30" name="lname" value="<?php echo set_value('lname'); ?>"></input>
+							<?php echo form_error('lname'); ?>
+						</div>
+						<div class="form-group">
+							<label>Profile Email</label>
+							<input class="form-control form-control-sm" type="text" maxlength="30" name="pubemail" value="<?php echo set_value('pubemail'); ?>"></input>
+							<?php echo form_error('pubemail'); ?>
+							<small class="text-muted text-xs">This Email will be the one shown in your profile</small>
 						</div>
 						<div class="form-group">
 							<label>Headline</label><small class="text-muted text-xs"> max 50 chars</small>
@@ -59,7 +73,7 @@
 						<!-- Links -->
 						<div class="form-group">
 							<label><span class="fa fa-link"></span> Personal Website</label>
-							<input class="form-control form-control-sm" type="text" maxlength="25" placeholder="about.me/JohnyDoe" name="website" value="<?php echo set_value('website'); ?>"></input>
+							<input class="form-control form-control-sm" type="text" maxlength="50" placeholder="about.me/JohnyDoe" name="website" value="<?php echo set_value('website'); ?>"></input>
 							<?php echo form_error('website'); ?>
 						</div>
 						<div class="form-group">

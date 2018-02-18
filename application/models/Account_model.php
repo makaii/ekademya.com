@@ -27,5 +27,22 @@ class Account_model extends CI_Model
 			return false;
 	}
 
+	public function get_profile_info($id)
+	{
+		$query = $this->db->select()->from('user_tbl')->where('user_id', $id)->get();
+		
+		if (!empty($id))
+		{
+			if ($query->num_rows()==1)
+			{
+				return $query->row_array();
+			}
+			else
+				show_404();
+		}
+		else
+			show_404();
+	}
+
 }
  ?>

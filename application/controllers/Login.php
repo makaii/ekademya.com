@@ -16,7 +16,7 @@ class Login extends CI_Controller {
 		}
 		if ($this->session->userdata('logged_in') == true)
 		{
-			redirect(base_url('account'));
+			redirect(base_url());
 		}
 	}
 
@@ -29,7 +29,8 @@ class Login extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user_tbl.user_email]|max_length[320]|min_length[6]', array('is_unique' => 'Email is already taken'));
 		$this->form_validation->set_rules('password', 'Password', 'required|max_length[60]|min_length[8]');
 		$this->form_validation->set_rules('repassword', 'Confirm Password', 'required|matches[password]');
-		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+		$this->form_validation->set_rules('fname', 'First Name', 'required');
+		$this->form_validation->set_rules('lname', 'Last Name', 'required');
 
 		if ($this->form_validation->run() == false)
 		{
@@ -41,9 +42,12 @@ class Login extends CI_Controller {
 		else
 		{
 			// signup successful
-			$email = $this->input->post('email');
-			$password = $this->input->post('password');
-			if ($this->Login_model->register($email,$password,"user") == true)
+			$reg_data['user_email'] = $this->input->post('email');
+			$reg_data['user_password'] = $this->input->post('password');
+			$reg_data['user_fname'] = $this->input->post('fname');
+			$reg_data['user_lname'] = $this->input->post('lname');
+			$reg_data['user_type'] = 'student';
+			if ($this->Login_model->register($reg_data)==true)
 			{
 				$this->session->set_userdata('signup_success', true);
 				redirect(base_url('signup/success'));
@@ -53,16 +57,16 @@ class Login extends CI_Controller {
 
 	public function signup_instructor()
 	{
-		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
-
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user_tbl.user_email]|max_length[320]|min_length[6]', array('is_unique' => 'Email is already taken'));
 		$this->form_validation->set_rules('password', 'Password', 'required|max_length[60]|min_length[8]');
 		$this->form_validation->set_rules('repassword', 'Confirm Password', 'required|matches[password]');
 
 		// Basic
-		$this->form_validation->set_rules('username', 'Name', 'required');
-		$this->form_validation->set_rules('headline', 'Headline', '');
-		$this->form_validation->set_rules('bio', 'Bio', '');
+		$this->form_validation->set_rules('fname', 'First Name', 'required');
+		$this->form_validation->set_rules('lname', 'Last Name', 'required');
+		$this->form_validation->set_rules('pubemail', 'Profile Email', 'required|valid_email');
+		$this->form_validation->set_rules('headline', 'Headline');
+		$this->form_validation->set_rules('bio', 'Bio');
 
 		// Links
 		$this->form_validation->set_rules('website', 'Persone Website', 'valid_url');
@@ -84,25 +88,21 @@ class Login extends CI_Controller {
 		else
 		{
 			// signup successful
-			$data = array(
-				'user_email' => $this->input->post('email'),
-				'user_password' => $this->input->post('password'),
-			);
-			$instructor_data = array(
-				// basic
-				'instructor_name' => $this->input->post('username'),
-				'instructor_headline' => $this->input->post('headline'),
-				'instructor_bio' => $this->input->post('bio'),
-				// links
-				'instructor_website' => $this->input->post('website'),
-				'instructor_facebook' => $this->input->post('facebook'),
-				'instructor_googleplus' => $this->input->post('googleplus'),
-				'instructor_linkedin' =>  $this->input->post('linkedin'),
-				'instructor_twitter' =>  $this->input->post('twitter'),
-				'instructor_youtube' =>  $this->input->post('youtube'),
-			);
-			
-			if ($this->Login_model->register_instructor($data, $instructor_data) == true)
+			$reg_data['user_email'] = $this->input->post('email');
+			$reg_data['user_password'] = $this->input->post('password');
+			$reg_data['user_type'] = "instructor";
+			$reg_data['user_fname'] = $this->input->post('fname');
+			$reg_data['user_lname'] = $this->input->post('lname');
+			$reg_data['user_pubemail'] = $this->input->post('pubemail');
+			$reg_data['user_headline'] = $this->input->post('headline');
+			$reg_data['user_bio'] = $this->input->post('bio');
+			$reg_data['user_website'] = $this->input->post('website');
+			$reg_data['user_facebook'] = $this->input->post('facebook');
+			$reg_data['user_googleplus'] = $this->input->post('googleplus');
+			$reg_data['user_linkedin'] = $this->input->post('linkedin');
+			$reg_data['user_twitter'] = $this->input->post('twitter');
+			$reg_data['user_youtube'] = $this->input->post('youtube');
+			if ($this->Login_model->register($reg_data)==true)
 			{
 				$this->session->set_userdata('signup_success', true);
 				redirect(base_url('signup/success'));
@@ -132,7 +132,6 @@ class Login extends CI_Controller {
 
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
 
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
@@ -156,10 +155,10 @@ class Login extends CI_Controller {
 		{
 			// login successful
 			$user_type = $this->session->userdata('user_type');
-			if ($user_type == "user")
+			if ($user_type == "student")
 			{
 				$this->session->set_userdata('logged_in', true);
-				redirect(base_url('account'));
+				redirect(base_url('student'));
 			}
 			if ($user_type == "instructor")
 			{
@@ -168,4 +167,5 @@ class Login extends CI_Controller {
 			}
 		}
 	}
+
 }

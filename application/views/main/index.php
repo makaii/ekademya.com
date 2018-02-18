@@ -3,7 +3,7 @@
         <div class="display-4">Classes by Expert Practitioners</div>
         <p class="lead" style="margin-top: 1rem;">Learn new things anywhere, anytime</p>
         <div>
-          <a href="<?php echo base_url('signup'); ?>"><button class="btn btn-info">Get Started for Free</button></a>
+          <a href="<?php echo base_url('signup'); ?>"><button class="btn btn-info">Signup ang Get Started for Free</button></a>
         </div>
       </div>
     </div>

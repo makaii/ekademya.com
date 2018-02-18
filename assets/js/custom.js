@@ -28,6 +28,7 @@ function add_Assignment(){
 }
 function cancel_Add_Section()
 {
+	// $('#INPUTsection').val('');
 	show_Buttons();
 	document.getElementById('FORMsection').style.display = 'none';
 }

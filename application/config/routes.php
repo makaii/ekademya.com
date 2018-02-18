@@ -60,11 +60,17 @@ $route['signin'] = 'login/signin';
 $route['signup/success'] = 'login/signup_success';
 
 // search routes
+$route['u/(:num)'] = 'lookup/user_profile/$1';
 $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
 $route['search'] = 'lookup/search_course';
 // $route['course/(:any)'] = 'courses/$1';
 
 // intructor routes
+// $route['instructor/profile'] = 'profile/edit';
+// $route['instructor/profile/photo'] = 'profile/photo';
+// $route['instructor/profile/preview'] = 'profile/preview';
+// $route['instructor/profile/delete'] = 'profile/delete';
+
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete'] = 'instructor/delete_course';
 $route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
@@ -72,3 +78,14 @@ $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1
 $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 
 // user routes
+// $route['student/profile'] = 'profile/edit';
+// $route['student/profile/photo'] = 'profile/photo';
+// $route['student/profile/preview'] = 'profile/preview';
+// $route['student/profile/delete'] = 'profile/delete';
+
+// profile routes
+$route['profile'] = 'profile/edit';
+$route['profile/photo'] = 'profile/photo';
+$route['profile/delete'] = 'profile/delete';
+$route['profile/preview'] = 'profile/preview';
+$route['profile/account/edit'] = 'profile/account';

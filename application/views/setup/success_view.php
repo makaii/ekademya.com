@@ -67,7 +67,7 @@
 	</table>
 </div>
 <div class="container">
-	<h4>instructor_tbl</h4>
+	<h4>profile_tbl</h4>
 	<table class="table">
 		<thead>
 			<tr>
@@ -81,7 +81,7 @@
 		</thead>
 		<tbody>
 			<?php $row_count = 1; ?>
-			<?php foreach ($instructor as $field): ?>
+			<?php foreach ($profile as $field): ?>
 			<tr>
 				<th scope="row"><?php echo $row_count; ?></th>
 				<td><?php echo $field->name; ?></td>

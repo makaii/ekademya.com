@@ -21,8 +21,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!-- Custom Style -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/custom-style.css'); ?>">
 
-    <!-- Open Iconic -->
+    <!-- Icons -->
     <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>">
 
   </head>
   <body>
@@ -56,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </li>
   	    </ul>
         <span class="navbar-text text-white mr-2 ml-2">
-          <?php echo $this->session->userdata('email'); ?>
+          <?php echo $this->session->userdata('user_name'); ?>
         </span>
         <div class="dropdown">
           <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

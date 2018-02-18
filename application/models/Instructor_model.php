@@ -120,7 +120,7 @@ class Instructor_model extends CI_Model
 	{
 		if ((isset($tools))&&(isset($audience))&&(isset($achievement))&&(isset($id))&&(isset($author)))
 		{
-			$this->db->set('course_title',$tools);
+			$this->db->set('course_tools',$tools);
 			$this->db->set('course_audience',$audience);
 			$this->db->set('course_achievement',$achievement);
 			$this->db->where('course_id',$id);
@@ -134,7 +134,7 @@ class Instructor_model extends CI_Model
 		}
 		else return false;
 	}
-	public function manage_coourse_landing_page($title,$description,$id,$author)
+	public function manage_course_landing_page($title,$description,$id,$author)
 	{
 		if ((isset($title))&&(isset($description))&&(isset($id))&&(isset($author)))
 		{

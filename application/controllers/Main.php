@@ -12,7 +12,15 @@ class Main extends CI_Controller {
 		}
 		if ($this->session->userdata('logged_in') == true) 
 		{
-			redirect(base_url('account'));
+			if ($this->session->userdata('user_type')=='student')
+			{
+				redirect(base_url('student'));
+			}
+			elseif ($this->session->userdata('user_type')=='instructor')
+			{
+				redirect(base_url('instructor'));
+			}
+			
 		}
 		$this->load->model('Admin_model');
 	}

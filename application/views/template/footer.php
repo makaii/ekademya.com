@@ -49,12 +49,31 @@
     </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <!-- Local Javascripts -->
+    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/popper.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#SUBMITsection").click(function(event) {
+          event.preventDefault();
+          // console.log("Asdasd");
+          var section = $("#INPUTsection").val();
+            $.ajax({
+              url: '<?php echo base_url('instructor/add_outline_course_section'); ?>',
+              method: 'POST',
+              data: {section: section},
+              success: function(response){
+                show_Buttons();
+                document.getElementById('FORMsection').style.display = 'none';
+                document.getElementById('SECTIONdiv').style.display = 'block';
+                document.getElementById('SECTIONname').innerHTML = section;
+              }
+            });
+        });
+      });
+    </script>
   </body>
 </html>

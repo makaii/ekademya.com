@@ -8,6 +8,7 @@ class Courses extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('Courses_model');
+		$this->load->model('Admin_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);

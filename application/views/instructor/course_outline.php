@@ -31,16 +31,24 @@
 				<div class="card-body">
 					<h3>Course Outline</h3>
 					<h6>Start putting together your course by creating sections, lectures and practice (quizzes and coding exercises) below.</h6>
-					<div id="success"></div>
+					
+					<div class="card bg-secondary" style="display: none;" id="SECTIONdiv">
+						<div class="card-body">
+							<p class="card-text text-white" id="SECTIONname"></p>
+						</div>
+					</div>
+
 					<div style="display: none;" id="FORMsection" class="form-section">
-						<div class="form-group">
-							<label>New Section</label>
-							<input class="form-control" id="INPUTsection" placeholder="Enter a Title"></input>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-primary" type="submit" id="SUBMITsection">Add Section</button>
-							<button type="reset" class="btn btn-secondary" onclick="cancel_Add_Section()">Cancel</button>
-						</div>
+						<form>
+							<div class="form-group">
+								<label>New Section</label>
+								<input class="form-control" id="INPUTsection" placeholder="Enter a Title"></input>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-primary" type="submit" id="SUBMITsection">Add Section</button>
+								<button type="reset" class="btn btn-secondary" onclick="cancel_Add_Section()">Cancel</button>
+							</div>
+						</form>
 					</div>
 					<form style="display: none;" id="FORMlecture">
 						<div class="form-group">
@@ -96,49 +104,3 @@
 		</div>
 	</div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-	// $(document).ready(function() {
-	// 	// $('#FORMsection').on('submit', function(form) {
-	// 	// 	form.preventDefault();
-	// 	// 	$.post('instructor/add_outline_course_section', $('$FORMsection').serialize(), function(data){
-	// 	// 		console.log(data);
-	// 	// 	});
-	// 	// });
-
-	// 	$('#SUBMITsection').click(function() {
-	// 		var section = $('INPUTsection').val();
-
-	// 		$.ajax({
-	// 			type: 'POST',
-	// 			url: "<?php echo base_url('instructor/add_outline_course_section'); ?>",
-	// 			data: {section: section},
-	// 			success: function(result) {
-	// 				$('$success').html(result);
-	// 			}
-	// 		});
-	// 	});
-	// });
-
-	// Ajax post
-	$(document).ready(function() {
-		$(".submit").click(function(event) {
-			event.preventDefault();
-			var section = $("#INPUTsection").val();
-			jQuery.ajax({
-				type: "POST",
-				url: "<?php echo base_url(); ?>" + "index.php/ajax_post_controller/user_data_submit",
-				dataType: 'json',
-				data: {section: section},
-				success: function(res) {
-					if (res) {
-						// Show Entered Value
-						jQuery("div#result").show();
-						jQuery("div#value").html(res.username);
-						jQuery("div#value_pwd").html(res.pwd);
-					}
-				}
-			});
-		});
-	});
-</script>
