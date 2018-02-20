@@ -10,12 +10,12 @@
 			<img class="img-fluid" src="<?php echo base_url('z/user/').$photo; ?>" style="border-radius: 100px; max-height: 170px; min-height: 170px; max-width: 170px; min-width: 170px"></img>
 			<hr>
 			<div>
-				<?php if (isset($website_link)){echo '<a href="https://'.$website_link.'" target="_blank"><span class="fa fa-2x fa-globe"></span></a>';} ?>
-				<?php if (isset($facebook_link)){echo '<a href="https://'.$facebook_link.'" target="_blank"><span class="fa fa-2x fa-facebook"></span></a>';} ?>
-				<?php if (isset($googleplus_link)){echo '<a href="https://'.$googleplus_link.'" target="_blank"><span class="fa fa-2x fa-googleplus"></span></a>';} ?>
-				<?php if (isset($linkedin_link)){echo '<a href="https://'.$linkedin_link.'" target="_blank"><span class="fa fa-2x fa-linkedin"></span></a>';} ?>
-				<?php if (!empty($twitter_link)){echo '<a href="https://'.$twitter_link.'" target="_blank"><span class="fa fa-2x fa-twitter"></span></a>';} ?>
-				<?php if (isset($youtube_link)){echo '<a href="https://'.$youtube_link.'" target="_blank"><span class="fa fa-2x fa-youtube"></span></a>';} ?>
+				<?php if (!empty($website_link)){echo '<a href="https://'.$website_link.'" target="_blank"><span class="fa fa-2x fa-link"></span></a>';} ?>
+				<?php if (!empty($facebook_link)){echo '<a href="https://'.$facebook_link.'" target="_blank"><span class="fa fa-2x fa-facebook-square"></span></a>';} ?>
+				<?php if (!empty($googleplus_link)){echo '<a href="https://'.$googleplus_link.'" target="_blank"><span class="fa fa-2x fa-google-plus-square"></span></a>';} ?>
+				<?php if (!empty($linkedin_link)){echo '<a href="https://'.$linkedin_link.'" target="_blank"><span class="fa fa-2x fa-linkedin-square"></span></a>';} ?>
+				<?php if (!empty($twitter_link)){echo '<a href="https://'.$twitter_link.'" target="_blank"><span class="fa fa-2x fa-twitter-sqaure"></span></a>';} ?>
+				<?php if (!empty($youtube_link)){echo '<a href="https://'.$youtube_link.'" target="_blank"><span class="fa fa-2x fa-youtube-play"></span></a>';} ?>
 			</div>
 		</div>
 		<div class="col-md-9">

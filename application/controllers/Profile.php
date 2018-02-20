@@ -14,6 +14,10 @@ class Profile extends CI_Controller {
 		{
 			redirect(base_url());
 		}
+		if (empty($this->session->userdata('user_type')))
+		{
+			redirect(base_url());
+		}
 		$this->load->model('Admin_model');
 		$this->load->model('Account_model');
 	}
@@ -37,21 +41,79 @@ class Profile extends CI_Controller {
 			'profile_twitter' => $profile_data['user_twitter'],
 			'profile_youtube' => $profile_data['user_youtube'],
 		);
-		if ($this->session->userdata('user_type')!=false)
+
+		// SET RULES
+		$this->form_validation->set_rules('fname', 'First Name', 'required');
+		$this->form_validation->set_rules('lname', 'Last Name', 'required');
+		$this->form_validation->set_rules('pubemail', 'Profile Email', 'valid_email');
+		$this->form_validation->set_rules('headline', 'Headline', '');
+		$this->form_validation->set_rules('bio', 'Bio', '');
+		$this->form_validation->set_rules('website', 'Personal Website', 'valid_url');
+		$this->form_validation->set_rules('facebook', 'Facebook', 'valid_url');
+		$this->form_validation->set_rules('googleplus', 'Googlep Plus', 'valid_url');
+		$this->form_validation->set_rules('linkedin', 'Linkedin', 'valid_url');
+		$this->form_validation->set_rules('twitter', 'Twitter', 'valid_url');
+		$this->form_validation->set_rules('youtube', 'YouTube', 'valid_url');
+
+		if ($this->form_validation->run()==false)
 		{
 			if ($this->session->userdata('user_type')=='student')
 			{
 				$this->load->view('template/headerUser', $page_data);
-				$this->load->view('profile/edit');
-				$this->load->view('template/footer');
 			}
 			elseif ($this->session->userdata('user_type')=='instructor')
 			{
 				$this->load->view('template/headerInstructor', $page_data);
-				$this->load->view('profile/edit');
-				$this->load->view('template/footer');
 			}
+			$this->load->view('profile/edit');
+			$this->load->view('template/footer');
 		}
+		elseif ($this->form_validation->run()==true)
+		{
+			$id = $this->session->userdata('user_id');
+			$profile_data['user_fname']= $this->input->post('fname');
+			$profile_data['user_lname']= $this->input->post('lname');
+			$profile_data['user_pubemail'] = $this->input->post('pubemail');
+			$profile_data['user_headline'] = $this->input->post('headline');
+			$profile_data['user_bio'] = $this->input->post('bio');
+			$profile_data['user_website'] = $this->input->post('website');
+			$profile_data['user_facebook'] = $this->input->post('facebook');
+			$profile_data['user_googleplus'] = $this->input->post('googleplus');
+			$profile_data['user_linkedin'] = $this->input->post('linkedin');
+			$profile_data['user_twitter'] = $this->input->post('twitter');
+			$profile_data['user_youtube'] = $this->input->post('youtube');
+			$this->Account_model->update_profile_info($id , $profile_data);
+			$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
+			$page_data = array(
+				'page_title' => 'Edit Profile Information',
+				'profile_fname' => $profile_data['user_fname'],
+				'profile_lname' => $profile_data['user_lname'],
+				'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
+				'profile_pubemail' => $profile_data['user_pubemail'],
+				'profile_photo' => $profile_data['user_img_url'],
+				'profile_headline' => $profile_data['user_headline'],
+				'profile_bio' => $profile_data['user_bio'],
+				'profile_website' => $profile_data['user_website'],
+				'profile_facebook' => $profile_data['user_facebook'],
+				'profile_googleplus' => $profile_data['user_googleplus'],
+				'profile_linkedin' => $profile_data['user_linkedin'],
+				'profile_twitter' => $profile_data['user_twitter'],
+				'profile_youtube' => $profile_data['user_youtube'],
+			);
+			$page_data['profile_updated']=true;
+			$page_data['update_alert']='<div class="alert alert-success text-center" role="alert">Update Successful!</div>';
+			if ($this->session->userdata('user_type')=='student')
+			{
+				$this->load->view('template/headerUser', $page_data);
+			}
+			elseif ($this->session->userdata('user_type')=='instructor')
+			{
+				$this->load->view('template/headerInstructor', $page_data);
+			}
+			$this->load->view('profile/edit');
+			$this->load->view('template/footer');			
+		}
+			
 		
 	}
 
@@ -62,21 +124,69 @@ class Profile extends CI_Controller {
 			'page_title' => 'Edit Profile Photo',
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_photo' => $profile_data['user_img_url'],
+			'error' => '',
 		);
-		if ($this->session->userdata('user_type')!=false)
+		
+		if ($this->session->userdata('user_type')=='student')
 		{
-			if ($this->session->userdata('user_type')=='student')
-			{
-				$this->load->view('template/headerUser', $page_data);
-				$this->load->view('profile/photo');
-				$this->load->view('template/footer');
-			}
-			elseif ($this->session->userdata('user_type')=='instructor')
-			{
-				$this->load->view('template/headerInstructor', $page_data);
-				$this->load->view('profile/photo');
-				$this->load->view('template/footer');
-			}
+			$this->load->view('template/headerUser', $page_data);
+			$this->load->view('profile/photo');
+			$this->load->view('template/footer');
+		}
+		elseif ($this->session->userdata('user_type')=='instructor')
+		{
+			$this->load->view('template/headerInstructor', $page_data);
+			$this->load->view('profile/photo');
+			$this->load->view('template/footer');
+		}
+	}
+
+	public function photo_upload()
+	{
+		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
+		$page_data = array(
+			'page_title' => 'Edit Profile Photo',
+			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
+			'profile_photo' => $profile_data['user_img_url'],
+			'error' => '',
+		);
+
+		$config['upload_path'] = './z/user';
+		$config['allowed_types'] = 'jpg|png';
+		$config['file_ext_tolower'] = true;
+		// $config['encrypt_name'] = true;
+		$config['file_name'] = $this->session->userdata('user_id');
+		$config['overwrite'] = true;
+		// $config['remove_spaces'] = true;
+		$config['max_filename'] = 50;
+		$config['max_size'] = 1024;
+		$config['max_width'] = 1024;
+		$config['max_height'] = 768;
+		$this->load->library('upload', $config);
+		if (!$this->upload->do_upload('photo'))
+		{
+			$page_data['error'] = $this->upload->display_errors();
+			$this->load->view('template/headerInstructor', $page_data);
+			$this->load->view('profile/photo');
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$upload_data = $this->upload->data();
+			$id = $this->session->userdata('user_id');
+			$data['user_img_url'] = $upload_data['file_name'];
+			$this->Account_model->update_profile_photo($id, $data);
+			$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
+			$page_data = array(
+				'page_title' => 'Edit Profile Photo',
+				'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
+				'profile_photo' => $profile_data['user_img_url'],
+			);
+			$page_data['photo_updated']=true;
+			$page_data['update_alert']='<div class="alert alert-success text-center" role="alert">Update Successful!</div>';
+			$this->load->view('template/headerInstructor', $page_data);
+			$this->load->view('profile/photo');
+			$this->load->view('template/footer');
 		}
 	}
 
@@ -120,6 +230,7 @@ class Profile extends CI_Controller {
 		$page_data = array(
 			'page_title' => 'Delete Profile',
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
+			'profile_photo' => $profile_data['user_img_url'],
 		);
 		if ($this->session->userdata('user_type')!=false)
 		{
@@ -133,6 +244,35 @@ class Profile extends CI_Controller {
 			{
 				$this->load->view('template/headerInstructor', $page_data);
 				$this->load->view('profile/delete');
+				$this->load->view('template/footer');
+			}
+		}
+	}
+
+	public function account()
+	{
+		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
+		$page_data = array(
+			'page_title' => 'Delete Profile',
+			'profile_photo' => $profile_data['user_img_url'],
+			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
+			'profile_email' => $profile_data['user_email']
+		);
+		if ($this->session->userdata('user_type')!=false)
+		{
+			
+
+
+			if ($this->session->userdata('user_type')=='student')
+			{
+				$this->load->view('template/headerUser', $page_data);
+				$this->load->view('profile/account');
+				$this->load->view('template/footer');
+			}
+			elseif ($this->session->userdata('user_type')=='instructor')
+			{
+				$this->load->view('template/headerInstructor', $page_data);
+				$this->load->view('profile/account');
 				$this->load->view('template/footer');
 			}
 		}

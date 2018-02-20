@@ -3,8 +3,8 @@
 		<div class="col-md-3">
 			<div class="card">
 				<div class="card-body">
-					<img src="<?php echo base_url('z/instructor/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block" style="max-height: 150px;">
-					<h6 class="text-center"><?php echo ucwords($this->session->userdata('user_name')); ?></h6>
+					<img src="<?php echo base_url('z/user/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block" style="max-height: 150px;">
+					<h6 class="text-center"><?php echo ucwords($profile_name); ?></h6>
 					<div class="list-group">
 						<a href="<?php echo base_url('profile/preview') ?>" target="_blank" class="list-group-item list-group-item-action">View Public Profile</a>
 						<a href="<?php echo base_url('profile/account/edit'); ?>" class="list-group-item list-group-item-action">Account</a>
@@ -20,16 +20,20 @@
 				<div class="card-body">
 					<h2 class="card-title text-center">Photo</h2>
 					<p class="card-subtitle text-center text-muted">Add a nice photo of yourself for your profile.</p>
+					<?php if(!empty($photo_updated)){echo $update_alert;} ?>
 					<hr>
-					<form>
+					<?php echo form_open_multipart(base_url('profile/photo/upload'));?>
 						<div class="form-group">
-							<img src="<?php echo base_url('z/instructor/').$profile_photo; ?>" class="img-fluid rounded mx-auto d-block" alt="<?php echo $profile_photo; ?>" style="max-height: 250px;">
+							<img src="<?php echo base_url('z/user/').$profile_photo; ?>" class="img-fluid rounded mx-auto d-block" alt="<?php echo $profile_photo; ?>" style="max-height: 250px;">
 							<br>
 							<br>
-							<input type="file" name="">
+							<?php if(!empty($error)): ?>
+								<?php echo '<small class="text-danger">'.$error."</small>";?>
+							<?php endif; ?>
+							<input type="file" name="photo">
 						</div>
 						<div class="form-group">
-							<button class="btn btn-primary">Save</button>
+							<button type="submit" class="btn btn-primary">Save</button>
 						</div>
 					</form>
 				</div>

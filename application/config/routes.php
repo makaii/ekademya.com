@@ -86,6 +86,7 @@ $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 // profile routes
 $route['profile'] = 'profile/edit';
 $route['profile/photo'] = 'profile/photo';
+$route['profile/photo/upload'] = 'profile/photo_upload';
 $route['profile/delete'] = 'profile/delete';
 $route['profile/preview'] = 'profile/preview';
 $route['profile/account/edit'] = 'profile/account';
