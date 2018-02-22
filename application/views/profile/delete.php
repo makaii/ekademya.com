@@ -16,12 +16,18 @@
 			</div>
 		</div>
 		<div class="col-md-9">
-			<div class="card border-danger ">
+			<div class="card border-danger">
 				<div class="card-body">
 					<h2 class="card-title text-center text-danger">Danger Zone</h2>
-					<p class="card-subtitle text-center text-danger text-muted">Warning: If you delete your account, you will be unsubcribed to all of your courses and will lose access.</p>
+					<p class="card-subtitle text-center text-danger text-muted">Warning: If you delete your account, you will will lose access to your courses and will be unabled to use again your registered email address.</p>
+					<?php echo $error; ?>
+					<div class="text-center">
+						<?php echo form_error('password'); ?>
+						<br>
+						<?php echo form_error('repassword'); ?>
+					</div>
 					<hr>
-					<form>
+					<form action="<?php echo base_url('profile/delete'); ?>" method="POST">
 						<div class="form-group text-center">
 							<button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="#DELETEaccount">Delete my Account</button>
 						</div>
@@ -32,10 +38,20 @@
 										<h5 class="modal-title text-danger" id="DeleteAccountModelLabel">Delete Account</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
 									</div>
-									<div class="modal-body">Are you sure you want to delete your account?</div>
+									<div class="modal-body">
+										<p class="text-center">Complete the form if you want to delete your account</p>
+										<div class="form-group">
+											<label class="text-danger">Pasdword</label>
+											<input class="form-control " type="password" name="password">
+										</div>
+										<div class="form-group">
+											<label class="text-danger">Confirm Password</label>
+											<input class="form-control " type="password" name="repassword">
+										</div>
+									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-danger">Delete my account</button>
+										<button type="submit" class="btn btn-danger">Delete my account</button>
 									</div>
 								</div>
 							</div>

@@ -20,27 +20,31 @@
 				<div class="card-body">
 					<h2 class="card-title text-center">Profile</h2>
 					<p class="card-subtitle text-center text-muted">Add information about yourself to share on your profile.</p>
+					<?php if(!empty($password_updated)){echo $update_alert;} ?>
 					<hr>
-					<form>
+					<form action="<?php echo base_url('profile/account/edit'); ?>" method="POST">
 						<legend>Account</legend>
 						<div class="form-group">
 							<label>Email Address</label>
-							<input readonly class="text-primary form-control-plaintext" maxlength="25" value="<?php echo $profile_email; ?>"></input>
+							<input readonly class="text-primary form-control-plaintext" value="<?php echo $profile_email; ?>"></input>
 						</div>
 						<div class="form-group">
 							<label>Current Password</label>
-							<input type="password" class="form-control" maxlength="25" value="<?php ?>"></input>
+							<input type="password" name="currentpassword" class="form-control" maxlength="60" value="<?php echo set_value('currentpassword'); ?>"></input>
+							<?php echo form_error('currentpassword'); ?>
 						</div>
 						<div class="form-group">
 							<label>New Password</label>
-							<input type="password" class="form-control" maxlength="25" value="<?php ?>"></input>
+							<input type="password" name="newpassword" class="form-control" maxlength="60" value="<?php echo set_value('newpassword'); ?>"></input>
+							<?php echo form_error('newpassword'); ?>
 						</div>
 						<div class="form-group">
-							<label>Current Password</label>
-							<input type="password" class="form-control" maxlength="25" value="<?php ?>"></input>
+							<label>Confirm New Password</label>
+							<input type="password" name="renewpassword" class="form-control" maxlength="60" value="<?php echo set_value('renewpassword'); ?>"></input>
+							<?php echo form_error('renewpassword'); ?>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-primary">Save</button>
+							<button type="submit" class="btn btn-primary">Save</button>
 						</div>
 					</form>
 				</div>

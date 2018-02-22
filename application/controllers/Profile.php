@@ -101,7 +101,7 @@ class Profile extends CI_Controller {
 				'profile_youtube' => $profile_data['user_youtube'],
 			);
 			$page_data['profile_updated']=true;
-			$page_data['update_alert']='<div class="alert alert-success text-center" role="alert">Update Successful!</div>';
+			$page_data['update_alert']='<div class="alert alert-success text-center" role="alert">Profile Updated Successful!</div>';
 			if ($this->session->userdata('user_type')=='student')
 			{
 				$this->load->view('template/headerUser', $page_data);
@@ -183,7 +183,7 @@ class Profile extends CI_Controller {
 				'profile_photo' => $profile_data['user_img_url'],
 			);
 			$page_data['photo_updated']=true;
-			$page_data['update_alert']='<div class="alert alert-success text-center" role="alert">Update Successful!</div>';
+			$page_data['update_alert']='<div class="alert alert-success text-center" role="alert">Photo Updated Successful!</div>';
 			$this->load->view('template/headerInstructor', $page_data);
 			$this->load->view('profile/photo');
 			$this->load->view('template/footer');
@@ -226,25 +226,56 @@ class Profile extends CI_Controller {
 
 	public function delete()
 	{
-		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
+		$id = $this->session->userdata('user_id');
+		$profile_data = $this->Account_model->get_profile_info($id);
 		$page_data = array(
 			'page_title' => 'Delete Profile',
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_photo' => $profile_data['user_img_url'],
+			'error' => '',
 		);
-		if ($this->session->userdata('user_type')!=false)
+
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('repassword', 'Confirm Password', 'required|matches[password]');
+		if (!$this->form_validation->run())
 		{
 			if ($this->session->userdata('user_type')=='student')
 			{
 				$this->load->view('template/headerUser', $page_data);
-				$this->load->view('profile/delete');
-				$this->load->view('template/footer');
 			}
 			elseif ($this->session->userdata('user_type')=='instructor')
 			{
 				$this->load->view('template/headerInstructor', $page_data);
+			}
+			$this->load->view('profile/delete');
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$pass = $this->input->post('password');
+			$email = $this->session->userdata('user_email');
+			$this->load->model('Login_model');
+			if (!$this->Login_model->authenticate($email,$pass))
+			{
+				$page_data['error'] = '<div class="row mt-4"><div class="col-md-4 offset-md-4"><div class="alert alert-danger text-center text-white bg-danger" role="alert">incorrect password</div></div></div>';
+				if ($this->session->userdata('user_type')=='student')
+				{
+					$this->load->view('template/headerUser', $page_data);
+				}
+				elseif ($this->session->userdata('user_type')=='instructor')
+				{
+					$this->load->view('template/headerInstructor', $page_data);
+				}
 				$this->load->view('profile/delete');
 				$this->load->view('template/footer');
+			}
+			else
+			{
+				if ($this->Account_model->delete_account($id))
+				{
+					redirect(base_url('signout'));
+				}
+				show_404();
 			}
 		}
 	}
@@ -258,23 +289,63 @@ class Profile extends CI_Controller {
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_email' => $profile_data['user_email']
 		);
-		if ($this->session->userdata('user_type')!=false)
+		$this->form_validation->set_rules('currentpassword', 'Current Password', 'required');
+		$this->form_validation->set_rules('newpassword', 'New Password', 'required');
+		$this->form_validation->set_rules('renewpassword', 'Confirm New Password', 'required|matches[newpassword]');
+		if (!$this->form_validation->run())
 		{
-			
-
-
 			if ($this->session->userdata('user_type')=='student')
 			{
 				$this->load->view('template/headerUser', $page_data);
-				$this->load->view('profile/account');
-				$this->load->view('template/footer');
 			}
 			elseif ($this->session->userdata('user_type')=='instructor')
 			{
 				$this->load->view('template/headerInstructor', $page_data);
+			}
+			$this->load->view('profile/account');
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			$id=$this->session->userdata('user_id');
+			$currentpassword=$this->input->post('currentpassword');
+			$newpassword=$this->input->post('newpassword');
+			if (!$this->Account_model->update_account_password($id,$currentpassword,$newpassword))
+			{
+				// fail
+				$page_data['password_error'] = '<small class="text-danger">Wrong Password</small>'; 
+				if ($this->session->userdata('user_type')=='student')
+				{
+					$this->load->view('template/headerUser', $page_data);
+				}
+				elseif ($this->session->userdata('user_type')=='instructor')
+				{
+					$this->load->view('template/headerInstructor', $page_data);
+				}
 				$this->load->view('profile/account');
 				$this->load->view('template/footer');
 			}
+			else
+			{
+				// success
+				$page_data['password_updated']=true;
+				$page_data['update_alert']='<div class="alert alert-success text-center" role="alert">Password Updated Successful!</div>';
+				if ($this->session->userdata('user_type')=='student')
+				{
+					$this->load->view('template/headerUser', $page_data);
+				}
+				elseif ($this->session->userdata('user_type')=='instructor')
+				{
+					$this->load->view('template/headerInstructor', $page_data);
+				}
+				$this->load->view('profile/account');
+				$this->load->view('template/footer');
+			}
+			
 		}
+			
+
+
+			
 	}
 }
