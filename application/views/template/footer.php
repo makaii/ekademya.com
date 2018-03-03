@@ -74,6 +74,15 @@
             });
         });
       });
+
+
+      // disable right click for videos
+      // video tags must have id="video" in it
+      $(document).ready(function() {
+         $("video").bind("contextmenu",function(){
+             return false;
+             });
+      } );
     </script>
   </body>
 </html>

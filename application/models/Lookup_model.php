@@ -9,11 +9,11 @@ class Lookup_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function get_instructor_profile($id)
+	public function get_user_profile($id)
 	{
-		$profile = $this->db->select()->where('instructor_id', $id)->get('instructor_tbl');
+		$profile = $this->db->select()->where('user_id', $id)->where('user_status',1)->get('user_tbl');
 		if ($profile->num_rows() == 1 ) {
-			return $profile->row();
+			return $profile->row_array();
 		}
 		else
 			return false;

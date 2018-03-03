@@ -61,7 +61,7 @@ $route['signup/success'] = 'login/signup_success';
 
 // search routes
 $route['u/(:num)'] = 'lookup/user_profile/$1';
-$route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
+// $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
 $route['search'] = 'lookup/search_course';
 // $route['course/(:any)'] = 'courses/$1';
 
@@ -76,6 +76,7 @@ $route['course/delete'] = 'instructor/delete_course';
 $route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
 $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1';
 $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
+$route['course/manage/outline/(:num)/(:num)'] = 'instructor/manage_outline_lecture/$1/$2';
 
 // user routes
 // $route['student/profile'] = 'profile/edit';

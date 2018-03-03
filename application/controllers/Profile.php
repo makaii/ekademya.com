@@ -284,7 +284,7 @@ class Profile extends CI_Controller {
 	{
 		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
 		$page_data = array(
-			'page_title' => 'Delete Profile',
+			'page_title' => 'Update Account',
 			'profile_photo' => $profile_data['user_img_url'],
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_email' => $profile_data['user_email']

@@ -168,4 +168,9 @@ class Login extends CI_Controller {
 		}
 	}
 
+	public function forgot_password()
+	{
+		
+	}
+
 }

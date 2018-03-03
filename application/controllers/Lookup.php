@@ -7,53 +7,60 @@ class Lookup extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Lookup_model');
+		$this->load->model('Admin_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
 		}
 	}
 
-	public function instructor_profile($data)
+	public function user_profile($id)
 	{
 		
 		$this->load->library('Parsedown/Parsedown.php');
-		$row = $this->Lookup_model->get_instructor_profile($data);
+		$row = $this->Lookup_model->get_user_profile($id);
 
 
 		if (empty($row))
 		{
-			$page_data = array('page_title' => 'Instructor not found', );
+			$page_data = array('page_title' => 'User not found', );
 			$this->load->view('template/header',$page_data);
 			$this->load->view('errors/404_view');
 			$this->load->view('template/footer');
 		}
 		else
 		{
-			$page_data = array(
-				'page_title' => $row->instructor_name.' | '.$row->instructor_headline,
-				 );
+			$user_flname = $row['user_fname']." ".$row['user_lname'];
+			$page_data['page_title'] = ucwords($user_flname)." | ".$row['user_headline'];
 			$profile_data = array(
-				'name' => $row->instructor_name,
-				'headline' => $row->instructor_headline,
-				'bio' => $this->parsedown->text($row->instructor_bio),
-				'instructor_img_url' => $row->instructor_img_url
+				'name' => $user_flname,
+				'headline' => $row['user_headline'],
+				'bio' => $this->parsedown->text($row['user_bio']),
+				'pubemail' => $row['user_pubemail'],
+				'user_img_url' => $row['user_img_url'],
+				'website_link' => $row['user_website'],
+				'facebook_link' => $row['user_facebook'],
+				'googleplus_link' => $row['user_googleplus'],
+				'linkedin_link' => $row['user_linkedin'],
+				'twitter_link' => $row['user_twitter'],
+				'youtube_link' => $row['user_youtube'],
 				 );
 			if ($this->session->userdata('user_type')=='user')
 			{
 				$this->load->view('template/headerUser', $page_data);
-				$this->load->view('instructor/profile_view', $profile_data);
+				$this->load->view('profile/lookup', $profile_data);
 				$this->load->view('template/footer');
 			}
 			elseif ($this->session->userdata('user_type')=='instructor')
 			{
 				$this->load->view('template/headerInstructor', $page_data);
-				$this->load->view('instructor/profile_view', $profile_data);
+				$this->load->view('profile/lookup', $profile_data);
 				$this->load->view('template/footer');
 			}
 			else
 			{
 				$this->load->view('template/header', $page_data);
-				$this->load->view('instructor/profile_view', $profile_data);
+				$this->load->view('profile/lookup', $profile_data);
 				$this->load->view('template/footer');
 			}
 		}		

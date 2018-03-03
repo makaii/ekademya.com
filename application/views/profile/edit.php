@@ -3,7 +3,7 @@
 		<div class="col-md-3">
 			<div class="card">
 				<div class="card-body">
-					<img src="<?php echo base_url('z/user/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block" style="max-height: 150px;">
+					<img src="<?php echo base_url('z/user/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block img-round-thumb" style="max-height: 150px;">
 					<h6 class="text-center"><?php echo ucwords($profile_name); ?></h6>
 					<div class="list-group">
 						<a href="<?php echo base_url('profile/preview') ?>" target="_blank" class="list-group-item list-group-item-action">View Public Profile</a>

@@ -49,7 +49,7 @@
 							<?php echo form_error('lname'); ?>
 						</div>
 						<div class="form-group">
-							<label>Profile Email</label>
+							<label>Profile Email <span class="text-warning">*</span></label>
 							<input class="form-control form-control-sm" type="text" maxlength="30" name="pubemail" value="<?php echo set_value('pubemail'); ?>"></input>
 							<?php echo form_error('pubemail'); ?>
 							<small class="text-muted text-xs">This Email will be the one shown in your profile</small>

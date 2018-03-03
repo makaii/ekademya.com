@@ -3,7 +3,7 @@
 		<div class="col-md-3">
 			<div class="card">
 				<div class="card-body">
-					<img src="<?php echo base_url('z/user/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block" style="max-height: 150px;">
+					<img src="<?php echo base_url('z/user/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block img-round-thumb">
 					<h6 class="text-center"><?php echo ucwords($profile_name); ?></h6>
 					<div class="list-group">
 						<a href="<?php echo base_url('profile/preview') ?>" target="_blank" class="list-group-item list-group-item-action">View Public Profile</a>
@@ -25,8 +25,7 @@
 					<form action="<?php echo base_url('profile/account/edit'); ?>" method="POST">
 						<legend>Account</legend>
 						<div class="form-group">
-							<label>Email Address</label>
-							<input readonly class="text-primary form-control-plaintext" value="<?php echo $profile_email; ?>"></input>
+							<label>Email Address <span class="text-primary"><?php echo $profile_email; ?></span></label>
 						</div>
 						<div class="form-group">
 							<label>Current Password</label>

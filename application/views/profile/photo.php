@@ -3,7 +3,7 @@
 		<div class="col-md-3">
 			<div class="card">
 				<div class="card-body">
-					<img src="<?php echo base_url('z/user/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block" style="max-height: 150px;">
+					<img src="<?php echo base_url('z/user/').$profile_photo; ?>" alt="<?php echo $profile_photo; ?>" class="img-fluid mx-auto d-block img-round-thumb">
 					<h6 class="text-center"><?php echo ucwords($profile_name); ?></h6>
 					<div class="list-group">
 						<a href="<?php echo base_url('profile/preview') ?>" target="_blank" class="list-group-item list-group-item-action">View Public Profile</a>
@@ -24,7 +24,7 @@
 					<hr>
 					<?php echo form_open_multipart(base_url('profile/photo/upload'));?>
 						<div class="form-group">
-							<img src="<?php echo base_url('z/user/').$profile_photo; ?>" class="img-fluid rounded mx-auto d-block" alt="<?php echo $profile_photo; ?>" style="max-height: 250px;">
+							<img src="<?php echo base_url('z/user/').$profile_photo; ?>" class="img-fluid mx-auto d-block img-round" alt="<?php echo $profile_photo; ?>" style="height: 250px; width: 250px;">
 							<br>
 							<br>
 							<?php if(!empty($error)): ?>

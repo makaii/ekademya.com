@@ -152,5 +152,38 @@ class Instructor_model extends CI_Model
 		else return false;
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function add_section($data)
+	{
+		$this->db->insert('outline_tbl', $data);
+	}
+	public function del_section($data)
+	{
+		$query = $this->db->where('outline_course_id',$data['outline_course_id'])
+		->where('outline_section_title',$data['outline_section_title'])
+		->delete('outline_tbl');
+	}
+
+	public function get_sections($data)
+	{
+		$query = $this->db->select()->from('outline_tbl')->where('outline_course_id',$data['outline_course_id'])->get();
+		return $query->result_array();
+	}
+
 }
  ?>

@@ -53,12 +53,12 @@ class Instructor extends CI_Controller {
 			{
 				// create success
 				$title = $this->input->post('courseTitle');
-				$author = $this->session->userdata('email');
+				$author = $this->session->userdata('user_email');
 				$date = date('Y-m-d H:i:s');
 				$category = $this->input->post('courseCategory');
 				if ($this->Instructor_model->save_course($title, $author, $date, $category))
 				{
-					$id = $this->Instructor_model->get_course_id($title,$_SESSION['email']);
+					$id = $this->Instructor_model->get_course_id($title,$_SESSION['user_email']);
 					$this->session->set_userdata('course_id', $id);
 					redirect(base_url('course/manage/goals/'.$id));
 				}
@@ -87,7 +87,7 @@ class Instructor extends CI_Controller {
 				$this->load->view('instructor/delete_course');
 				$this->load->view('template/footer');
 			}
-			elseif($this->Instructor_model->archieve_course($course_title,$course_author,$_SESSION['email'])==false)
+			elseif($this->Instructor_model->archieve_course($course_title,$course_author,$_SESSION['user_email'])==false)
 			{
 				// delete fail
 				$this->session->set_flashdata('error','Invalid Course or Email');
@@ -115,10 +115,10 @@ class Instructor extends CI_Controller {
 	{
 		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type']=='instructor'))
 		{
-			if ($this->Instructor_model->check_if_their_course($_SESSION['email'],$id))
+			if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
 			{
-				$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
-				$this->Instructor_model->get_course_id($course['course_title'],$_SESSION['email']);
+				$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
+				$this->Instructor_model->get_course_id($course['course_title'],$_SESSION['user_email']);
 				$this->session->set_userdata('course_id',$id);
 				$page_data = array(
 					'page_title' => 'Manage Course Goals',
@@ -143,7 +143,7 @@ class Instructor extends CI_Controller {
 				}
 				elseif ($this->Instructor_model->manage_course_goals($tools,$audience,$achievement,$id,$author))
 				{
-					$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
+					$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
 					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
 					$page_data = array(
 						'page_title' => 'Manage Course Goals',
@@ -176,9 +176,9 @@ class Instructor extends CI_Controller {
 	{
 		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type']=='instructor'))
 		{
-			if ($this->Instructor_model->check_if_their_course($_SESSION['email'],$id))
+			if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
 			{
-				$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
+				$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
 				$page_data = array(
 					'page_title' => 'Manage Course Goals',
 					'course_title' => $course['course_title'],
@@ -198,7 +198,7 @@ class Instructor extends CI_Controller {
 				}
 				elseif ($this->Instructor_model->manage_course_landing_page($title,$description,$id,$author))
 				{
-					$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
+					$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
 					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
 					$page_data = array(
 						'page_title' => 'Manage Course Goals',
@@ -227,14 +227,20 @@ class Instructor extends CI_Controller {
 
 	public function manage_outline($id=null)
 	{
-		if ($this->Instructor_model->check_if_their_course($_SESSION['email'],$id))
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
 		{
-			$course = $this->Instructor_model->get_course_info($_SESSION['email'],$id);
+			$data['outline_course_id'] = $this->session->userdata('course_id');
+			$course_sections = $this->Instructor_model->get_sections($data);
+
+
+
+			$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
 			$page_data = array(
 				'page_title' => 'Manage Course Outline',
 				'course_title' => $course['course_title'],
 				'course_author' => $course['course_author'],
 				'course_description' => $course['course_description'],
+				'course_sections' => $course_sections,
 			);
 			// if (!$this->form_validation->run())
 			// {
@@ -250,6 +256,31 @@ class Instructor extends CI_Controller {
 
 	public function add_outline_course_section()
 	{
-		// $this->session->set_userdata('asd', $this->input->post('section'));
+		$data['outline_course_id'] = $this->session->userdata('course_id');
+		$data['outline_type'] = 'section';
+		$data['outline_section_title'] = $this->input->post('section');
+		$this->Instructor_model->add_section($data);
+	}
+
+	public function add_outline_course_lecture()
+	{
+		
+	}
+
+	public function manage_outline_lecture($id=null,$lecnum=null)
+	{
+		$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
+		{
+			$page_data['page_title'] = 'Add Lecture';
+			$page_data['course_title'] = $course['course_title'];
+			$page_data['course_author'] = $course['course_author'];
+			$page_data['course_outline_lecture_num'] =1;
+
+
+			$this->load->view('template/headerInstructor',$page_data);
+			$this->load->view('instructor/course_outline_add_lecture');
+			$this->load->view('template/footer');
+		}
 	}
 }

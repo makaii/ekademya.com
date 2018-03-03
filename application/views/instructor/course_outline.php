@@ -32,9 +32,38 @@
 					<h3>Course Outline</h3>
 					<h6>Start putting together your course by creating sections, lectures and practice (quizzes and coding exercises) below.</h6>
 					
-					<div class="card bg-secondary" style="display: none;" id="SECTIONdiv">
+					<?php if(!empty($course_sections)): ?>
+						<?php $count = 1; ?>
+						<?php foreach($course_sections as $sections): ?>
+							<div class="card bg-light mt-3">
+								<div class="card-body pt-2 pb-2 ">
+									<strong class="card-text"><span class="text-muted"><?php echo $count; ?>. </span><?php echo $sections['outline_section_title']; ?></strong>
+
+									<div class="card mt-1">
+										<dov class="card-body pt-1 pb-1">
+											<p class="card-text">lecture name</p>
+										</dov>
+									</div>
+								</div>
+								<div class="card-footer">
+									<button class="btn btn-sm btn-info" type="button">Add Lecture</button>
+									<button class="btn btn-sm btn-info disabled" type="button">Add Quiz</button>
+									<button class="btn btn-sm btn-info disabled" type="button">Add Assignment</button>
+									<button class="btn btn-sm btn-danger float-right" type="button" data-toggle="modal" data-target="#exampleModalCenter"><?php echo $sections['outline_id']; ?>Delete</button>
+								</div>
+							</div>
+							<?php $count++; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<div class="card bg-primary mb-3" style="display: none;" id="SECTIONdiv">
 						<div class="card-body">
-							<p class="card-text text-white" id="SECTIONname"></p>
+							<p class="card-text" id="SECTIONname"></p>
+						</div>
+						<div class="card-footer">
+							<button class="btn btn-sm btn-info" type="button" id="">Add Lecture</button>
+							<button class="btn btn-sm btn-info disabled" type="button">Add Quiz</button>
+							<button class="btn btn-sm btn-info disabled" type="button">Add Assignment</button>
+							<button class="btn btn-sm btn-danger float-right" type="button">Delete</button>
 						</div>
 					</div>
 
@@ -88,7 +117,7 @@
 						</div>
 					</div>
 					<br>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-4">
 							<button class="btn btn-outline-primary btn-block" onclick="add_Lecture()" id="ADDlecture">Add Lecture</button>
 						</div>
@@ -98,9 +127,47 @@
 						<div class="col-md-4">
 							<button class="btn btn-outline-primary btn-block" onclick="add_Assignment()" id="ADDassignment">Add Assignment</button>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+
+
+
+
+
+
+<!-- Modals -->
+<?php if(!empty($course_sections)): ?>
+	<?php foreach($course_sections as $section): ?>
+	<?php endforeach; ?>
+<?php endif; ?>
+<!-- delete Lecture -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="">
+        	<div class="form-group">
+        		<label>Are you sure you want to delete this section?</label>
+        	</div>
+        	<div class="form-group">
+        		<button type="submit" class="btn btn-danger float-right">Delete</button>
+        	</div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+  </div>
 </div>

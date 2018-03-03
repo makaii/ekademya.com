@@ -12,8 +12,8 @@
 		</div>
 	</dic>
 </div>
-<?php $courses = $this->Instructor_model->get_instructors_courses($_SESSION['email']); ?>
-<?php if($this->Instructor_model->get_instructors_courses($_SESSION['email'])): ?>
+<?php $courses = $this->Instructor_model->get_instructors_courses($_SESSION['user_email']); ?>
+<?php if($this->Instructor_model->get_instructors_courses($_SESSION['user_email'])): ?>
 	<div class="container mb-5">
 		<?php foreach ($courses as $data): ?>
 			<div class="row mb-3">	
@@ -43,7 +43,7 @@
 			</div>
 		<?php endforeach; ?>
 	</div>
-<?php elseif($this->Instructor_model->get_instructors_courses($_SESSION['email'])===null): ?>
+<?php elseif($this->Instructor_model->get_instructors_courses($_SESSION['user_email'])===null): ?>
 	<div class="container mb-5">
 		<div class="row">
 			<div class="col-md-3">

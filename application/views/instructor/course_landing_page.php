@@ -35,8 +35,8 @@
 				<div class="card-body">
 					<?php echo form_open(base_url('course/manage/landing_page/'.$_SESSION['course_id'])); ?>
 						<div class="form-group">
-							<label>Course Title</label><small class="text-muted"> max 45 chars</small>
-							<input class="form-control" maxlength="45" type="text" name="courseTitle" value="<?php if(set_value('courseTitle')==null){echo $course_title;}else echo set_value('courseTitle'); ?>">
+							<label>Course Title</label><small class="text-muted"> max 50 chars</small>
+							<input class="form-control" maxlength="50" type="text" name="courseTitle" value="<?php if(set_value('courseTitle')==null){echo $course_title;}else echo set_value('courseTitle'); ?>">
 							<?php echo form_error('courseTitle'); ?>
 						</div>
 						<div class="form-group">

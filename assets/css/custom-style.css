@@ -48,3 +48,15 @@ fe424d 254,66,77
 {
 	/*min-height: 130px;*/
 }
+
+.img-round
+{
+	border-radius: 50%;
+}
+
+.img-round-thumb
+{
+	border-radius: 50%;
+	height: 150px;
+	width: 150px
+}

@@ -35,4 +35,9 @@ class Main extends CI_Controller {
 		$this->load->view('main/index');
 		$this->load->view('template/footer');
 	}
+
+	public function eula()
+	{
+
+	}
 }
