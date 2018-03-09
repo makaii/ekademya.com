@@ -56,24 +56,24 @@
     <script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
 
     <script type="text/javascript">
-      $(document).ready(function() {
-        $("#SUBMITsection").click(function(event) {
-          event.preventDefault();
-          // console.log("Asdasd");
-          var section = $("#INPUTsection").val();
-            $.ajax({
-              url: '<?php echo base_url('instructor/add_outline_course_section'); ?>',
-              method: 'POST',
-              data: {section: section},
-              success: function(response){
-                show_Buttons();
-                document.getElementById('FORMsection').style.display = 'none';
-                document.getElementById('SECTIONdiv').style.display = 'block';
-                document.getElementById('SECTIONname').innerHTML = section;
-              }
-            });
-        });
-      });
+      // $(document).ready(function() {
+      //   $("#SUBMITsection").click(function(event) {
+      //     event.preventDefault();
+      //     // console.log("Asdasd");
+      //     var section = $("#INPUTsection").val();
+      //       $.ajax({
+      //         url: '<?php echo base_url('instructor/add_outline_course_section'); ?>',
+      //         method: 'POST',
+      //         data: {section: section},
+      //         success: function(response){
+      //           show_Buttons();
+      //           document.getElementById('FORMsection').style.display = 'none';
+      //           document.getElementById('SECTIONdiv').style.display = 'block';
+      //           document.getElementById('SECTIONname').innerHTML = section;
+      //         }
+      //       });
+      //   });
+      // });
 
 
       // disable right click for videos

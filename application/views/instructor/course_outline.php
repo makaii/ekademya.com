@@ -31,7 +31,6 @@
 				<div class="card-body">
 					<h3>Course Outline</h3>
 					<h6>Start putting together your course by creating sections, lectures and practice (quizzes and coding exercises) below.</h6>
-					
 					<?php if(!empty($course_sections)): ?>
 						<?php $count = 1; ?>
 						<?php foreach($course_sections as $sections): ?>
@@ -41,12 +40,13 @@
 
 									<div class="card mt-1">
 										<dov class="card-body pt-1 pb-1">
-											<p class="card-text">lecture name</p>
+											<p class="card-text"><?php echo $sections['outline_lecture_title']; ?></p>
 										</dov>
 									</div>
 								</div>
 								<div class="card-footer">
-									<button class="btn btn-sm btn-info" type="button">Add Lecture</button>
+									<a href="<?php echo base_url('course/manage/outline/'.$_SESSION["course_id"].'/'.$sections['outline_id'].'/add_lecture'); ?>" role="button" class="btn btn-sm btn-info">Add Lecture</a>
+									<!-- <button class="btn btn-sm btn-info" type="button">Add Lecture</button> -->
 									<button class="btn btn-sm btn-info disabled" type="button">Add Quiz</button>
 									<button class="btn btn-sm btn-info disabled" type="button">Add Assignment</button>
 									<button class="btn btn-sm btn-danger float-right" type="button" data-toggle="modal" data-target="#exampleModalCenter"><?php echo $sections['outline_id']; ?>Delete</button>
@@ -68,10 +68,11 @@
 					</div>
 
 					<div style="display: none;" id="FORMsection" class="form-section">
-						<form>
+						<form action="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id'].'/add_section_check'); ?>" method="POST">
 							<div class="form-group">
 								<label>New Section</label>
-								<input class="form-control" id="INPUTsection" placeholder="Enter a Title"></input>
+								<input class="form-control" id="INPUTsection" name="section" placeholder="Enter a Title" maxlength="50"></input>
+								<?php echo form_error('section'); ?>
 							</div>
 							<div class="form-group">
 								<button class="btn btn-primary" type="submit" id="SUBMITsection">Add Section</button>
@@ -79,7 +80,7 @@
 							</div>
 						</form>
 					</div>
-					<form style="display: none;" id="FORMlecture">
+					<!-- <form style="display: none;" id="FORMlecture">
 						<div class="form-group">
 							<label>New Lecture</label>
 							<input class="form-control" placeholder="Enter a Title"></input>
@@ -108,7 +109,7 @@
 							<button class="btn btn-primary">Add Assignment</button>
 							<button type="reset" class="btn btn-secondary" onclick="cancel_Add_Assignment()">Cancel</button>
 						</div>
-					</form>
+					</form> -->
 				</div>
 				<div class="card-body">
 					<div class="row">

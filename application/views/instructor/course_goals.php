@@ -35,17 +35,17 @@
 					<?php echo form_open(base_url('course/manage/goals/'.$_SESSION['course_id'])); ?>
 						<div class="form-group">
 							<label>What knowledge &amp; tools are required?</label>
-							<input class="form-control" maxlength="255" type="text" placeholder="Example: You should be able to use a PC at a beginner level" name="courseTools" value="<?php if(set_value('courseTools')==null){echo $course_tools;}else echo set_value('courseTools'); ?>">
+							<textarea class="form-control" maxlength="255" name="courseTools" rows="3" placeholder="Example: You should be able to use a PC at a beginner level"><?php if(set_value('courseTools')==null){echo $course_tools;}else echo set_value('courseTools'); ?></textarea>
 							<?php echo form_error('courseTools'); ?>
 						</div>
 						<div class="form-group">
 							<label>Who should take this course?</label>
-							<input class="form-control" maxlength="255" type="text" placeholder="Example: Anyone who wants to learn to code" name="courseAudience" value="<?php if(set_value('courseAudience')==null){echo $course_audience;}else echo set_value('courseAudience'); ?>">
+							<textarea class="form-control" name="courseAudience" rows="3" placeholder="Example: Anyone who wants to learn to code" maxlength="255"><?php if(set_value('courseAudience')==null){echo $course_audience;}else echo set_value('courseAudience'); ?></textarea>
 							<?php echo form_error('courseAudience'); ?>
 						</div>
 						<div class="form-group">
 							<label>What will students achieve or be able to do after taking your course?</label>
-							<input class="form-control" maxlength="255" type="text" placeholder="Example: Build websites and webapps" name="courseAchievement" value="<?php if(set_value('courseAchievement')==null){echo $course_achievement;}else echo set_value('courseAchievement'); ?>">
+							<textarea name="courseAchievement" class="form-control" maxlength="255" rows="3" placeholder="Example: Build websites and webapps"><?php if(set_value('courseAchievement')==null){echo $course_achievement;}else echo set_value('courseAchievement'); ?></textarea>
 							<?php echo form_error('courseAchievement'); ?>
 						</div>
 						<div class="form-group">

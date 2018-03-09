@@ -76,7 +76,12 @@ $route['course/delete'] = 'instructor/delete_course';
 $route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
 $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1';
 $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
-$route['course/manage/outline/(:num)/(:num)'] = 'instructor/manage_outline_lecture/$1/$2';
+	// add course section
+	$route['course/manage/outline/(:num)/add_section_check'] = 'instructor/add_outline_course_section/$1';
+	// add new course lecture
+	$route['course/manage/outline/(:num)/(:num)/add_lecture'] = 'instructor/add_outline_course_lecture/$1/$2';
+	// add new course lecture check
+	$route['course/manage/outline/(:num)/(:num)/add_lecture/check'] = 'instructor';
 
 // user routes
 // $route['student/profile'] = 'profile/edit';

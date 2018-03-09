@@ -254,17 +254,42 @@ class Instructor extends CI_Controller {
 		
 	}
 
-	public function add_outline_course_section()
+	public function add_outline_course_section($course_id=null)
 	{
-		$data['outline_course_id'] = $this->session->userdata('course_id');
-		$data['outline_type'] = 'section';
-		$data['outline_section_title'] = $this->input->post('section');
-		$this->Instructor_model->add_section($data);
+		$this->form_validation->set_rules('section', 'Section Title', 'required|min_length[6]|alpha_numeric_spaces');
+		if (!$this->form_validation->run())
+		{
+			$course_id = $this->session->userdata('course_id');
+			$this->manage_outline($course_id);
+			// redirect(base_url('course/manage/outline/'.$course_id));
+		}
+		else
+		{
+			$data['outline_course_id'] = $this->session->userdata('course_id');
+			$data['outline_type'] = 'section';
+			$data['outline_section_title'] = $this->input->post('section');
+			$this->Instructor_model->add_section($data);
+			$course_id = $this->session->userdata('course_id');
+			redirect(base_url('course/manage/outline/'.$course_id));
+		}
 	}
 
-	public function add_outline_course_lecture()
+	public function add_outline_course_lecture($id=null,$lecnum=null)
 	{
-		
+		$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
+		{
+			$page_data['page_title'] = 'Add Lecture';
+			$page_data['course_title'] = $course['course_title'];
+			$page_data['course_author'] = $course['course_author'];
+			$page_data['course_outline_lecture_num'] =1;
+			$page_data['course_section'] = $this->Instructor_model->get_section_title($id,$lecnum);
+
+
+			$this->load->view('template/headerInstructor',$page_data);
+			$this->load->view('instructor/course_outline_add_lecture');
+			$this->load->view('template/footer');
+		}
 	}
 
 	public function manage_outline_lecture($id=null,$lecnum=null)

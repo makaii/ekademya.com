@@ -33,7 +33,7 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><?php echo $course_title; ?></li>
-							<li class="breadcrumb-item">Section</li>
+							<li class="breadcrumb-item"><?php echo $course_section ?></li>
 							<li class="breadcrumb-item active text-primary" aria-current="page">Add Lecture</li>
 						</ol>
 					</nav>

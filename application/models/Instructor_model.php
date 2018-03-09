@@ -37,7 +37,7 @@ class Instructor_model extends CI_Model
 					'course_published' => 0, 
 				);
 				$this->db->where('course_title', $title);
-				$this->db->where('course_author', $email);
+				$this->db->where('course_author', $author);
 				$query = $this->db->update('course_tbl',$query_data);
 				if ($this->db->affected_rows()==1)
 				{
@@ -48,7 +48,8 @@ class Instructor_model extends CI_Model
 					return false;
 			}
 			else
-				return false;		}
+				return false;		
+		}
 		else
 			return false;
 	}
@@ -183,6 +184,15 @@ class Instructor_model extends CI_Model
 	{
 		$query = $this->db->select()->from('outline_tbl')->where('outline_course_id',$data['outline_course_id'])->get();
 		return $query->result_array();
+	}
+	public function get_section_title($course_id, $section_id)
+	{
+		$query = $this->db->select('outline_section_title')->from('outline_tbl')->where('outline_course_id',$course_id)->where('outline_id',$section_id)->get();
+		if ($query->num_rows()==1)
+		{
+			$query = $query->row_array();
+			return $query['outline_section_title'];
+		}
 	}
 
 }
