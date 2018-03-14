@@ -68,31 +68,6 @@ class Setup_model extends CI_Model
 			");
 		}
 	}
-	// public function create_profile_table()
-	// {
-	// 	$check_profile_tbl = $this->db->query("SHOW TABLES LIKE 'profile_tbl';");
-	// 	if ($check_profile_tbl->num_rows()==0) {
-	// 		// create table if not exist
-	// 		$this->db->query("
-	// 			CREATE TABLE IF NOT EXISTS profile_tbl (
-	// 				profile_id  INT(7) AUTO_INCREMENT PRIMARY KEY,
-	// 				profile_user_id  INT(7) NOT NULL,
-	// 				profile_fname VARCHAR(25) NOT NULL,
-	// 				profile_lname VARCHAR(25) NOT NULL,
-	// 				profile_email VARCHAR(50),
-	// 				profile_headline VARCHAR(50),
-	// 				profile_bio VARCHAR(1000),
-	// 				profile_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
-	// 				profile_website VARCHAR(50),
-	// 				profile_facebook VARCHAR(50),
-	// 				profile_googleplus VARCHAR(50),
-	// 				profile_linkedin VARCHAR(50),
-	// 				profile_twitter VARCHAR(50),
-	// 				profile_youtube VARCHAR(50)
-	// 			);
-	// 		");
-	// 	}
-	// }
 	public function create_course_table()
 	{
 		$check_couse_tbl = $this->db->query("SHOW TABLES LIKE 'course_tbl';");
@@ -115,6 +90,24 @@ class Setup_model extends CI_Model
 					course_published TINYINT(1) NOT NULL DEFAULT 0
 				);
 			");
+		}
+	}
+	public function create_section_table()
+	{
+		$check_section_tbl = $this->db->query("SHOW TABLES LIKE 'section_tbl';");
+		if ($check_section_tbl->num_rows()==0)
+		{
+			// create table if not exist
+
+		}
+	}
+	public function create_lecture_table()
+	{
+		$check_lecture_tbl = $this->db->query("SHOW TABLES LIKE 'lecture_tbl';");
+		if ($check_lecture_tbl->num_rows()==0)
+		{
+			// create table if not exist
+			
 		}
 	}
 	public function create_outline_table()

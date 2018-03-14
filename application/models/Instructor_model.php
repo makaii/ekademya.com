@@ -81,6 +81,16 @@ class Instructor_model extends CI_Model
 		else
 			return false;
 	}
+	public function check_if_their_section($email,$id)
+	{
+		$query = $this->db->select()->from('section_tbl')->where('id',$id)->where('author',$email)->get();
+		if ($query->num_rows()==1)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
 
 	public function get_course_info($email, $id)
 	{

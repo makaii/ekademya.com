@@ -83,8 +83,18 @@
 							<div class="form-group">
 								<label>Thumbnail</label>
 								<br>
-								<img width="640" height="360" src="<?php echo base_url('z/course/default_thumbnail.png'); ?>" class="img-fluid img-thumbnail">
-								<input type="file" name="thumbnail">
+								<img width="640" height="360" src="<?php echo base_url('z/course/default_thumbnail.png'); ?>" class="img-fluid img-thumbnail" id="thumnail_img">
+								<div id="disp_tmp_path"></div>
+								<img src="" width="200" style="display:none;" />
+								<input type="file" name="thumbnail" id="thumbnail_file">
+								<script type="text/javascript">
+									$('#thumbnail_file').change( function(event) {
+									var tmppath = URL.createObjectURL(event.target.files[0]);
+									    $("#thumnail_img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+									    
+									    // $("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>["+tmppath+"]</strong>");
+									});
+								</script>
 							</div>
 							<div>
 								<button class="btn btn-primary">Save</button>
