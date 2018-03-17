@@ -26,18 +26,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </head>
   <body>
   	<nav class="navbar sticky-top navbar-expand-lg navbar-light c1">
-  	  <a class="navbar-brand text-white" href="<?php echo base_url(); ?>">E K A D E M Y A</a>
-  	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  	    <span class="navbar-toggler-icon"></span>
-  	  </button>
+      <div class="container">
+        <a class="navbar-brand text-white" href="<?php echo base_url(); ?>">E K A D E M Y A</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-  	    <ul class="navbar-nav mr-auto">
-  	      <li class="nav-item dropdown">
-  	        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  	          Categories
-  	        </a>
-  	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="<?php echo base_url('courses/art_design'); ?>">Art & Design</a>
               <a class="dropdown-item" href="<?php echo base_url('courses/business'); ?>">Business</a>
               <a class="dropdown-item" href="<?php echo base_url('courses/culinary'); ?>">Culinary</a>
@@ -46,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="dropdown-divider"></div>
               <a class="dropdown-item disabled" href="">Something else here</a>
             </div>
-  	      </li>
+          </li>
           <li class="nav-item">
             <form class="form-inline my-2 my-lg-0" action="<?php echo base_url('search'); ?>" method="GET">
               <input class="form-control mr-sm-2" type="search" placeholder="Explore Courses" name="data" aria-label="Search">
@@ -63,11 +64,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Settings <span class="oi oi-cog"></span>
           </button>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="<?php echo base_url('profile'); ?>">Profile</a>
             <a class="dropdown-item" href="<?php echo base_url('profile/account/edit'); ?>">Account</a>
             <a class="dropdown-item" href="<?php echo base_url('signout'); ?>">signout</a>
           </div>
         </div>
-  	  </div>
+      </div>
+      </div>
   	</nav>
