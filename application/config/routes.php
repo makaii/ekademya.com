@@ -81,7 +81,7 @@ $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 	// add new course lecture
 	$route['course/manage/outline/(:num)/(:num)/add_lecture'] = 'instructor/add_outline_course_lecture/$1/$2';
 	// add new course lecture check
-	$route['course/manage/outline/(:num)/(:num)/add_lecture/check'] = 'instructor';
+	$route['course/manage/outline/(:num)/(:num)/add_lecture/check'] = 'instructor/add_outline_course_lecture/$1/$2';
 
 // user routes
 // $route['student/profile'] = 'profile/edit';

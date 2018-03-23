@@ -282,30 +282,106 @@ class Instructor extends CI_Controller {
 			$page_data['page_title'] = 'Add Lecture';
 			$page_data['course_title'] = $course['course_title'];
 			$page_data['course_author'] = $course['course_author'];
-			$page_data['course_outline_lecture_num'] =1;
+			$page_data['course_outline_lecture_num'] =$lecnum;
 			$page_data['course_section'] = $this->Instructor_model->get_section_title($id,$lecnum);
 
-
-			$this->load->view('template/headerInstructor',$page_data);
-			$this->load->view('instructor/course_outline_add_lecture');
-			$this->load->view('template/footer');
+			$this->form_validation->set_rules('lectureTitle','Lecture Title','required');
+			$this->form_validation->set_rules('lectureType','Lecture Type','required');
+			// $this->form_validation->set_rules('lecture_description','Lecture Description','alpha');
+			// $this->form_validation->set_rules('lectureArticle','Lecture Title','');
+			if (!$this->form_validation->run())
+			{
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('instructor/course_outline_add_lecture');
+				$this->load->view('template/footer');
+			}
+			elseif ($this->form_validation->run())
+			{
+				$lecture_type = $this->input->post('lectureType');
+				$title=$this->input->post('lectureTitle');
+				$desc=$this->input->post('lectureDescription');
+				if ($lecture_type=='article')
+				{
+					$article=$this->input->post('lectureArticle');
+				}
+				elseif ($lecture_type=='video')
+				{
+					$video=$this->input->post('lectureVideo');
+					$thumb=$this->input->post('lectureThumbnail');
+					if (!$this->upload_video())
+					{
+						echo "<pre>";
+						print_r($this->upload->display_errors());
+						echo "</pre>";
+					}
+					else
+					{
+						echo "<pre>";
+						print_r($this->upload->data());
+						echo "</pre>";
+					}
+				}
+			}
 		}
 	}
 
-	public function manage_outline_lecture($id=null,$lecnum=null)
+	private function upload_video($video_input=null)
 	{
-		$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
-		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
+		$video_config = array(
+			'upload_path' => '',
+			'allowed_types' => 'mp4|mkv|webm',
+			'max_size' => 0,
+			'max_width' => 1920,
+			'max_height' => 1080,
+			'min_width' => 640,
+			'min_height' => 360,
+			'remove_spaces' => true,
+			'file_ext_tolower' => true,
+			'detect_mime' => true,
+		);
+		$this->upload->initialize($video_config);
+		if (!$this->upload->do_upload($video_input))
 		{
-			$page_data['page_title'] = 'Add Lecture';
-			$page_data['course_title'] = $course['course_title'];
-			$page_data['course_author'] = $course['course_author'];
-			$page_data['course_outline_lecture_num'] =1;
-
-
-			$this->load->view('template/headerInstructor',$page_data);
-			$this->load->view('instructor/course_outline_add_lecture');
-			$this->load->view('template/footer');
+			return false;
 		}
+		else return true;
 	}
+
+	private function upload_thumbnail($thumbnail_input=null)
+	{
+		$thumb_config = array(
+			'upload_path' => '',
+			'allowed_types' => 'png|jpeg|jpg',
+			'max_size' => 0,
+			'max_width' => 1024,
+			'max_height' => 576,
+			'min_width' => 640,
+			'min_height' => 360,
+			'remove_spaces' => true,
+			'file_ext_tolower' => true,
+			'detect_mime' => true,
+		);
+		if (!$this->upload->do_upload($thumbnail_input))
+		{
+			return false;
+		}
+		else return true;
+	}
+
+// 	private function manage_outline_lecture($id=null,$lecnum=null)
+// 	{
+// 		$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
+// 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
+// 		{
+// 			$page_data['page_title'] = 'Add Lecture';
+// 			$page_data['course_title'] = $course['course_title'];
+// 			$page_data['course_author'] = $course['course_author'];
+// 			$page_data['course_outline_lecture_num'] =1;
+
+
+// 			$this->load->view('template/headerInstructor',$page_data);
+// 			$this->load->view('instructor/course_outline_add_lecture');
+// 			$this->load->view('template/footer');
+// 		}
+// 	}
 }

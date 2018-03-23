@@ -34,7 +34,7 @@
 							</div>
 						</div>
 						<div class="card-footer">
-							<button class="btn btn-sm btn-primary">Publish</button>
+							<button class="btn btn-sm btn-primary disabled">Publish</button>
 							<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info">Edit</button></a>
 							<a href="<?php echo base_url('course/delete'); ?>"><button class="btn btn-sm btn-danger float-right">Delete</button></a>
 						</div>

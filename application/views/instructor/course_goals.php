@@ -8,7 +8,7 @@
 <div class="container-fluid">
 	<div class="row mt-4">
 		<div class="col-md-2">
-			<img class="rounded img-thumbnail" src="https://www.udemy.com/staticx/udemy/images/course/200_H/placeholder.png">
+			<img class="rounded img-thumbnail" src="https://www.udemy.com/staticx/udemy/images/course/200_H/placeholder.png" style="width: 256px;height: 144px;">
 		</div>
 		<div class="col-md-8">
 			<h3 class="font-weight-light"><?php echo $course_title; ?></h3>
