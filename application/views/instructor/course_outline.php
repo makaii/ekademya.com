@@ -40,12 +40,13 @@
 
 									<div class="card mt-1">
 										<dov class="card-body pt-1 pb-1">
-											<p class="card-text"><?php echo $sections['outline_lecture_title']; ?></p>
+											<p class="card-text text-muted"><?php if($sections['outline_lecture_title']){echo $sections['outline_lecture_title'];}else echo "Section has no lectures yet"; ?></p>
 										</dov>
 									</div>
 								</div>
 								<div class="card-footer">
-									<a href="<?php echo base_url('course/manage/outline/'.$_SESSION["course_id"].'/'.$sections['outline_id'].'/add_lecture'); ?>" role="button" class="btn btn-sm btn-info">Add Lecture</a>
+									<a href="<?php echo base_url('course/manage/outline/'.$_SESSION["course_id"].'/'.$sections['outline_id'].'/add_video_lecture'); ?>" role="button" class="btn btn-sm btn-info">Add Video Lecture</a>
+									<a class="btn btn-sm btn-info" role="button" href="">Add Article Lecture</a>
 									<!-- <button class="btn btn-sm btn-info" type="button">Add Lecture</button> -->
 									<button class="btn btn-sm btn-info disabled" type="button">Add Quiz</button>
 									<button class="btn btn-sm btn-info disabled" type="button">Add Assignment</button>
@@ -55,17 +56,18 @@
 							<?php $count++; ?>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<div class="card bg-primary mb-3" style="display: none;" id="SECTIONdiv">
+					<!-- <div class="card bg-primary mb-3" style="display: none;" id="SECTIONdiv">
 						<div class="card-body">
 							<p class="card-text" id="SECTIONname"></p>
 						</div>
 						<div class="card-footer">
-							<button class="btn btn-sm btn-info" type="button" id="">Add Lecture</button>
+							<button class="btn btn-sm btn-info" type="button" id="">Add Video Lecture</button>
+							<button class="btn btn-sm btn-info" type="button" id="">Add Article Lecture</button>
 							<button class="btn btn-sm btn-info disabled" type="button">Add Quiz</button>
 							<button class="btn btn-sm btn-info disabled" type="button">Add Assignment</button>
 							<button class="btn btn-sm btn-danger float-right" type="button">Delete</button>
 						</div>
-					</div>
+					</div> -->
 
 					<div style="display: none;" id="FORMsection" class="form-section">
 						<form action="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id'].'/add_section_check'); ?>" method="POST">

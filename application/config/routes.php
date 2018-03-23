@@ -78,8 +78,10 @@ $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1
 $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 	// add course section
 	$route['course/manage/outline/(:num)/add_section_check'] = 'instructor/add_outline_course_section/$1';
-	// add new course lecture
-	$route['course/manage/outline/(:num)/(:num)/add_lecture'] = 'instructor/add_outline_course_lecture/$1/$2';
+	// add new video course lecture
+	$route['course/manage/outline/(:num)/(:num)/add_video_lecture'] = 'instructor/add_outline_course_lecture/$1/$2';
+	// add new article course lecture
+	$route['course/manage/outline/(:num)/(:num)/add_article_lecture'] = '';
 	// add new course lecture check
 	$route['course/manage/outline/(:num)/(:num)/add_lecture/check'] = 'instructor/add_outline_course_lecture/$1/$2';
 

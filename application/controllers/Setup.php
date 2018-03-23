@@ -25,6 +25,7 @@ class Setup extends CI_Controller {
 			'user' => $this->Setup_model->getTableStructure('user_tbl'),
 			'course' => $this->Setup_model->getTableStructure('course_tbl'),
 			'enrollees' => $this->Setup_model->getTableStructure('enroll_tbl'),
+			'outline' => $this->Setup_model->getTableStructure('outline_tbl'),
 		);
 		$this->load->view('template/headerWoNav', $page_data);
 		$this->load->view('setup/success_view');

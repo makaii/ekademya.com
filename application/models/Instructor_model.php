@@ -204,6 +204,15 @@ class Instructor_model extends CI_Model
 			return $query['outline_section_title'];
 		}
 	}
+	public function add_video_lecture($video_file_array)
+	{
+		$query = $this->db->insert('outline_tbl', $video_file_array);
+		if ($this->db->affected_rows() == 1)
+		{
+			return true;
+		}
+		else return false;
+	}
 
 }
  ?>

@@ -284,11 +284,10 @@ class Instructor extends CI_Controller {
 			$page_data['course_author'] = $course['course_author'];
 			$page_data['course_outline_lecture_num'] =$lecnum;
 			$page_data['course_section'] = $this->Instructor_model->get_section_title($id,$lecnum);
+			$page_data['upload_error'] = "";
 
 			$this->form_validation->set_rules('lectureTitle','Lecture Title','required');
-			$this->form_validation->set_rules('lectureType','Lecture Type','required');
-			// $this->form_validation->set_rules('lecture_description','Lecture Description','alpha');
-			// $this->form_validation->set_rules('lectureArticle','Lecture Title','');
+			$this->form_validation->set_rules('lecture_description','Lecture Description','alpha_dash');
 			if (!$this->form_validation->run())
 			{
 				$this->load->view('template/headerInstructor',$page_data);
@@ -300,26 +299,40 @@ class Instructor extends CI_Controller {
 				$lecture_type = $this->input->post('lectureType');
 				$title=$this->input->post('lectureTitle');
 				$desc=$this->input->post('lectureDescription');
-				if ($lecture_type=='article')
+				$video_config = array(
+					'upload_path' => './z/course',
+					'allowed_types' => 'mp4|mkv|webm',
+					'encrypt_name' => true,
+					'max_size' => 0,
+					'max_width' => 1920,
+					'max_height' => 1080,
+					'min_width' => 640,
+					'min_height' => 360,
+					'remove_spaces' => true,
+					'file_ext_tolower' => true,
+					'detect_mime' => true,
+					'mod_mime_fix' => true,
+					'overwrite' => false,
+					'max_filename' => 255,
+				);
+				$this->upload->initialize($video_config);
+				if (!$this->upload->do_upload('lectureVideo'))
 				{
-					$article=$this->input->post('lectureArticle');
+					$page_data['upload_error'] = $this->upload->display_errors();
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_outline_add_lecture');
+					$this->load->view('template/footer');
 				}
-				elseif ($lecture_type=='video')
+				else
 				{
-					$video=$this->input->post('lectureVideo');
-					$thumb=$this->input->post('lectureThumbnail');
-					if (!$this->upload_video())
-					{
-						echo "<pre>";
-						print_r($this->upload->display_errors());
-						echo "</pre>";
-					}
-					else
-					{
-						echo "<pre>";
-						print_r($this->upload->data());
-						echo "</pre>";
-					}
+					$video_file_array = array(
+						'filename' => $this->upload->data(),
+						'section it belongs' => '',
+						'course it belongs' => '',
+						'author it belongs' => '',
+						'date added' => '',
+					);
+					$this->model->add_video_lecture($video_file_array);
 				}
 			}
 		}
@@ -328,7 +341,7 @@ class Instructor extends CI_Controller {
 	private function upload_video($video_input=null)
 	{
 		$video_config = array(
-			'upload_path' => '',
+			'upload_path' => 'z/course',
 			'allowed_types' => 'mp4|mkv|webm',
 			'max_size' => 0,
 			'max_width' => 1920,
@@ -339,12 +352,6 @@ class Instructor extends CI_Controller {
 			'file_ext_tolower' => true,
 			'detect_mime' => true,
 		);
-		$this->upload->initialize($video_config);
-		if (!$this->upload->do_upload($video_input))
-		{
-			return false;
-		}
-		else return true;
 	}
 
 	private function upload_thumbnail($thumbnail_input=null)
@@ -361,11 +368,6 @@ class Instructor extends CI_Controller {
 			'file_ext_tolower' => true,
 			'detect_mime' => true,
 		);
-		if (!$this->upload->do_upload($thumbnail_input))
-		{
-			return false;
-		}
-		else return true;
 	}
 
 // 	private function manage_outline_lecture($id=null,$lecnum=null)

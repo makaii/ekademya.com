@@ -29,42 +29,31 @@
 		<div class="col-md-8">
 			<div class="card">
 				<div class="card-body">
-					<h3>Add Lecture</h3>
+					<h3>Add Video Lecture</h3>
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><?php echo $course_title; ?></li>
 							<li class="breadcrumb-item"><?php echo $course_section ?></li>
-							<li class="breadcrumb-item active text-primary" aria-current="page">Add Lecture</li>
+							<li class="breadcrumb-item active text-primary" aria-current="page">Add Video Lecture</li>
 						</ol>
 					</nav>
 
 
 
-					<form action="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id'].'/'.$course_outline_lecture_num.'/add_lecture/check'); ?>" method="POST">
+					<!-- <form action="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id'].'/'.$course_outline_lecture_num.'/add_lecture/check'); ?>" method="POST"> -->
+					<?php echo form_open_multipart('course/manage/outline/'.$_SESSION['course_id'].'/'.$course_outline_lecture_num.'/add_lecture/check');?>
 						<div class="form-group">
 							<label>Lecture Title <span class="text-danger">*</span></label>
-							<input type="text" name="lectureTitle" class="form-control">
+							<input type="text" name="lectureTitle" class="form-control" value="<?php echo set_value('lectureTitle'); ?>">
 							<?php echo form_error('lectureTitle'); ?>
 						</div>
 						<div class="form-group">
 							<label>Lecture Description</label>
-							<textarea name="lectureDescription" maxlength="" rows="4" class="form-control"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Lecture Type <span class="text-danger">*</span></label>
-							<div class="form-check">
-								<label class="form-check-label" for="article"><input class="form-check-input" type="radio" id="article" name="lectureType" value="article" onclick="show_article_form()"></input> Article</label>
-							</div>
-							<!-- <div class="form-check disabled">
-								<label class="form-check-label" for="pdf"><input class="form-check-input" type="radio" id="pdf" name="lectureType" value="pdf" disabled></input> PDF</label>
-							</div> -->
-							<div class="form-check">
-								<label class="form-check-label" for="video"><input class="form-check-input" type="radio" id="video" name="lectureType" value="video" onclick="show_video_form()"></input> Video</label>
-							</div>
-							<?php echo form_error('lectureType'); ?>
+							<textarea name="lectureDescription" maxlength="" rows="4" class="form-control"><?php echo set_value('lectureDescription'); ?></textarea>
+							<?php echo form_error('lectureDescription'); ?>
 						</div>
 						<!-- Article Form -->
-						<div id="ARTICLEform" style="display: none;">
+						<!-- <div id="ARTICLEform" style="display: none;">
 							<div class="form-group">
 								<label>Article</label>
 								<textarea class="form-control" rows="8" name="article"></textarea>
@@ -73,9 +62,9 @@
 								<button class="btn btn-primary" type="submit">Save</button>
 								<a href="<?php echo base_url('course/manage/outline/5/4/preview_lecture'); ?>" target="_blank" title="Preview Article in a new page"><button class="btn btn-info" type="button">Preview</button></a>
 							</div>
-						</div>
+						</div> -->
 						<!-- Video Form -->
-						<div id="VIDEOform" style="display: block;">
+						<div id="VIDEOform">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -83,11 +72,13 @@
 										<small class="form-text text-muted">We recommend using a video with a 16:9 aspect ratio, with a maxfileze of 0</small>
 										<small class="form-text text-muted">Max resolution is 1920x1080</small>
 										<small class="form-text text-muted">Mininum resolution is 640x360</small>
-										<video width="360" height="202" preload="none" controls controlsList="nodownload" preload="none" poster="" id="video" style="width: 360px;height: 202px">
+										<?php echo $upload_error; ?>
+										<!-- <video width="360" height="202" preload="none" controls controlsList="nodownload" preload="none" poster="" id="video" style="width: 360px;height: 202px">
 											<source src="" id="video_src">
-											<!-- <source src="" type="video/mp4">
-											<source src="" type="video/webm"> -->
-										</video>
+											<source src="" type="video/mp4">
+											<source src="" type="video/webm">
+										</video> -->
+										<br>
 										<input type="file" name="lectureVideo" id="video_file">
 									</div>
 								</div>
