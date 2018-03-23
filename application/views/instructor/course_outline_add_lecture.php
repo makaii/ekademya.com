@@ -89,12 +89,6 @@
 											<source src="" type="video/webm"> -->
 										</video>
 										<input type="file" name="lectureVideo" id="video_file">
-										<script type="text/javascript">
-											$('#video_file').change( function(event) {
-											var tmppath = URL.createObjectURL(event.target.files[0]);
-											    $("#video_src").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
-											});
-										</script>
 									</div>
 								</div>
 								<div class="col-md-6">
