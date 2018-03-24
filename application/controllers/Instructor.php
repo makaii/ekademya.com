@@ -382,21 +382,4 @@ class Instructor extends CI_Controller {
 			'detect_mime' => true,
 		);
 	}
-
-// 	private function manage_outline_lecture($id=null,$lecnum=null)
-// 	{
-// 		$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
-// 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
-// 		{
-// 			$page_data['page_title'] = 'Add Lecture';
-// 			$page_data['course_title'] = $course['course_title'];
-// 			$page_data['course_author'] = $course['course_author'];
-// 			$page_data['course_outline_lecture_num'] =1;
-
-
-// 			$this->load->view('template/headerInstructor',$page_data);
-// 			$this->load->view('instructor/course_outline_add_lecture');
-// 			$this->load->view('template/footer');
-// 		}
-// 	}
 }

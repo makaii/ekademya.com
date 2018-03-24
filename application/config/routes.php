@@ -65,12 +65,6 @@ $route['u/(:num)'] = 'lookup/user_profile/$1';
 $route['search'] = 'lookup/search_course';
 // $route['course/(:any)'] = 'courses/$1';
 
-// intructor routes
-// $route['instructor/profile'] = 'profile/edit';
-// $route['instructor/profile/photo'] = 'profile/photo';
-// $route['instructor/profile/preview'] = 'profile/preview';
-// $route['instructor/profile/delete'] = 'profile/delete';
-
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete'] = 'instructor/delete_course';
 $route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
@@ -88,12 +82,6 @@ $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 	$route['course/manage/outline/(:num)/(:num)/add_quiz'] = 'instructor/add_outline_course_quiz/$1/$2';
 	// add neq quiz check
 	$route['course/manage/outline/(:num)/(:num)/add_quiz/check'] = 'instructor/add_outline_course_quiz/$1/$2';
-
-// user routes
-// $route['student/profile'] = 'profile/edit';
-// $route['student/profile/photo'] = 'profile/photo';
-// $route['student/profile/preview'] = 'profile/preview';
-// $route['student/profile/delete'] = 'profile/delete';
 
 // profile routes
 $route['profile'] = 'profile/edit';

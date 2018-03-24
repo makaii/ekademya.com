@@ -71,25 +71,25 @@
         <div class="card-deck">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Lorem</h4>
+              <h4 class="card-title">Connect with Peers</h4>
               <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut metus eu ligula commodo semper. Integer id leo sollicitudin, ullamcorper.
+                <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut metus eu ligula commodo semper. Integer id leo sollicitudin, ullamcorper. -->
               </p>
             </div>
           </div>
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Lorem</h4>
+              <h4 class="card-title">Learn by doing</h4>
               <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim fermentum nunc vitae tristique. In ac magna hendrerit.
+                <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim fermentum nunc vitae tristique. In ac magna hendrerit. -->
               </p>
             </div>
           </div>
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Lorem</h4>
+              <h4 class="card-title">Be Future-Proof</h4>
               <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse volutpat finibus accumsan. Aliquam erat volutpat.
+                <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse volutpat finibus accumsan. Aliquam erat volutpat. -->
               </p>
             </div>
           </div>
