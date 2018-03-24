@@ -46,9 +46,8 @@
 								</div>
 								<div class="card-footer">
 									<a href="<?php echo base_url('course/manage/outline/'.$_SESSION["course_id"].'/'.$sections['outline_id'].'/add_video_lecture'); ?>" role="button" class="btn btn-sm btn-info">Add Video Lecture</a>
-									<a class="btn btn-sm btn-info" role="button" href="">Add Article Lecture</a>
-									<!-- <button class="btn btn-sm btn-info" type="button">Add Lecture</button> -->
-									<button class="btn btn-sm btn-info disabled" type="button">Add Quiz</button>
+									<a class="btn btn-sm btn-info disabled" role="button" href="">Add Article Lecture</a>
+									<a class="btn btn-sm btn-info disabled" role="button" href="<?php echo base_url('course/manage/outline/'.$_SESSION["course_id"].'/'.$sections['outline_id'].'/add_quiz'); ?>">Add Quiz</a>
 									<button class="btn btn-sm btn-info disabled" type="button">Add Assignment</button>
 									<button class="btn btn-sm btn-danger float-right" type="button" data-toggle="modal" data-target="#exampleModalCenter"><?php echo $sections['outline_id']; ?>Delete</button>
 								</div>
@@ -56,20 +55,8 @@
 							<?php $count++; ?>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<!-- <div class="card bg-primary mb-3" style="display: none;" id="SECTIONdiv">
-						<div class="card-body">
-							<p class="card-text" id="SECTIONname"></p>
-						</div>
-						<div class="card-footer">
-							<button class="btn btn-sm btn-info" type="button" id="">Add Video Lecture</button>
-							<button class="btn btn-sm btn-info" type="button" id="">Add Article Lecture</button>
-							<button class="btn btn-sm btn-info disabled" type="button">Add Quiz</button>
-							<button class="btn btn-sm btn-info disabled" type="button">Add Assignment</button>
-							<button class="btn btn-sm btn-danger float-right" type="button">Delete</button>
-						</div>
-					</div> -->
 
-					<div style="display: none;" id="FORMsection" class="form-section">
+					<div style="display: none;" id="FORMsection" class="form-section mt-3">
 						<form action="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id'].'/add_section_check'); ?>" method="POST">
 							<div class="form-group">
 								<label>New Section</label>
@@ -82,36 +69,6 @@
 							</div>
 						</form>
 					</div>
-					<!-- <form style="display: none;" id="FORMlecture">
-						<div class="form-group">
-							<label>New Lecture</label>
-							<input class="form-control" placeholder="Enter a Title"></input>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-primary">Add Lecture</button>
-							<button type="reset" class="btn btn-secondary" onclick="cancel_Add_Lecture()">Cancel</button>
-						</div>
-					</form>
-					<form style="display: none;" id="FORMquiz">
-						<div class="form-group">
-							<label>New Quiz</label>
-							<input class="form-control" placeholder="Enter a Title"></input>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-primary">Add Quiz</button>
-							<button type="reset" class="btn btn-secondary" onclick="cancel_Add_Quiz()">Cancel</button>
-						</div>
-					</form>
-					<form style="display: none;" id="FORMassignment">
-						<div class="form-group">
-							<label>New Assignment</label>
-							<input class="form-control" placeholder="Enter a Title"></input>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-primary">Add Assignment</button>
-							<button type="reset" class="btn btn-secondary" onclick="cancel_Add_Assignment()">Cancel</button>
-						</div>
-					</form> -->
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -119,18 +76,6 @@
 							<button class="btn btn-outline-primary btn-lg btn-block" onclick="add_Section()" id="ADDsection">Add Section</button>
 						</div>
 					</div>
-					<br>
-					<!-- <div class="row">
-						<div class="col-md-4">
-							<button class="btn btn-outline-primary btn-block" onclick="add_Lecture()" id="ADDlecture">Add Lecture</button>
-						</div>
-						<div class="col-md-4">
-							<button class="btn btn-outline-primary btn-block" onclick="add_Quiz()" id="ADDquiz">Add Quiz</button>
-						</div>
-						<div class="col-md-4">
-							<button class="btn btn-outline-primary btn-block" onclick="add_Assignment()" id="ADDassignment">Add Assignment</button>
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</div>
@@ -146,9 +91,13 @@
 <!-- Modals -->
 <?php if(!empty($course_sections)): ?>
 	<?php foreach($course_sections as $section): ?>
+
 	<?php endforeach; ?>
 <?php endif; ?>
 <!-- delete Lecture -->
+<form accept="<?php echo base_url(''); ?>" method="POST">
+	
+</form>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">

@@ -214,5 +214,26 @@ class Instructor_model extends CI_Model
 		else return false;
 	}
 
+
+
+
+
+
+
+
+
+
+
+	public function get_latest_sectiond_id()
+	{
+		$query = $this->db->select("COUNT('outline_section_id') as count")->from('outline_tbl')->where('outline_status', 1)->get();
+		if ($query->num_rows >= 0)
+		{
+			$query = $query->row_array();
+			return $query = $query['count'];
+		}
+		else return null;
+	}
+
 }
  ?>

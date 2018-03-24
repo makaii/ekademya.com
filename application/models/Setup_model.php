@@ -92,41 +92,7 @@ class Setup_model extends CI_Model
 			");
 		}
 	}
-	// public function create_section_table()
-	// {
-	// 	$check_section_tbl = $this->db->query("SHOW TABLES LIKE 'section_tbl';");
-	// 	if ($check_section_tbl->num_rows()==0)
-	// 	{
-	// 		// create table if not exist
-	// 		$this->db->query("
-	// 			CREATE TABLE IF NOT EXIST section_tbl
-	// 				section_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-	// 				section_course_id INT(7) NOT NULL,
-	// 				section_title VARCHAR(50) NOT NULL,
-	// 				section_author VARCHAR() NOT NULL,
-	// 				section_date_create DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	// 				section_status TINYINT(1) NOT NULL DEFAULT 1
-	// 		");
-	// 	}
-	// }
-	// public function create_lecture_table()
-	// {
-	// 	$check_lecture_tbl = $this->db->query("SHOW TABLES LIKE 'lecture_tbl';");
-	// 	if ($check_lecture_tbl->num_rows()==0)
-	// 	{
-	// 		// create table if not exist
-	// 		$this->db->query("
-	// 			CREATE TABLE IF NOT EXIST lecture_tbl
-	// 				lecture_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-	// 				lecture_section_id INT(7) NOT NULL,
-	// 				lecture_title VARCHAR(50) NOT NULL,
-	// 				lecture_type TEXT(10), NOT NULL,
-	// 				lecture_author VARCHAR() NOT NULL,
-	// 				lecture_date_create DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	// 				lecture_status TINYINT(1) NOT NULL DEFAULT 1
-	// 		");
-	// 	}
-	// }
+	
 	public function create_outline_table()
 	{
 		$check_outline_tbl = $this->db->query("SHOW TABLES LIKE 'outline_tbl';");
@@ -137,11 +103,12 @@ class Setup_model extends CI_Model
 				CREATE TABLE IF NOT EXISTS outline_tbl (
 					outline_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 					outline_course_id INT(7) NOT NULL,
-					-- outline_section_id INT(7) NOT NULL,
+					outline_section_id INT(7) NOT NULL,
 					outline_lecture_id INT(7),
 					outline_assignment_id INT(7),
 					outline_quiz_id INT(7),
 					outline_type CHAR(15) NOT NULL,
+					outline_author VARCHAR(50) NOT NULL,
 					outline_section_title VARCHAR(50),
 					outline_lecture_title VARCHAR(50),
 					outline_lecture_description VARCHAR(255),

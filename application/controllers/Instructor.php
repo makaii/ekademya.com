@@ -266,12 +266,20 @@ class Instructor extends CI_Controller {
 		else
 		{
 			$data['outline_course_id'] = $this->session->userdata('course_id');
+			$data['outline_section_id'] = '';
 			$data['outline_type'] = 'section';
 			$data['outline_section_title'] = $this->input->post('section');
+			$data['outline_author'] = $this->session->userdata('user_email');
 			$this->Instructor_model->add_section($data);
 			$course_id = $this->session->userdata('course_id');
 			redirect(base_url('course/manage/outline/'.$course_id));
 		}
+	}
+
+	public function del_course_section($course_id)
+	{
+		$this->Instructor_model->del_section();
+		redirect(base_url('course/manage/outline/'.$course_id));
 	}
 
 	public function add_outline_course_lecture($id=null,$lecnum=null)
@@ -297,7 +305,7 @@ class Instructor extends CI_Controller {
 			elseif ($this->form_validation->run())
 			{
 				$lecture_type = $this->input->post('lectureType');
-				$title=$this->input->post('lectureTitle');
+				$Title=$this->input->post('lectureTitle');
 				$desc=$this->input->post('lectureDescription');
 				$video_config = array(
 					'upload_path' => './z/course',
@@ -326,13 +334,18 @@ class Instructor extends CI_Controller {
 				else
 				{
 					$video_file_array = array(
-						'filename' => $this->upload->data(),
-						'section it belongs' => '',
-						'course it belongs' => '',
-						'author it belongs' => '',
-						'date added' => '',
+						'outline_lecture_video_url' => $this->upload->data('file_name'),
+						'outline_course_id' => $id,
+						'outline_course_id' => $lecnum,
+						'outline_author' => $this->session->userdata('user_email'),
+						'outline_type' => 'video',
+						'outline_lecture_title' => $title,
+						'outline_lecture_description' => $desc,
 					);
-					$this->model->add_video_lecture($video_file_array);
+					if ($this->Instructor_model->add_video_lecture($video_file_array)) {
+						redirect(base_url('course/manage/outline/'.$id));
+					}
+					show_404();
 				}
 			}
 		}
