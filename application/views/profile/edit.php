@@ -35,6 +35,11 @@
 							<?php echo form_error('lname'); ?>
 						</div>
 						<div class="form-group">
+							<label>Educational Attainment</label>
+							<input class="form-control" name="educ" maxlength="30" value="<?php echo $profile_educ; ?>"></input>
+							<?php echo form_error('educ'); ?>
+						</div>
+						<div class="form-group">
 							<label>Profile Email</label>
 							<input class="form-control" name="pubemail" maxlength="30" value="<?php echo $profile_pubemail; ?>"></input>
 							<?php echo form_error('pubemail'); ?>

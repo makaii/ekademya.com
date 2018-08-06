@@ -48,7 +48,15 @@
 				<?php endforeach; ?>
 				</div>
 			<?php else: ?>
-				<?php echo "no courses"; ?>
+				<div class="card-columns">
+				  <div class="card">
+				    <img class="card-img-top" src="" alt="Sad Face">
+				    <div class="card-body">
+				      <h5 class="card-title">There are no courses yet</h5>
+				      <p class="card-text">Help by expanding our catalog by joining us and creating your own online course</p>
+				    </div>
+				  </div>
+				</div>
 			<?php endif; ?>
 			
 			<!-- <div class="card-deck">

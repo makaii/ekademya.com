@@ -11,8 +11,7 @@
 			<img class="rounded img-thumbnail" src="https://www.udemy.com/staticx/udemy/images/course/200_H/placeholder.png" style="width: 256px;height: 144px;">
 		</div>
 		<div class="col-md-8">
-			<h3 class="font-weight-light"><?php echo $course_title; ?></h3>
-			<p class="font-weight-light"><?php echo $course_author; ?></p>
+			<h3 class="font-weight-bold"><?php echo $course_title; ?></h3>
 			<?php if (isset($page_alert)){echo $page_alert;} ?>
 		</div>
 	</div>

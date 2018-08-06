@@ -11,7 +11,7 @@
 			<div class="card">
 				<?php echo form_open(base_url('signup/instructor')); ?>
 					<div class="card-header bg-secondary text-white text-center">
-						Sign and start your teaching career at Ekademya!
+						<h4 class="font-weight-light">Instructor Form</h4>
 					</div>
 					<div class="card-body bg-light">
 						<div class="form-group">
@@ -47,6 +47,12 @@
 							<label>Last Name <span class="text-warning">*</span></label>
 							<input class="form-control form-control-sm" type="text" maxlength="30" name="lname" value="<?php echo set_value('lname'); ?>"></input>
 							<?php echo form_error('lname'); ?>
+						</div>
+						<div class="form-group">
+							<label>Educational Attainment <span class="text-warning">*</span></label>
+							<input class="form-control form-control-sm" type="text" maxlength="" name="educ" value="<?php echo set_value('educ'); ?>"></input>
+							<?php echo form_error('educ'); ?>
+							<small class="text-muted text-xs">Your most prominent Educational Attainment</small>
 						</div>
 						<div class="form-group">
 							<label>Profile Email <span class="text-warning">*</span></label>

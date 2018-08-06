@@ -52,6 +52,7 @@ class Setup_model extends CI_Model
 					user_type CHAR(10) NOT NULL,
 					user_fname VARCHAR(30) NOT NULL,
 					user_lname VARCHAR(30) NOT NULL,
+					user_educ VARCHAR(60) NOT NULL,
 					user_pubemail VARCHAR(30),
 					user_headline VARCHAR(50),
 					user_bio VARCHAR(1000),
@@ -79,7 +80,8 @@ class Setup_model extends CI_Model
 					course_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 					course_title VARCHAR(50) NOT NULL,
 					course_description VARCHAR(1000) NOT NULL,
-					course_author VARCHAR(30) NOT NULL,
+					course_author INT(7) NOT NULL,
+					FOREIGN KEY (course_author) REFERENCES user_tbl(user_id),
 					course_category VARCHAR(25) NOT NULL,
 					course_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
 					course_tools VARCHAR(255) NOT NULL,
@@ -103,19 +105,46 @@ class Setup_model extends CI_Model
 				CREATE TABLE IF NOT EXISTS outline_tbl (
 					outline_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 					outline_course_id INT(7) NOT NULL,
-					outline_section_id INT(7) NOT NULL,
-					outline_lecture_id INT(7),
-					outline_assignment_id INT(7),
-					outline_quiz_id INT(7),
+					FOREIGN KEY (outline_course_id) REFERENCES course_tbl(course_id),
 					outline_type CHAR(15) NOT NULL,
-					outline_author VARCHAR(50) NOT NULL,
-					outline_section_title VARCHAR(50),
-					outline_lecture_title VARCHAR(50),
-					outline_lecture_description VARCHAR(255),
-					outline_lecture_video_url VARCHAR(50),
-					outline_lecture_article VARCHAR(255),
 					outline_date_added DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 					outline_status TINYINT(1) NOT NULL DEFAULT 1
+				);
+			");
+		}
+	}
+	public function create_video_table()
+	{
+		$check_video_tbl = $this->db->query("SHOW TABLES LIKE 'video_tbl';");
+		if ($check_video_tbl->num_rows()==0)
+		{
+			// create table if not exist
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS video_tbl (
+					video_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					video_outline_id INT(7),
+					FOREIGN KEY (video_outline_id) REFERENCES outline_tbl(outline_id),
+					video_title VARCHAR(50) NOT NULL,
+					video_description VARCHAR(255) NOT NULL,
+					video_url VARCHAR(50) NOT NULL,
+					video_thumbnail VARCHAR(50) NOT NULL
+				);
+			");
+		}
+	}
+	public function create_lecture_table()
+	{
+		$check_lecture_tbl = $this->db->query("SHOW TABLES LIKE 'lecture_tbl';");
+		if ($check_lecture_tbl->num_rows()==0)
+		{
+			// create table if not exist
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS lecture_tbl (
+					lecture_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					lecture_outline_id INT(7),
+					FOREIGN KEY (lecture_outline_id) REFERENCES outline_tbl(outline_id),
+					lecture_title VARCHAR(50) NOT NULL,
+					lecture_body VARCHAR(1000) NOT NULL
 				);
 			");
 		}
@@ -129,11 +158,14 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS enroll_tbl (
 					enroll_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-					enroll_email VARCHAR(30) NOT NULL,
-					enroll_course VARCHAR(45) NOT NULL,
+					enroll_student INT(7) NOT NULL,
+					FOREIGN KEY (enroll_email) REFERENCES user_tbl(user_id),
+					enroll_course INT(7) NOT NULL,
+					FOREIGN KEY (enroll_course) REFERENCES course_tbl(course_id),
 					enroll_status TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");
+			// $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (id) REFERENCES table(id)');
 		}
 	}
 	public function create_settings_table()
@@ -145,7 +177,9 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS settings_tbl (
 					display_userdata TINYINT(1) NOT NULL DEFAULT 1,
-					display_feedback TINYINT(1) NOT NULL DEFAULT 1
+					display_feedback TINYINT(1) NOT NULL DEFAULT 1,
+					course_category VARCHAR(50) NOT NULL,
+					course_code INT(2)
 				);
 			");
 		}
@@ -155,6 +189,7 @@ class Setup_model extends CI_Model
 			$settings = array(
 				'display_userdata' => 1,
 				'display_feedback' => 1,
+				'course_category' => 'Art & Design, Business, Culinary, Film & Photography, Technology'
 			);
 			$this->db->insert('settings_tbl',$settings);
 		}

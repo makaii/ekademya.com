@@ -25,6 +25,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Icons -->
     <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Local Javascripts -->
+    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/popper.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
     
   </head>
   <body>
@@ -47,8 +55,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <a class="dropdown-item" href="<?php echo base_url('courses/culinary'); ?>">Culinary</a>
                 <a class="dropdown-item" href="<?php echo base_url('courses/film'); ?>">Film & Photography</a>
                 <a class="dropdown-item" href="<?php echo base_url('courses/technology'); ?>">Technology</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item disabled" href="">Something else here</a>
               </div>
             </li>
             <li>

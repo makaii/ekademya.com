@@ -59,7 +59,7 @@
 						<div class="card-body text-center p-2">
 							<i class="fa fa-users fa-5x"></i>
 						</div>
-						<div class="card-footer">Users</div>
+						<div class="card-footer">User<span class="text-right">asd</span></div>
 					</div>
 				</div>
 				<div class="col-md-4">

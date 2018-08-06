@@ -64,6 +64,7 @@ class Login extends CI_Controller {
 		// Basic
 		$this->form_validation->set_rules('fname', 'First Name', 'required');
 		$this->form_validation->set_rules('lname', 'Last Name', 'required');
+		$this->form_validation->set_rules('educ', 'Educational Attainment', 'required');
 		$this->form_validation->set_rules('pubemail', 'Profile Email', 'required|valid_email');
 		$this->form_validation->set_rules('headline', 'Headline');
 		$this->form_validation->set_rules('bio', 'Bio');
@@ -93,6 +94,7 @@ class Login extends CI_Controller {
 			$reg_data['user_type'] = "instructor";
 			$reg_data['user_fname'] = $this->input->post('fname');
 			$reg_data['user_lname'] = $this->input->post('lname');
+			$reg_data['user_educ'] = $this->input->post('educ');
 			$reg_data['user_pubemail'] = $this->input->post('pubemail');
 			$reg_data['user_headline'] = $this->input->post('headline');
 			$reg_data['user_bio'] = $this->input->post('bio');

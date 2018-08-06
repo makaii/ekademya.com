@@ -30,6 +30,19 @@ class Admin_model extends CI_Model
 		}
 	}
 
+	// display the categories
+	public function display_categories()
+	{
+		$query = $this->db->select('course_category')->get('settings_tbl');
+		$query = $query->row_array();
+		if ($query['course_category'])
+		{
+			return $query['course_category'];
+		}
+		else
+			return false;
+	}
+
 	// settings functions
 	public function display_userdata()
 	{

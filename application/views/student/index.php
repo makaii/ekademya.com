@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div class="jumbotron pb-1">
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -19,7 +19,7 @@
 					<a href="">
 						<img class="card-img-top course-thumb-img" src="<?php echo base_url('assets/img/4.jpeg'); ?>" alt="<?php  ?>" title="<?php  ?>"></img>
 					</a>
-					<div class="card-body pb-0">
+					<div class="card-body pb-2">
 						<small class="card-title font-weight-bold"><?php echo substr("Click here to search", null, 45)."..."; ?></small>
 						<br>
 						<a href="" style="text-decoration: none; color: inherit;"><small class="font-weight-light">Ekademya</small></a>

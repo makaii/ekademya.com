@@ -7,16 +7,14 @@
 					Warning: Deleting Course!
 				</div>
 				<div class="card-body">
-					<form method="POST" action="<?php echo base_url('course/delete'); ?>">
+					<form method="POST" action="<?php echo base_url('course/delete/'.$course_id); ?>">
 						<div class="form-group">
-							<label>Enter Course Title:</label>
-							<input class="form-control" type="text" name="courseTitle" placeholder="e.g. Learn Python Programming from Scratch 2018" value="<?php echo set_value('courseTitle'); ?>"></input>
-							<?php echo form_error('courseTitle'); ?>
+							<input class="form-control" value="<?php echo $course_title; ?>" readonly=""></input>
 						</div>
 						<div class="form-group">
-							<label>Enter Course Author:</label>
-							<input class="form-control" type="text" name="courseAuthor" value="<?php echo set_value('courseAuthor'); ?>"></input>
-							<?php echo form_error('courseAuthor'); ?>
+							<label>Enter Your Password:</label>
+							<input class="form-control" type="password" name="courseAuthorPass" value="<?php echo set_value('courseAuthorPass'); ?>"></input>
+							<?php echo form_error('courseAuthorPass'); ?>
 						</div>
 						<div class="form-group">
 							<small class="text-muted">Deleting a course is permanent</small>

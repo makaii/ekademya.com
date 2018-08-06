@@ -66,22 +66,12 @@ $route['search'] = 'lookup/search_course';
 // $route['course/(:any)'] = 'courses/$1';
 
 $route['course/create'] = 'instructor/create_course';
-$route['course/delete'] = 'instructor/delete_course';
+$route['course/delete/(:num)'] = 'instructor/delete_course/$1';
 $route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
 $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1';
 $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
-	// add course section
-	$route['course/manage/outline/(:num)/add_section_check'] = 'instructor/add_outline_course_section/$1';
-	// add new video course lecture
-	$route['course/manage/outline/(:num)/(:num)/add_video_lecture'] = 'instructor/add_outline_course_lecture/$1/$2';
-	// add new article course lecture
-	$route['course/manage/outline/(:num)/(:num)/add_article_lecture'] = '';
-	// add new course lecture check
-	$route['course/manage/outline/(:num)/(:num)/add_lecture/check'] = 'instructor/add_outline_course_lecture/$1/$2';
-	// add new quiz
-	$route['course/manage/outline/(:num)/(:num)/add_quiz'] = 'instructor/add_outline_course_quiz/$1/$2';
-	// add neq quiz check
-	$route['course/manage/outline/(:num)/(:num)/add_quiz/check'] = 'instructor/add_outline_course_quiz/$1/$2';
+	$route['course/manage/outline/(:num)/lecture_check'] = 'instructor/add_outline_course_lecture/$1';
+	
 
 // profile routes
 $route['profile'] = 'profile/edit';

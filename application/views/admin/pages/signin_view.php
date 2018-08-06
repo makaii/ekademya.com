@@ -16,7 +16,7 @@
 							<?php echo form_error('adminPassword'); ?>
 							<small class="text-danger"><?php echo $this->session->flashdata('error'); ?></small>
 						</div>
-						<div class="form-group">
+						<div class="form-group text-center">
 							<button class="btn btn-success">Sigin</button>
 						</div>
 					<?php echo form_close(); ?>

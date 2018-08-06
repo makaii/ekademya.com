@@ -26,39 +26,42 @@ class Instructor_model extends CI_Model
 			return false;
 	}
 
-	public function archieve_course($title, $author, $instructor)
+	public function archieve_course($course_id, $authorpass, $instructor_id, $instructor_email)
 	{
-		if (!empty($title)&&!empty($author)&&!empty($instructor))
+		if (!empty($course_id)&&!empty($authorpass)&&!empty($instructor_id)&&!empty($instructor_email))
 		{
-			if ($author == $instructor)
+			$this->load->model('Login_model');
+			$real_author = $this->Login_model->authenticate($instructor_email,$authorpass);
+			if ($real_author == true)
 			{
-				$query_data = array(
-					'course_status' => 0,
-					'course_published' => 0, 
-				);
-				$this->db->where('course_title', $title);
-				$this->db->where('course_author', $author);
-				$query = $this->db->update('course_tbl',$query_data);
-				if ($this->db->affected_rows()==1)
+				$this->db->trans_begin();
+				$this->db->set('course_status',0);
+				$this->db->set('course_published',0);
+				$this->db->where('course_id', $course_id);
+				$this->db->where('course_author', $instructor_id);
+				$query=$this->db->update('course_tbl');
+				if ($this->db->trans_status()===true)
 				{
 					// archieve success
+					$this->db->trans_complete();
 					return true;
 				}
 				else
+					$this->db->trans_rollback();
 					return false;
 			}
 			else
-				return false;		
+				return fasle;		
 		}
 		else
 			return false;
 	}
 
-	public function get_course_id($title, $email)
+	public function get_course_id($title, $instructor_id)
 	{
-		if (!empty($title)&&!empty($email))
+		if (!empty($title)&&!empty($instructor_id))
 		{
-			$query = $this->db->select('course_id')->where('course_title',$title)->where('course_author',$email)->where('course_status',1)->get('course_tbl');
+			$query = $this->db->select('course_id')->where('course_title',$title)->where('course_author',$instructor_id)->where('course_status',1)->get('course_tbl');
 			if ($query->num_rows()==1)
 			{
 				$query = $query->row()->course_id;
@@ -67,10 +70,10 @@ class Instructor_model extends CI_Model
 		}
 	}
 
-	public function check_if_their_course($email, $id)
+	public function check_if_their_course($instructor_id, $course_id)
 	{
-		if (!empty($email)&&!empty($id)) {
-			$query = $this->db->select()->where('course_author',$email)->where('course_id', $id)->where('course_status',1)->get('course_tbl');
+		if (!empty($instructor_id)&&!empty($course_id)) {
+			$query = $this->db->select()->where('course_author',$instructor_id)->where('course_id', $course_id)->where('course_status',1)->get('course_tbl');
 			if ($query->num_rows()>=1)
 			{
 				return true;
@@ -81,23 +84,13 @@ class Instructor_model extends CI_Model
 		else
 			return false;
 	}
-	public function check_if_their_section($email,$id)
-	{
-		$query = $this->db->select()->from('section_tbl')->where('id',$id)->where('author',$email)->get();
-		if ($query->num_rows()==1)
-		{
-			return true;
-		}
-		else
-			return false;
-	}
 
-	public function get_course_info($email, $id)
+	public function get_course_info($instructor_id, $course_id)
 	{
-		if (!empty($email)&&!empty($id))
+		if (!empty($instructor_id)&&!empty($course_id))
 		{
-			$query = $this->db->select()->where('course_id',$id)->where('course_author', $email)->where('course_status', 1)->get('course_tbl');
-			if ($query->num_rows()==1)
+			$query = $this->db->select()->where('course_id',$course_id)->where('course_author', $instructor_id)->where('course_status', 1)->get('course_tbl');
+			if ($query->num_rows()>=1)
 			{
 				$query = $query->row_array();
 				return $query;
@@ -109,11 +102,11 @@ class Instructor_model extends CI_Model
 			return false;
 	}
 
-	public function get_instructors_courses($email)
+	public function get_instructors_courses($instructor_id)
 	{
-		if (!empty($email))
+		if (!empty($instructor_id))
 		{
-			$query = $this->db->select()->where('course_author', $email)->where('course_status', 1)->get('course_tbl');
+			$query = $this->db->select()->where('course_author', $instructor_id)->where('course_status', 1)->get('course_tbl');
 			if ($query->num_rows()>=1)
 			{
 				$query = $query->result_array();
@@ -127,15 +120,15 @@ class Instructor_model extends CI_Model
 
 	}
 
-	public function manage_course_goals($tools,$audience,$achievement,$id,$author)
+	public function manage_course_goals($tools,$audience,$achievement,$id,$author_id)
 	{
-		if ((isset($tools))&&(isset($audience))&&(isset($achievement))&&(isset($id))&&(isset($author)))
+		if ((isset($tools))&&(isset($audience))&&(isset($achievement))&&(isset($id))&&(isset($author_id)))
 		{
 			$this->db->set('course_tools',$tools);
 			$this->db->set('course_audience',$audience);
 			$this->db->set('course_achievement',$achievement);
 			$this->db->where('course_id',$id);
-			$this->db->where('course_author',$author);
+			$this->db->where('course_author',$author_id);
 			$this->db->update('course_tbl');
 			if ($this->db->affected_rows()==1)
 			{
@@ -174,37 +167,57 @@ class Instructor_model extends CI_Model
 
 
 
-
-
-
-
-
-	public function add_section($data)
+	public function add_outline($outline_array)
 	{
-		$this->db->insert('outline_tbl', $data);
-	}
-	public function del_section($data)
-	{
-		$query = $this->db->where('outline_course_id',$data['outline_course_id'])
-		->where('outline_section_title',$data['outline_section_title'])
-		->delete('outline_tbl');
-	}
-
-	public function get_sections($data)
-	{
-		$query = $this->db->select()->from('outline_tbl')->where('outline_course_id',$data['outline_course_id'])->get();
-		return $query->result_array();
-	}
-	public function get_section_title($course_id, $section_id)
-	{
-		$query = $this->db->select('outline_section_title')->from('outline_tbl')->where('outline_course_id',$course_id)->where('outline_id',$section_id)->get();
-		if ($query->num_rows()==1)
+		if (!empty($outline_array))
 		{
-			$query = $query->row_array();
-			return $query['outline_section_title'];
+			$outline = $outline_array;
+			$outline_data = array(
+				'outline_course_id' => $outline['outline_course_id'],
+				'outline_type' => $outline['outline_type'],
+			);
+			$query = $this->db->insert('outline_tbl',$outline_data);
+			$ref_outline_id = $this->db->insert_id();
+			if ($this->db->affected_rows()==1)
+			{
+				if ($outline_array['outline_type']=="video")
+				{
+					if ($this->add_video($outline['video_file_array'],$ref_outline_id))
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				elseif ($outline_array['outline_type']=="lecture")
+				{
+					if ($this->add_lecture($outline['lecture_title'],$outline['lecture_body'],$ref_outline_id))
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
 		}
 	}
-	public function add_video_lecture($video_file_array)
+	public function add_video($video_file_array,$outline_id)
 	{
 		$query = $this->db->insert('outline_tbl', $video_file_array);
 		if ($this->db->affected_rows() == 1)
@@ -213,26 +226,65 @@ class Instructor_model extends CI_Model
 		}
 		else return false;
 	}
-
-
-
-
-
-
-
-
-
-
-
-	public function get_latest_sectiond_id()
+	public function add_lecture($lecture_title, $lecture_body, $outline_id)
 	{
-		$query = $this->db->select("COUNT('outline_section_id') as count")->from('outline_tbl')->where('outline_status', 1)->get();
-		if ($query->num_rows >= 0)
+		$lecture_data = array(
+			'lecture_title' => $lecture_title,
+			'lecture_body' => $lecture_body,
+			'lecture_outline_id' => $outline_id,
+		);
+		$query = $this->db->insert('lecture_tbl',$lecture_data);
+		if ($this->db->affected_rows()==1)
 		{
-			$query = $query->row_array();
-			return $query = $query['count'];
+			return true;	
 		}
-		else return null;
+		else
+		{
+			return false;
+		}
+	}
+	public function get_outline($course_id)
+	{
+		// $query = $this->db->select()->where('outline_course_id',$course_id)->get('outline_tbl');
+		$query = $this->db->query("
+			SELECT joined.* 
+			FROM   (SELECT ot.outline_id, 
+			               ot.outline_type, 
+			               ot.outline_course_id, 
+			               lt.lecture_id, 
+			               lt.lecture_title,
+			               lt.lecture_body,
+			               NULL AS video_id, 
+			               NULL AS video_title, 
+			               NULL AS video_description, 
+			               NULL AS video_url,
+			               NULL AS video_thumbnail
+			        FROM   outline_tbl ot 
+			               INNER JOIN lecture_tbl lt 
+			                       ON lt.lecture_outline_id = ot.outline_id 
+			                          AND ot.outline_type = 'lecture' 
+			        UNION ALL 
+			        SELECT ot.outline_id, 
+			               ot.outline_type, 
+			               ot.outline_course_id, 
+			               NULL AS lecture_id, 
+			               NULL AS lecture_title, 
+			               NULL AS lecture_body, 
+			               vt.video_id, 
+			               vt.video_title, 
+			               vt.video_description, 
+			               vt.video_url,
+			               vt.video_thumbnail
+			        FROM   outline_tbl ot 
+			               INNER JOIN video_tbl vt 
+			                       ON vt.video_outline_id = ot.outline_id 
+			                          AND ot.outline_type = 'video') AS joined 
+			WHERE  outline_course_id = $course_id; 	
+		");
+		if ($query->num_rows()>=1)
+		{
+			return $query->result_array();
+		}
 	}
 
 }

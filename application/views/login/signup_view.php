@@ -5,7 +5,7 @@
 			<div class="card">
 				<?php echo form_open(base_url('signup')); ?>
 					<div class="card-header bg-secondary text-white text-center">
-						Sign up for free and start learning!
+						<h4 class="font-weight-light">Student Form</h4>
 					</div>
 					<div class="card-body bg-light">
 						<div class="form-group">

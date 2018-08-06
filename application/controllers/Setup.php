@@ -17,6 +17,8 @@ class Setup extends CI_Controller {
 		$this->Setup_model->create_user_table();
 		$this->Setup_model->create_course_table();
 		$this->Setup_model->create_outline_table();
+		$this->Setup_model->create_video_table();
+		$this->Setup_model->create_lecture_table();
 		$this->Setup_model->create_enroll_table();
 		$this->Setup_model->create_settings_table();
 		$page_data = array(
@@ -24,8 +26,11 @@ class Setup extends CI_Controller {
 			'admin' => $this->Setup_model->getTableStructure('admin_tbl'),
 			'user' => $this->Setup_model->getTableStructure('user_tbl'),
 			'course' => $this->Setup_model->getTableStructure('course_tbl'),
-			'enrollees' => $this->Setup_model->getTableStructure('enroll_tbl'),
 			'outline' => $this->Setup_model->getTableStructure('outline_tbl'),
+			'video' => $this->Setup_model->getTableStructure('video_tbl'),
+			'lecture' => $this->Setup_model->getTableStructure('lecture_tbl'),
+			'enrollees' => $this->Setup_model->getTableStructure('enroll_tbl'),
+			'settings' => $this->Setup_model->getTableStructure('settings_tbl'),
 		);
 		$this->load->view('template/headerWoNav', $page_data);
 		$this->load->view('setup/success_view');

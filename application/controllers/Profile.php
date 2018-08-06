@@ -30,6 +30,7 @@ class Profile extends CI_Controller {
 			'profile_fname' => $profile_data['user_fname'],
 			'profile_lname' => $profile_data['user_lname'],
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
+			'profile_educ' => $profile_data['user_educ'],
 			'profile_pubemail' => $profile_data['user_pubemail'],
 			'profile_photo' => $profile_data['user_img_url'],
 			'profile_headline' => $profile_data['user_headline'],
@@ -46,6 +47,7 @@ class Profile extends CI_Controller {
 		$this->form_validation->set_rules('fname', 'First Name', 'required');
 		$this->form_validation->set_rules('lname', 'Last Name', 'required');
 		$this->form_validation->set_rules('pubemail', 'Profile Email', 'valid_email');
+		$this->form_validation->set_rules('educ', 'Educational Attainment', 'required');
 		$this->form_validation->set_rules('headline', 'Headline', '');
 		$this->form_validation->set_rules('bio', 'Bio', '');
 		$this->form_validation->set_rules('website', 'Personal Website', 'valid_url');
@@ -74,6 +76,7 @@ class Profile extends CI_Controller {
 			$profile_data['user_fname']= $this->input->post('fname');
 			$profile_data['user_lname']= $this->input->post('lname');
 			$profile_data['user_pubemail'] = $this->input->post('pubemail');
+			$profile_data['user_educ'] = $this->input->post('educ');
 			$profile_data['user_headline'] = $this->input->post('headline');
 			$profile_data['user_bio'] = $this->input->post('bio');
 			$profile_data['user_website'] = $this->input->post('website');
@@ -89,6 +92,7 @@ class Profile extends CI_Controller {
 				'profile_fname' => $profile_data['user_fname'],
 				'profile_lname' => $profile_data['user_lname'],
 				'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
+				'profile_educ' => $profile_data['user_educ'],
 				'profile_pubemail' => $profile_data['user_pubemail'],
 				'profile_photo' => $profile_data['user_img_url'],
 				'profile_headline' => $profile_data['user_headline'],
@@ -163,6 +167,7 @@ class Profile extends CI_Controller {
 		$config['max_width'] = 1024;
 		$config['max_height'] = 768;
 		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
 		if (!$this->upload->do_upload('photo'))
 		{
 			$page_data['error'] = $this->upload->display_errors();

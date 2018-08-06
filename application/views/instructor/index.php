@@ -2,7 +2,7 @@
 	<dic class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<h3>Instructor Dashboard</h3>
+				<h3>Welcome Instructor</h3>
 			</div>
 			<div class="col-md-9">
 				<a href="<?php echo base_url('course/create') ?>">
@@ -12,8 +12,8 @@
 		</div>
 	</dic>
 </div>
-<?php $courses = $this->Instructor_model->get_instructors_courses($_SESSION['user_email']); ?>
-<?php if($this->Instructor_model->get_instructors_courses($_SESSION['user_email'])): ?>
+<?php $courses = $this->Instructor_model->get_instructors_courses($_SESSION['user_id']); ?>
+<?php if($this->Instructor_model->get_instructors_courses($_SESSION['user_id'])): ?>
 	<div class="container mb-5">
 		<?php foreach ($courses as $data): ?>
 			<div class="row mb-3">	
@@ -34,9 +34,9 @@
 							</div>
 						</div>
 						<div class="card-footer">
-							<button class="btn btn-sm btn-primary disabled">Publish</button>
-							<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info">Edit</button></a>
-							<a href="<?php echo base_url('course/delete'); ?>"><button class="btn btn-sm btn-danger float-right">Delete</button></a>
+							<button class="btn btn-sm btn-primary disabled">Send for Review</button>
+							<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info">Manage</button></a>
+							<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right">Delete</button></a>
 						</div>
 					</div>
 				</div>	
