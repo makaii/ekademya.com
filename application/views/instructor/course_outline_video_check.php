@@ -54,7 +54,7 @@
 					<div class="col-md-12">
 						<div class="card-body">
 							<!-- Video Form -->
-							<form id="videoForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/video_check'); ?>" method="POST" style="display: none;" enctype="multipart/form-data" accept-charset="utf-8">
+							<form id="videoForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/video_check'); ?>" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
 								<div class="form-group">
 									<label class="font-weight-bold">New Video</label>
 									<input class="form-control" id="INPUTsection" name="video_title" placeholder="Enter Video Title" maxlength="50" value="<?php echo set_value('video_title'); ?>"></input>
@@ -66,6 +66,7 @@
 								</div>
 								<div class="form-group">
 									<input type="file" name="video_file">
+									<small class="text-danger"><?php echo $upload_error; ?></small>
 								</div>
 								<div class="form-group">
 									<button class="btn btn-primary" type="submit">Add Video</button>
@@ -73,7 +74,7 @@
 								</div>
 							</form>
 							<!-- Lecture Form -->
-							<form id="lectureForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/lecture_check'); ?>" method="POST">
+							<form id="lectureForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/lecture_check'); ?>" method="POST" style="display: none;">
 								<div class="form-group">
 									<label class="font-weight-bold">New Lecture</label>
 									<input class="form-control" name="lecture_title" placeholder="Enter Lecture Title" maxlength="" value="<?php echo set_value('lecture_title'); ?>"></input>

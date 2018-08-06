@@ -182,7 +182,7 @@ class Instructor_model extends CI_Model
 			{
 				if ($outline_array['outline_type']=="video")
 				{
-					if ($this->add_video($outline['video_file_array'],$ref_outline_id))
+					if ($this->add_video($outline['video_title'],$outline['video_description'],$outline['video_url'],$ref_outline_id))
 					{
 						return true;
 					}
@@ -217,9 +217,15 @@ class Instructor_model extends CI_Model
 			return false;
 		}
 	}
-	public function add_video($video_file_array,$outline_id)
+	public function add_video($vid_title,$vid_desc,$vid_url,$outline_id)
 	{
-		$query = $this->db->insert('outline_tbl', $video_file_array);
+		$video_file_array = array(
+			'video_outline_id' => $outline_id,
+			'video_title' => $vid_title,
+			'video_description' => $vid_desc,
+			'video_url' => $vid_url,
+		);
+		$query = $this->db->insert('video_tbl', $video_file_array);
 		if ($this->db->affected_rows() == 1)
 		{
 			return true;
@@ -279,7 +285,8 @@ class Instructor_model extends CI_Model
 			               INNER JOIN video_tbl vt 
 			                       ON vt.video_outline_id = ot.outline_id 
 			                          AND ot.outline_type = 'video') AS joined 
-			WHERE  outline_course_id = $course_id; 	
+			WHERE  outline_course_id = $course_id
+			ORDER BY outline_id;
 		");
 		if ($query->num_rows()>=1)
 		{

@@ -125,7 +125,7 @@ class Setup_model extends CI_Model
 					video_outline_id INT(7),
 					FOREIGN KEY (video_outline_id) REFERENCES outline_tbl(outline_id),
 					video_title VARCHAR(50) NOT NULL,
-					video_description VARCHAR(255) NOT NULL,
+					video_description VARCHAR(1000) NOT NULL,
 					video_url VARCHAR(50) NOT NULL,
 					video_thumbnail VARCHAR(50) NOT NULL
 				);

@@ -54,7 +54,7 @@
 					<div class="col-md-12">
 						<div class="card-body">
 							<!-- Video Form -->
-							<form id="videoForm" action="<?php  ?>" method="POST" style="display: none;">
+							<form id="videoForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/video_check'); ?>" method="POST" style="display: none;" enctype="multipart/form-data" accept-charset="utf-8">
 								<div class="form-group">
 									<label class="font-weight-bold">New Video</label>
 									<input class="form-control" id="INPUTsection" name="video_title" placeholder="Enter Video Title" maxlength="50"></input>
@@ -71,7 +71,7 @@
 								</div>
 							</form>
 							<!-- Lecture Form -->
-							<form id="lectureForm" action="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id'].'/lecture_check'); ?>" method="POST" style="display: none;">
+							<form id="lectureForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/lecture_check'); ?>" method="POST" style="display: none;">
 								<div class="form-group">
 									<label class="font-weight-bold">New Lecture</label>
 									<input class="form-control" name="lecture_title" placeholder="Enter Lecture Title" maxlength="""></input>
@@ -90,13 +90,17 @@
 				<!-- Outline -->
 				<div class="row">
 					<div class="col-md-12">
-						<?php $count=1;foreach ($course_outline as $outline): ?>
-							<div class="card-body bg-light">
-								<p><?php echo $count.". ";$count++;echo $outline['outline_id']."/".$outline['outline_type']; ?></p>
-								<pre><?php var_dump($outline); ?></pre>
-								<button class="btn btn-sm btn-info">Edit</button>
-							</div>
-						<?php endforeach; ?>
+						<?php if (!empty($course_outline)): ?>
+							<?php $count=1;foreach ($course_outline as $outline): ?>
+								<div class="card-body bg-light">
+									<p><?php echo $count.". ";$count++;echo $outline['outline_id']."/".$outline['outline_type']; ?></p>
+									<!-- <pre class="text-muted"><?php var_dump($outline); ?></pre> -->
+									<button class="btn btn-sm btn-info">Edit</button>
+								</div>
+							<?php endforeach; ?>
+						<?php else: ?>
+							<div class="card-body bg-light"><h5 class="card-title text-center">No Content Yet</h5></div>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

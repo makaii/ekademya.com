@@ -71,8 +71,8 @@ $route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
 $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1';
 $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 	$route['course/manage/outline/(:num)/lecture_check'] = 'instructor/add_outline_course_lecture/$1';
+	$route['course/manage/outline/(:num)/video_check'] = 'instructor/add_outline_course_video/$1';
 	
-
 // profile routes
 $route['profile'] = 'profile/edit';
 $route['profile/photo'] = 'profile/photo';
