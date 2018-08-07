@@ -30,7 +30,7 @@ class Main extends CI_Controller {
 		$page_data = array
 		(
 			'page_title' => 'Welcome',
-			'course_categories' => $this->Admin_model->display_categories(),
+			// 'course_categories' => $this->Admin_model->display_categories(),
 		);
 		$this->load->view('template/header', $page_data);
 		$this->load->view('main/index');
