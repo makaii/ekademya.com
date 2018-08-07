@@ -93,9 +93,15 @@
 						<?php if (!empty($course_outline)): ?>
 							<?php $count=1;foreach ($course_outline as $outline): ?>
 								<div class="card-body bg-light">
-									<p><?php echo $count.". ";$count++;echo $outline['outline_id']."/".$outline['outline_type']; ?></p>
-									<!-- <pre class="text-muted"><?php var_dump($outline); ?></pre> -->
+									<h6 class="card-text"><a href="" ="">
+										<?php if ($outline['outline_type']=='lecture'): ?>
+											<?php echo $outline['lecture_title']; ?>
+										<?php elseif ($outline['outline_type']=='video'): ?>
+											<?php echo $outline['video_title']; ?>
+										<?php endif; ?>
+									</a></h6>
 									<button class="btn btn-sm btn-info">Edit</button>
+									<button class="btn btn-sm btn-danger" disabled="">Delete</button>
 								</div>
 							<?php endforeach; ?>
 						<?php else: ?>

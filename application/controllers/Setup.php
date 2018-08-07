@@ -15,6 +15,7 @@ class Setup extends CI_Controller {
 		// $this->Setup_model->create_tables();
 		$this->Setup_model->create_admin_table();
 		$this->Setup_model->create_user_table();
+		$this->Setup_model->create_category_table();
 		$this->Setup_model->create_course_table();
 		$this->Setup_model->create_outline_table();
 		$this->Setup_model->create_video_table();
@@ -25,6 +26,7 @@ class Setup extends CI_Controller {
 			'page_title' => 'Database Installation',
 			'admin' => $this->Setup_model->getTableStructure('admin_tbl'),
 			'user' => $this->Setup_model->getTableStructure('user_tbl'),
+			'category' => $this->Setup_model->getTableStructure('category_tbl'),
 			'course' => $this->Setup_model->getTableStructure('course_tbl'),
 			'outline' => $this->Setup_model->getTableStructure('outline_tbl'),
 			'video' => $this->Setup_model->getTableStructure('video_tbl'),

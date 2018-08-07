@@ -271,7 +271,7 @@ class Instructor extends CI_Controller {
 				'course_title' => $course['course_title'],
 				'course_id' => $course_id,
 			);
-			$this->form_validation->set_rules('lecture_title', 'Lecture Title', 'trim|required|');
+			$this->form_validation->set_rules('lecture_title', 'Lecture Title', 'required|trim');
 			$this->form_validation->set_rules('lecture_body', 'Lecture Content', 'trim|required');
 			$outline_array = array(
 				'outline_type' => 'lecture',

@@ -52,7 +52,7 @@ class Setup_model extends CI_Model
 					user_type CHAR(10) NOT NULL,
 					user_fname VARCHAR(30) NOT NULL,
 					user_lname VARCHAR(30) NOT NULL,
-					user_educ VARCHAR(60) NOT NULL,
+					user_educ VARCHAR(60),
 					user_pubemail VARCHAR(30),
 					user_headline VARCHAR(50),
 					user_bio VARCHAR(1000),
@@ -122,7 +122,7 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS video_tbl (
 					video_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-					video_outline_id INT(7),
+					video_outline_id INT(7) NOT NULL,
 					FOREIGN KEY (video_outline_id) REFERENCES outline_tbl(outline_id),
 					video_title VARCHAR(50) NOT NULL,
 					video_description VARCHAR(1000) NOT NULL,
@@ -141,7 +141,7 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS lecture_tbl (
 					lecture_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-					lecture_outline_id INT(7),
+					lecture_outline_id INT(7) NOT NULL,
 					FOREIGN KEY (lecture_outline_id) REFERENCES outline_tbl(outline_id),
 					lecture_title VARCHAR(50) NOT NULL,
 					lecture_body VARCHAR(1000) NOT NULL
@@ -159,13 +159,12 @@ class Setup_model extends CI_Model
 				CREATE TABLE IF NOT EXISTS enroll_tbl (
 					enroll_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 					enroll_student INT(7) NOT NULL,
-					FOREIGN KEY (enroll_email) REFERENCES user_tbl(user_id),
+					FOREIGN KEY (enroll_student) REFERENCES user_tbl(user_id),
 					enroll_course INT(7) NOT NULL,
 					FOREIGN KEY (enroll_course) REFERENCES course_tbl(course_id),
 					enroll_status TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");
-			// $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (id) REFERENCES table(id)');
 		}
 	}
 	public function create_settings_table()
@@ -177,9 +176,7 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS settings_tbl (
 					display_userdata TINYINT(1) NOT NULL DEFAULT 1,
-					display_feedback TINYINT(1) NOT NULL DEFAULT 1,
-					course_category VARCHAR(50) NOT NULL,
-					course_code INT(2)
+					display_feedback TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");
 		}
@@ -187,11 +184,30 @@ class Setup_model extends CI_Model
 		if ($settings_check->num_rows()==0)
 		{
 			$settings = array(
-				'display_userdata' => 1,
-				'display_feedback' => 1,
-				'course_category' => 'Art & Design, Business, Culinary, Film & Photography, Technology'
+				'display_userdata' => 0,
+				'display_feedback' => 0
 			);
 			$this->db->insert('settings_tbl',$settings);
+		}
+	}
+	public function create_category_table()
+	{
+		$check_category_tbl = $this->db->query("SHOW TABLES LIKE 'category_tbl';");
+		if ($check_category_tbl->num_rows()==0)
+		{
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS category_tbl (
+					category_id TINYINT(2) AUTO_INCREMENT PRIMARY KEY,
+					category_name VARCHAR(30) NOT NULL,
+					category_code TINYINT(2) NOT NULL
+				);
+			");
+			$data = array(
+				'category_name' => 'technology',
+				'category_code' => 1
+			);
+			$this->db->insert('category_tbl',$data);
 		}
 	}
 
