@@ -33,11 +33,11 @@ class Admin_model extends CI_Model
 	// display the categories
 	public function display_categories()
 	{
-		$query = $this->db->select('category_name')->get('category_tbl');
-		$query = $query->row_array();
-		if ($query['category_name'])
+		$query = $this->db->select()->get('category_tbl');
+		if ($query->num_rows()>=1)
 		{
-			return $query['category_name'];
+			$query = $query->result_array();
+			return $query;
 		}
 		else
 			return false;
