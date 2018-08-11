@@ -8,6 +8,7 @@ class Login extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Login_model');
 		$this->load->model('Admin_model');
+		$this->load->model('Lookup_model');
 		$this->load->library('parsedown/Parsedown.php');
 
 		if (!$this->session->has_userdata('logged_in'))
@@ -24,6 +25,7 @@ class Login extends CI_Controller {
 	{
 		$page_data = array(
 			'page_title' => 'Signup',
+			'course_categories' => $this->Lookup_model->get_category(),
 		);
 
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user_tbl.user_email]|max_length[320]|min_length[6]', array('is_unique' => 'Email is already taken'));
@@ -77,7 +79,10 @@ class Login extends CI_Controller {
 		$this->form_validation->set_rules('youtube', 'Youtube Link', 'valid_url');
 		
 
-		$page_data = array('page_title' => 'Become an Instructor!', );
+		$page_data = array(
+			'page_title' => 'Become an Instructor!',
+			'course_categories' => $this->Lookup_model->get_category(),
+		);
 
 		if ($this->form_validation->run() == false)
 		{
@@ -116,7 +121,10 @@ class Login extends CI_Controller {
 	{
 		if ($this->session->userdata('signup_success') == true)
 		{
-			$page_data = array('page_title' => 'Signup Successful!', );
+			$page_data = array(
+				'page_title' => 'Signup Successful!',
+				'course_categories' => $this->Lookup_model->get_category(),
+			);
 			$this->session->unset_userdata('signup_success');
 			$this->load->view('template/header', $page_data);
 			$this->load->view('login/signup_success_view');
@@ -130,6 +138,7 @@ class Login extends CI_Controller {
 	{
 		$page_data = array(
 			'page_title' => 'Signin',
+			'course_categories' => $this->Lookup_model->get_category(),
 		);
 
 		$this->form_validation->set_rules('email', 'Email', 'required');

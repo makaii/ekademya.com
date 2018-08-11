@@ -47,13 +47,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 Categories
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="<?php echo base_url('courses/art_design'); ?>">Art & Design</a>
-                <a class="dropdown-item" href="<?php echo base_url('courses/business'); ?>">Business</a>
-                <a class="dropdown-item" href="<?php echo base_url('courses/culinary'); ?>">Culinary</a>
-                <a class="dropdown-item" href="<?php echo base_url('courses/film'); ?>">Film & Photography</a>
-                <a class="dropdown-item" href="<?php echo base_url('courses/technology'); ?>">Technology</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item disabled" href="">Something else here</a>
+                <?php foreach ($course_categories as $category): ?>
+                  <a class="dropdown-item" href="<?php echo base_url('courses/'.$category['category_code']); ?>"><?php echo ucwords($category['category_name']); ?></a>
+                <?php endforeach; ?>
               </div>
             </li>
             <li class="nav-item">

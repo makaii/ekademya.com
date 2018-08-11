@@ -8,6 +8,7 @@ class Instructor extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Instructor_model');
 		$this->load->model('Admin_model');
+		$this->load->model('Lookup_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
@@ -22,6 +23,7 @@ class Instructor extends CI_Controller {
 	{
 		$page_data = array(
 			'page_title' => 'Welcome',
+			'course_categories' => $this->Lookup_model->get_category(),
 		);
 		$this->session->unset_userdata('course_id');
 		$this->load->view('template/headerInstructor', $page_data);
@@ -39,7 +41,10 @@ class Instructor extends CI_Controller {
 			if ($this->form_validation->run()==false)
 			{
 				// create fail
-				$page_data = array('page_title' => 'Create Course', );
+				$page_data = array(
+					'page_title' => 'Create Course',
+					'course_categories' => $this->Lookup_model->get_category(),
+				);
 				$this->load->view('template/headerInstructor',$page_data);
 				$this->load->view('instructor/create_course');
 				$this->load->view('template/footer');
@@ -80,6 +85,7 @@ class Instructor extends CI_Controller {
 					// delete fail
 					$page_data = array(
 						'page_title' => 'Delete Course',
+						'course_categories' => $this->Lookup_model->get_category(),
 						'course_id' => $course_id,
 						'course_title' => $course_title['course_title'],
 					);
@@ -131,6 +137,7 @@ class Instructor extends CI_Controller {
 				$this->session->set_userdata('course_id',$id);
 				$page_data = array(
 					'page_title' => 'Manage Course Goals',
+					'course_categories' => $this->Lookup_model->get_category(),
 					'course_title' => $course['course_title'],
 					'course_author' => $course['course_author'],
 					'course_tools' => $course['course_tools'],
@@ -190,6 +197,7 @@ class Instructor extends CI_Controller {
 				$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
 				$page_data = array(
 					'page_title' => 'Manage Course Goals',
+					'course_categories' => $this->Lookup_model->get_category(),
 					'course_title' => $course['course_title'],
 					'course_author' => $course['course_author'],
 					'course_description' => $course['course_description'],
@@ -243,6 +251,7 @@ class Instructor extends CI_Controller {
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
 			$page_data = array(
 				'page_title' => 'Manage Course Outline',
+				'course_categories' => $this->Lookup_model->get_category(),
 				'course_title' => $course['course_title'],
 				'course_author' => $course['course_author'],
 				'course_description' => $course['course_description'],
@@ -268,6 +277,7 @@ class Instructor extends CI_Controller {
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
 			$page_data = array(
 				'page_title' => 'Add Lecture Outline',
+				'course_categories' => $this->Lookup_model->get_category(),
 				'course_title' => $course['course_title'],
 				'course_id' => $course_id,
 			);
@@ -309,6 +319,7 @@ class Instructor extends CI_Controller {
 			$this->form_validation->set_rules('video_description', 'Video Description', 'trim');
 			$page_data = array(
 				'page_title' => 'Add Video Outline',
+				'course_categories' => $this->Lookup_model->get_category(),
 				'course_title' => $course['course_title'],
 				'course_id' => $course_id,
 				'upload_error' => '',
@@ -374,6 +385,7 @@ class Instructor extends CI_Controller {
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
 		{
 			$page_data['page_title'] = 'Add Lecture';
+			$page_data['course_categories'] = $this->Lookup_model->get_category();
 			$page_data['course_title'] = $course['course_title'];
 			$page_data['course_author'] = $course['course_author'];
 			$page_data['course_outline_lecture_num'] =$lecnum;
@@ -437,35 +449,35 @@ class Instructor extends CI_Controller {
 		}
 	}
 
-	private function upload_video($video_input=null)
-	{
-		$video_config = array(
-			'upload_path' => 'z/course',
-			'allowed_types' => 'mp4|mkv|webm',
-			'max_size' => 0,
-			'max_width' => 1920,
-			'max_height' => 1080,
-			'min_width' => 640,
-			'min_height' => 360,
-			'remove_spaces' => true,
-			'file_ext_tolower' => true,
-			'detect_mime' => true,
-		);
-	}
+	// private function upload_video($video_input=null)
+	// {
+	// 	$video_config = array(
+	// 		'upload_path' => 'z/course',
+	// 		'allowed_types' => 'mp4|mkv|webm',
+	// 		'max_size' => 0,
+	// 		'max_width' => 1920,
+	// 		'max_height' => 1080,
+	// 		'min_width' => 640,
+	// 		'min_height' => 360,
+	// 		'remove_spaces' => true,
+	// 		'file_ext_tolower' => true,
+	// 		'detect_mime' => true,
+	// 	);
+	// }
 
-	private function upload_thumbnail($thumbnail_input=null)
-	{
-		$thumb_config = array(
-			'upload_path' => '',
-			'allowed_types' => 'png|jpeg|jpg',
-			'max_size' => 0,
-			'max_width' => 1024,
-			'max_height' => 576,
-			'min_width' => 640,
-			'min_height' => 360,
-			'remove_spaces' => true,
-			'file_ext_tolower' => true,
-			'detect_mime' => true,
-		);
-	}
+	// private function upload_thumbnail($thumbnail_input=null)
+	// {
+	// 	$thumb_config = array(
+	// 		'upload_path' => '',
+	// 		'allowed_types' => 'png|jpeg|jpg',
+	// 		'max_size' => 0,
+	// 		'max_width' => 1024,
+	// 		'max_height' => 576,
+	// 		'min_width' => 640,
+	// 		'min_height' => 360,
+	// 		'remove_spaces' => true,
+	// 		'file_ext_tolower' => true,
+	// 		'detect_mime' => true,
+	// 	);
+	// }
 }

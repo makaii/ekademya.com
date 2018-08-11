@@ -20,6 +20,7 @@ class Profile extends CI_Controller {
 		}
 		$this->load->model('Admin_model');
 		$this->load->model('Account_model');
+		$this->load->model('Lookup_model');
 	}
 
 	public function edit()
@@ -27,6 +28,7 @@ class Profile extends CI_Controller {
 		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
 		$page_data = array(
 			'page_title' => 'Edit Profile Information',
+			'course_categories' => $this->Lookup_model->get_category(),
 			'profile_fname' => $profile_data['user_fname'],
 			'profile_lname' => $profile_data['user_lname'],
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
@@ -126,6 +128,7 @@ class Profile extends CI_Controller {
 		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
 		$page_data = array(
 			'page_title' => 'Edit Profile Photo',
+			'course_categories' => $this->Lookup_model->get_category(),
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_photo' => $profile_data['user_img_url'],
 			'error' => '',
@@ -150,6 +153,7 @@ class Profile extends CI_Controller {
 		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
 		$page_data = array(
 			'page_title' => 'Edit Profile Photo',
+			'course_categories' => $this->Lookup_model->get_category(),
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_photo' => $profile_data['user_img_url'],
 			'error' => '',
@@ -200,6 +204,7 @@ class Profile extends CI_Controller {
 		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
 		$page_data = array(
 			'page_title' => 'Profile Preview',
+			'course_categories' => $this->Lookup_model->get_category(),
 			'name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'pubemail' => $profile_data['user_pubemail'],
 			'photo' => $profile_data['user_img_url'],
@@ -235,6 +240,7 @@ class Profile extends CI_Controller {
 		$profile_data = $this->Account_model->get_profile_info($id);
 		$page_data = array(
 			'page_title' => 'Delete Profile',
+			'course_categories' => $this->Lookup_model->get_category(),
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_photo' => $profile_data['user_img_url'],
 			'error' => '',
@@ -290,6 +296,7 @@ class Profile extends CI_Controller {
 		$profile_data = $this->Account_model->get_profile_info($this->session->userdata('user_id'));
 		$page_data = array(
 			'page_title' => 'Update Account',
+			'course_categories' => $this->Lookup_model->get_category(),
 			'profile_photo' => $profile_data['user_img_url'],
 			'profile_name' => $profile_data['user_fname']." ".$profile_data['user_lname'],
 			'profile_email' => $profile_data['user_email']

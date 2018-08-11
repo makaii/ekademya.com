@@ -38,6 +38,18 @@ class Lookup_model extends CI_Model
 					->group_end()->get();
 	}
 
+	public function get_category()
+	{
+		$query = $this->db->select()->get('category_tbl');
+		if ($query->num_rows()>=1)
+		{
+			$query = $query->result_array();
+			return $query;
+		}
+		else
+			return false;
+	}
+
 
 }
  ?>

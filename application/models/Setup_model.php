@@ -200,12 +200,12 @@ class Setup_model extends CI_Model
 				CREATE TABLE IF NOT EXISTS category_tbl (
 					category_id TINYINT(2) AUTO_INCREMENT PRIMARY KEY,
 					category_name VARCHAR(30) NOT NULL,
-					category_code TINYINT(2) NOT NULL
+					category_code VARCHAR(30) NOT NULL
 				);
 			");
 			$data = array(
 				'category_name' => 'technology',
-				'category_code' => 1
+				'category_code' => 'technology'
 			);
 			$this->db->insert('category_tbl',$data);
 		}

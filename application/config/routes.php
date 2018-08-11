@@ -63,7 +63,7 @@ $route['signup/success'] = 'login/signup_success';
 $route['u/(:num)'] = 'lookup/user_profile/$1';
 // $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
 $route['search'] = 'lookup/search_course';
-// $route['course/(:any)'] = 'courses/$1';
+$route['course/(:any)'] = 'lookup/get_courses/$1';
 
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';

@@ -23,7 +23,10 @@ class Lookup extends CI_Controller {
 
 		if (empty($row))
 		{
-			$page_data = array('page_title' => 'User not found', );
+			$page_data = array(
+				'page_title' => 'User not found',
+				'course_categories' => $this->Lookup_model->get_category(),
+			);
 			$this->load->view('template/header',$page_data);
 			$this->load->view('errors/404_view');
 			$this->load->view('template/footer');
@@ -31,7 +34,10 @@ class Lookup extends CI_Controller {
 		else
 		{
 			$user_flname = $row['user_fname']." ".$row['user_lname'];
-			$page_data['page_title'] = ucwords($user_flname)." | ".$row['user_headline'];
+			$page_data = array(
+				'page_title' => ucwords($user_flname)." | ".$row['user_headline'],
+				'course_categories' => $this->Lookup_model->get_category(),
+			);
 			$profile_data = array(
 				'name' => $user_flname,
 				'headline' => $row['user_headline'],
@@ -71,7 +77,8 @@ class Lookup extends CI_Controller {
 		$search_string = $this->input->get('data');
 		$search_result = $this->Lookup_model->search_course($search_string);
 		$page_data = array(
-			'page_title' => 'Result of '.$search_string, 
+			'page_title' => 'Result of '.$search_string,
+			'course_categories' => $this->Lookup_model->get_category(),
 		);
 
 		if ($this->session->has_userdata('user_type'))
@@ -93,6 +100,39 @@ class Lookup extends CI_Controller {
 			$this->load->view('template/header',$page_data);
 			$this->load->view('template/footer');
 		}
+	}
+
+	public function get_courses($course)
+	{
+		if (!empty($course))
+		{
+			$page_data = array(
+				'page_title' => ucwords($course),
+				'course_categories' => $this->Lookup_model->get_category(),
+			);
+			if ($_SESSION['logged_in']==true)
+			{
+				if ($_SESSION['user_type']=='student')
+				{
+					$this->load->view('template/headerUser',$page_data);
+					$this->load->view('template/footer');
+				}
+				elseif ($_SESSION['user_type']=='instructor')
+				{
+					$this->load->view('template/headerUser',$page_data);
+					$this->load->view('template/footer');
+				}
+			}
+			else
+			{
+				$this->load->view('template/header',$page_data);
+				$this->load->view('template/footer');
+			}
+		}
+		else
+			show_404();
+
+
 	}
 
 		

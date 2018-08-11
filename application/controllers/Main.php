@@ -23,6 +23,7 @@ class Main extends CI_Controller {
 			
 		}
 		$this->load->model('Admin_model');
+		$this->load->model('Lookup_model');
 	}
 
 	public function index()
@@ -30,7 +31,7 @@ class Main extends CI_Controller {
 		$page_data = array
 		(
 			'page_title' => 'Welcome',
-			'course_categories' => $this->Admin_model->display_categories(),
+			'course_categories' => $this->Lookup_model->get_category(),
 		);
 		$this->load->view('template/header', $page_data);
 		$this->load->view('main/index');
@@ -39,10 +40,6 @@ class Main extends CI_Controller {
 
 	public function eula()
 	{
-		// $page_data = array
-		// (
-		// 	'page_title' => 'End User License Agreement',
-		// );
-		echo 1;
+		
 	}
 }

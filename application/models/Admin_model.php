@@ -30,19 +30,6 @@ class Admin_model extends CI_Model
 		}
 	}
 
-	// display the categories
-	public function display_categories()
-	{
-		$query = $this->db->select()->get('category_tbl');
-		if ($query->num_rows()>=1)
-		{
-			$query = $query->result_array();
-			return $query;
-		}
-		else
-			return false;
-	}
-
 	// settings functions
 	public function display_userdata()
 	{
