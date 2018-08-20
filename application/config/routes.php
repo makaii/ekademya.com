@@ -63,7 +63,6 @@ $route['signup/success'] = 'login/signup_success';
 $route['u/(:num)'] = 'lookup/user_profile/$1';
 // $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
 $route['search'] = 'lookup/search_course';
-$route['course/(:any)'] = 'lookup/get_courses/$1';
 
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';
@@ -72,6 +71,8 @@ $route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1
 $route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
 	$route['course/manage/outline/(:num)/lecture_check'] = 'instructor/add_outline_course_lecture/$1';
 	$route['course/manage/outline/(:num)/video_check'] = 'instructor/add_outline_course_video/$1';
+	$route['course/manage/outline/(:num)/lecture_edit/(:num)'] = 'instructor/edit_outline_course_lecture/$1/$2';
+	$route['course/manage/outline/(:num)/video_edit/(:num)'] = 'instructor/edit_outline_course_video/$1/$2';
 	
 // profile routes
 $route['profile'] = 'profile/edit';

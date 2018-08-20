@@ -44,6 +44,7 @@ class Setup_model extends CI_Model
 		if ($check_user_tbl->num_rows()==0)
 		{
 			// create table if not exist
+			$this->db->trans_begin();
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS user_tbl (
 					user_id  INT(7) AUTO_INCREMENT PRIMARY KEY,
@@ -67,6 +68,27 @@ class Setup_model extends CI_Model
 					user_status TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");
+			if ($this->db->trans_status()===true)
+			{
+				$test_user = array(
+					'user_email' => 'john@email.com',
+					'user_password' => password_hash('johnjohn', PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'John',
+					'user_lname' => 'Doe',
+					'user_educ' => 'BS Information Technology',
+					'user_pubemail' => 'john@email.com',
+					'user_headline' => 'Test Subject',
+					'user_bio' => 'An important Asset in the development of Ekademya',
+					'user_website' => 'about.me/johndoe',
+					'user_facebook' => 'facebook.com/johndoe',
+					'user_twitter' => 'twitter.com/johndoe',
+					'user_youtube' => 'youtube.com/johndoe',
+				);
+				$this->db->insert('user_tbl',$test_user);
+			}
+			else
+				$this->db->trans_rollback();
 		}
 	}
 	public function create_course_table()
@@ -89,6 +111,7 @@ class Setup_model extends CI_Model
 					course_achievement VARCHAR(255) NOT NULL,
 					course_date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 					course_status TINYINT(1) NOT NULL DEFAULT 1,
+					course_review TINYINT(1) NOT NULL DEFAULT 0,
 					course_published TINYINT(1) NOT NULL DEFAULT 0
 				);
 			");

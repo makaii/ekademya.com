@@ -88,27 +88,34 @@
 					</div>
 				</div>
 				<!-- Outline -->
-				<div class="row">
-					<div class="col-md-12">
-						<?php if (!empty($course_outline)): ?>
-							<?php $count=1;foreach ($course_outline as $outline): ?>
-								<div class="card-body bg-light">
-									<h6 class="card-text"><a href="" ="">
-										<?php if ($outline['outline_type']=='lecture'): ?>
-											<?php echo $outline['lecture_title']; ?>
-										<?php elseif ($outline['outline_type']=='video'): ?>
-											<?php echo $outline['video_title']; ?>
-										<?php endif; ?>
-									</a></h6>
-									<button class="btn btn-sm btn-info">Edit</button>
-									<button class="btn btn-sm btn-danger" disabled="">Delete</button>
+				<ul class="list-group list-group-flush">
+					<?php if (!empty($course_outline)): ?>
+						<?php $count=1;foreach ($course_outline as $outline): ?>
+							<li class="list-group-item bg-light">
+								<div class="row">
+									<div class="col-md-10 col-sm-8">
+										<h6 class="card-text"><?php echo $count;$count++; ?>.
+											<?php if ($outline['outline_type']=='lecture'): ?>
+												<?php echo $outline['lecture_title']; ?>
+												<?php $edit_url = 'lecture_edit'; ?>
+											<?php elseif ($outline['outline_type']=='video'): ?>
+												<?php echo $outline['video_title']; ?>
+												<?php $edit_url = 'video_edit'; ?>
+											<?php endif; ?>
+										</a></h6>
+									</div>
+									<div class="col-md-2 col-sm-4">
+										<a class="btn btn-sm btn-info" href="<?php echo base_url("course/manage/outline/$course_id/$edit_url/").$outline['outline_id']; ?>" role="button">Edit</a>
+										<!-- <button class="btn btn-sm btn-info">Edit</button> -->
+										<button class="btn btn-sm btn-danger" disabled="">Delete</button>
+									</div>
 								</div>
-							<?php endforeach; ?>
-						<?php else: ?>
-							<div class="card-body bg-light"><h5 class="card-title text-center">No Content Yet</h5></div>
-						<?php endif; ?>
-					</div>
-				</div>
+							</li>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<div class="card-body bg-light"><h5 class="card-title text-center">No Content Yet</h5></div>
+					<?php endif; ?>
+				</ul>
 			</div>
 		</div>
 	</div>

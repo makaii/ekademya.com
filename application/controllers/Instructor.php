@@ -37,7 +37,7 @@ class Instructor extends CI_Controller {
 		{
 			$this->form_validation->set_error_delimiters('<small class="text-danger">','</small>');
 			$this->form_validation->set_rules('courseTitle', 'Course Title', 'trim|required');
-			$this->form_validation->set_rules('courseCategory', 'Course Category', 'required|in_list[Art & Design,Business,Culinary,Film & Photography,Technology]');
+			$this->form_validation->set_rules('courseCategory', 'Course Category', 'required');
 			if ($this->form_validation->run()==false)
 			{
 				// create fail
@@ -446,6 +446,53 @@ class Instructor extends CI_Controller {
 					show_404();
 				}
 			}
+		}
+	}
+
+	public function edit_outline_course_lecture($course_id,$outline_id)
+	{
+		if (!empty($course_id)&&!empty($outline_id))
+		{
+			if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+			{
+				$page_data = array(
+					'page_title' => 'Edit Lecture',
+					'course_categories' => $this->Lookup_model->get_category(),
+				);
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('template/footer');
+			}
+			else
+			{
+				show_404();
+			}
+		}
+		else
+		{
+			redirect(base_url());
+		}
+	}
+	public function edit_outline_course_video($course_id,$outline_id)
+	{
+		if (!empty($course_id)&&!empty($outline_id))
+		{
+			if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+			{
+				$page_data = array(
+					'page_title' => 'Edit Video',
+					'course_categories' => $this->Lookup_model->get_category(),
+				);
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('template/footer');
+			}
+			else
+			{
+				show_404();
+			}
+		}
+		else
+		{
+			redirect(base_url());
 		}
 	}
 

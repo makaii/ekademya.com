@@ -16,11 +16,9 @@
 						<div class="form-group">
 							<select class="custom-select" name="courseCategory">
 							  <option selected disabled>Select Course Category</option>
-							  <option value="Art & Design">Art &amp; Design</option>
-							  <option value="Business">Business</option>
-							  <option value="Culinary">Culinary</option>
-							  <option value="Film & Photography">Film &amp; Photography</option>
-							  <option value="Technology">Technology</option>
+								<?php foreach ($course_categories as $category): ?>
+									<option value="<?php echo $category['category_code']; ?>"><?php echo ucwords($category['category_name']); ?></option>
+								<?php endforeach; ?>
 							</select>
 							<br>
 							<?php echo form_error('courseCategory'); ?>

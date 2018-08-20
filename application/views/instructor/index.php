@@ -44,7 +44,7 @@
 		<?php endforeach; ?>
 	</div>
 <?php elseif($this->Instructor_model->get_instructors_courses($_SESSION['user_email'])===null): ?>
-	<div class="container mb-5">
+	<div class="container mb-5 pt-5 pb-5">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="card">

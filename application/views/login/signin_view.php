@@ -14,22 +14,19 @@
 							<?php echo form_error('email'); ?>
 						</div>
 						<div class="form-group">
-							<label>Password <a href="<?php echo base_url(); ?>"><small class="font-weight-light">(forgot password?)</small></a></label>
+							<label>Password</label>
 							<input class="form-control form-control-sm" type="password" name="password" value="<?php echo set_value('password'); ?>"></input>
 							<?php echo form_error('password'); ?>
 							<small class="text-danger">
 			                	<?php echo $this->session->flashdata('error'); ?>
 			                </small>
 						</div>
-						<!-- <div class="form-check">
-							<label class="form-check-label text-muted">
-							<input type="checkbox" class="form-check-input"><small>remember me</small></label>
-						</div> -->
 						<button class="btn btn-outline-primary btn-block" type="submit">Signin</button>
-						<!-- <button class="btn btn-link btn-block" type="reset">or Forgot Password</button> -->
 					</div>
 					<div class="card-footer text-center">
 						<small>Need an account? <strong><a href="<?php echo base_url('signup'); ?>">Create one here</a></strong></small>
+						<br>
+						<a href="<?php echo base_url(); ?>"><small class="font-weight-light">forgot password?</small></a>
 					</div>
 				<?php echo form_close(); ?>
 			</div>
