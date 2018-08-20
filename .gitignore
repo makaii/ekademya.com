@@ -17,17 +17,21 @@ application/logs/*
 /vendor/
 
 #custom
-	#video
-	z/course/*.mp4
-	z/course/*.webm
-	z/course/*.ogg
-	#image
-	z/instructor/*.jpg
-	z/instructor/*.jpeg
-	z/instructor/*.png
-	z/thumbnails/*.jpg
-	z/thumbnails/*.jpeg
-	z/thumbnails/*.png
-	z/user/*.jpg
-	z/user/*.jpeg
-	z/user/*.png
+#video
+z/course/*.mp4
+z/course/*.webm
+z/course/*.ogg
+!z/course/default_thumbnail.png
+#image
+z/instructor/*.jpg
+z/instructor/*.jpeg
+z/instructor/*.png
+!z/instructor/default_thumbnail.png
+z/thumbnails/*.jpg
+z/thumbnails/*.jpeg
+z/thumbnails/*.png
+!z/thumbnails/default_course_thumbnail.png
+z/user/*.jpg
+z/user/*.jpeg
+z/user/*.png
+!z/user/default_thumbnail.png
