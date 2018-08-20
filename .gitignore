@@ -18,10 +18,16 @@ application/logs/*
 
 #custom
 	#video
-	*.mp4
-	*.webm
-	*.ogg
+	z/course/*.mp4
+	z/course/*.webm
+	z/course/*.ogg
 	#image
-	*.jpg
-	*.jpeg
-	*.png
+	z/instructor/*.jpg
+	z/instructor/*.jpeg
+	z/instructor/*.png
+	z/thumbnails/*.jpg
+	z/thumbnails/*.jpeg
+	z/thumbnails/*.png
+	z/user/*.jpg
+	z/user/*.jpeg
+	z/user/*.png
