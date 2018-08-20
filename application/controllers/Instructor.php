@@ -334,7 +334,7 @@ class Instructor extends CI_Controller {
 			elseif ($this->form_validation->run()) {
 				$video_config = array(
 					'upload_path' => './z/course',
-					'allowed_types' => 'mp4|mkv|webm',
+					'allowed_types' => 'mp4|webm|ogg',
 					'encrypt_name' => true,
 					'max_size' => 0,
 					'max_width' => 1920,

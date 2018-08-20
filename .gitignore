@@ -15,3 +15,13 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
+
+#custom
+	#video
+	*.mp4
+	*.webm
+	*.ogg
+	#image
+	*.jpg
+	*.jpeg
+	*.png

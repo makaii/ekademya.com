@@ -160,7 +160,7 @@ class Profile extends CI_Controller {
 		);
 
 		$config['upload_path'] = './z/user';
-		$config['allowed_types'] = 'jpg|png';
+		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['file_ext_tolower'] = true;
 		// $config['encrypt_name'] = true;
 		$config['file_name'] = $this->session->userdata('user_id');
