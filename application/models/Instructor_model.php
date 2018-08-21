@@ -324,9 +324,8 @@ class Instructor_model extends CI_Model
 		}
 		else return false;
 	}
-	public function update_outline_lecture($outline_id, $title, $body);
+	public function update_outline_lecture($outline_id, $title, $body)
 	{
-		
 		$lecture_data = array(
 			'lecture_title' => $title,
 			'lecture_body' => $body,
