@@ -158,15 +158,6 @@ class Instructor_model extends CI_Model
 
 
 
-
-
-
-
-
-
-
-
-
 	public function add_outline($outline_array)
 	{
 		if (!empty($outline_array))
@@ -292,6 +283,61 @@ class Instructor_model extends CI_Model
 		{
 			return $query->result_array();
 		}
+	}
+	public function get_outline_video($outline_id)
+	{
+		$this->db->select();
+		$this->db->where('video_outline_id',$outline_id);
+		$query = $this->db->get('video_tbl');
+		if ($query->num_rows()==1)
+		{
+			return $query->row_array();
+		}
+		else
+			return null;
+	}
+	public function get_outline_lecture($outline_id)
+	{
+		$this->db->select();
+		$this->db->where('lecture_outline_id',$outline_id);
+		$query = $this->db->get('lecture_tbl');
+		if ($query->num_rows()==1)
+		{
+			return $query->row_array();
+		}
+		else
+			return null;
+	}
+	public function update_outline_video($outline_id,$title,$desc,$url,$thumb)
+	{
+		$video_data = array(
+			'video_title' => $title,
+			'video_description' => $desc,
+			'video_url' => $url,
+			'video_thumbnail' => $thumb,
+		);
+		$this->db->where('video_outline_id',$outline_id);
+		$this->db->update('video_tbl');
+		if ($this->db->affected_rows()==1)
+		{
+			return true;
+		}
+		else return false;
+	}
+	public function update_outline_lecture($outline_id, $title, $body);
+	{
+		
+		$lecture_data = array(
+			'lecture_title' => $title,
+			'lecture_body' => $body,
+		);
+		$this->db->where('lecture_outline_id',$outline_id);
+		$this->db->update('lecture_tbl',$lecture_data);
+		if ($this->db->affected_rows()==1)
+		{
+			return true;
+		}
+		else return false;
 	}
 
 }

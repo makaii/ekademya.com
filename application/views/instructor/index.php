@@ -26,17 +26,26 @@
 					<div class="card">
 						<div class="card-header">
 							<?php echo $data['course_title']; ?>
+							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} ?>
 						</div>
-						<div class="card-body pt-1 pb-1">
+						<div class="card-body pt-3 pb-3">
 							<div class="card-text">
 								<?php $desc = $data['course_description']; ?>
-								<?php if(strlen($desc)>=200){echo substr($desc, 0,200).' ...';}else echo $desc; ?>
+								<?php if(strlen($desc)>=200){echo substr($desc, 0,200).' ...';}else echo "<p class='text-muted mb-0'>No Description Yet..</p>"; ?>
 							</div>
 						</div>
 						<div class="card-footer">
-							<button class="btn btn-sm btn-primary disabled">Send for Review</button>
-							<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info">Manage</button></a>
-							<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right">Delete</button></a>
+							<div id="courseOptions">
+								<?php if($data['course_review']==1){$review="disabled";}else $review=""; ?>
+								<button class="btn btn-sm btn-primary <?php echo $review; ?>" id="sendForReview" onclick="show_review_buttons()"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
+								<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Manage</button></a>
+								<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</button></a>
+							</div>
+							<div style="display: none;" id="reviewButtons">
+								<label class="font-weight-bold mb-0">Are you sure?</label>
+								<button class="btn btn-sm btn btn-primary">Yes</button>
+								<button class="btn btn-sm btn btn-danger" onclick="cancel_review();">No</button>
+							</div>
 						</div>
 					</div>
 				</div>	
@@ -63,3 +72,4 @@
 		</div>
 	</div>
 <?php endif; ?>
+<script type="text/javascript" src="<?php echo base_url('assets/js/custom.js'); ?>"></script>

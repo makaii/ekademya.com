@@ -30,8 +30,6 @@
 				<div class="card-body">
 					<h3>Course Outline</h3>
 					<h6 class="text-muted">Start putting together your course by adding videos, lectures, assignments and quizzes below.</h6>
-
-					
 				</div>
 				<div class="card-body" id="outlineButtons">
 					<div class="row">
@@ -64,6 +62,9 @@
 								</div>
 								<div class="form-group">
 									<input type="file" name="video_file">
+									<small class="form-text text-muted">We recommend using a video with a 16:9 aspect ratio, with a maxfileze of 0</small>
+									<small class="form-text text-muted">Max resolution is 1920x1080</small>
+									<small class="form-text text-muted">Mininum resolution is 640x360</small>
 								</div>
 								<div class="form-group">
 									<button class="btn btn-primary" type="submit">Add Video</button>
@@ -93,21 +94,22 @@
 						<?php $count=1;foreach ($course_outline as $outline): ?>
 							<li class="list-group-item bg-light">
 								<div class="row">
-									<div class="col-md-10 col-sm-8">
-										<h6 class="card-text"><?php echo $count;$count++; ?>.
+									<div class="col-md-9 col-sm-8">
+										<h6 class="card-text pt-1"><?php echo $count;$count++; ?>.
 											<?php if ($outline['outline_type']=='lecture'): ?>
 												<?php echo $outline['lecture_title']; ?>
+												<i class="fa fa-newspaper-o"></i>
 												<?php $edit_url = 'lecture_edit'; ?>
 											<?php elseif ($outline['outline_type']=='video'): ?>
 												<?php echo $outline['video_title']; ?>
+												<i class="fa fa-video-camera"></i>
 												<?php $edit_url = 'video_edit'; ?>
 											<?php endif; ?>
 										</a></h6>
 									</div>
-									<div class="col-md-2 col-sm-4">
-										<a class="btn btn-sm btn-info" href="<?php echo base_url("course/manage/outline/$course_id/$edit_url/").$outline['outline_id']; ?>" role="button">Edit</a>
-										<!-- <button class="btn btn-sm btn-info">Edit</button> -->
-										<button class="btn btn-sm btn-danger" disabled="">Delete</button>
+									<div class="col-md-3 col-sm-4">
+										<a class="btn btn-sm btn-info" href="<?php echo base_url("course/manage/outline/$course_id/$edit_url/").$outline['outline_id']; ?>" role="button"><i class="fa fa-edit"></i> edit</a>
+										<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</button>
 									</div>
 								</div>
 							</li>

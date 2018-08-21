@@ -66,6 +66,9 @@
 								</div>
 								<div class="form-group">
 									<input type="file" name="video_file">
+									<small class="form-text text-muted">We recommend using a video with a 16:9 aspect ratio, with a maxfileze of 0</small>
+									<small class="form-text text-muted">Max resolution is 1920x1080</small>
+									<small class="form-text text-muted">Mininum resolution is 640x360</small>
 									<small class="text-danger"><?php echo $upload_error; ?></small>
 								</div>
 								<div class="form-group">
@@ -92,6 +95,36 @@
 						</div>
 					</div>
 				</div>
+				<!-- Outline -->
+				<ul class="list-group list-group-flush">
+					<?php if (!empty($course_outline)): ?>
+						<?php $count=1;foreach ($course_outline as $outline): ?>
+							<li class="list-group-item bg-light">
+								<div class="row">
+									<div class="col-md-9 col-sm-8">
+										<h6 class="card-text pt-1"><?php echo $count;$count++; ?>.
+											<?php if ($outline['outline_type']=='lecture'): ?>
+												<?php echo $outline['lecture_title']; ?>
+												<i class="fa fa-newspaper-o"></i>
+												<?php $edit_url = 'lecture_edit'; ?>
+											<?php elseif ($outline['outline_type']=='video'): ?>
+												<?php echo $outline['video_title']; ?>
+												<i class="fa fa-video-camera"></i>
+												<?php $edit_url = 'video_edit'; ?>
+											<?php endif; ?>
+										</a></h6>
+									</div>
+									<div class="col-md-3 col-sm-4">
+										<a class="btn btn-sm btn-info" href="<?php echo base_url("course/manage/outline/$course_id/$edit_url/").$outline['outline_id']; ?>" role="button"><i class="fa fa-edit"></i> edit</a>
+										<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</button>
+									</div>
+								</div>
+							</li>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<div class="card-body bg-light"><h5 class="card-title text-center">No Content Yet</h5></div>
+					<?php endif; ?>
+				</ul>
 			</div>
 		</div>
 	</div>

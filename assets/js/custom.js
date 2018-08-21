@@ -1,3 +1,13 @@
+function show_review_buttons()
+{
+	document.getElementById('reviewButtons').style.display = "block";
+	document.getElementById('courseOptions').style.display = "none";
+}
+function cancel_review()
+{
+	document.getElementById('reviewButtons').style.display = "none";
+	document.getElementById('courseOptions').style.display = "block";
+}
 function add_video()
 {
 	document.getElementById('outlineButtons').style.display = 'none';

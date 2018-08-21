@@ -44,7 +44,7 @@
 							<?php echo form_error('courseDescription'); ?>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-primary" type="submit">Save</button>
+							<button class="btn btn-primary" type="submit">save</button>
 						</div>
 					<?php echo form_close(); ?>
 				</div>

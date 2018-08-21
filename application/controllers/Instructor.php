@@ -275,11 +275,13 @@ class Instructor extends CI_Controller {
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$outlines = $this->Instructor_model->get_outline($course_id);
 			$page_data = array(
 				'page_title' => 'Add Lecture Outline',
 				'course_categories' => $this->Lookup_model->get_category(),
 				'course_title' => $course['course_title'],
 				'course_id' => $course_id,
+				'course_outline' => $outlines,
 			);
 			$this->form_validation->set_rules('lecture_title', 'Lecture Title', 'required|trim');
 			$this->form_validation->set_rules('lecture_body', 'Lecture Content', 'trim|required');
@@ -315,6 +317,7 @@ class Instructor extends CI_Controller {
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id)) {
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$outlines = $this->Instructor_model->get_outline($course_id);
 			$this->form_validation->set_rules('video_title', 'Video Title', 'trim|required');
 			$this->form_validation->set_rules('video_description', 'Video Description', 'trim');
 			$page_data = array(
@@ -322,6 +325,7 @@ class Instructor extends CI_Controller {
 				'course_categories' => $this->Lookup_model->get_category(),
 				'course_title' => $course['course_title'],
 				'course_id' => $course_id,
+				'course_outline' => $outlines,
 				'upload_error' => '',
 			);
 			$this->input->post('video_title');
@@ -379,88 +383,35 @@ class Instructor extends CI_Controller {
 		}
 	}
 
-	public function old_add_outline_course_lecture($id=null,$lecnum=null)
-	{
-		$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
-		if ($this->Instructor_model->check_if_their_course($_SESSION['user_email'],$id))
-		{
-			$page_data['page_title'] = 'Add Lecture';
-			$page_data['course_categories'] = $this->Lookup_model->get_category();
-			$page_data['course_title'] = $course['course_title'];
-			$page_data['course_author'] = $course['course_author'];
-			$page_data['course_outline_lecture_num'] =$lecnum;
-			$page_data['course_section'] = $this->Instructor_model->get_section_title($id,$lecnum);
-			$page_data['upload_error'] = "";
-
-			$this->form_validation->set_rules('lectureTitle','Lecture Title','required');
-			$this->form_validation->set_rules('lecture_description','Lecture Description','alpha_dash');
-			if (!$this->form_validation->run())
-			{
-				$this->load->view('template/headerInstructor',$page_data);
-				$this->load->view('instructor/course_outline_add_lecture');
-				$this->load->view('template/footer');
-			}
-			elseif ($this->form_validation->run())
-			{
-				$lecture_type = $this->input->post('lectureType');
-				$title=$this->input->post('lectureTitle');
-				$desc=$this->input->post('lectureDescription');
-				$video_config = array(
-					'upload_path' => './z/course',
-					'allowed_types' => 'mp4|mkv|webm',
-					'encrypt_name' => true,
-					'max_size' => 0,
-					'max_width' => 1920,
-					'max_height' => 1080,
-					'min_width' => 640,
-					'min_height' => 360,
-					'remove_spaces' => true,
-					'file_ext_tolower' => true,
-					'detect_mime' => true,
-					'mod_mime_fix' => true,
-					'overwrite' => false,
-					'max_filename' => 255,
-				);
-				$this->upload->initialize($video_config);
-				if (!$this->upload->do_upload('lectureVideo'))
-				{
-					$page_data['upload_error'] = $this->upload->display_errors();
-					$this->load->view('template/headerInstructor',$page_data);
-					$this->load->view('instructor/course_outline_add_lecture');
-					$this->load->view('template/footer');
-				}
-				else
-				{
-					$video_file_array = array(
-						'outline_lecture_video_url' => $this->upload->data('file_name'),
-						'outline_course_id' => $id,
-						'outline_lecture_id' => $lecnum,
-						'outline_author' => $this->session->userdata('user_email'),
-						'outline_type' => 'video',
-						'outline_lecture_title' => $title,
-						'outline_lecture_description' => $desc,
-					);
-					if ($this->Instructor_model->add_video_lecture($video_file_array)) {
-						redirect(base_url('course/manage/outline/'.$id));
-					}
-					show_404();
-				}
-			}
-		}
-	}
-
 	public function edit_outline_course_lecture($course_id,$outline_id)
 	{
 		if (!empty($course_id)&&!empty($outline_id))
 		{
 			if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 			{
+				$this->form_validation->set_rules('lectureTitle','Lecture Title','required');
+				$this->form_validation->set_rules('lectureBody','Lecture Body','required');
+				$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+				$lecture = $this->Instructor_model->get_outline_lecture($outline_id);
 				$page_data = array(
 					'page_title' => 'Edit Lecture',
 					'course_categories' => $this->Lookup_model->get_category(),
+					'course_title' => $course['course_title'],
+					'course_outline_id' => $outline_id,
+					'lecture' => $lecture,
 				);
-				$this->load->view('template/headerInstructor',$page_data);
-				$this->load->view('template/footer');
+				if (!$this->form_validation->run())
+				{
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_outline_lecture_edit');
+					$this->load->view('template/footer');
+				}
+				else
+				{
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_outline_lecture_edit');
+					$this->load->view('template/footer');
+				}
 			}
 			else
 			{
@@ -478,11 +429,18 @@ class Instructor extends CI_Controller {
 		{
 			if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 			{
+				$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+				$video = $this->Instructor_model->get_outline_video($outline_id);
 				$page_data = array(
 					'page_title' => 'Edit Video',
 					'course_categories' => $this->Lookup_model->get_category(),
+					'course_title' => $course['course_title'],
+					'course_outline_id' => $outline_id,
+					'video' => $video,
+					'upload_error' => '',
 				);
 				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('instructor/course_outline_video_edit');
 				$this->load->view('template/footer');
 			}
 			else
