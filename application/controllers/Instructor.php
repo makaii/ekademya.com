@@ -219,6 +219,7 @@ class Instructor extends CI_Controller {
 					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
 					$page_data = array(
 						'page_title' => 'Manage Course Goals',
+						'course_categories' => $this->Lookup_model->get_category(),
 						'page_alert' => $update_alert,
 						'course_title' => $course['course_title'],
 						'course_author' => $course['course_author'],
@@ -257,6 +258,7 @@ class Instructor extends CI_Controller {
 				'course_description' => $course['course_description'],
 				'course_outline' => $outlines,
 				'course_id' => $id,
+				'course_thumb' => $course['course_img_url']
 			);
 			$this->load->view('template/headerInstructor',$page_data);
 			$this->load->view('instructor/course_outline');
@@ -389,8 +391,8 @@ class Instructor extends CI_Controller {
 		{
 			if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 			{
-				$this->form_validation->set_rules('lectureTitle','Lecture Title','required');
-				$this->form_validation->set_rules('lectureBody','Lecture Body','required');
+				$this->form_validation->set_rules('lectureTitle','Lecture Title','required|trim');
+				$this->form_validation->set_rules('lectureBody','Lecture Body','trim|required');
 				$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
 				$lecture = $this->Instructor_model->get_outline_lecture($outline_id);
 				$page_data = array(
@@ -398,10 +400,30 @@ class Instructor extends CI_Controller {
 					'course_categories' => $this->Lookup_model->get_category(),
 					'course_title' => $course['course_title'],
 					'course_outline_id' => $outline_id,
-					'lecture' => $lecture,
+					'page_alert' => '',
+					'lecture_title' => $lecture['lecture_title'],
+					'lecture_body' => $lecture['lecture_body']
 				);
+				$title = $this->input->post('lectureTitle');
+				$body = $this->input->post('lectureBody');
 				if (!$this->form_validation->run())
 				{
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_outline_lecture_edit');
+					$this->load->view('template/footer');
+				}
+				elseif ($this->Instructor_model->update_outline_lecture($outline_id,$title,$body)==true)
+				{
+					$lecture = $this->Instructor_model->get_outline_lecture($outline_id);
+					$page_data = array(
+						'page_title' => 'Edit Lecture',
+						'course_categories' => $this->Lookup_model->get_category(),
+						'course_title' => $course['course_title'],
+						'course_outline_id' => $outline_id,
+						'page_alert' => '<div class="alert alert-success" role="alert">Update Successful!</div>',
+						'lecture_title' => $lecture['lecture_title'],
+						'lecture_body' => $lecture['lecture_body']
+					);
 					$this->load->view('template/headerInstructor',$page_data);
 					$this->load->view('instructor/course_outline_lecture_edit');
 					$this->load->view('template/footer');

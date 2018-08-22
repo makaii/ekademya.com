@@ -30,7 +30,7 @@ z/instructor/*.png
 z/thumbnails/*.jpg
 z/thumbnails/*.jpeg
 z/thumbnails/*.png
-!z/thumbnails/default_course_thumbnail.png
+!z/thumbnails/default_thumbnail.png
 z/user/*.jpg
 z/user/*.jpeg
 z/user/*.png

@@ -11,7 +11,7 @@
 			<img class="rounded img-thumbnail" src="https://www.udemy.com/staticx/udemy/images/course/200_H/placeholder.png">
 		</div>
 		<div class="col-md-8">
-			<h3 class="font-weight-light"><?php echo $course_title; ?></h3>
+			<h3 class="font-weight-bold"><?php echo $course_title; ?></h3>
 			<?php if (isset($page_alert)){echo $page_alert;} ?>
 		</div>
 	</div>
@@ -41,12 +41,12 @@
 					<form method="POST" action="<?php echo current_url(); ?>">
 						<div class="form-group">
 							<label>Lecture Title <span class="text-danger">*</span></label>
-							<input type="text" name="lectureTitle" class="form-control" value="<?php if(!empty($lecture['lecture_title'])){echo $lecture['lecture_title'];} ?>">
+							<input type="text" name="lectureTitle" class="form-control" value="<?php echo $lecture_title; ?>">
 							<?php echo form_error('lectureTitle'); ?>
 						</div>
 						<div class="form-group">
 							<label>Lecture Body <span class="text-danger">*</span></label>
-							<textarea name="lectureBody" maxlength="" rows="4" class="form-control"><?php if(!empty(set_value("lectureBody"))){echo set_value("lectureBody");}else echo $lecture['lecture_body']; ?></textarea>
+							<textarea name="lectureBody" maxlength="" rows="4" class="form-control"><?php echo $lecture_body ?></textarea>
 							<?php echo form_error('lectureBody'); ?>
 						</div>
 						<div class="form-group">

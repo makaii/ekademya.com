@@ -8,9 +8,9 @@
 <div class="container-fluid">
 	<div class="row mt-4">
 		<div class="col-md-2">
-			<img class="rounded img-thumbnail" src="https://www.udemy.com/staticx/udemy/images/course/200_H/placeholder.png" style="width: 256px;height: 144px;">
+			<img class="rounded" src="<?php echo base_url("z/thumbnails/").$course_thumb; ?>" style="max-width: 194.83px; max-height: 109.591875px;">
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-10">
 			<h3 class="font-weight-bold"><?php echo $course_title; ?></h3>
 			<?php if (isset($page_alert)){echo $page_alert;} ?>
 		</div>
