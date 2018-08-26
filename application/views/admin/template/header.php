@@ -14,6 +14,7 @@
 	<title><?php echo $page_title; ?></title>
 
 	<!-- Bootstrap core CSS -->
+	<!-- <link href="<?php echo base_url('assets/css/bootstrap.css'); ?>" rel="stylesheet"> -->
 	<link href="<?php echo base_url('assets/admin/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
 	<!--Fonts-->

@@ -5,7 +5,7 @@
 		<main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
 			<header class="page-header row justify-center">
 				<div class="col-md-6 col-lg-8" >
-					<h1 class="float-left text-center text-md-left">Dashboard</h1>
+					<h1 class="float-left text-center text-md-left">Courses</h1>
 				</div>
 				
 				<div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right"><a class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,29 +26,33 @@
 			</header>
 			
 			<section class="row">
-				<div class="col-md-4">
-					<div class="card text-center">
-						<div class="card-body p-2">
-							<i class="fa fa-users fa-5x"></i>
-						</div>
-						<div class="card-footer">Users&emsp;<span class="text-primary"><?php echo $no_user; ?></span></div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card text-center">
-						<div class="card-body p-2">
-							<i class="fa fa-graduation-cap fa-5x"></i>
-						</div>
-						<div class="card-footer">Instructors&emsp;<span class="text-primary"><?php echo $no_instructors; ?></span></div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card text-center">
-						<div class="card-body p-2">
-							<i class="fa fa-book fa-5x"></i>
-						</div>
-						<div class="card-footer">Courses&emsp;<span class="text-primary"><?php echo $no_courses; ?></span></div>
-					</div>
+				<div class="col-md-12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Course Title</th>
+								<th>Catgory</th>
+								<th>Author</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if (!empty($courses_review)): ?>
+								<?php foreach($courses_review as $courses): ?>
+									<tr>
+										<th><?php echo $courses["course_title"]; ?></th>
+										<th><?php echo $courses["course_category"]; ?></th>
+										<th><?php echo $courses["user_email"]; ?></th>
+										<th>
+											<a href="" role="button" class="btn btn-sm btn-info">view</a>
+										</th>
+									</tr>
+								<?php endforeach; ?>
+							<?php else: ?>
+								<p>No Courses Yet</p>
+							<?php endif; ?>
+						</tbody>
+					</table>
 				</div>
 			</section>
 		</main>

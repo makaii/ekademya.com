@@ -18,7 +18,7 @@ class Admin_model extends CI_Model
 			{
 				$admin = $admin_query->row();
 				$this->session->set_userdata('admin_logged_in', 1);
-				$this->session->set_userdata('admin_data', $admin);
+				$this->session->set_userdata('admin_data', $admin); // whole array
 				$this->session->set_userdata('admin_email', $admin->admin_email);
 				$this->session->set_userdata('admin_type', $admin->admin_type);
 				return true;
@@ -28,6 +28,21 @@ class Admin_model extends CI_Model
 		{
 			return false;
 		}
+	}
+	public function get_unreviewed_courses()
+	{
+		$this->db->select();
+		$this->db->where('course_status',1);
+		$this->db->where('course_review',0);
+		$this->db->where('course_published',0);
+		$this->db->join('user_tbl','user_tbl.user_id = course_tbl.course_author');
+		$query = $this->db->get('course_tbl');
+		if ($query->num_rows()>=1)
+		{
+			return $query->result_array();
+		}
+		else
+			return null;
 	}
 
 	// settings functions
@@ -64,6 +79,46 @@ class Admin_model extends CI_Model
 		if (isset($bool))
 		{
 			$this->db->query("UPDATE settings_tbl SET display_feedback=$bool LIMIT 1");
+		}
+		else return false;
+	}
+
+
+
+	public function count_users()
+	{
+		$this->db->where('user_type','student');
+		$this->db->where('user_status',1);
+		$this->db->from('user_tbl');
+		$query = $this->db->count_all_results();
+		if ($query>=0)
+		{
+			return $query;
+		}
+		else return false;
+	}
+	public function count_instructors()
+	{
+		$this->db->where('user_type','instructor');
+		$this->db->where('user_status',1);
+		$this->db->from('user_tbl');
+		$query = $this->db->count_all_results();
+		if ($query>=0)
+		{
+			return $query;
+		}
+		else return false;
+	}
+	public function count_pubished_courses()
+	{
+		$this->db->where('course_status',1);
+		$this->db->where('course_review',1);
+		$this->db->where('course_published',1);
+		$this->db->from('course_tbl');
+		$query = $this->db->count_all_results();
+		if ($query>=0)
+		{
+			return $query;
 		}
 		else return false;
 	}

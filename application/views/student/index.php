@@ -30,7 +30,7 @@
 					</div>
 				</div>
 			</div>
-		<?php elseif($this->Account_model->get_courses($_SESSION['email'])===false): ?>
+		<?php elseif($this->Account_model->get_courses($_SESSION['user_email'])===false): ?>
 			<div class="col-12 col-sm-6 col-md-3">
 				<div class="card mb-3">
 					<img class="card-img-top course-thumb-img" src="<?php echo base_url('assets/img/4.jpeg'); ?>" alt="<?php  ?>" title="<?php  ?>"></img>

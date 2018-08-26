@@ -1,33 +1,6 @@
-<script>
-	window.onload = function () {
-		var chart1 = document.getElementById("line-chart").getContext("2d");
-		window.myLine = new Chart(chart1).Line(lineChartData, {
-		responsive: true,
-		scaleLineColor: "rgba(0,0,0,.2)",
-		scaleGridLineColor: "rgba(0,0,0,.05)",
-		scaleFontColor: "#c5c7cc"
-		});
-	};
-</script>
-
 <div class="container-fluid" id="wrapper">
 	<div class="row">
-		<nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
-			<h1 class="site-title"><a href="<?php echo base_url(); ?>" target="_blank"><em class="fa fa-leanpub"></em> ekademya</a></h1>
-			
-			<a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
-			
-			<ul class="nav nav-pills flex-column sidebar-nav">
-				<li class="nav-item"><a class="nav-link" href="<?php echo base_url('admin'); ?>"><em class="fa fa-dashboard"></em> Dashboard</a></li>
-				<li class="nav-item"><a class="nav-link" href="widgets.html"><em class="fa fa-calendar-o"></em> Widgets</a></li>
-				<li class="nav-item"><a class="nav-link" href="charts.html"><em class="fa fa-bar-chart"></em> Charts</a></li>
-				<li class="nav-item"><a class="nav-link" href="elements.html"><em class="fa fa-hand-o-up"></em> UI Elements</a></li>
-				<li class="nav-item"><a class="nav-link" href="cards.html"><em class="fa fa-clone"></em> Cards</a></li>
-				<li class="nav-item"><a class="nav-link active" href="<?php echo base_url('admin/settings'); ?>"><em class="fa fa-gear"></em> Settings <span class="sr-only">(current)</span></a></li>
-			</ul>
-			
-			<a href="<?php echo base_url('signout'); ?>" class="logout-button"><em class="fa fa-power-off"></em> Signout</a>
-		</nav>
+		<?php $this->load->view("admin/template/sidebar"); ?>
 		
 		<main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
 			<header class="page-header row justify-center">
@@ -97,7 +70,7 @@
 						</div>
 					</section>
 					<section class="row">
-						<div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com">Medialoot</a></div>
+						<div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com" target="_blank">Medialoot</a></div>
 					</section>
 				</div>
 			</section>

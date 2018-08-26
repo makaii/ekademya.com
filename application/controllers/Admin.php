@@ -22,6 +22,10 @@ class Admin extends CI_Controller {
 				'page_title' => 'Welcome Admin',
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
+				'dashboard_active' => 'active',
+				'no_courses' => $this->Admin_model->count_pubished_courses(),
+				'no_instructors' => $this->Admin_model->count_instructors(),
+				'no_user' => $this->Admin_model->count_instructors()
 			);
 			$this->load->view('admin/template/header', $page_data);
 			$this->load->view('admin/pages/index');
@@ -85,6 +89,7 @@ class Admin extends CI_Controller {
 				'page_title' => 'Admin Settings',
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
+				'settings_active' => 'active',
 			);
 			$this->form_validation->set_rules('userdata', '', 'trim');
 			$this->form_validation->set_rules('feedback', '', 'trim');
@@ -107,10 +112,11 @@ class Admin extends CI_Controller {
 					$this->Admin_model->set_display_feedback($feedback);
 				}
 				$page_data = array(
-				'page_title' => 'Admin Settings Updated',
-				'admin_email' => $this->session->userdata('admin_email'),
-				'admin_type' => $this->session->userdata('admin_type'),
-			);
+					'page_title' => 'Admin Settings Updated',
+					'admin_email' => $this->session->userdata('admin_email'),
+					'admin_type' => $this->session->userdata('admin_type'),
+					'settings_active' => 'active',
+				);
 				$this->load->view('admin/template/header',$page_data);
 				$this->load->view('admin/pages/settings_view');
 				$this->load->view('admin/template/footer');
@@ -121,6 +127,28 @@ class Admin extends CI_Controller {
 			redirect(base_url('admin'));
 		}
 		
+	}
+
+	public function courses()
+	{
+		$admin_logged_in = $this->session->userdata('admin_logged_in');
+		if ($admin_logged_in==true)
+		{
+			$page_data = array(
+				'page_title' => 'Review Courses',
+				'admin_email' => $this->session->userdata('admin_email'),
+				'admin_type' => $this->session->userdata('admin_type'),
+				'courses_active' => 'active',
+				'courses_review' => $this->Admin_model->get_unreviewed_courses(),
+			);
+			$this->load->view('admin/template/header',$page_data);
+			$this->load->view('admin/pages/courses');
+			$this->load->view('admin/template/footer');
+		}
+		else
+		{
+			redirect(base_url('admin'));
+		}
 	}
 
 		
