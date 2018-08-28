@@ -29,20 +29,38 @@ class Admin_model extends CI_Model
 			return false;
 		}
 	}
-	public function get_unreviewed_courses()
+	public function get_unreviewed_courses($course_id=null)
 	{
-		$this->db->select();
-		$this->db->where('course_status',1);
-		$this->db->where('course_review',0);
-		$this->db->where('course_published',0);
-		$this->db->join('user_tbl','user_tbl.user_id = course_tbl.course_author');
-		$query = $this->db->get('course_tbl');
-		if ($query->num_rows()>=1)
+		if (empty($course_id))
 		{
-			return $query->result_array();
+			$this->db->select();
+			$this->db->where('course_status',1);
+			$this->db->where('course_review',0);
+			$this->db->where('course_published',0);
+			$this->db->join('user_tbl','user_tbl.user_id = course_tbl.course_author');
+			$query = $this->db->get('course_tbl');
+			if ($query->num_rows()>=1)
+			{
+				return $query->result_array();
+			}
+			else
+				return null;
 		}
-		else
-			return null;
+		elseif (!empty($course_id))
+		{
+			$this->db->select();
+			$this->db->from('course_tbl');
+			$this->db->where('course_id',$course_id);
+			$this->db->join('user_tbl','user_tbl.user_id = course_tbl.course_author');
+			$query = $this->db->get();
+			if ($query->num_rows()==1)
+			{
+				return $query->row_array();
+			}
+			else
+				return false;
+		}
+		
 	}
 
 	// settings functions

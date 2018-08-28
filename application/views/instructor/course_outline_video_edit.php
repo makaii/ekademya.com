@@ -59,7 +59,7 @@
 										<small class="form-text text-muted">Max resolution is 1920x1080</small>
 										<small class="form-text text-muted">Mininum resolution is 640x360</small>
 										<?php echo $upload_error; ?>
-										<?php if($video['video_thumbnail']==null){$thumbnail_url = "default_course_thumbnail.png";}else $thumbnail_url=$video['video_thumbnail']; ?>
+										<?php if($video['video_thumbnail']==null){$thumbnail_url = "default_thumbnail.png";}else $thumbnail_url=$video['video_thumbnail']; ?>
 										<video width="360" height="202" preload="none" controls controlsList="nodownload" preload="none" poster="<?php echo base_url("z/thumbnails/$thumbnail_url"); ?>" id="video" style="width: 360px;height: 202px">
 											<?php $ext=pathinfo($video['video_url'],PATHINFO_EXTENSION); ?>
 											<?php if($ext=='mp4'): ?>

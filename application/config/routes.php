@@ -81,3 +81,6 @@ $route['profile/photo/upload'] = 'profile/photo_upload';
 $route['profile/delete'] = 'profile/delete';
 $route['profile/preview'] = 'profile/preview';
 $route['profile/account/edit'] = 'profile/account';
+
+// Admin
+$route['admin/courses/review/(:num)'] = 'admin/review_courses/$1';

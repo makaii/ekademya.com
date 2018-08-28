@@ -151,5 +151,52 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function review_courses($course_id)
+	{
+		$admin_logged_in = $this->session->userdata('admin_logged_in');
+		if ($admin_logged_in==true)
+		{
+			$course = $this->Admin_model->get_unreviewed_courses($course_id);
+			$this->load->model('Instructor_model');
+			$outline = $this->Instructor_model->get_outline($course_id);
+			$page_data = array(
+				'page_title' => 'Reviewing '.$course['course_title'],
+				'admin_email' => $this->session->userdata('admin_email'),
+				'admin_type' => $this->session->userdata('admin_type'),
+				'courses_active' => 'active',
+				'course' => $course,
+				'outline' => $outline,
+			);
+			$this->load->view('admin/template/header',$page_data);
+			$this->load->view('admin/pages/course_review');
+			$this->load->view('admin/template/footer');
+		}
+		else
+		{
+			redirect(base_url('admin'));
+		}
+	}
+
+	public function categories()
+	{
+		$admin_logged_in = $this->session->userdata('admin_logged_in');
+		if ($admin_logged_in==true)
+		{
+			$page_data = array(
+				'page_title' => 'Categories',
+				'admin_email' => $this->session->userdata('admin_email'),
+				'admin_type' => $this->session->userdata('admin_type'),
+				'categories_active' => 'active',
+			);
+			$this->load->view('admin/template/header',$page_data);
+			$this->load->view('admin/pages/categories');
+			$this->load->view('admin/template/footer');
+		}
+		else
+		{
+			redirect(base_url('admin'));
+		}
+	}
+
 		
 }

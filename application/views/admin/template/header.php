@@ -14,8 +14,8 @@
 	<title><?php echo $page_title; ?></title>
 
 	<!-- Bootstrap core CSS -->
-	<!-- <link href="<?php echo base_url('assets/css/bootstrap.css'); ?>" rel="stylesheet"> -->
-	<link href="<?php echo base_url('assets/admin/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/bootstrap.css'); ?>" rel="stylesheet">
+	<!-- <link href="<?php echo base_url('assets/admin/dist/css/bootstrap.min.css'); ?>" rel="stylesheet"> -->
 
 	<!--Fonts-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">

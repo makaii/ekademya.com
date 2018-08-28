@@ -242,7 +242,6 @@ class Instructor_model extends CI_Model
 	}
 	public function get_outline($course_id)
 	{
-		// $query = $this->db->select()->where('outline_course_id',$course_id)->get('outline_tbl');
 		$query = $this->db->query("
 			SELECT joined.* 
 			FROM   (SELECT ot.outline_id, 
