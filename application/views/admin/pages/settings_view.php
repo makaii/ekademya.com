@@ -26,7 +26,7 @@
 				<div class="clear"></div>
 			</header>
 			
-			<section class="row">
+			<div class="row">
 				<div class="col-sm-12">
 					<section class="row">
 						<div class="col-md-12">
@@ -73,7 +73,7 @@
 						<div class="col-12 mt-1 mb-4">Template by <a href="https://www.medialoot.com" target="_blank">Medialoot</a></div>
 					</section>
 				</div>
-			</section>
+			</div>
 		</main>
 	</div>
 </div>

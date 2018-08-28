@@ -83,4 +83,5 @@ $route['profile/preview'] = 'profile/preview';
 $route['profile/account/edit'] = 'profile/account';
 
 // Admin
-$route['admin/courses/review/(:num)'] = 'admin/review_courses/$1';
+$route['admin/course_review'] = 'admin/course_review';
+$route['admin/course_review/(:num)'] = 'admin/courses_review/$1';

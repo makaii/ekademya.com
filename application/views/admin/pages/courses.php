@@ -25,36 +25,15 @@
 				<div class="clear"></div>
 			</header>
 			
-			<section class="row">
+			<div class="row">
 				<div class="col-md-12">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Course Title</th>
-								<th>Catgory</th>
-								<th>Author</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php if (!empty($courses_review)): ?>
-								<?php foreach($courses_review as $course): ?>
-									<tr>
-										<th><?php echo $course["course_title"]; ?></th>
-										<th><?php echo $course["course_category"]; ?></th>
-										<th><?php echo $course["user_email"]; ?></th>
-										<th>
-											<a href="<?php echo base_url("admin/courses/review/").$course['course_id']; ?>" role="button" class="btn btn-sm btn-info">view</a>
-										</th>
-									</tr>
-								<?php endforeach; ?>
-							<?php else: ?>
-								<p>No Courses Yet</p>
-							<?php endif; ?>
-						</tbody>
-					</table>
+					<?php if (!empty($courses)): ?>
+						<section>meron</section>
+					<?php else: ?>
+						<section>N/A</section>
+					<?php endif; ?>
 				</div>
-			</section>
+			</div>
 		</main>
 	</div>
 </div>

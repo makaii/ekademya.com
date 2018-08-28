@@ -135,11 +135,10 @@ class Admin extends CI_Controller {
 		if ($admin_logged_in==true)
 		{
 			$page_data = array(
-				'page_title' => 'Review Courses',
+				'page_title' => 'Courses',
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
 				'courses_active' => 'active',
-				'courses_review' => $this->Admin_model->get_unreviewed_courses(),
 			);
 			$this->load->view('admin/template/header',$page_data);
 			$this->load->view('admin/pages/courses');
@@ -151,7 +150,29 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function review_courses($course_id)
+	public function course_review()
+	{
+		$admin_logged_in = $this->session->userdata('admin_logged_in');
+		if ($admin_logged_in==true)
+		{
+			$page_data = array(
+				'page_title' => 'Review Courses',
+				'admin_email' => $this->session->userdata('admin_email'),
+				'admin_type' => $this->session->userdata('admin_type'),
+				'course_review_active' => 'active',
+				'courses_review' => $this->Admin_model->get_unreviewed_courses(),
+			);
+			$this->load->view('admin/template/header',$page_data);
+			$this->load->view('admin/pages/course_review');
+			$this->load->view('admin/template/footer');
+		}
+		else
+		{
+			redirect(base_url('admin'));
+		}
+	}
+
+	public function courses_review($course_id)
 	{
 		$admin_logged_in = $this->session->userdata('admin_logged_in');
 		if ($admin_logged_in==true)
@@ -163,12 +184,12 @@ class Admin extends CI_Controller {
 				'page_title' => 'Reviewing '.$course['course_title'],
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
-				'courses_active' => 'active',
+				'course_review_active' => 'active',
 				'course' => $course,
 				'outline' => $outline,
 			);
 			$this->load->view('admin/template/header',$page_data);
-			$this->load->view('admin/pages/course_review');
+			$this->load->view('admin/pages/courses_review');
 			$this->load->view('admin/template/footer');
 		}
 		else
@@ -182,11 +203,14 @@ class Admin extends CI_Controller {
 		$admin_logged_in = $this->session->userdata('admin_logged_in');
 		if ($admin_logged_in==true)
 		{
+			$this->load->model('Lookup_model');
+			$categories = $this->Lookup_model->get_category();
 			$page_data = array(
 				'page_title' => 'Categories',
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
 				'categories_active' => 'active',
+				'categories' => $categories,
 			);
 			$this->load->view('admin/template/header',$page_data);
 			$this->load->view('admin/pages/categories');
@@ -196,6 +220,12 @@ class Admin extends CI_Controller {
 		{
 			redirect(base_url('admin'));
 		}
+	}
+
+	public function add_category()
+	{
+		$this->form_validation->set_rules('categoryName','Category Name', 'required|alpha');
+		$this->form_validation->set_rules('categoryCode','Category Code','required|regex_match[/^[A-Za-z_]{2,30}$/]');
 	}
 
 		
