@@ -20,9 +20,9 @@
 	<div class="row mt-4 mb-4">
 		<div class="col-md-2">
 			<div class="list-group">
-				<a href="<?php echo base_url('course/manage/goals/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">1</span> Goals</a>
-				<a href="<?php echo base_url('course/manage/landing_page/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action active"><span class="badge badge-dark">2</span> Landing Page</a>
-				<a href="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">3</span> Outline</a>
+				<a href="<?php echo base_url('course/edit/goals/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">1</span> Goals</a>
+				<a href="<?php echo base_url('course/edit/landing_page/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action active"><span class="badge badge-dark">2</span> Landing Page</a>
+				<a href="<?php echo base_url('course/edit/outline/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">3</span> Outline</a>
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -32,7 +32,7 @@
 					<h6>Your Course Landing Page is the first thing students see when they find your course in the marketplace and will influence student enrollments. Fill in the details below to build your landing page, and click ‘Preview’ to see how it will appear to students in the marketplace.</h6>
 				</div>
 				<div class="card-body">
-					<?php echo form_open(base_url('course/manage/landing_page/'.$_SESSION['course_id'])); ?>
+					<?php echo form_open(base_url('course/edit/landing_page/'.$_SESSION['course_id'])); ?>
 						<div class="form-group">
 							<label>Course Title</label><small class="text-muted"> max 50 chars</small>
 							<input class="form-control" maxlength="50" type="text" name="courseTitle" value="<?php if(set_value('courseTitle')==null){echo $course_title;}else echo set_value('courseTitle'); ?>">

@@ -20,9 +20,9 @@
 	<div class="row mt-4 mb-4">
 		<div class="col-md-2">
 			<div class="list-group">
-				<a href="<?php echo base_url('course/manage/goals/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action active"><span class="badge badge-dark">1</span> Goals</a>
-				<a href="<?php echo base_url('course/manage/landing_page/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">2</span> Landing Page</a>
-				<a href="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">3</span> Outline</a>
+				<a href="<?php echo base_url('course/edit/goals/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action active"><span class="badge badge-dark">1</span> Goals</a>
+				<a href="<?php echo base_url('course/edit/landing_page/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">2</span> Landing Page</a>
+				<a href="<?php echo base_url('course/edit/outline/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">3</span> Outline</a>
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -31,7 +31,7 @@
 					<h3>Course Goals</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open(base_url('course/manage/goals/'.$_SESSION['course_id'])); ?>
+					<?php echo form_open(base_url('course/edit/goals/'.$_SESSION['course_id'])); ?>
 						<div class="form-group">
 							<label>What knowledge &amp; tools are required?</label>
 							<textarea class="form-control" maxlength="255" name="courseTools" rows="3" placeholder="Example: You should be able to use a PC at a beginner level"><?php if(set_value('courseTools')==null){echo $course_tools;}else echo set_value('courseTools'); ?></textarea>

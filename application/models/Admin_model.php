@@ -35,7 +35,7 @@ class Admin_model extends CI_Model
 		{
 			$this->db->select();
 			$this->db->where('course_status',1);
-			$this->db->where('course_review',0);
+			$this->db->where('course_review',2);
 			$this->db->where('course_published',0);
 			$this->db->join('user_tbl','user_tbl.user_id = course_tbl.course_author');
 			$query = $this->db->get('course_tbl');

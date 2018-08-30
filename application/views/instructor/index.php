@@ -26,7 +26,7 @@
 					<div class="card">
 						<div class="card-header">
 							<?php echo $data['course_title']; ?>
-							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} ?>
+							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-primary'>published</span>";} ?>
 						</div>
 						<div class="card-body pt-3 pb-3">
 							<div class="card-text">
@@ -35,16 +35,20 @@
 							</div>
 						</div>
 						<div class="card-footer">
-							<div id="courseOptions">
+							<div id="course<?php echo $data['course_id']; ?>Options">
 								<?php if($data['course_review']==1){$review="disabled";}else $review=""; ?>
-								<button class="btn btn-sm btn-primary <?php echo $review; ?>" id="sendForReview" onclick="show_review_buttons()"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
-								<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Manage</button></a>
+								<button class="btn btn-sm btn-primary <?php echo $review; ?>" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
+								<?php if($data['course_published']==0): ?>
+									<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+								<?php elseif($data['course_published']==1): ?>
+									<a href=""><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Manage</button></a>
+								<?php endif; ?>
 								<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</button></a>
 							</div>
-							<div style="display: none;" id="reviewButtons">
+							<div style="display: none;" id="review<?php echo $data['course_id']; ?>Buttons">
 								<label class="font-weight-bold mb-0">Are you sure?</label>
-								<button class="btn btn-sm btn btn-primary">Yes</button>
-								<button class="btn btn-sm btn btn-danger" onclick="cancel_review();">No</button>
+								<a href="<?php echo base_url("course/review/").$data['course_id']; ?>" role="button" class="btn btn-sm btn btn-primary">Yes</a>
+								<button class="btn btn-sm btn btn-danger" onclick="cancel_review(<?php echo $data['course_id']; ?>);">No</button>
 							</div>
 						</div>
 					</div>

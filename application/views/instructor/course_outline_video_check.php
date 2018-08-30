@@ -20,9 +20,9 @@
 	<div class="row mt-4 mb-4">
 		<div class="col-md-2">
 			<div class="list-group">
-				<a href="<?php echo base_url('course/manage/goals/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">1</span> Goals</a>
-				<a href="<?php echo base_url('course/manage/landing_page/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">2</span> Landing Page</a>
-				<a href="<?php echo base_url('course/manage/outline/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action active"><span class="badge badge-dark">3</span> Outline</a>
+				<a href="<?php echo base_url('course/edit/goals/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">1</span> Goals</a>
+				<a href="<?php echo base_url('course/edit/landing_page/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action"><span class="badge badge-dark">2</span> Landing Page</a>
+				<a href="<?php echo base_url('course/edit/outline/'.$_SESSION['course_id']); ?>" class="list-group-item list-group-item-action active"><span class="badge badge-dark">3</span> Outline</a>
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -54,7 +54,7 @@
 					<div class="col-md-12">
 						<div class="card-body">
 							<!-- Video Form -->
-							<form id="videoForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/video_check'); ?>" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
+							<form id="videoForm" action="<?php echo base_url('course/edit/outline/'.$course_id.'/video_check'); ?>" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
 								<div class="form-group">
 									<label class="font-weight-bold">New Video</label>
 									<input class="form-control" id="INPUTsection" name="video_title" placeholder="Enter Video Title" maxlength="50" value="<?php echo set_value('video_title'); ?>"></input>
@@ -77,7 +77,7 @@
 								</div>
 							</form>
 							<!-- Lecture Form -->
-							<form id="lectureForm" action="<?php echo base_url('course/manage/outline/'.$course_id.'/lecture_check'); ?>" method="POST" style="display: none;">
+							<form id="lectureForm" action="<?php echo base_url('course/edit/outline/'.$course_id.'/lecture_check'); ?>" method="POST" style="display: none;">
 								<div class="form-group">
 									<label class="font-weight-bold">New Lecture</label>
 									<input class="form-control" name="lecture_title" placeholder="Enter Lecture Title" maxlength="" value="<?php echo set_value('lecture_title'); ?>"></input>
@@ -115,7 +115,7 @@
 										</a></h6>
 									</div>
 									<div class="col-md-3 col-sm-4">
-										<a class="btn btn-sm btn-info" href="<?php echo base_url("course/manage/outline/$course_id/$edit_url/").$outline['outline_id']; ?>" role="button"><i class="fa fa-edit"></i> edit</a>
+										<a class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/$edit_url/").$outline['outline_id']; ?>" role="button"><i class="fa fa-edit"></i> edit</a>
 										<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</button>
 									</div>
 								</div>

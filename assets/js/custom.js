@@ -1,12 +1,12 @@
-function show_review_buttons()
+function show_review_buttons(course_id)
 {
-	document.getElementById('reviewButtons').style.display = "block";
-	document.getElementById('courseOptions').style.display = "none";
+	document.getElementById('review'+course_id+'Buttons').style.display = "block";
+	document.getElementById('course'+course_id+'Options').style.display = "none";
 }
-function cancel_review()
+function cancel_review(course_id)
 {
-	document.getElementById('reviewButtons').style.display = "none";
-	document.getElementById('courseOptions').style.display = "block";
+	document.getElementById('review'+course_id+'Buttons').style.display = "none";
+	document.getElementById('course'+course_id+'Options').style.display = "block";
 }
 function add_video()
 {

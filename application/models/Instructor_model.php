@@ -120,7 +120,7 @@ class Instructor_model extends CI_Model
 
 	}
 
-	public function manage_course_goals($tools,$audience,$achievement,$id,$author_id)
+	public function edit_course_goals($tools,$audience,$achievement,$id,$author_id)
 	{
 		if ((isset($tools))&&(isset($audience))&&(isset($achievement))&&(isset($id))&&(isset($author_id)))
 		{
@@ -138,7 +138,7 @@ class Instructor_model extends CI_Model
 		}
 		else return false;
 	}
-	public function manage_course_landing_page($title,$description,$id,$author)
+	public function edit_course_landing_page($title,$description,$id,$author)
 	{
 		if ((isset($title))&&(isset($description))&&(isset($id))&&(isset($author)))
 		{
@@ -334,6 +334,22 @@ class Instructor_model extends CI_Model
 		if ($this->db->affected_rows()==1)
 		{
 			return true;
+		}
+		else return false;
+	}
+
+
+	public function set_course_review_2($course_id)
+	{
+		if (!empty($course_id))
+		{
+			$this->db->set('course_review',2);
+			$this->db->where('course_id',$course_id);
+			$this->db->update('course_tbl');
+			if ($this->db->affected_rows()==1)
+			{
+				return true;
+			}
 		}
 		else return false;
 	}

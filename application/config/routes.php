@@ -66,13 +66,14 @@ $route['search'] = 'lookup/search_course';
 
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';
-$route['course/manage/goals/(:num)'] = 'instructor/manage_goals/$1';
-$route['course/manage/landing_page/(:num)'] = 'instructor/manage_landing_page/$1';
-$route['course/manage/outline/(:num)'] = 'instructor/manage_outline/$1';
-	$route['course/manage/outline/(:num)/lecture_check'] = 'instructor/add_outline_course_lecture/$1';
-	$route['course/manage/outline/(:num)/video_check'] = 'instructor/add_outline_course_video/$1';
-	$route['course/manage/outline/(:num)/lecture_edit/(:num)'] = 'instructor/edit_outline_course_lecture/$1/$2';
-	$route['course/manage/outline/(:num)/video_edit/(:num)'] = 'instructor/edit_outline_course_video/$1/$2';
+$route['course/edit/goals/(:num)'] = 'instructor/edit_goals/$1';
+$route['course/edit/landing_page/(:num)'] = 'instructor/edit_landing_page/$1';
+$route['course/edit/outline/(:num)'] = 'instructor/edit_outline/$1';
+	$route['course/edit/outline/(:num)/lecture_check'] = 'instructor/add_outline_course_lecture/$1';
+	$route['course/edit/outline/(:num)/video_check'] = 'instructor/add_outline_course_video/$1';
+	$route['course/edit/outline/(:num)/lecture_edit/(:num)'] = 'instructor/edit_outline_course_lecture/$1/$2';
+	$route['course/edit/outline/(:num)/video_edit/(:num)'] = 'instructor/edit_outline_course_video/$1/$2';
+$route['course/review/(:num)'] = 'instructor/$1';
 	
 // profile routes
 $route['profile'] = 'profile/edit';

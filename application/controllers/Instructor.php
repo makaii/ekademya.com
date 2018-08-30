@@ -60,7 +60,7 @@ class Instructor extends CI_Controller {
 				{
 					$id = $this->Instructor_model->get_course_id($title,$_SESSION['user_id']);
 					$this->session->set_userdata('course_id', $id);
-					redirect(base_url('course/manage/goals/'.$id));
+					redirect(base_url('course/edit/goals/'.$id));
 				}
 			}
 		}
@@ -126,7 +126,7 @@ class Instructor extends CI_Controller {
 		}
 	}
 
-	public function manage_goals($id=null)
+	public function edit_goals($id=null)
 	{
 		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type']=='instructor'))
 		{
@@ -136,7 +136,7 @@ class Instructor extends CI_Controller {
 				$this->Instructor_model->get_course_id($course['course_title'],$_SESSION['user_id']);
 				$this->session->set_userdata('course_id',$id);
 				$page_data = array(
-					'page_title' => 'Manage Course Goals',
+					'page_title' => 'Edit Course Goals',
 					'course_categories' => $this->Lookup_model->get_category(),
 					'course_title' => $course['course_title'],
 					'course_author' => $course['course_author'],
@@ -157,12 +157,12 @@ class Instructor extends CI_Controller {
 					$this->load->view('instructor/course_goals');
 					$this->load->view('template/footer');
 				}
-				elseif ($this->Instructor_model->manage_course_goals($tools,$audience,$achievement,$id,$author_id))
+				elseif ($this->Instructor_model->edit_course_goals($tools,$audience,$achievement,$id,$author_id))
 				{
 					$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
 					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
 					$page_data = array(
-						'page_title' => 'Manage Course Goals',
+						'page_title' => 'Edit Course Goals',
 						'page_alert' => $update_alert,
 						'course_title' => $course['course_title'],
 						'course_author' => $course['course_author'],
@@ -188,7 +188,7 @@ class Instructor extends CI_Controller {
 			show_404();
 	}
 
-	public function manage_landing_page($id=null)
+	public function edit_landing_page($id=null)
 	{
 		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type']=='instructor'))
 		{
@@ -196,7 +196,7 @@ class Instructor extends CI_Controller {
 			{
 				$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
 				$page_data = array(
-					'page_title' => 'Manage Course Goals',
+					'page_title' => 'Edit Course Goals',
 					'course_categories' => $this->Lookup_model->get_category(),
 					'course_title' => $course['course_title'],
 					'course_author' => $course['course_author'],
@@ -213,12 +213,12 @@ class Instructor extends CI_Controller {
 					$this->load->view('instructor/course_landing_page');
 					$this->load->view('template/footer');
 				}
-				elseif ($this->Instructor_model->manage_course_landing_page($title,$description,$id,$author))
+				elseif ($this->Instructor_model->edit_course_landing_page($title,$description,$id,$author))
 				{
 					$course = $this->Instructor_model->get_course_info($_SESSION['user_email'],$id);
 					$update_alert = '<div class="alert alert-success" role="alert">Update Successful!</div>';
 					$page_data = array(
-						'page_title' => 'Manage Course Goals',
+						'page_title' => 'Edit Course Goals',
 						'course_categories' => $this->Lookup_model->get_category(),
 						'page_alert' => $update_alert,
 						'course_title' => $course['course_title'],
@@ -243,7 +243,7 @@ class Instructor extends CI_Controller {
 			show_404();
 	}
 
-	public function manage_outline($id=null)
+	public function edit_outline($id=null)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$id))
 		{
@@ -251,7 +251,7 @@ class Instructor extends CI_Controller {
 
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
 			$page_data = array(
-				'page_title' => 'Manage Course Outline',
+				'page_title' => 'Edit Course Outline',
 				'course_categories' => $this->Lookup_model->get_category(),
 				'course_title' => $course['course_title'],
 				'course_author' => $course['course_author'],
@@ -302,7 +302,7 @@ class Instructor extends CI_Controller {
 			}
 			elseif ($this->Instructor_model->add_outline($outline_array)==true)
 			{
-				redirect(base_url('course/manage/outline/'.$course_id));
+				redirect(base_url('course/edit/outline/'.$course_id));
 			}
 			else
 			{
@@ -371,7 +371,7 @@ class Instructor extends CI_Controller {
 						'video_url' => $this->upload->data('file_name'),
 					);
 					if ($this->Instructor_model->add_outline($outline_array)==true) {
-						redirect(base_url('course/manage/outline/'.$course_id));
+						redirect(base_url('course/edit/outline/'.$course_id));
 					}
 					else
 						show_404();
@@ -476,21 +476,33 @@ class Instructor extends CI_Controller {
 		}
 	}
 
-	// private function upload_video($video_input=null)
-	// {
-	// 	$video_config = array(
-	// 		'upload_path' => 'z/course',
-	// 		'allowed_types' => 'mp4|mkv|webm',
-	// 		'max_size' => 0,
-	// 		'max_width' => 1920,
-	// 		'max_height' => 1080,
-	// 		'min_width' => 640,
-	// 		'min_height' => 360,
-	// 		'remove_spaces' => true,
-	// 		'file_ext_tolower' => true,
-	// 		'detect_mime' => true,
-	// 	);
-	// }
+	public function send_course_review($course_id)
+	{
+		if (!empty($course_id))
+		{
+			if ($this->Instructor_model->set_course_review_2($course_id)==true)
+			{
+				$page_data = array(
+				'page_title' => 'success',
+				);
+				$this->load->view('template/headerInstructor');
+				$this->load->view('instructor');
+				$this->load->view('template/footer');
+			}
+			else
+			{
+				$page_data = array(
+					'page_title' => 'fail',
+				);
+			}
+			$this->load->view('template/headerInstructor',$page_data);
+			$this->load->view('instructor/course_review_2');
+			$this->load->view('template/footer');
+
+		}
+		else
+			show_404();
+	}
 
 	// private function upload_thumbnail($thumbnail_input=null)
 	// {
