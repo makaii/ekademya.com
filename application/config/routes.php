@@ -73,7 +73,7 @@ $route['course/edit/outline/(:num)'] = 'instructor/edit_outline/$1';
 	$route['course/edit/outline/(:num)/video_check'] = 'instructor/add_outline_course_video/$1';
 	$route['course/edit/outline/(:num)/lecture_edit/(:num)'] = 'instructor/edit_outline_course_lecture/$1/$2';
 	$route['course/edit/outline/(:num)/video_edit/(:num)'] = 'instructor/edit_outline_course_video/$1/$2';
-$route['course/review/(:num)'] = 'instructor/$1';
+$route['course/review/(:num)'] = 'instructor/send_course_review/$1';
 	
 // profile routes
 $route['profile'] = 'profile/edit';

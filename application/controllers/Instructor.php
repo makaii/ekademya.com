@@ -143,6 +143,7 @@ class Instructor extends CI_Controller {
 					'course_tools' => $course['course_tools'],
 					'course_audience' => $course['course_audience'],
 					'course_achievement' => $course['course_achievement'],
+					'course_thumb' => $course['course_img_url'],
 				);
 				$this->form_validation->set_rules('courseTools','Course Knowledge and Requirement','trim|required');
 				$this->form_validation->set_rules('courseAudience','Course Audience','trim|required');
@@ -169,6 +170,7 @@ class Instructor extends CI_Controller {
 						'course_tools' => $course['course_tools'],
 						'course_audience' => $course['course_audience'],
 						'course_achievement' => $course['course_achievement'],
+						'course_thumb' => $course['course_img_url'],
 					);
 					$this->load->view('template/headerInstructor',$page_data);
 					$this->load->view('instructor/course_goals');
@@ -201,6 +203,7 @@ class Instructor extends CI_Controller {
 					'course_title' => $course['course_title'],
 					'course_author' => $course['course_author'],
 					'course_description' => $course['course_description'],
+					'course_thumb' => $course['course_img_url'],
 				);
 				$this->form_validation->set_rules('courseTitle','Course Title','trim|required');
 				$this->form_validation->set_rules('courseDescription','Course Description','trim|required');
@@ -224,6 +227,7 @@ class Instructor extends CI_Controller {
 						'course_title' => $course['course_title'],
 						'course_author' => $course['course_author'],
 						'course_description' => $course['course_description'],
+						'course_thumb' => $course['course_img_url'],
 					);
 					$this->load->view('template/headerInstructor',$page_data);
 					$this->load->view('instructor/course_landing_page');
@@ -483,21 +487,25 @@ class Instructor extends CI_Controller {
 			if ($this->Instructor_model->set_course_review_2($course_id)==true)
 			{
 				$page_data = array(
-				'page_title' => 'success',
+					'page_title' => 'success',
+					'title' => 'Successfuly sent for Review',
+					'subtitle' => 'This will take time, but the admins are on their way :)',
 				);
-				$this->load->view('template/headerInstructor');
-				$this->load->view('instructor');
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('instructor/course_review_2');
 				$this->load->view('template/footer');
 			}
 			else
 			{
 				$page_data = array(
 					'page_title' => 'fail',
+					'title' => 'Request for Review was Unsuccessfull :(',
+					'subtitle' => 'There must something wrong at the system, try again later',
 				);
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('instructor/course_review_2');
+				$this->load->view('template/footer');
 			}
-			$this->load->view('template/headerInstructor',$page_data);
-			$this->load->view('instructor/course_review_2');
-			$this->load->view('template/footer');
 
 		}
 		else

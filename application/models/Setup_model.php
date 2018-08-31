@@ -67,40 +67,40 @@ class Setup_model extends CI_Model
 					user_status TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");
+			$test_user = array(
+				array(
+					'user_email' => 'johnsmith@email.com',
+					'user_password' => password_hash('johnjohn',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'John',
+					'user_lname' => 'Smith',
+					'user_educ' => 'BS Information Technology',
+					'user_pubemail' => 'johndoe@email.com',
+					'user_headline' => 'Test Subject',
+					'user_bio' => 'An important Asset in the development of Ekademya',
+					'user_website' => 'about.me/johndoe',
+					'user_facebook' => 'facebook.com/johndoe',
+					'user_twitter' => 'twitter.com/johndoe',
+					'user_youtube' => 'youtube.com/johndoe'
+				),
+				array(
+					'user_email' => 'janedoe@email.com',
+					'user_password' => password_hash('janejane',PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Jane',
+					'user_lname' => 'Doe',
+					'user_educ' => '',
+					'user_pubemail' => '',
+					'user_headline' => '',
+					'user_bio' => '',
+					'user_website' => '',
+					'user_facebook' => '',
+					'user_twitter' => '',
+					'user_youtube' => ''
+				)
+			);
+			$this->db->insert_batch('user_tbl',$test_user);
 		}
-		$test_user = array(
-			array(
-				'user_email' => 'johnsmith@email.com',
-				'user_password' => password_hash('johnjohn',PASSWORD_BCRYPT),
-				'user_type' => 'instructor',
-				'user_fname' => 'John',
-				'user_lname' => 'Smith',
-				'user_educ' => 'BS Information Technology',
-				'user_pubemail' => 'johndoe@email.com',
-				'user_headline' => 'Test Subject',
-				'user_bio' => 'An important Asset in the development of Ekademya',
-				'user_website' => 'about.me/johndoe',
-				'user_facebook' => 'facebook.com/johndoe',
-				'user_twitter' => 'twitter.com/johndoe',
-				'user_youtube' => 'youtube.com/johndoe'
-			),
-			array(
-				'user_email' => 'janedoe@email.com',
-				'user_password' => password_hash('janejane',PASSWORD_BCRYPT),
-				'user_type' => 'student',
-				'user_fname' => 'Jane',
-				'user_lname' => 'Doe',
-				'user_educ' => '',
-				'user_pubemail' => '',
-				'user_headline' => '',
-				'user_bio' => '',
-				'user_website' => '',
-				'user_facebook' => '',
-				'user_twitter' => '',
-				'user_youtube' => ''
-			)
-		);
-		$this->db->insert_batch('user_tbl',$test_user);
 	}
 	public function create_course_table()
 	{

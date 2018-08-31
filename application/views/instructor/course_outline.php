@@ -8,7 +8,7 @@
 <div class="container-fluid">
 	<div class="row mt-4">
 		<div class="col-md-2">
-			<img class="rounded" src="<?php echo base_url("z/thumbnails/").$course_thumb; ?>" style="max-width: 194.83px; max-height: 109.591875px;">
+			<img class="rounded" src="<?php echo base_url("z/thumbnails/$course_thumb"); ?>" style="max-width: 194.83px; max-height: 109.591875px;">
 		</div>
 		<div class="col-md-10">
 			<h3 class="font-weight-bold"><?php echo $course_title; ?></h3>
@@ -109,7 +109,7 @@
 									</div>
 									<div class="col-md-3 col-sm-4">
 										<a class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/$edit_url/").$outline['outline_id']; ?>" role="button"><i class="fa fa-edit"></i> edit</a>
-										<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</button>
+										<a href="<?php echo base_url("course/edit/outline/$course_id/delete/").$outline['outline_id']; ?>" role="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
 									</div>
 								</div>
 							</li>

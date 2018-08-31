@@ -25,23 +25,32 @@
 				<div class="col-md-10">
 					<div class="card">
 						<div class="card-header">
-							<?php echo $data['course_title']; ?>
-							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-primary'>published</span>";} ?>
+							<b><?php echo $data['course_title']; ?></b>
+							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-primary'>published</span>";} if($data['course_review']==2&&$data['course_published']==0){echo "<span class='badge badge-info'>under review</span>";}?>
 						</div>
 						<div class="card-body pt-3 pb-3">
 							<div class="card-text">
-								<?php $desc = $data['course_description']; ?>
-								<?php if(strlen($desc)>=200){echo substr($desc, 0,200).' ...';}else echo "<p class='text-muted mb-0'>No Description Yet..</p>"; ?>
+								<?php if (!empty($data['course_description'])): ?>
+									<?php if (strlen($data['course_description'])>=200): ?>
+										<?php echo substr($data['course_description'],0,200).' ...'; ?>
+									<?php else: ?>
+										<?php echo $data['course_description']; ?>
+									<?php endif; ?>
+								<?php else: ?>
+									<span class="text-muted mb-0">No Description Yet</span>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="card-footer">
 							<div id="course<?php echo $data['course_id']; ?>Options">
-								<?php if($data['course_review']==1){$review="disabled";}else $review=""; ?>
-								<button class="btn btn-sm btn-primary <?php echo $review; ?>" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
+								<?php if ($data['course_review']==0): ?>
+									<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
+								<?php elseif ($data['course_review']==2): ?>
+								<?php endif; ?>
 								<?php if($data['course_published']==0): ?>
-									<a href="<?php echo base_url('course/manage/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+									<a href="<?php echo base_url('course/edit/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
 								<?php elseif($data['course_published']==1): ?>
-									<a href=""><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Manage</button></a>
+									<a href=""><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
 								<?php endif; ?>
 								<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</button></a>
 							</div>
