@@ -102,6 +102,32 @@ class Setup_model extends CI_Model
 			$this->db->insert_batch('user_tbl',$test_user);
 		}
 	}
+	public function create_category_table()
+	{
+		$check_category_tbl = $this->db->query("SHOW TABLES LIKE 'category_tbl';");
+		if ($check_category_tbl->num_rows()==0)
+		{
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS category_tbl (
+					category_id TINYINT(2) AUTO_INCREMENT PRIMARY KEY,
+					category_name VARCHAR(30) NOT NULL,
+					category_code VARCHAR(30) NOT NULL
+				);
+			");
+			$data = [
+				[
+					'category_name' => 'technology',
+					'category_code' => 'technology'
+				],
+				[
+					'category_name' => 'business',
+					'category_code' => 'business'
+				]
+			];
+			$this->db->insert_batch('category_tbl',$data);
+		}
+	}
 	public function create_course_table()
 	{
 		$check_couse_tbl = $this->db->query("SHOW TABLES LIKE 'course_tbl';");
@@ -112,15 +138,17 @@ class Setup_model extends CI_Model
 				CREATE TABLE IF NOT EXISTS course_tbl (
 					course_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 					course_title VARCHAR(50) NOT NULL,
-					course_description VARCHAR(1000) NOT NULL,
+					course_description VARCHAR(3000) NOT NULL,
 					course_author INT(7) NOT NULL,
 					FOREIGN KEY (course_author) REFERENCES user_tbl(user_id),
-					course_category VARCHAR(25) NOT NULL,
+					course_category TINYINT(2) NULL,
+					FOREIGN KEY (course_category) REFERENCES category_tbl(category_id),
 					course_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
-					course_tools VARCHAR(255) NOT NULL,
-					course_audience VARCHAR(255) NOT NULL,
-					course_achievement VARCHAR(255) NOT NULL,
+					course_tools VARCHAR(1000) NOT NULL,
+					course_audience VARCHAR(1000) NOT NULL,
+					course_achievement VARCHAR(1000) NOT NULL,
 					course_date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					course_type CHAR(7) NOT NULL,
 					course_status TINYINT(1) NOT NULL DEFAULT 1,
 					course_review TINYINT(1) NOT NULL DEFAULT 0,
 					course_published TINYINT(1) NOT NULL DEFAULT 0
@@ -160,8 +188,9 @@ class Setup_model extends CI_Model
 					FOREIGN KEY (video_outline_id) REFERENCES outline_tbl(outline_id),
 					video_title VARCHAR(50) NOT NULL,
 					video_description VARCHAR(1000) NOT NULL,
-					video_url VARCHAR(50) NOT NULL,
-					video_thumbnail VARCHAR(50) NOT NULL
+					video_url VARCHAR(50) NULL,
+					video_embed_url VARCHAR(200) NULL,
+					video_thumbnail VARCHAR(50) NULL
 				);
 			");
 		}
@@ -224,24 +253,21 @@ class Setup_model extends CI_Model
 			$this->db->insert('settings_tbl',$settings);
 		}
 	}
-	public function create_category_table()
+	public function create_review_table()
 	{
-		$check_category_tbl = $this->db->query("SHOW TABLES LIKE 'category_tbl';");
-		if ($check_category_tbl->num_rows()==0)
+		$check_review_tbl = $this->db->query("SHOW TABLES LIKE 'review_tbl';");
+		if ($check_review_tbl->num_rows()==0)
 		{
 			// create table if not exists
 			$this->db->query("
-				CREATE TABLE IF NOT EXISTS category_tbl (
-					category_id TINYINT(2) AUTO_INCREMENT PRIMARY KEY,
-					category_name VARCHAR(30) NOT NULL,
-					category_code VARCHAR(30) NOT NULL
+				CREATE TABLE IF NOT EXISTS review_tbl (
+					review_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					review_course_id INT(7) NOT NULL,
+					FOREIGN KEY (review_course_id) REFERENCES course_tbl(course_id),
+					review_course_info VARCHAR(20000),
+					review_course_outline VARCHAR(20000)
 				);
 			");
-			$data = array(
-				'category_name' => 'technology',
-				'category_code' => 'technology'
-			);
-			$this->db->insert('category_tbl',$data);
 		}
 	}
 

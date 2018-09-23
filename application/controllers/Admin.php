@@ -22,7 +22,7 @@ class Admin extends CI_Controller {
 				'page_title' => 'Welcome Admin',
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
-				'dashboard_active' => 'active',
+				'overview_active' => 'active',
 				'no_courses' => $this->Admin_model->count_pubished_courses(),
 				'no_instructors' => $this->Admin_model->count_instructors(),
 				'no_user' => $this->Admin_model->count_instructors()
@@ -53,18 +53,14 @@ class Admin extends CI_Controller {
 			{
 				// validation failed
 				$page_data = array('page_title' => 'Ekademya | Admin Signin', );
-				$this->load->view('admin/template/header', $page_data);
-				$this->load->view('admin/pages/signin_view');
-				$this->load->view('admin/template/footer');
+				$this->load->view('admin/pages/signin_view', $page_data);
 			}
 			elseif ($this->Admin_model->authenticate_admin($email,$password) == false)
 			{
 				// invalid email or password
 				$this->session->set_flashdata('error','invalid email or password');
 				$page_data = array('page_title' => 'Ekademya | Sign Error', );
-				$this->load->view('admin/template/header', $page_data);
-				$this->load->view('admin/pages/signin_view');
-				$this->load->view('admin/template/footer');
+				$this->load->view('admin/pages/signin_view', $page_data);
 			}
 			else
 			{
@@ -150,7 +146,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function course_review()
+	public function review()
 	{
 		$admin_logged_in = $this->session->userdata('admin_logged_in');
 		if ($admin_logged_in==true)
@@ -159,11 +155,11 @@ class Admin extends CI_Controller {
 				'page_title' => 'Review Courses',
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
-				'course_review_active' => 'active',
+				'review_active' => 'active',
 				'courses_review' => $this->Admin_model->get_unreviewed_courses(),
 			);
 			$this->load->view('admin/template/header',$page_data);
-			$this->load->view('admin/pages/course_review');
+			$this->load->view('admin/pages/review');
 			$this->load->view('admin/template/footer');
 		}
 		else
@@ -172,7 +168,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function courses_review($course_id)
+	public function review_course($course_id)
 	{
 		$admin_logged_in = $this->session->userdata('admin_logged_in');
 		if ($admin_logged_in==true)
@@ -180,17 +176,69 @@ class Admin extends CI_Controller {
 			$course = $this->Admin_model->get_unreviewed_courses($course_id);
 			$this->load->model('Instructor_model');
 			$outline = $this->Instructor_model->get_outline($course_id);
+			$review = $this->Admin_model->get_review_data($course_id);
+				$review_info = unserialize($review['review_course_info']);
+				$review_outline = unserialize($review['review_course_outline']);
 			$page_data = array(
 				'page_title' => 'Reviewing '.$course['course_title'],
 				'admin_email' => $this->session->userdata('admin_email'),
 				'admin_type' => $this->session->userdata('admin_type'),
-				'course_review_active' => 'active',
+				'review_active' => 'active',
 				'course' => $course,
 				'outline' => $outline,
+				'course_id' => $course_id,
+				'review_info' => $review_info,
+				'review_outline' => $review_outline
 			);
-			$this->load->view('admin/template/header',$page_data);
-			$this->load->view('admin/pages/courses_review');
-			$this->load->view('admin/template/footer');
+			// form rules
+			$this->form_validation->set_rules('comment_title','Title Comment','trim');
+			$this->form_validation->set_rules('comment_category','Description Comment','trim');
+			$this->form_validation->set_rules('comment_description','Description Comment','trim');
+			$this->form_validation->set_rules('comment_tools','Tools Comment','trim');
+			$this->form_validation->set_rules('comment_audience','Audience Comment','trim');
+			$this->form_validation->set_rules('comment_achievement','Achievement Comment','trim');
+			$outln_num = 1;
+			foreach ($outline as $key => $value) {
+				$this->form_validation->set_rules("review_outline_$key","Outline #$outln_num",'trim');
+				$outln_num++;
+			}
+			// form rules
+			if (!$this->form_validation->run())
+			{
+				$this->load->view('admin/template/header',$page_data);
+				$this->load->view('admin/pages/review_course');
+				$this->load->view('admin/template/footer');
+			}
+			else
+			{
+				foreach ($outline as $key => $value) {
+					$review_course_outline_data[] = $this->input->post("review_outline_$key");
+				}
+				$comment_array = array(
+					'review_course_info' => [
+						'review_title' => $this->input->post('comment_title'),
+						'review_category' => $this->input->post('comment_category'),
+						'review_description' => $this->input->post('comment_description'),
+						'review_tools' => $this->input->post('comment_tools'),
+						'review_audience' => $this->input->post('comment_audience'),
+						'review_achievement' => $this->input->post('comment_achievement'),
+					],
+					'review_course_outline' => $review_course_outline_data,
+				);
+				if ($this->Admin_model->send_review_comments($course_id,$comment_array))
+				{
+					if ($this->Instructor_model->set_course_review_status($course_id,0))
+					{
+						$this->load->view('admin/template/header',$page_data);
+						$this->load->view('admin/pages/review_course_success');
+						$this->load->view('admin/template/footer');
+					}
+				}
+				else
+				{
+					show_404();
+				}
+			}
 		}
 		else
 		{

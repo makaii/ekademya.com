@@ -1,17 +1,8 @@
-	<!-- Bootstrap core JavaScript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="<?php echo base_url('assets/admin/js/jquery-3.2.1.min.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/admin/dist/js/bootstrap.min.js'); ?>"></script>
-
-	<script src="<?php echo base_url('assets/admin/js/chart.min.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/admin/js/chart-data.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/admin/js/easypiechart.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/admin/js/easypiechart-data.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/admin/js/bootstrap-datepicker.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/admin/js/custom.js'); ?>"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-
+			</div>
+		</div>
+	</div>
 </body>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </html>

@@ -20,8 +20,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/custom-style.css'); ?>">
 
     <!-- Icons -->
-    <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>">
+    <!-- <link href="<?php echo base_url('assets/fonts/open-iconic/font/css/open-iconic-bootstrap.css'); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>"> -->
+
+    <!-- fontawesome 5.3.1 Icons -->
+    <link href="<?php echo base_url('assets/fonts/fontawesome-free-5.3.1-web/css/all.css'); ?>" rel="stylesheet">
+    <script defer src="<?php echo base_url('assets/fonts/fontawesome-free-5.3.1-web/js/all.js'); ?>"></script>
+    <link href="<?php echo base_url('assets/fonts/fontawesome-free-5.3.1-web/css/fontawesome.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/fonts/fontawesome-free-5.3.1-web/css/brands.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/fonts/fontawesome-free-5.3.1-web/css/solid.css'); ?>" rel="stylesheet">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

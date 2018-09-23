@@ -10,7 +10,7 @@
 					<div class="card-body bg-light">
 						<div class="form-group">
 							<label>Email</label>
-							<input class="form-control form-control-sm" type="email" placeholder="abc@domain.com" name="email" value="<?php echo set_value('email'); ?>"></input>
+							<input class="form-control form-control-sm" type="email" placeholder="abc@domain.com" name="email" value="<?php echo set_value('email'); ?>" autofocus></input>
 							<?php echo form_error('email'); ?>
 						</div>
 						<div class="form-group">

@@ -61,19 +61,25 @@ $route['signup/success'] = 'login/signup_success';
 
 // search routes
 $route['u/(:num)'] = 'lookup/user_profile/$1';
-// $route['instructor/(:num)'] = 'lookup/instructor_profile/$1';
 $route['search'] = 'lookup/search_course';
 
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';
-$route['course/edit/goals/(:num)'] = 'instructor/edit_goals/$1';
-$route['course/edit/landing_page/(:num)'] = 'instructor/edit_landing_page/$1';
 $route['course/edit/outline/(:num)'] = 'instructor/edit_outline/$1';
 	$route['course/edit/outline/(:num)/lecture_check'] = 'instructor/add_outline_course_lecture/$1';
 	$route['course/edit/outline/(:num)/video_check'] = 'instructor/add_outline_course_video/$1';
 	$route['course/edit/outline/(:num)/lecture_edit/(:num)'] = 'instructor/edit_outline_course_lecture/$1/$2';
 	$route['course/edit/outline/(:num)/video_edit/(:num)'] = 'instructor/edit_outline_course_video/$1/$2';
 $route['course/review/(:num)'] = 'instructor/send_course_review/$1';
+// new
+$route['course/edit/info/(:num)'] = 'instructor/course_info/$1';
+$route['course/edit/outline/(:num)'] = 'instructor/course_outline/$1';
+$route['course/edit/media/(:num)'] = 'instructor/course_promo_media/$1';
+$route['course/edit/preview/(:num)'] = 'instructor/course_preview/$1';
+$route['course/edit/outline/(:num)/video'] = 'instructor/course_outline_add_video/$1';
+$route['course/edit/outline/(:num)/lecture'] = 'instructor/course_outline_add_lecture/$1';
+$route['course/edit/outline/(:num)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2';
+$route['course/edit/outline/(:num)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2';
 	
 // profile routes
 $route['profile'] = 'profile/edit';
@@ -83,6 +89,5 @@ $route['profile/delete'] = 'profile/delete';
 $route['profile/preview'] = 'profile/preview';
 $route['profile/account/edit'] = 'profile/account';
 
-// Admin
-$route['admin/course_review'] = 'admin/course_review';
-$route['admin/course_review/(:num)'] = 'admin/courses_review/$1';
+// admin
+$route['admin/review/(:num)'] = 'admin/review_course/$1';

@@ -1,4 +1,4 @@
-    <footer class="c3 text-white" style="padding-top: 1rem; padding-bottom: .25rem;">
+    <footer class="c3 text-white" style="margin-top: 6rem;padding-top: 1rem; padding-bottom: .25rem;">
       <div class="container-fluid">
         <div>
           <small>
@@ -26,9 +26,7 @@
             <small><strong>Connect</strong></small>
             <ul class="list-unstyled">
               <a href="<?php echo base_url('blog'); ?>"><li class="text-muted">Blog</li></a>
-              <li class="text-muted">Facebook</li>
-              <li class="text-muted">Twitter</li>
-              <li class="text-muted">Google+</li>
+              <li class="text-muted">Forum</li>
             </ul>
           </div>
         </div>
@@ -47,35 +45,5 @@
         </div>
       </div>
     </footer>
-
-    <script type="text/javascript">
-      // $(document).ready(function() {
-      //   $("#SUBMITsection").click(function(event) {
-      //     event.preventDefault();
-      //     // console.log("Asdasd");
-      //     var section = $("#INPUTsection").val();
-      //       $.ajax({
-      //         url: '<?php echo base_url('instructor/add_outline_course_section'); ?>',
-      //         method: 'POST',
-      //         data: {section: section},
-      //         success: function(response){
-      //           show_Buttons();
-      //           document.getElementById('FORMsection').style.display = 'none';
-      //           document.getElementById('SECTIONdiv').style.display = 'block';
-      //           document.getElementById('SECTIONname').innerHTML = section;
-      //         }
-      //       });
-      //   });
-      // });
-
-
-      // disable right click for videos
-      // video tags must have id="video" in it
-      $(document).ready(function() {
-         $("video").bind("contextmenu",function(){
-             return false;
-             });
-      } );
-    </script>
   </body>
 </html>

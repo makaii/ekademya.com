@@ -22,6 +22,7 @@ class Setup extends CI_Controller {
 		$this->Setup_model->create_lecture_table();
 		$this->Setup_model->create_enroll_table();
 		$this->Setup_model->create_settings_table();
+		$this->Setup_model->create_review_table();
 		$page_data = array(
 			'page_title' => 'Database Installation',
 			'admin' => $this->Setup_model->getTableStructure('admin_tbl'),
@@ -33,6 +34,7 @@ class Setup extends CI_Controller {
 			'lecture' => $this->Setup_model->getTableStructure('lecture_tbl'),
 			'enrollees' => $this->Setup_model->getTableStructure('enroll_tbl'),
 			'settings' => $this->Setup_model->getTableStructure('settings_tbl'),
+			'review' => $this->Setup_model->getTableStructure('review_tbl'),
 		);
 		$this->load->view('template/headerWoNav', $page_data);
 		$this->load->view('setup/success_view');

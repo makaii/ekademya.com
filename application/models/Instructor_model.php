@@ -9,17 +9,32 @@ class Instructor_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function save_course($title, $author, $date, $category)
+	public function save_course($title, $author, $category, $type)
 	{
 		if (!empty($title))
 		{
 			$course_data = array(
 				'course_title' => $title ,
 				'course_author' => $author,
-				'course_date_created' => $date,
 				'course_category' => $category,
+				'course_type' => $type,
 			);
 			$this->db->insert('course_tbl', $course_data);
+			$course_id = $this->db->insert_id();
+			if ($this->create_review_row($course_id))
+			{
+				return true;
+			}
+		}
+		else
+			return false;
+	}
+	public function create_review_row($course_id)
+	{
+		$review_data = array('review_course' => $course_id);
+		$this->db->insert('review_tbl',$review_data);
+		if ($this->db->affected_rows()==1)
+		{
 			return true;
 		}
 		else
@@ -120,46 +135,54 @@ class Instructor_model extends CI_Model
 
 	}
 
-	public function edit_course_goals($tools,$audience,$achievement,$id,$author_id)
+	public function save_course_info($course_info)
 	{
-		if ((isset($tools))&&(isset($audience))&&(isset($achievement))&&(isset($id))&&(isset($author_id)))
+		if (!empty($course_info))
 		{
-			$this->db->set('course_tools',$tools);
-			$this->db->set('course_audience',$audience);
-			$this->db->set('course_achievement',$achievement);
-			$this->db->where('course_id',$id);
-			$this->db->where('course_author',$author_id);
-			$this->db->update('course_tbl');
+			$this->db->where('course_id',$course_info['course_id']);
+			$this->db->where('course_author',$course_info['course_author']);
+			$this->db->update('course_tbl',$course_info);
 			if ($this->db->affected_rows()==1)
 			{
 				return true;
 			}
-			else return false;
+			else
+				return false;
 		}
-		else return false;
+		else
+			return false;
 	}
-	public function edit_course_landing_page($title,$description,$id,$author)
+	public function save_course_thumbnail($file_name,$course_id)
 	{
-		if ((isset($title))&&(isset($description))&&(isset($id))&&(isset($author)))
+		if (!empty($file_name))
 		{
-			$this->db->set('course_title',$title);
-			$this->db->set('course_description',$description);
-			$this->db->where('course_id',$id);
-			$this->db->where('course_author',$author);
-			$this->db->update('course_tbl');
+			$this->db->set('course_img_url',$file_name)
+			->where('course_id',$course_id)
+			->update('course_tbl');
 			if ($this->db->affected_rows()==1)
 			{
 				return true;
 			}
-			else return false;
+			else
+				return false;
 		}
-		else return false;
+		return false;
 	}
 
 
 
 	public function add_outline($outline_array)
 	{
+		// $outline_array = [
+		// 	'outline_course_id' => $course_id,
+		// 	'outline_type' => 'video|lecture',
+		// 	'video_title' =>
+		// 	'video_description' =>
+		// 	'video_url' =>
+		// 	'video_embed_url' =>
+		// 	'lecture_title' =>
+		// 	'lecture_body' =>
+		// ];
 		if (!empty($outline_array))
 		{
 			$outline = $outline_array;
@@ -173,7 +196,7 @@ class Instructor_model extends CI_Model
 			{
 				if ($outline_array['outline_type']=="video")
 				{
-					if ($this->add_video($outline['video_title'],$outline['video_description'],$outline['video_url'],$ref_outline_id))
+					if ($this->add_video($outline['video_title'],$outline['video_description'],$outline['video_url'],$outline['video_embed_url'],$ref_outline_id))
 					{
 						return true;
 					}
@@ -208,13 +231,14 @@ class Instructor_model extends CI_Model
 			return false;
 		}
 	}
-	public function add_video($vid_title,$vid_desc,$vid_url,$outline_id)
+	public function add_video($title,$desc,$file,$iframe,$outline_id)
 	{
 		$video_file_array = array(
 			'video_outline_id' => $outline_id,
-			'video_title' => $vid_title,
-			'video_description' => $vid_desc,
-			'video_url' => $vid_url,
+			'video_title' => $title,
+			'video_description' => $desc,
+			'video_url' => $file,
+			'video_embed_url' => $iframe,
 		);
 		$query = $this->db->insert('video_tbl', $video_file_array);
 		if ($this->db->affected_rows() == 1)
@@ -282,6 +306,7 @@ class Instructor_model extends CI_Model
 		{
 			return $query->result_array();
 		}
+		else return null;
 	}
 	public function get_outline_video($outline_id)
 	{
@@ -307,16 +332,17 @@ class Instructor_model extends CI_Model
 		else
 			return null;
 	}
-	public function update_outline_video($outline_id,$title,$desc,$url,$thumb)
+	public function update_outline_video($title,$desc,$file,$iframe,$outline_id)
 	{
 		$video_data = array(
 			'video_title' => $title,
 			'video_description' => $desc,
-			'video_url' => $url,
-			'video_thumbnail' => $thumb,
+			'video_url' => $file,
+			'video_embed_url' => $iframe,
+			'video_outline_id' => $outline_id
 		);
 		$this->db->where('video_outline_id',$outline_id);
-		$this->db->update('video_tbl');
+		$this->db->update('video_tbl',$video_data);
 		if ($this->db->affected_rows()==1)
 		{
 			return true;
@@ -339,6 +365,10 @@ class Instructor_model extends CI_Model
 	}
 
 
+	// course_review
+	// 0 = draft
+	// 1 = published
+	// 2 = for review
 	public function set_course_review_2($course_id)
 	{
 		if (!empty($course_id))

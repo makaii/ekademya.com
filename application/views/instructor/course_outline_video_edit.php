@@ -60,7 +60,7 @@
 										<small class="form-text text-muted">Mininum resolution is 640x360</small>
 										<?php echo $upload_error; ?>
 										<?php if($video['video_thumbnail']==null){$thumbnail_url = "default_thumbnail.png";}else $thumbnail_url=$video['video_thumbnail']; ?>
-										<video width="360" height="202" preload="none" controls controlsList="nodownload" preload="none" poster="<?php echo base_url("z/thumbnails/$thumbnail_url"); ?>" id="video" style="width: 360px;height: 202px">
+										<video width="360" height="202" preload="none" controls controlsList="nodownload" poster="<?php echo base_url("z/thumbnails/$thumbnail_url"); ?>" id="video" style="width: 360px;height: 202px">
 											<?php $ext=pathinfo($video['video_url'],PATHINFO_EXTENSION); ?>
 											<?php if($ext=='mp4'): ?>
 												<source src="<?php echo base_url("z/course/".$video['video_url']); ?>" type="video/mp4">
@@ -80,7 +80,7 @@
 										<small class="form-text text-muted">Mininum resolution is 384x216</small>
 										<br>
 										<div class="card" style="max-width: 360px; max-height: 202px;">
-											<img width="360" height="202" src="<?php echo base_url('z/thumbnails/default_course_thumbnail.png'); ?>" class="card-image img-fluid" id="thumnail_img" alt="card image" style="max-width: 360px; max-height: 202px;">
+											<img width="360" height="202" src="<?php echo base_url('z/thumbnails/default_thumbnail.png'); ?>" class="card-image img-fluid" id="thumnail_img" alt="card image" style="max-width: 360px; max-height: 202px;">
 										</div>
 										<br>
 										<input type="file" name="lectureThumbnail" id="thumbnail_file">

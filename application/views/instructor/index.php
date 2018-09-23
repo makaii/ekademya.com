@@ -1,8 +1,8 @@
-<div class="jumbotron pb-1" style="background-color: #E4F1FE;">
+<div class="jumbotron pb-1 pt-2" style="background-color: #E4F1FE;">
 	<dic class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<h3>Welcome Instructor</h3>
+				<h3>Welcome <?php $name = explode(" ",$_SESSION['user_name']);echo $name[0]; ?></h3>
 			</div>
 			<div class="col-md-9">
 				<a href="<?php echo base_url('course/create') ?>">
@@ -19,7 +19,7 @@
 			<div class="row mb-3">	
 				<div class="col-md-2">
 					<div class="card">
-						<img style="max-height: 200px; max-width: 200px;" class="card-img img-responsive" src="<?php echo base_url('z/course/'.$data['course_img_url']); ?>" alt="<?php echo $data['course_title']; ?>">
+						<img style="max-height: 200px; max-width: 200px;" class="card-img img-responsive" src="<?php echo base_url('z/thumbnails/'.$data['course_img_url']); ?>" alt="<?php echo $data['course_title']; ?>">
 					</div>
 				</div>
 				<div class="col-md-10">
@@ -48,7 +48,7 @@
 								<?php elseif ($data['course_review']==2): ?>
 								<?php endif; ?>
 								<?php if($data['course_published']==0): ?>
-									<a href="<?php echo base_url('course/edit/goals/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+									<a href="<?php echo base_url('course/edit/info/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
 								<?php elseif($data['course_published']==1): ?>
 									<a href=""><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
 								<?php endif; ?>
@@ -71,7 +71,7 @@
 			<div class="col-md-3">
 				<div class="card">
 					<div class="card-body">
-						Course A Course?
+						Create a Course?
 					</div>
 				</div>
 			</div>
