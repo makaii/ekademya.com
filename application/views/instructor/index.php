@@ -26,7 +26,7 @@
 					<div class="card">
 						<div class="card-header">
 							<b><?php echo $data['course_title']; ?></b>
-							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-primary'>published</span>";} if($data['course_review']==2&&$data['course_published']==0){echo "<span class='badge badge-info'>under review</span>";}?>
+							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-primary'>published</span>";} if($data['course_review']!=0&&$data['course_published']==0){echo "<span class='badge badge-info'>under review</span>";}?>
 						</div>
 						<div class="card-body pt-3 pb-3">
 							<div class="card-text">
@@ -43,14 +43,16 @@
 						</div>
 						<div class="card-footer">
 							<div id="course<?php echo $data['course_id']; ?>Options">
-								<?php if ($data['course_review']==0): ?>
+								<?php if ($data['course_review']!=0): ?>
 									<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
-								<?php elseif ($data['course_review']==2): ?>
+								<?php endif; ?>
+								<?php if ($data['course_review']==1): ?>
+									<a href="<?php echo base_url('course/edit/outline/'.$data['course_id'].'/#comments'); ?>" role="button" class="btn btn-sm btn-success">See Review Comments</a>
 								<?php endif; ?>
 								<?php if($data['course_published']==0): ?>
 									<a href="<?php echo base_url('course/edit/info/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
 								<?php elseif($data['course_published']==1): ?>
-									<a href=""><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+									<a href=""><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Published</button></a>
 								<?php endif; ?>
 								<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</button></a>
 							</div>

@@ -22,7 +22,7 @@ class Instructor extends CI_Controller {
 	public function index()
 	{
 		$page_data = array(
-			'page_title' => 'Welcome',
+			'page_title' => 'Welcome '.$_SESSION['user_name'],
 			'course_categories' => $this->Lookup_model->get_category(),
 		);
 		$this->session->unset_userdata('course_id');

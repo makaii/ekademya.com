@@ -211,6 +211,7 @@ class Admin extends CI_Controller {
 			}
 			else
 			{
+				// inputs
 				foreach ($outline as $key => $value) {
 					$review_course_outline_data[] = $this->input->post("review_outline_$key");
 				}
@@ -225,14 +226,16 @@ class Admin extends CI_Controller {
 					],
 					'review_course_outline' => $review_course_outline_data,
 				);
+				// /inputs
 				if ($this->Admin_model->send_review_comments($course_id,$comment_array))
 				{
-					if ($this->Instructor_model->set_course_review_status($course_id,0))
+					if ($this->Admin_model->set_course_review_status($course_id,1))
 					{
 						$this->load->view('admin/template/header',$page_data);
 						$this->load->view('admin/pages/review_course_success');
 						$this->load->view('admin/template/footer');
 					}
+					
 				}
 				else
 				{

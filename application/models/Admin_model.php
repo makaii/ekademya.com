@@ -162,12 +162,10 @@ class Admin_model extends CI_Model
 	{
 		$serl_info = serialize($comment_array['review_course_info']);
 		$serl_outline = serialize($comment_array['review_course_outline']);
-		$this->db->trans_begin();
-		$this->db->where('review_course_id',$course_id);
 		$this->db->set('review_course_info',$serl_info);
 		$this->db->set('review_course_outline',$serl_outline);
+		$this->db->where('review_course_id',$course_id);
 		$this->db->update('review_tbl');
-		$this->db->trans_complete();
 		if ($this->db->affected_rows()==1)
 		{
 			return true;
