@@ -31,7 +31,7 @@ class Instructor_model extends CI_Model
 	}
 	public function create_review_row($course_id)
 	{
-		$review_data = array('review_course' => $course_id);
+		$review_data = array('review_course_id' => $course_id);
 		$this->db->insert('review_tbl',$review_data);
 		if ($this->db->affected_rows()==1)
 		{
