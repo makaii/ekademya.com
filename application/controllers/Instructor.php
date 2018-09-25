@@ -187,6 +187,33 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
+	public function course_review($course_id=null)
+	{
+		$check = $this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id);
+		if ($check)
+		{
+			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$category = $this->Lookup_model->get_category();
+			$outline = $this->Instructor_model->get_outline($course_id);
+			$review = $this->Instructor_model->get_course_review($course_id);
+			$page_data = array(
+				'page_title' => 'Review '.$course['course_title'],
+				'course_categories' => $category,
+				'course_id' => $course_id,
+				'course' => $course,
+				'category' => $category,
+				'outline' => $outline,
+				'review_i' => unserialize($review['review_course_info']),
+				'review_o' => unserialize($review['review_course_outline']),
+				'page_alert' => null,
+			);
+			$this->load->view('template/headerInstructor',$page_data);
+			$this->load->view('instructor/course_edit/course_review');
+			$this->load->view('template/footer');
+		}
+		else
+			show_40();
+	}
 	public function course_outline($course_id=null)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
@@ -556,34 +583,32 @@ class Instructor extends CI_Controller {
 	}
 	// /course edit
 
-	public function edit_outline($id=null)
-	{
-		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$id))
-		{
-			$outlines = $this->Instructor_model->get_outline($id);
+	// public function edit_outline($id=null)
+	// {
+	// 	if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$id))
+	// 	{
+	// 		$outlines = $this->Instructor_model->get_outline($id);
 
-			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
-			$page_data = array(
-				'page_title' => 'Edit Course Outline',
-				'course_categories' => $this->Lookup_model->get_category(),
-				'course_title' => $course['course_title'],
-				'course_author' => $course['course_author'],
-				'course_description' => $course['course_description'],
-				'course_outline' => $outlines,
-				'course_id' => $id,
-				'course_thumb' => $course['course_img_url']
-			);
-			$this->load->view('template/headerInstructor',$page_data);
-			$this->load->view('instructor/course_outline');
-			$this->load->view('template/footer');
-		}
-		else
-		{
-			show_404();
-		}
-
-		
-	}
+	// 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
+	// 		$page_data = array(
+	// 			'page_title' => 'Edit Course Outline',
+	// 			'course_categories' => $this->Lookup_model->get_category(),
+	// 			'course_title' => $course['course_title'],
+	// 			'course_author' => $course['course_author'],
+	// 			'course_description' => $course['course_description'],
+	// 			'course_outline' => $outlines,
+	// 			'course_id' => $id,
+	// 			'course_thumb' => $course['course_img_url']
+	// 		);
+	// 		$this->load->view('template/headerInstructor',$page_data);
+	// 		$this->load->view('instructor/course_outline');
+	// 		$this->load->view('template/footer');
+	// 	}
+	// 	else
+	// 	{
+	// 		show_404();
+	// 	}
+	// }
 
 	public function send_course_review($course_id)
 	{
@@ -616,210 +641,6 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
-
-	// public function add_outline_course_lecture($course_id)
-	// {
-	// 	if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
-	// 	{
-	// 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-	// 		$outlines = $this->Instructor_model->get_outline($course_id);
-	// 		$page_data = array(
-	// 			'page_title' => 'Add Lecture Outline',
-	// 			'course_categories' => $this->Lookup_model->get_category(),
-	// 			'course_title' => $course['course_title'],
-	// 			'course_id' => $course_id,
-	// 			'course_outline' => $outlines,
-	// 		);
-	// 		$this->form_validation->set_rules('lecture_title', 'Lecture Title', 'required|trim');
-	// 		$this->form_validation->set_rules('lecture_body', 'Lecture Content', 'trim|required');
-	// 		$outline_array = array(
-	// 			'outline_type' => 'lecture',
-	// 			'outline_course_id' => $course_id,
-	// 			'lecture_title' => $this->input->post('lecture_title'),
-	// 			'lecture_body' => $this->input->post('lecture_body'),
-	// 		);
-			
-	// 		if (!$this->form_validation->run())
-	// 		{
-	// 			$this->load->view('template/headerInstructor',$page_data);
-	// 			$this->load->view('instructor/course_outline_lecture_check');
-	// 			$this->load->view('template/footer');
-	// 		}
-	// 		elseif ($this->Instructor_model->add_outline($outline_array)==true)
-	// 		{
-	// 			redirect(base_url('course/edit/outline/'.$course_id));
-	// 		}
-	// 		else
-	// 		{
-	// 			show_404();
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		show_404();
-	// 	}
-	// }
-
-	// public function add_outline_course_video($course_id)
-	// {
-	// 	if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id)) {
-	// 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-	// 		$outlines = $this->Instructor_model->get_outline($course_id);
-	// 		$this->form_validation->set_rules('video_title', 'Video Title', 'trim|required');
-	// 		$this->form_validation->set_rules('video_description', 'Video Description', 'trim');
-	// 		$page_data = array(
-	// 			'page_title' => 'Add Video Outline',
-	// 			'course_categories' => $this->Lookup_model->get_category(),
-	// 			'course_title' => $course['course_title'],
-	// 			'course_id' => $course_id,
-	// 			'course_outline' => $outlines,
-	// 			'upload_error' => '',
-	// 		);
-	// 		$this->input->post('video_title');
-	// 		$this->input->post('video_description');
-	// 		if (!$this->form_validation->run()) {
-	// 			$this->load->view('template/headerInstructor',$page_data);
-	// 			$this->load->view('instructor/course_outline_video_check');
-	// 			$this->load->view('template/footer');
-	// 		}
-	// 		elseif ($this->form_validation->run()) {
-	// 			$video_config = array(
-	// 				'upload_path' => './z/course',
-	// 				'allowed_types' => 'mp4|webm|ogg',
-	// 				'encrypt_name' => true,
-	// 				'max_size' => 0,
-	// 				'max_width' => 1920,
-	// 				'max_height' => 1080,
-	// 				'min_width' => 640,
-	// 				'min_height' => 360,
-	// 				'remove_spaces' => true,
-	// 				'file_ext_tolower' => true,
-	// 				'detect_mime' => true,
-	// 				'mod_mime_fix' => true,
-	// 				'overwrite' => false,
-	// 				'max_filename' => 255,
-	// 			);
-	// 			$this->upload->initialize($video_config);
-	// 			if (!$this->upload->do_upload('video_file'))
-	// 			{
-	// 				$page_data['upload_error'] = $this->upload->display_errors();
-	// 				$this->load->view('template/headerInstructor',$page_data);
-	// 				$this->load->view('instructor/course_outline_video_check');
-	// 				$this->load->view('template/footer');
-	// 			}
-	// 			elseif ($this->upload->do_upload('video_file')) {
-	// 				$outline_array = array(
-	// 					'outline_type' => 'video',
-	// 					'outline_course_id' => $course_id,
-	// 					'video_title' => $this->input->post('video_title'),
-	// 					'video_description' => $this->input->post('video_description'),
-	// 					'video_url' => $this->upload->data('file_name'),
-	// 				);
-	// 				if ($this->Instructor_model->add_outline($outline_array)==true) {
-	// 					redirect(base_url('course/edit/outline/'.$course_id));
-	// 				}
-	// 				else
-	// 					show_404();
-	// 			}
-	// 			else
-	// 				show_404();
-	// 		}
-	// 		else {
-	// 			show_404();
-	// 		}
-	// 	}
-	// }
-
-	// public function edit_outline_course_lecture($course_id,$outline_id)
-	// {
-	// 	if (!empty($course_id)&&!empty($outline_id))
-	// 	{
-	// 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
-	// 		{
-	// 			$this->form_validation->set_rules('lectureTitle','Lecture Title','required|trim');
-	// 			$this->form_validation->set_rules('lectureBody','Lecture Body','trim|required');
-	// 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-	// 			$lecture = $this->Instructor_model->get_outline_lecture($outline_id);
-	// 			$page_data = array(
-	// 				'page_title' => 'Edit Lecture',
-	// 				'course_categories' => $this->Lookup_model->get_category(),
-	// 				'course_title' => $course['course_title'],
-	// 				'course_outline_id' => $outline_id,
-	// 				'page_alert' => '',
-	// 				'lecture_title' => $lecture['lecture_title'],
-	// 				'lecture_body' => $lecture['lecture_body']
-	// 			);
-	// 			$title = $this->input->post('lectureTitle');
-	// 			$body = $this->input->post('lectureBody');
-	// 			if (!$this->form_validation->run())
-	// 			{
-	// 				$this->load->view('template/headerInstructor',$page_data);
-	// 				$this->load->view('instructor/course_outline_lecture_edit');
-	// 				$this->load->view('template/footer');
-	// 			}
-	// 			elseif ($this->Instructor_model->update_outline_lecture($outline_id,$title,$body)==true)
-	// 			{
-	// 				$lecture = $this->Instructor_model->get_outline_lecture($outline_id);
-	// 				$page_data = array(
-	// 					'page_title' => 'Edit Lecture',
-	// 					'course_categories' => $this->Lookup_model->get_category(),
-	// 					'course_title' => $course['course_title'],
-	// 					'course_outline_id' => $outline_id,
-	// 					'page_alert' => '<div class="alert alert-success" role="alert">Update Successful!</div>',
-	// 					'lecture_title' => $lecture['lecture_title'],
-	// 					'lecture_body' => $lecture['lecture_body']
-	// 				);
-	// 				$this->load->view('template/headerInstructor',$page_data);
-	// 				$this->load->view('instructor/course_outline_lecture_edit');
-	// 				$this->load->view('template/footer');
-	// 			}
-	// 			else
-	// 			{
-	// 				$this->load->view('template/headerInstructor',$page_data);
-	// 				$this->load->view('instructor/course_outline_lecture_edit');
-	// 				$this->load->view('template/footer');
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			show_404();
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		redirect(base_url());
-	// 	}
-	// }
-	// public function edit_outline_course_video($course_id,$outline_id)
-	// {
-	// 	if (!empty($course_id)&&!empty($outline_id))
-	// 	{
-	// 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
-	// 		{
-	// 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-	// 			$video = $this->Instructor_model->get_outline_video($outline_id);
-	// 			$page_data = array(
-	// 				'page_title' => 'Edit Video',
-	// 				'course_categories' => $this->Lookup_model->get_category(),
-	// 				'course_title' => $course['course_title'],
-	// 				'course_outline_id' => $outline_id,
-	// 				'video' => $video,
-	// 				'upload_error' => '',
-	// 			);
-	// 			$this->load->view('template/headerInstructor',$page_data);
-	// 			$this->load->view('instructor/course_outline_video_edit');
-	// 			$this->load->view('template/footer');
-	// 		}
-	// 		else
-	// 		{
-	// 			show_404();
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		redirect(base_url());
-	// 	}
-	// }
 
 	
 }

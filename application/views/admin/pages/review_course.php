@@ -1,10 +1,3 @@
-<style>
-	.quote
-	{
-		border-left: 5px solid #eee;
-		padding-left:1rem!important;
-	}
-</style>
 <form method="POST" accept="<?php echo base_url("admin/review/$course_id"); ?>">
 	<!-- INFO -->
 	<div class="row">

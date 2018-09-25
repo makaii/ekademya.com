@@ -104,7 +104,13 @@ class Instructor_model extends CI_Model
 	{
 		if (!empty($instructor_id)&&!empty($course_id))
 		{
-			$query = $this->db->select()->where('course_id',$course_id)->where('course_author', $instructor_id)->where('course_status', 1)->get('course_tbl');
+			$query = $this->db->select()
+			->where('course_id',$course_id)
+			->where('course_author', $instructor_id)
+			->where('course_status', 1)
+			->join('user_tbl','user_tbl.user_id = course_tbl.course_author')
+			->join('category_tbl','category_tbl.category_id = course_tbl.course_category')
+			->get('course_tbl');
 			if ($query->num_rows()>=1)
 			{
 				$query = $query->row_array();
@@ -380,6 +386,16 @@ class Instructor_model extends CI_Model
 			{
 				return true;
 			}
+		}
+		else return false;
+	}
+	public function get_course_review($course_id)
+	{
+		$query = $this->db->select()
+		->where('review_course_id',$course_id)
+		->get('review_tbl');
+		if ($query->num_rows()==1) {
+			return $query->row_array();
 		}
 		else return false;
 	}

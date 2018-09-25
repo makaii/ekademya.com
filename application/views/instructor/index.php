@@ -43,7 +43,7 @@
 						</div>
 						<div class="card-footer">
 							<div id="course<?php echo $data['course_id']; ?>Options">
-								<?php if ($data['course_published']!=1): ?>
+								<?php if ($data['course_published']!=1&&($data['course_review']!=1&&$data['course_review']!=2)): ?>
 									<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
 								<?php endif; ?>
 								<?php if ($data['course_review']==1): ?>

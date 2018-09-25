@@ -72,3 +72,18 @@ fe424d 254,66,77
 	text-decoration: none;
 	/*color: inherit;*/
 }
+
+
+
+
+.quote
+{
+	border-left: 5px solid #eee;
+	padding-left:1rem!important;
+}
+
+.quote-green
+{
+	border-left: 5px solid #36D7B7;
+	padding-left:1rem!important;
+}
