@@ -37,9 +37,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url('assets/js/popper.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
-
+    <script>
+      var shiftWindow = function() { scrollBy(0, -50) };
+      window.addEventListener("hashchange", shiftWindow);
+      function load() { if (window.location.hash) shiftWindow(); }
+    </script>
   </head>
-  <body>
+  <body onload="load()">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light c1">
       <div class="container">
         <a class="navbar-brand text-white" href="<?php echo base_url('instructor'); ?>">E K A D E M Y A</a>

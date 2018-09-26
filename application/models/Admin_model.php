@@ -19,8 +19,8 @@ class Admin_model extends CI_Model
 				$admin = $admin_query->row();
 				$this->session->set_userdata('admin_logged_in', 1);
 				$this->session->set_userdata('admin_data', $admin); // whole array
-				$this->session->set_userdata('admin_email', $admin->admin_email);
-				$this->session->set_userdata('admin_type', $admin->admin_type);
+				// $this->session->set_userdata('admin_email', $admin->admin_email);
+				// $this->session->set_userdata('admin_type', $admin->admin_type);
 				return true;
 			}			
 		}

@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Admin_model');
+		$this->load->model('Instructor_model');
 		if (!$this->session->has_userdata('admin_logged_in'))
 		{
 			$this->session->set_userdata('admin_logged_in', false);
@@ -20,8 +21,6 @@ class Admin extends CI_Controller {
 		{
 			$page_data = array(
 				'page_title' => 'Welcome Admin',
-				'admin_email' => $this->session->userdata('admin_email'),
-				'admin_type' => $this->session->userdata('admin_type'),
 				'overview_active' => 'active',
 				'no_courses' => $this->Admin_model->count_pubished_courses(),
 				'no_instructors' => $this->Admin_model->count_instructors(),
@@ -76,6 +75,23 @@ class Admin extends CI_Controller {
 		
 	}
 
+	public function instructors()
+	{
+		$admin_logged_in = $this->session->userdata('admin_logged_in');
+		if ($admin_logged_in==true)
+		{
+			$page_data = array(
+				'page_title' => 'Instructors',
+				'instructors_active' => 'active',
+			);
+			$this->load->view('admin/template/header',$page_data);
+			$this->load->view('admin/template/footer');
+		}
+		else
+		{
+			redirect(base_url('admin'));
+		}
+	}
 	public function settings()
 	{
 		$admin_logged_in = $this->session->userdata('admin_logged_in');
@@ -83,8 +99,6 @@ class Admin extends CI_Controller {
 		{
 			$page_data = array(
 				'page_title' => 'Admin Settings',
-				'admin_email' => $this->session->userdata('admin_email'),
-				'admin_type' => $this->session->userdata('admin_type'),
 				'settings_active' => 'active',
 			);
 			$this->form_validation->set_rules('userdata', '', 'trim');
@@ -132,8 +146,6 @@ class Admin extends CI_Controller {
 		{
 			$page_data = array(
 				'page_title' => 'Courses',
-				'admin_email' => $this->session->userdata('admin_email'),
-				'admin_type' => $this->session->userdata('admin_type'),
 				'courses_active' => 'active',
 			);
 			$this->load->view('admin/template/header',$page_data);
@@ -153,8 +165,6 @@ class Admin extends CI_Controller {
 		{
 			$page_data = array(
 				'page_title' => 'Review Courses',
-				'admin_email' => $this->session->userdata('admin_email'),
-				'admin_type' => $this->session->userdata('admin_type'),
 				'review_active' => 'active',
 				'courses_review' => $this->Admin_model->get_unreviewed_courses(),
 			);
@@ -174,15 +184,12 @@ class Admin extends CI_Controller {
 		if ($admin_logged_in==true)
 		{
 			$course = $this->Admin_model->get_unreviewed_courses($course_id);
-			$this->load->model('Instructor_model');
 			$outline = $this->Instructor_model->get_outline($course_id);
 			$review = $this->Admin_model->get_review_data($course_id);
 				$review_info = unserialize($review['review_course_info']);
 				$review_outline = unserialize($review['review_course_outline']);
 			$page_data = array(
 				'page_title' => 'Reviewing '.$course['course_title'],
-				'admin_email' => $this->session->userdata('admin_email'),
-				'admin_type' => $this->session->userdata('admin_type'),
 				'review_active' => 'active',
 				'course' => $course,
 				'outline' => $outline,
@@ -193,6 +200,7 @@ class Admin extends CI_Controller {
 			// form rules
 			$this->form_validation->set_rules('comment_title','Title Comment','trim');
 			$this->form_validation->set_rules('comment_category','Description Comment','trim');
+			$this->form_validation->set_rules('comment_type','Course Type Comment','trim');
 			$this->form_validation->set_rules('comment_description','Description Comment','trim');
 			$this->form_validation->set_rules('comment_tools','Tools Comment','trim');
 			$this->form_validation->set_rules('comment_audience','Audience Comment','trim');
@@ -219,6 +227,7 @@ class Admin extends CI_Controller {
 					'review_course_info' => [
 						'review_title' => $this->input->post('comment_title'),
 						'review_category' => $this->input->post('comment_category'),
+						'review_type' => $this->input->post('comment_type'),
 						'review_description' => $this->input->post('comment_description'),
 						'review_tools' => $this->input->post('comment_tools'),
 						'review_audience' => $this->input->post('comment_audience'),
@@ -248,6 +257,18 @@ class Admin extends CI_Controller {
 			redirect(base_url('admin'));
 		}
 	}
+	public function course_review_approve($course_id)
+	{
+		$course = $this->Admin_model->get_unreviewed_courses($course_id);
+		$page_data = array(
+			'page_title' => '',
+			'course' => $course,
+			'review_active' => 'active',
+		);
+		$this->load->view('admin/template/header',$page_data);
+		$this->load->view('admin/pages/review_course_approve');
+		$this->load->view('admin/template/footer');
+	}
 
 	public function categories()
 	{
@@ -258,8 +279,6 @@ class Admin extends CI_Controller {
 			$categories = $this->Lookup_model->get_category();
 			$page_data = array(
 				'page_title' => 'Categories',
-				'admin_email' => $this->session->userdata('admin_email'),
-				'admin_type' => $this->session->userdata('admin_type'),
 				'categories_active' => 'active',
 				'categories' => $categories,
 			);

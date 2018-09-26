@@ -1,3 +1,9 @@
+<style>
+	.c-lbl{
+		padding-top: 40px;
+		margin-top: -40px;
+	}
+</style>
 <div class="container">
 	<div class="row mt-5">
 		<div class="col-md-7">
@@ -26,7 +32,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="font-weight-bold">Course Title</label>
+									<label class="font-weight-bold c-lbl" id="course_title">Course Title</label>
 									<?php echo form_error('title'); ?>
 									<input class="form-control form-control-sm" maxlength="50" name="title" value="<?php echo set_value('title',$course['course_title']); ?>"></input>
 									<small class="text-muted">Give your course a fun, descriptive title that conveys what students will learn.</small>
@@ -34,7 +40,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="font-weight-bold">Cetegory</label>
+									<label class="font-weight-bold c-lbl" id="course_category">Cetegory</label>
 									<?php echo form_error('category'); ?>
 									<select class="form-control form-control-sm" name="category">
 										<?php foreach ($category as $ctgry): ?>
@@ -45,7 +51,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="font-weight-bold">Course Type</label>
+									<label class="font-weight-bold c-lbl" id="course_type">Course Type</label>
 									<?php echo form_error('type'); ?>
 									<select class="form-control form-control-sm" name="type">
 										<option value="premium" <?php if(set_value('type',null)=='premium'){echo "selected";}else{if($course['course_type']=='premium'){echo "selected";}} ?>>Premium</option>
@@ -55,25 +61,25 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="font-weight-bold">Description</label>
+							<label class="font-weight-bold c-lbl" id="course_description">Description</label>
 							<?php echo form_error('description'); ?>
 							<textarea class="form-control form-control-sm" maxlength="1500" name="description" rows="8"><?php if(set_value('description',null)!=null){echo set_value('description');}elseif(!empty($course['course_description'])){echo $course['course_description'];} ?></textarea>
 							<small class="text-muted">What is your course about? Tell your students in 1500 charactters or less.</small>
 						</div>
 						<div class="form-group">
-							<label class="font-weight-bold">Who should take this course?</label>
+							<label class="font-weight-bold c-lbl" id="course_audience">Who should take this course?</label>
 							<?php echo form_error('audience'); ?>
 							<textarea class="form-control form-control-sm" maxlength="1000" name="audience" rows="6"><?php if(set_value('audience',null)!=null){echo set_value('audience');}elseif(!empty($course['course_audience'])){echo $course['course_audience'];} ?></textarea>
 							<small class="text-muted">Who are your target audiance for this course?</small>
 						</div>
 						<div class="form-group">
-							<label class="font-weight-bold">What knowledge and tools are required?</label>
+							<label class="font-weight-bold c-lbl" id="course_tools">What knowledge and tools are required?</label>
 							<?php echo form_error('ktools'); ?>
 							<textarea class="form-control form-control-sm" maxlength="1000" name="ktools" rows="6"><?php if(set_value('ktools',null)!=null){echo set_value('ktools');}elseif(!empty($course['course_tools'])){echo $course['course_tools'];} ?></textarea>
 							<small class="text-muted">What are the the specific tools the student will need</small>
 						</div>
 						<div class="form-group">
-							<label class="font-weight-bold">What will students achieve or be able to do after taking your course?</label>
+							<label class="font-weight-bold c-lbl" id="course_achievement">What will students achieve or be able to do after taking your course?</label>
 							<?php echo form_error('goals'); ?>
 							<textarea class="form-control form-control-sm" maxlength="1000" name="goals" rows="6"><?php if(set_value('goals',null)!=null){echo set_value('goals');}elseif(!empty($course['course_achievement'])){echo $course['course_achievement'];} ?></textarea>
 							<small class="text-muted">What are the things the students will learn by the end of the course</small>

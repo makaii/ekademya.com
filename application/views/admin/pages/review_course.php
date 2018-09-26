@@ -6,20 +6,25 @@
 				<div class="card-header">Course Information</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label>Title : <span class="font-weight-bold"><?php echo $course['course_title']; ?></span></label>
+						<label class="font-weight-bold">Title : <span class="text-info"><?php echo ucwords($course['course_title']); ?></span></label>
 						<input class="form-control form-control-sm" placeholder="comments" name="comment_title" value="<?php echo set_value('comment_title',$review_info['review_title']); ?>"></input>
 						<?php echo form_error('comment_title'); ?>
 					</div>
 					<div class="form-group">
-						<label>Category : <span class="font-weight-bold"><?php echo $course['category_name']; ?></span></label>
+						<label class="font-weight-bold">Category : <span class="text-info"><?php echo ucwords($course['category_name']); ?></span></label>
 						<input class="form-control form-control-sm" placeholder="comments" name="comment_category" value="<?php echo set_value('comment_category',$review_info['review_category']); ?>"></input>
 						<?php echo form_error('comment_category'); ?>
 					</div>
 					<div class="form-group">
-						<label>Author : <a href="<?php echo base_url('admin/instructor/').$course['course_author']; ?>" target="_blank" class="font-weight-bold"><?php echo $course['user_email']; ?></a></label>
+						<label class="font-weight-bold">Type : <span class="text-info"><?php echo ucwords($course['course_type']); ?></span></label>
+						<input class="form-control form-control-sm" placeholder="comments" name="comment_type" value="<?php echo set_value('comment_type',$review_info['review_type']); ?>"></input>
+						<?php echo form_error('comment_type'); ?>
 					</div>
 					<div class="form-group">
-						<label>Description :</label>
+						<label class="font-weight-bold">Author : <a href="<?php echo base_url('admin/instructor/').$course['course_author']; ?>" target="_blank" class="text-info"><?php echo $course['user_email']; ?></a></label>
+					</div>
+					<div class="form-group">
+						<label class="font-weight-bold">Description :</label>
 						<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
 							<?php echo nl2br($course['course_description']); ?>
 						</p>
@@ -27,7 +32,7 @@
 						<?php echo form_error('comment_description'); ?>
 					</div>
 					<div class="form-group">
-						<label>Tools :</label>
+						<label class="font-weight-bold">Tools :</label>
 						<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
 							<?php echo nl2br($course['course_tools']); ?>
 						</p>
@@ -35,7 +40,7 @@
 						<?php echo form_error('comment_tools'); ?>
 					</div>
 					<div class="form-group">
-						<label>Audience :</label>
+						<label class="font-weight-bold">Audience :</label>
 						<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
 							<?php echo nl2br($course['course_audience']); ?>
 						</p>
@@ -43,7 +48,7 @@
 						<?php echo form_error('comment_audience'); ?>
 					</div>
 					<div class="form-group">
-						<label>Achievement :</label>
+						<label class="font-weight-bold">Achievement :</label>
 						<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
 							<?php echo nl2br($course['course_achievement']); ?>
 						</p>
@@ -68,7 +73,7 @@
 							<?php if ($outln['outline_type']=='video'): ?>
 							<!-- VIDEO -->
 								<div class="form-group">
-									<label>Lecture Title : <span class="font-weight-bold"><?php echo $outln['video_title']; ?></span></label>
+									<label class="font-weight-bold">Lecture Title : <span class="text-info"><?php echo $outln['video_title']; ?></span></label>
 									<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
 										<?php echo nl2br($outln['video_description']); ?>
 									</p>
@@ -88,7 +93,7 @@
 							<?php elseif($outln['outline_type']=='lecture'): ?>
 							<!-- LECTURE -->
 								<div class="form-group">
-									<label>Lecture Title : <span class="font-weight-bold"><?php echo $outln['lecture_title']; ?></span></label>
+									<label class="font-weight-bold">Lecture Title : <span class="text-info"><?php echo $outln['lecture_title']; ?></span></label>
 									<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
 										<?php echo nl2br($outln['lecture_body']); ?>
 									</p>
