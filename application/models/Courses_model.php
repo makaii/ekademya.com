@@ -26,5 +26,20 @@ class Courses_model extends CI_Model
 			return false;
 	}
 
+	public function enroll_course($course_id,$user_id)
+	{
+		$enroll_data = array(
+			'enroll_student' => $user_id,
+			'enroll_course' => $course_id,
+		);
+		$query = $this->db->insert('enroll_id',$enroll_data);
+		if ($query->affected_rows()==1)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+
 }
  ?>

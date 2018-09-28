@@ -16,6 +16,32 @@ class Courses extends CI_Controller {
 		}
 	}
 
+	public function course_enroll($course_id)
+	{
+		if ($this->session->userdata('user_type')=='student')
+		{
+			$course = $this->Lookup_model->get_course($course_id);
+			$page_data = array(
+				'page_tit;e' => 'Enrolled to',
+				'course' => $course,
+			);
+			if ($this->Courses_model->enroll_course($course_id,$_SESSION['user_id']))
+			{
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('template/footer');
+			}
+			else
+			{
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('template/footer');
+			}
+		}
+		else
+		{
+			echo "log in as student";
+		}
+	}
+
 	public function art_design($page = 0)
 	{
 		$page_data = array(

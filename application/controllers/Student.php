@@ -25,11 +25,12 @@ class Student extends CI_Controller {
 
 	public function index()
 	{
-		
+		$course = null;
 		$page_data = array
 		(
-			'page_title' => 'welcome',
+			'page_title' => 'Welcome '.$this->session->userdata('user_name'),
 			'course_categories' => $this->Lookup_model->get_category(),
+			'courses' => null,
 		);
 		$this->load->view('template/headerUser', $page_data);
 		$this->load->view('student/index');

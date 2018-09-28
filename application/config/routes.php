@@ -67,6 +67,8 @@ $route['search'] = 'lookup/search_course';
 $route['course/(:num)'] = 'lookup/courses/$1';
 // course category link
 $route['course/(:any)'] = 'lookup/course_cat/$1';
+// enroll course
+$route['course/enroll/(:num)'] = 'courses/course_enroll/$1';
 
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';
