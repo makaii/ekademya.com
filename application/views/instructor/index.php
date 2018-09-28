@@ -18,15 +18,15 @@
 		<?php foreach ($courses as $data): ?>
 			<div class="row mb-3">	
 				<div class="col-md-2">
-					<div class="card">
+					<div class="card border">
 						<img style="max-height: 200px; max-width: 200px;" class="card-img img-responsive" src="<?php echo base_url('z/thumbnails/'.$data['course_img_url']); ?>" alt="<?php echo $data['course_title']; ?>">
 					</div>
 				</div>
 				<div class="col-md-10">
-					<div class="card">
-						<div class="card-header">
+					<div class="card <?php if($data['course_published']==1){echo'border-success';} ?>">
+						<div class="card-header <?php if($data['course_published']==1){echo'border-success';} ?>">
 							<b><?php echo $data['course_title']; ?></b>
-							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-primary'>published</span>";} if($data['course_review']!=0&&$data['course_published']==0){echo "<span class='badge badge-info'>under review</span>";}?>
+							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-success'>published</span>";} if($data['course_review']!=0&&$data['course_published']==0){echo "<span class='badge badge-info'>under review</span>";}?>
 						</div>
 						<div class="card-body pt-3 pb-3">
 							<div class="card-text">
@@ -41,7 +41,7 @@
 								<?php endif; ?>
 							</div>
 						</div>
-						<div class="card-footer">
+						<div class="card-footer <?php if($data['course_published']==1){echo'border-success';} ?>">
 							<div id="course<?php echo $data['course_id']; ?>Options">
 								<?php if ($data['course_published']==0&&$data['course_review']!=2): ?>
 									<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
@@ -52,7 +52,7 @@
 								<?php if($data['course_published']==0): ?>
 									<a href="<?php echo base_url('course/edit/info/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
 								<?php elseif($data['course_published']==1): ?>
-									<a href=""><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Published</button></a>
+									<a href="<?php echo base_url('course/manage/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Manage</button></a>
 								<?php endif; ?>
 								<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</button></a>
 							</div>

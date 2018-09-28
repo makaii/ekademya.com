@@ -66,6 +66,20 @@ class Admin_model extends CI_Model
 		}
 		
 	}
+	public function get_published_courses()
+	{
+		$query = $this->db->select()
+		->where('course_published',1)
+		->where('course_status',1)
+		->join('user_tbl','user_tbl.user_id = course_tbl.course_author')
+		->join('category_tbl','category_tbl.category_id = course_tbl.course_category')
+		->get('course_tbl');
+		if ($query->num_rows()>=1) {
+			return $query->result_array();
+		}
+		else
+			return false;
+	}
 
 	// settings functions
 	public function display_userdata()
@@ -217,6 +231,45 @@ class Admin_model extends CI_Model
 		{
 			return $query->row_array();
 		}
+	}
+
+
+
+
+
+
+
+
+
+
+	// Instructors
+	public function get_all_instructors()
+	{
+		$query = $this->db->select()
+		->where('user_type','instructor')
+		->where('user_status',1)
+		->get('user_tbl');
+		if ($query->num_rows()>=1) {
+			return $query->result_array();
+		}
+		else
+			return null;
+	}
+
+	// Categories
+	public function add_new_category($name,$code)
+	{
+		$data = [
+			'category_name' => $name,
+			'category_code' => $code
+		];
+		$this->db->insert('category_tbl',$data);
+		if ($this->db->affected_rows()==1)
+		{
+			return true;
+		}
+		else
+			return false;
 	}
 
 }

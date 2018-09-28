@@ -74,64 +74,141 @@ class Lookup extends CI_Controller {
 
 	public function search_course()
 	{
-		$search_string = $this->input->get('data');
-		$search_result = $this->Lookup_model->search_course($search_string);
 		$page_data = array(
-			'page_title' => 'Result of '.$search_string,
+			'page_title' => 'Search',
 			'course_categories' => $this->Lookup_model->get_category(),
+			'search' => null,
 		);
-
-		if ($this->session->has_userdata('user_type'))
+		$this->form_validation->set_rules('q','Search Input','trim');
+		$page_data['q_string'] = $this->input->get('q');
+		if (!$this->form_validation->run())
 		{
-			$user_type = $this->session->userdata('user_type');
-			if ($user_type == 'user')
+			$search_string = $this->input->get('q');
+			$search_result = $this->Lookup_model->search_course($search_string);
+			if ($search_result!=null)
 			{
-				$this->load->view('template/headerUser',$page_data);
-				$this->load->view('template/footer');
+				$page_data['search'] = $search_result;
+				$page_data['page_title'] = 'Result of '.$search_string;
+				if ($this->session->has_userdata('user_type'))
+				{
+					$user_type = $this->session->userdata('user_type');
+					if ($user_type == 'user')
+					{
+						$this->load->view('template/headerUser',$page_data);
+						$this->load->view('main/search');
+						$this->load->view('template/footer');
+					}
+					elseif ($user_type == 'instructor')
+					{
+						$this->load->view('template/headerInstructor',$page_data);
+						$this->load->view('main/search');
+						$this->load->view('template/footer');
+					}
+				}
+				else
+				{
+					$this->load->view('template/header',$page_data);
+					$this->load->view('main/search');
+					$this->load->view('template/footer');
+				}
 			}
-			elseif ($user_type == 'instructor')
+			else
 			{
-				$this->load->view('template/headerInstructor',$page_data);
-				$this->load->view('template/footer');
+				if ($this->session->has_userdata('user_type'))
+				{
+					$user_type = $this->session->userdata('user_type');
+					if ($user_type == 'user')
+					{
+						$this->load->view('template/headerUser',$page_data);
+						$this->load->view('main/search');
+						$this->load->view('template/footer');
+					}
+					elseif ($user_type == 'instructor')
+					{
+						$this->load->view('template/headerInstructor',$page_data);
+						$this->load->view('main/search');
+						$this->load->view('template/footer');
+					}
+				}
+				else
+				{
+					$this->load->view('template/header',$page_data);
+					$this->load->view('main/search');
+					$this->load->view('template/footer');
+				}
 			}
 		}
 		else
 		{
-			$this->load->view('template/header',$page_data);
-			$this->load->view('template/footer');
-		}
-	}
-
-	public function get_courses($course)
-	{
-		if (!empty($course))
-		{
-			$page_data = array(
-				'page_title' => ucwords($course),
-				'course_categories' => $this->Lookup_model->get_category(),
-			);
-			if ($_SESSION['logged_in']==true)
+			if ($this->session->has_userdata('user_type'))
 			{
-				if ($_SESSION['user_type']=='student')
+				$user_type = $this->session->userdata('user_type');
+				if ($user_type == 'user')
 				{
 					$this->load->view('template/headerUser',$page_data);
+					$this->load->view('main/search');
 					$this->load->view('template/footer');
 				}
-				elseif ($_SESSION['user_type']=='instructor')
+				elseif ($user_type == 'instructor')
 				{
-					$this->load->view('template/headerUser',$page_data);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('main/search');
 					$this->load->view('template/footer');
 				}
 			}
 			else
 			{
 				$this->load->view('template/header',$page_data);
+				$this->load->view('main/search');
+				$this->load->view('template/footer');
+			}
+		}		
+	}
+
+	public function courses($course_id)
+	{
+		if (!empty($course_id))
+		{
+			$course = $this->Lookup_model->get_course($course_id);
+			$this->load->model('Instructor_model');
+			$outline = $this->Instructor_model->get_outline($course_id);
+			$this->load->model('Account_model');
+			$author = $this->Account_model->get_profile_info($course['course_author']);
+			$page_data = array(
+				'page_title' => ucwords($course['course_title']),
+				'course_categories' => $this->Lookup_model->get_category(),
+				'course_id' => $course_id,
+				'course' => $course,
+				'outline' => $outline,
+				'author' => $author,
+			);
+			if ($_SESSION['logged_in']==true)
+			{
+				if ($_SESSION['user_type']=='student')
+				{
+					$this->load->view('template/headerUser',$page_data);
+					$this->load->view('instructor/course_edit/course_preview');
+					$this->load->view('template/footer');
+				}
+				elseif ($_SESSION['user_type']=='instructor')
+				{
+					$this->load->view('template/headerUser',$page_data);
+					$this->load->view('instructor/course_edit/course_preview');
+					$this->load->view('template/footer');
+				}
+			}
+			else
+			{
+				$this->load->view('template/header',$page_data);
+				$this->load->view('instructor/course_edit/course_preview');
 				$this->load->view('template/footer');
 			}
 		}
 		else
 			show_404();
-
+	}
+	public function courses_cat($category)
+	{
 
 	}
 

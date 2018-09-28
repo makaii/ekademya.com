@@ -83,8 +83,10 @@ class Admin extends CI_Controller {
 			$page_data = array(
 				'page_title' => 'Instructors',
 				'instructors_active' => 'active',
+				'instructors' => $this->Admin_model->get_all_instructors(),
 			);
 			$this->load->view('admin/template/header',$page_data);
+			$this->load->view('admin/pages/instructors');
 			$this->load->view('admin/template/footer');
 		}
 		else
@@ -147,6 +149,7 @@ class Admin extends CI_Controller {
 			$page_data = array(
 				'page_title' => 'Courses',
 				'courses_active' => 'active',
+				'courses' => $this->Admin_model->get_published_courses(),
 			);
 			$this->load->view('admin/template/header',$page_data);
 			$this->load->view('admin/pages/courses');
@@ -261,13 +264,19 @@ class Admin extends CI_Controller {
 	{
 		$course = $this->Admin_model->get_unreviewed_courses($course_id);
 		$page_data = array(
-			'page_title' => '',
+			'page_title' => 'Coure Approve',
 			'course' => $course,
 			'review_active' => 'active',
 		);
-		$this->load->view('admin/template/header',$page_data);
-		$this->load->view('admin/pages/review_course_approve');
-		$this->load->view('admin/template/footer');
+		if ($this->Admin_model->publish_course($course_id)) {
+			$this->load->view('admin/template/header',$page_data);
+			$this->load->view('admin/pages/review_course_approve');
+			$this->load->view('admin/template/footer');
+		}
+		else
+		{
+			echo "may mali";
+		}
 	}
 
 	public function categories()
@@ -282,9 +291,28 @@ class Admin extends CI_Controller {
 				'categories_active' => 'active',
 				'categories' => $categories,
 			);
-			$this->load->view('admin/template/header',$page_data);
-			$this->load->view('admin/pages/categories');
-			$this->load->view('admin/template/footer');
+			// set ruels
+			$this->form_validation->set_rules('categoryName','Category Name','trim|required|alpha_dash|is_unique[category_tbl.category_name]');
+			$this->form_validation->set_rules('categoryCode','Category Code','trim|required|alpha_dash|is_unique[category_tbl.category_code]');
+			// /set rules
+			if (!$this->form_validation->run()) {
+				$this->load->view('admin/template/header',$page_data);
+				$this->load->view('admin/pages/categories');
+				$this->load->view('admin/template/footer');
+			}
+			else
+			{
+				$name = $this->input->post('categoryName');
+				$code = $this->input->post('categoryCode');
+				if ($this->Admin_model->add_new_category($name,$code))
+				{
+					redirect(base_url('admin/categories'));
+				}
+				else
+					show_404();
+				
+			}
+			
 		}
 		else
 		{

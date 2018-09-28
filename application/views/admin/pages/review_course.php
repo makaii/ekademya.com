@@ -123,15 +123,12 @@
 							<a roles="button" class="btn btn-sm btn-dark btn-block" href="#">Hold</a>
 						</div>
 						<div>
-							<a roles="button" class="btn btn-sm btn-success btn-block" href="#">Approve</a>
+							<a roles="button" class="btn btn-sm btn-success btn-block" href="<?php echo base_url("admin/review/$course_id/approve"); ?>">Approve</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="card-body">
-		
 	</div>
 	<!-- /BUTTONS -->
 </form>

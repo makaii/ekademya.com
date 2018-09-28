@@ -30,9 +30,9 @@
 					</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="<?php echo base_url(); ?>" target="_blank">Ekademya</a>
-					<a class="dropdown-item" href="#">Another action</a>
+					<!-- <a class="dropdown-item" href="#">Another action</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Something else here</a>
+					<a class="dropdown-item" href="#">Something else here</a> -->
 				</div>
 				</li>
 			</ul>
@@ -47,8 +47,8 @@
 					<a href="<?php echo base_url('admin'); ?>" class="list-group-item list-group-item-action <?php if(!empty($overview_active)){echo $overview_active;} ?>">
 						Overview
 					</a>
-					<a href="<?php echo base_url('admin/courses'); ?>" class="list-group-item list-group-item-action <?php if(!empty($courses_active)){echo $courses_active;} ?>">
-						Courses
+					<a href="<?php echo base_url('admin/courses'); ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php if(!empty($courses_active)){echo $courses_active;} ?>">
+						Courses <?php if($this->Admin_model->count_pubished_courses()!=null){echo '<span class="badge badge-primary badge-pill">'.$this->Admin_model->count_pubished_courses().'</span>';} ?>
 					</a>
 					<a href="<?php echo base_url('admin/review'); ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php if(!empty($review_active)){echo $review_active;} ?>">
 						Courses Review <?php if($this->Admin_model->count_courses_for_review()!=null){echo '<span class="badge badge-primary badge-pill">'.$this->Admin_model->count_courses_for_review().'</span>';} ?>

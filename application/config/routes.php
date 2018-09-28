@@ -59,9 +59,14 @@ $route['signup/instructor'] = 'login/signup_instructor';
 $route['signin'] = 'login/signin';
 $route['signup/success'] = 'login/signup_success';
 
-// search routes
+// user link
 $route['u/(:num)'] = 'lookup/user_profile/$1';
+// search link
 $route['search'] = 'lookup/search_course';
+// course link
+$route['course/(:num)'] = 'lookup/courses/$1';
+// course category link
+$route['course/(:any)'] = 'lookup/course_cat/$1';
 
 $route['course/create'] = 'instructor/create_course';
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';
@@ -93,3 +98,4 @@ $route['profile/account/edit'] = 'profile/account';
 
 // admin
 $route['admin/review/(:num)'] = 'admin/review_course/$1';
+$route['admin/review/(:num)/approve'] = 'admin/course_review_approve/$1';

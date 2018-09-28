@@ -1,19 +1,19 @@
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-5">
 		<div class="card">
 			<div class="card-header">Add New Category</div>
 			<div class="card-body">
-				<form>
+				<form method="POST">
 					<div class="form-group">
 						<label>Category Name</label>
-						<input class="form-control" type="text" name="categoryName" value="<?php echo set_value("categoryName"); ?>"></input>
+						<input class="form-control" type="text" name="categoryName" value="<?php echo set_value("categoryName",null); ?>"></input>
 						<small><?php echo form_error("categoryName"); ?></small>
 					</div>
 					<div class="form-group">
 						<label>Category Code</label>
-						<input class="form-control" type="text" name="categoryCode" value="<?php echo set_value("categoryCode"); ?>"></input>
+						<input class="form-control" type="text" name="categoryCode" value="<?php echo set_value("categoryCode",null); ?>"></input>
 						<small class="form-text text-muted">category code serves as the url identifier</small>
-						<small><?php echo form_error(); ?></small>
+						<small><?php echo form_error('categoryCode'); ?></small>
 					</div>
 					<div class="form-group">
 						<button class="btn btn-primary" type="submit">Add</button>
@@ -23,7 +23,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-7">
 		<div class="card">
 			<div class="card-header">
 				Categories
