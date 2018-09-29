@@ -134,19 +134,22 @@ class Login extends CI_Controller {
 			redirect(base_url('signup'));
 	}
 
-	public function signin()
+	public function signin($course_id=null)
 	{
 		$page_data = array(
 			'page_title' => 'Signin',
 			'course_categories' => $this->Lookup_model->get_category(),
 		);
+		if (!empty($course_id))
+		{
+			$this->session->set_userdata('enroll_course_id',$course_id);
+		}
 
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
-		
 
 		if ($this->form_validation->run() == false)
 		{
@@ -169,7 +172,15 @@ class Login extends CI_Controller {
 			if ($user_type == "student")
 			{
 				$this->session->set_userdata('logged_in', true);
-				redirect(base_url('student'));
+				if (!empty($this->session->has_userdata('enroll_course_id')))
+				{
+					$course_id = $this->session->userdata('enroll_course_id');
+					redirect(base_url('course/enroll/'.$course_id));
+				}
+				else
+				{
+					redirect(base_url('student'));
+				}
 			}
 			if ($user_type == "instructor")
 			{

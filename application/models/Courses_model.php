@@ -28,17 +28,29 @@ class Courses_model extends CI_Model
 
 	public function enroll_course($course_id,$user_id)
 	{
-		$enroll_data = array(
-			'enroll_student' => $user_id,
-			'enroll_course' => $course_id,
-		);
-		$query = $this->db->insert('enroll_id',$enroll_data);
-		if ($query->affected_rows()==1)
+		$query = $this->db->select()
+		->where('enroll_course',$course_id)
+		->where('enroll_student',$user_id)
+		->get('enroll_tbl');
+		if ($query->num_rows()>=1)
 		{
-			return true;
+			return false;
 		}
 		else
-			return false;
+		{
+			$enroll_data = array(
+				'enroll_student' => $user_id,
+				'enroll_course' => $course_id,
+			);
+			$this->db->insert('enroll_tbl',$enroll_data);
+			if ($this->db->affected_rows()==1)
+			{
+				$this->session->unset_userdata('enroll_course_id');
+				return true;
+			}
+			else
+				return false;
+		}
 	}
 
 }

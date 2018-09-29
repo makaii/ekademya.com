@@ -27,18 +27,19 @@ class Courses extends CI_Controller {
 			);
 			if ($this->Courses_model->enroll_course($course_id,$_SESSION['user_id']))
 			{
-				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('template/headerUser',$page_data);
 				$this->load->view('template/footer');
 			}
 			else
 			{
-				$this->load->view('template/headerInstructor',$page_data);
-				$this->load->view('template/footer');
+				// $this->load->view('template/headerUser',$page_data);
+				// $this->load->view('template/footer');
+				echo "already enrolled";
 			}
 		}
 		else
 		{
-			echo "log in as student";
+			redirect(base_url('signin/'.$course_id));
 		}
 	}
 
