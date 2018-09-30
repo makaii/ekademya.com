@@ -46,7 +46,9 @@
 								<small class="card-title font-weight-bold"><?php echo ucwords(substr($c['course_title'], null, 45)); ?></small>
 							</a>
 							<br>
-							<a href="<?php echo base_url(); ?>" style="text-decoration: none; color: inherit;"><small class="font-weight-light"><?php echo ucwords($c['user_fname'].' '.$c['user_lname']); ?></small></a>
+							<a href="<?php echo base_url('u/'.$c['user_id']); ?>" style="text-decoration: none; color: inherit;">
+								<small class="font-weight-light"><?php echo ucwords($c['user_fname'].' '.$c['user_lname']); ?></small>
+							</a>
 							<hr>
 							<div class="text-right">
 								<span class="oi oi-clock"></span> 0h
