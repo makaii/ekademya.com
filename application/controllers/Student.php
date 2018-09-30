@@ -9,6 +9,7 @@ class Student extends CI_Controller {
 		$this->load->model('Admin_model');
 		$this->load->model('Account_model');
 		$this->load->model('Lookup_model');
+		$this->load->model('Student_model');
 		if (!$this->session->has_userdata('logged_in'))
 		{
 			$this->session->set_userdata('logged_in', false);
@@ -25,12 +26,13 @@ class Student extends CI_Controller {
 
 	public function index()
 	{
-		$course = null;
+		$student_id = $this->session->userdata('user_id');
+		$courses = $this->Student_model->get_student_courses($student_id);
 		$page_data = array
 		(
 			'page_title' => 'Welcome '.$this->session->userdata('user_name'),
 			'course_categories' => $this->Lookup_model->get_category(),
-			'courses' => null,
+			'courses' => $courses,
 		);
 		$this->load->view('template/headerUser', $page_data);
 		$this->load->view('student/index');

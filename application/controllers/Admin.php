@@ -209,9 +209,11 @@ class Admin extends CI_Controller {
 			$this->form_validation->set_rules('comment_audience','Audience Comment','trim');
 			$this->form_validation->set_rules('comment_achievement','Achievement Comment','trim');
 			$outln_num = 1;
-			foreach ($outline as $key => $value) {
-				$this->form_validation->set_rules("review_outline_$key","Outline #$outln_num",'trim');
-				$outln_num++;
+			if (!empty($outline)) {
+				foreach ($outline as $key => $value) {
+					$this->form_validation->set_rules("review_outline_$key","Outline #$outln_num",'trim');
+					$outln_num++;
+				}
 			}
 			// form rules
 			if (!$this->form_validation->run())

@@ -66,7 +66,7 @@ class Instructor extends CI_Controller {
 		}
 		else
 		{
-			// show_404();
+			show_404();
 		}
 	}
 

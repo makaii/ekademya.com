@@ -13,7 +13,10 @@ class Account_model extends CI_Model
 	{
 		if (!empty($email))
 		{
-			$query = $this->db->select()->where('enroll_student', $email)->get('enroll_tbl');
+			$query = $this->db->select()
+			->from('course_tbl')
+			->where('enroll_student', $email)
+			->get();
 			if ($query->num_rows() >= 1)
 			{
 				return $query->result_array();
