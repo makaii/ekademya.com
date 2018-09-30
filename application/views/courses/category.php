@@ -1,7 +1,10 @@
+<?php if(3%3) ?>
 <div class="container mt-5">
 	<?php if(!empty($courses)): ?>
-		<div class="card-deck">
+		<div class="card-columns">
+			<!-- <?php $counter=1; ?> -->
 			<?php foreach($courses as $c): ?>
+					<!-- <?php if($counter==1){echo '<div class="card-columns">';} ?> -->
 					<div class="card">
 						<img class="card-image-top img-fluid" src="<?php echo base_url('z/thumbnails/'.$c['course_img_url']); ?>" alt="<?php echo $c['course_title']; ?>" title="<?php echo $c['course_title']; ?>"></img>
 						<div class="card-body pb-0">
@@ -14,6 +17,8 @@
 							</div>
 						</div>
 					</div>
+					<!-- <?php if($counter==3){echo '</div>';$counter=0;} ?> -->
+					<!-- <?php $counter++; ?> -->
 			<?php endforeach; ?>
 		</div>
 	<?php else: ?>
