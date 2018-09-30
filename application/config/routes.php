@@ -66,7 +66,7 @@ $route['search'] = 'lookup/search_course';
 // course link
 $route['course/(:num)'] = 'lookup/courses/$1';
 // course category link
-$route['category/(:any)'] = 'lookup/course_cat/$1';
+$route['category/(:any)'] = 'courses/category/$1';
 // enroll course
 $route['course/enroll/(:num)'] = 'courses/course_enroll/$1';
 $route['signin/(:num)'] = 'login/signin/$1';
@@ -102,3 +102,6 @@ $route['profile/account/edit'] = 'profile/account';
 // admin
 $route['admin/review/(:num)'] = 'admin/review_course/$1';
 $route['admin/review/(:num)/approve'] = 'admin/course_review_approve/$1';
+
+// student
+$route['mycourse/(:num)'] = 'student/my_course/$1';

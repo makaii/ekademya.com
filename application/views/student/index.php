@@ -38,7 +38,7 @@
 			<?php foreach($courses as $c): ?>
 				<div class="col-12 col-sm-6 col-md-3">
 					<div class="card mb-3">
-						<a href="<?php echo base_url(); ?>">
+						<a href="<?php echo base_url('mycourse/'.$c['course_id']); ?>">
 							<img class="card-img-top course-thumb-img" src="<?php echo base_url('z/thumbnail/'.$c['course_img_url']); ?>" alt="<?php echo $c['course_title']; ?>" title="<?php echo $c['course_title']; ?>"></img>
 						</a>
 						<div class="card-body pb-0">

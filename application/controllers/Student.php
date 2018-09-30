@@ -38,4 +38,19 @@ class Student extends CI_Controller {
 		$this->load->view('student/index');
 		$this->load->view('template/footer');
 	}
+
+	public function my_course($course_id)
+	{
+		$course = $this->Student_model->get_my_course_data($course_id);
+		$outline = $this->Student_model->get_my_course_outline($course_id);
+		$page_data = array(
+			'page_title' => ucwords($course['course_title']),
+			'course_categories' => $this->Lookup_model->get_category(),
+			'course' => $course,
+			'outline' => $outline,
+		);
+		$this->load->view('template/headerUser',$page_data);
+		$this->load->view('student/mycourse');
+		$this->load->view('template/footer');
+	}
 }

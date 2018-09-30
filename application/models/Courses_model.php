@@ -9,21 +9,22 @@ class Courses_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function show_courses_by_category($category)
+	public function get_courses_by_category($course_code)
 	{
-		if (!empty($category))
-		{
-			$query = $this->db->select()->from('course_tbl')->where('course_category',$category)->where('course_published',1)->get();
-			if ($query->num_rows()>=1)
-			{
-				$query = $query->result_array();
-				return $query;
-			}
-			else
-				return null;
+		$query = $this->db->select()
+		->from('course_tbl')
+		->join('category_tbl','category_tbl.category_id = course_tbl.course_category')
+		->join('user_tbl','user_tbl.user_id = course_tbl.course_author')
+		->where('category_tbl.category_code',$course_code)
+		->where('course_published',1)
+		->where('course_status',1)
+		->order_by('course_id')
+		->get();
+		if ($query->num_rows()>=1) {
+			return $query->result_array();
 		}
 		else
-			return false;
+			return null;
 	}
 
 	public function enroll_course($course_id,$user_id)
