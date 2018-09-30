@@ -1,4 +1,13 @@
 <div class="row">
+	<div class="col">
+		<h2 class="text-muted">Categeries</h2>
+	</div>
+	<div class="col text-right">
+		<small class="text-muted"><?php echo date("M/d/Y"); ?></small>
+	</div>
+</div>
+<hr>
+<div class="row">
 	<div class="col-md-5">
 		<div class="card">
 			<div class="card-header">Add New Category</div>

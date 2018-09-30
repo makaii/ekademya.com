@@ -48,13 +48,13 @@
 						Overview
 					</a>
 					<a href="<?php echo base_url('admin/courses'); ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php if(!empty($courses_active)){echo $courses_active;} ?>">
-						Courses <?php if($this->Admin_model->count_pubished_courses()!=null){echo '<span class="badge badge-primary badge-pill">'.$this->Admin_model->count_pubished_courses().'</span>';} ?>
+						Courses <?php if($this->Admin_model->count_pubished_courses()!=null){echo '<span class="badge badge-dark badge-pill">'.$this->Admin_model->count_pubished_courses().'</span>';} ?>
 					</a>
 					<a href="<?php echo base_url('admin/review'); ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php if(!empty($review_active)){echo $review_active;} ?>">
-						Courses Review <?php if($this->Admin_model->count_courses_for_review()!=null){echo '<span class="badge badge-primary badge-pill">'.$this->Admin_model->count_courses_for_review().'</span>';} ?>
+						Courses Review <?php if($this->Admin_model->count_courses_for_review()!=null){echo '<span class="badge badge-dark badge-pill">'.$this->Admin_model->count_courses_for_review().'</span>';} ?>
 					</a>
 					<a href="<?php echo base_url('admin/instructors'); ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php if(!empty($instructors_active)){echo $instructors_active;} ?>">
-						Instructors<span class="badge badge-primary badge-pill"><?php echo $this->Admin_model->count_instructors(); ?></span></a>
+						Instructors<span class="badge badge-dark badge-pill"><?php echo $this->Admin_model->count_instructors(); ?></span></a>
 					<a href="<?php echo base_url('admin/categories'); ?>" class="list-group-item list-group-item-action <?php if(!empty($categories_active)){echo $categories_active;} ?>">
 						Categories
 					</a>
