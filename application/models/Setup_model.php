@@ -270,6 +270,28 @@ class Setup_model extends CI_Model
 			");
 		}
 	}
+	public function create_pay_table()
+	{
+		$check_pay_tbl = $this->db->query("SHOW TABLES LIKE 'pay_tbl';");
+		if ($check_pay_tbl->num_rows()==0)
+		{
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS pay_tbl (
+					pay_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					pay_user_id INT(7) NOT NULL,
+					FOREIGN KEY (pay_user_id) REFERENCES user_tbl(user_id),
+					-- 16 digit number
+					pay_card_number VARCHAR(30) NOT NULL,
+					pay_card_type CHAR(10) NOT NULL,
+					pay_exp_year TINYINT(4) NOT NULL,
+					pay_exp_month TINYINT(2) NOT NULL,
+					-- 3 digit number
+					pay_csc_cvv VARCHAR(30) NOT NULL,
+				);
+			");
+		}
+	}
 
 	public function getTableStructure($tableName)
 	{

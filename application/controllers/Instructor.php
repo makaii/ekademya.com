@@ -465,7 +465,6 @@ class Instructor extends CI_Controller {
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-			$category = $this->Lookup_model->get_category();
 			$outline = $this->Instructor_model->get_outline_lecture($outline_id);
 			# form rules
 			$this->form_validation->set_rules('title','Lecture Title', 'required|trim');
@@ -480,7 +479,7 @@ class Instructor extends CI_Controller {
 				'course_id' => $course_id,
 				'outline_id' => $outline_id,
 				'course' => $course,
-				'course_categories' => $category,
+				'course_categories' => $this->Lookup_model->get_category(),
 				'outline' => $outline,
 			];
 			if ($this->form_validation->run())
@@ -515,10 +514,9 @@ class Instructor extends CI_Controller {
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-			$category = $this->Lookup_model->get_category();
 			$page_data = array(
 				'page_title' => 'Edit '.$course['course_title'],
-				'course_categories' => $category,
+				'course_categories' => $this->Lookup_model->get_category(),
 				'course_id' => $course_id,
 				'course' => $course,
 				'category' => $category,
@@ -569,46 +567,18 @@ class Instructor extends CI_Controller {
 		$outline = $this->Instructor_model->get_outline($course_id);
 		$this->load->model('Account_model');
 		$author = $this->Account_model->get_profile_info($course['course_author']);
-		$category = $this->Lookup_model->get_category();
 		$page_data = [
 			'page_title' => 'Preview '.$course['course_title'],
 			'course' => $course,
 			'outline' => $outline,
 			'author' => $author,
-			'course_categories' => $category,
+			'course_categories' => $this->Lookup_model->get_category(),
 		];
 		$this->load->view('template/headerInstructor',$page_data);
 		$this->load->view('instructor/course_edit/course_preview');
 		$this->load->view('template/footer');
 	}
 	// /course edit
-
-	// public function edit_outline($id=null)
-	// {
-	// 	if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$id))
-	// 	{
-	// 		$outlines = $this->Instructor_model->get_outline($id);
-
-	// 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$id);
-	// 		$page_data = array(
-	// 			'page_title' => 'Edit Course Outline',
-	// 			'course_categories' => $this->Lookup_model->get_category(),
-	// 			'course_title' => $course['course_title'],
-	// 			'course_author' => $course['course_author'],
-	// 			'course_description' => $course['course_description'],
-	// 			'course_outline' => $outlines,
-	// 			'course_id' => $id,
-	// 			'course_thumb' => $course['course_img_url']
-	// 		);
-	// 		$this->load->view('template/headerInstructor',$page_data);
-	// 		$this->load->view('instructor/course_outline');
-	// 		$this->load->view('template/footer');
-	// 	}
-	// 	else
-	// 	{
-	// 		show_404();
-	// 	}
-	// }
 
 	public function send_course_review($course_id)
 	{
@@ -641,6 +611,24 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
+
+
+
+	// COURSE MANAGE
+	public function manage_course($course_id)
+	{
+		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);;
+		$page_data = array(
+			'page_title' => 'Manage '.ucwords($course['course_title']),
+			'course_categories' => $this->Lookup_model->get_category(),
+			'course_id' => $course_id,
+			'c' => $course,
+		);
+		$this->load->view('template/headerInstructor',$page_data);
+		$this->load->view('instructor/course_manage/index');
+		$this->load->view('template/footer');
+	}
+	// / COURSE MANAGE
 
 	
 }

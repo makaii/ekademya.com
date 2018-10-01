@@ -67,19 +67,14 @@ $route['search'] = 'lookup/search_course';
 $route['course/(:num)'] = 'lookup/courses/$1';
 // course category link
 $route['category/(:any)'] = 'courses/category/$1';
-// enroll course
-$route['course/enroll/(:num)'] = 'courses/course_enroll/$1';
-$route['signin/(:num)'] = 'login/signin/$1';
 
+// instructor
+	// create course
 $route['course/create'] = 'instructor/create_course';
+	// delete course
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';
+	// edit course
 $route['course/edit/outline/(:num)'] = 'instructor/edit_outline/$1';
-	// $route['course/edit/outline/(:num)/lecture_check'] = 'instructor/add_outline_course_lecture/$1';
-	// $route['course/edit/outline/(:num)/video_check'] = 'instructor/add_outline_course_video/$1';
-	// $route['course/edit/outline/(:num)/lecture_edit/(:num)'] = 'instructor/edit_outline_course_lecture/$1/$2';
-	// $route['course/edit/outline/(:num)/video_edit/(:num)'] = 'instructor/edit_outline_course_video/$1/$2';
-$route['course/review/(:num)'] = 'instructor/send_course_review/$1';
-// new
 $route['course/edit/info/(:num)'] = 'instructor/course_info/$1';
 $route['course/edit/outline/(:num)'] = 'instructor/course_outline/$1';
 $route['course/edit/media/(:num)'] = 'instructor/course_promo_media/$1';
@@ -88,7 +83,11 @@ $route['course/edit/outline/(:num)/video'] = 'instructor/course_outline_add_vide
 $route['course/edit/outline/(:num)/lecture'] = 'instructor/course_outline_add_lecture/$1';
 $route['course/edit/outline/(:num)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2';
 $route['course/edit/outline/(:num)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2';
+	// review course
+$route['course/review/(:num)'] = 'instructor/send_course_review/$1';
 $route['course/edit/review/(:num)'] = 'instructor/course_review/$1';
+	// manage course
+$route['course/manage/(:num)'] = 'instructor/manage_course/$1';
 
 	
 // profile routes
@@ -107,3 +106,6 @@ $route['admin/review/(:num)/approve'] = 'admin/course_review_approve/$1';
 $route['mycourse/(:num)'] = 'student/mycourse/$1';
 $route['mycourse/(:num)/video/(:num)'] = 'student/mycourse_outline_video/$1/$2';
 $route['mycourse/(:num)/lecture/(:num)'] = 'student/mycourse_outline_lecture/$1/$2';
+	// enroll course
+$route['course/enroll/(:num)'] = 'courses/course_enroll/$1';
+$route['signin/(:num)'] = 'login/signin/$1';

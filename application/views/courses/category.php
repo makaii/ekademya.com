@@ -24,6 +24,7 @@
 							<a href="<?php echo base_url('u/'.$c['user_id']); ?>">
 								<small class="font-weight-light"><?php echo ucwords($c['user_fname'].' '.$c['user_lname']); ?></small>
 							</a>
+							<a role="button" href="<?php echo base_url('course/enroll/'.$c['course_id']); ?>" class="btn btn-sm c2 text-white float-right">enroll</a>
 						</div>
 						<!-- <div class="card-body pt-0">
 							<div class="text-right">

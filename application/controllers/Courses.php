@@ -48,12 +48,14 @@ class Courses extends CI_Controller {
 		{
 			$course = $this->Lookup_model->get_course($course_id);
 			$page_data = array(
-				'page_tit;e' => 'Enrolled to',
+				'page_title' => 'Enrolled to '.ucwords($course['course_title']),
+				'course_categories' => $this->Lookup_model->get_category(),
 				'course' => $course,
 			);
 			if ($this->Courses_model->enroll_course($course_id,$_SESSION['user_id']))
 			{
 				$this->load->view('template/headerUser',$page_data);
+				$this->load->view('courses/enroll_success');
 				$this->load->view('template/footer');
 			}
 			else
