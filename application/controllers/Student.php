@@ -39,18 +39,52 @@ class Student extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	public function my_course($course_id)
+	public function mycourse($course_id)
 	{
-		$course = $this->Student_model->get_my_course_data($course_id);
-		$outline = $this->Student_model->get_my_course_outline($course_id);
+		$course = $this->Student_model->get_mycourse_data($course_id);
+		$outline = $this->Student_model->get_mycourse_outline($course_id);
 		$page_data = array(
 			'page_title' => ucwords($course['course_title']),
 			'course_categories' => $this->Lookup_model->get_category(),
+			'course_id' => $course_id,
 			'course' => $course,
 			'outline' => $outline,
 		);
 		$this->load->view('template/headerUser',$page_data);
 		$this->load->view('student/mycourse');
+		$this->load->view('template/footer');
+	}
+
+	public function mycourse_outline_video($course_id, $outline_id)
+	{
+		$video = $this->Student_model->get_mycourse_outline_video($outline_id);
+		$course = $this->Student_model->get_mycourse_data($course_id);
+		$page_data = array(
+			'page_title' => ucwords($video['video_title'].' - '.$course['course_title']),
+			'course_categories' => $this->Lookup_model->get_category(),
+			'c' => $course,
+			'course_id' => $course_id,
+			'v' => $video,
+			'outline_id' => $outline_id,
+		);
+		$this->load->view('template/headerUser',$page_data);
+		$this->load->view('student/outline_video');
+		$this->load->view('template/footer');
+	}
+	public function mycourse_outline_lecture($course_id, $outline_id)
+	{
+		$lecture = $this->Student_model->get_mycourse_outline_lecture($outline_id);
+		$course = $this->Student_model->get_mycourse_data($course_id);
+		$page_data = array(
+			'page_title' => ucwords($lecture['lecture_title'].' - '.$course['course_title']),
+			'course_categories' => $this->Lookup_model->get_category(),
+			'c' => $course,
+			'course_id' => $course_id,
+			'l' => $lecture,
+			'outline_id' => $outline_id,
+		);
+		$this->load->view('template/headerUser',$page_data);
+		$this->load->view('student/outline_lecture');
 		$this->load->view('template/footer');
 	}
 }

@@ -10,7 +10,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<?php if(!empty($instructors)): ?>
-			<table class="table">
+			<table class="table table-sm">
 				<thead>
 					<tr>
 						<th>#</th>

@@ -33,7 +33,7 @@ class Student_model extends CI_Model
 			return false;
 	}
 
-	public function get_my_course_data($course_id)
+	public function get_mycourse_data($course_id)
 	{
 		$query = $this->db->select()
 		->from('course_tbl')
@@ -47,7 +47,7 @@ class Student_model extends CI_Model
 		else
 			return false;
 	}
-	public function get_my_course_outline($course_id)
+	public function get_mycourse_outline($course_id)
 	{
 		$query = $this->db->query("
 			SELECT *
@@ -63,6 +63,30 @@ class Student_model extends CI_Model
 		}
 		else
 			return false;
+	}
+	public function get_mycourse_outline_video($outline_id)
+	{
+		$query = $this->db->select()
+		->from('video_tbl')
+		->where('video_outline_id',$outline_id)
+		->get();
+		if ($query->num_rows()==1) {
+			return $query->row_array();
+		}
+		else
+			return show_404();
+	}
+	public function get_mycourse_outline_lecture($outline_id)
+	{
+		$query = $this->db->select()
+		->from('lecture_tbl')
+		->where('lecture_outline_id',$outline_id)
+		->get();
+		if ($query->num_rows()==1) {
+			return $query->row_array();
+		}
+		else
+			return show_404();
 	}
 
 }

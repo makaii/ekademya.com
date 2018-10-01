@@ -104,4 +104,6 @@ $route['admin/review/(:num)'] = 'admin/review_course/$1';
 $route['admin/review/(:num)/approve'] = 'admin/course_review_approve/$1';
 
 // student
-$route['mycourse/(:num)'] = 'student/my_course/$1';
+$route['mycourse/(:num)'] = 'student/mycourse/$1';
+$route['mycourse/(:num)/video/(:num)'] = 'student/mycourse_outline_video/$1/$2';
+$route['mycourse/(:num)/lecture/(:num)'] = 'student/mycourse_outline_lecture/$1/$2';
