@@ -225,6 +225,7 @@ class Setup_model extends CI_Model
 					FOREIGN KEY (enroll_student) REFERENCES user_tbl(user_id),
 					enroll_course INT(7) NOT NULL,
 					FOREIGN KEY (enroll_course) REFERENCES course_tbl(course_id),
+					enroll_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 					enroll_status TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");

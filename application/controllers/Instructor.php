@@ -617,7 +617,7 @@ class Instructor extends CI_Controller {
 	// COURSE MANAGE
 	public function manage_course($course_id)
 	{
-		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);;
+		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
 		$page_data = array(
 			'page_title' => 'Manage '.ucwords($course['course_title']),
 			'course_categories' => $this->Lookup_model->get_category(),
@@ -626,6 +626,21 @@ class Instructor extends CI_Controller {
 		);
 		$this->load->view('template/headerInstructor',$page_data);
 		$this->load->view('instructor/course_manage/index');
+		$this->load->view('template/footer');
+	}
+	public function manage_students($course_id)
+	{
+		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+		$students = $this->Instructor_model->get_course_students($course_id);
+		$page_data = array(
+			'page_title' => 'Manage Students',
+			'course_categories' => $this->Lookup_model->get_category(),
+			'course_id' => $course_id,
+			'c' => $course,
+			's' => $students,
+		);
+		$this->load->view('template/headerInstructor',$page_data);
+		$this->load->view('instructor/course_manage/students');
 		$this->load->view('template/footer');
 	}
 	// / COURSE MANAGE

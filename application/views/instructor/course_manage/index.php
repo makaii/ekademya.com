@@ -4,9 +4,5 @@
 	</div>
 </div>
 <div class="container">
-	Students
-	<br>
-	Project
-	<br>
-	Certificate
+	<a href="<?php echo base_url("course/manage/$course_id/students"); ?>" class="btn btn-sm btn-light">Students</a>
 </div>

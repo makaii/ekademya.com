@@ -54,7 +54,13 @@
 								<?php elseif($data['course_published']==1): ?>
 									<a href="<?php echo base_url('course/manage/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Manage</button></a>
 								<?php endif; ?>
-								<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>"><button class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</button></a>
+								<!-- delete -->
+								<?php if($data['course_published']==0): ?>
+									<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+								<!-- archive -->
+								<?php elseif($data['course_published']==1): ?>
+									<a href="<?php echo base_url('course/archive/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Archive</a>
+								<?php endif; ?>
 							</div>
 							<div style="display: none;" id="review<?php echo $data['course_id']; ?>Buttons">
 								<label class="font-weight-bold mb-0">Are you sure?</label>

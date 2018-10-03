@@ -88,6 +88,7 @@ $route['course/review/(:num)'] = 'instructor/send_course_review/$1';
 $route['course/edit/review/(:num)'] = 'instructor/course_review/$1';
 	// manage course
 $route['course/manage/(:num)'] = 'instructor/manage_course/$1';
+$route['course/manage/(:num)/students'] = 'instructor/manage_students/$1';
 
 	
 // profile routes
