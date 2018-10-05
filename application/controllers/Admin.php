@@ -208,6 +208,7 @@ class Admin extends CI_Controller {
 			$this->form_validation->set_rules('comment_tools','Tools Comment','trim');
 			$this->form_validation->set_rules('comment_audience','Audience Comment','trim');
 			$this->form_validation->set_rules('comment_achievement','Achievement Comment','trim');
+			$this->form_validation->set_rules('comment_project','Final Project Comment','trim');
 			$outln_num = 1;
 			if (!empty($outline)) {
 				foreach ($outline as $key => $value) {

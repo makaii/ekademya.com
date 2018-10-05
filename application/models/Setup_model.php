@@ -147,11 +147,13 @@ class Setup_model extends CI_Model
 					course_tools VARCHAR(1000) NOT NULL,
 					course_audience VARCHAR(1000) NOT NULL,
 					course_achievement VARCHAR(1000) NOT NULL,
+					course_project VARCHAR(1000) NOT NULL,
 					course_date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 					course_type CHAR(7) NOT NULL,
 					course_status TINYINT(1) NOT NULL DEFAULT 1,
 					course_review TINYINT(1) NOT NULL DEFAULT 0,
-					course_published TINYINT(1) NOT NULL DEFAULT 0
+					course_published TINYINT(1) NOT NULL DEFAULT 0,
+					course_archive TINYINT(1) NOT NULL DEFAULT 0
 				);
 			");
 		}

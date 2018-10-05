@@ -59,7 +59,7 @@
 									<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</a>
 								<!-- archive -->
 								<?php elseif($data['course_published']==1): ?>
-									<a href="<?php echo base_url('course/archive/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Archive</a>
+									<a href="<?php echo base_url('course/archive/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-dark float-right"><i class="fa fa-trash"></i>&nbsp;Archive</a>
 								<?php endif; ?>
 							</div>
 							<div style="display: none;" id="review<?php echo $data['course_id']; ?>Buttons">

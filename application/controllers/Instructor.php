@@ -93,7 +93,7 @@ class Instructor extends CI_Controller {
 					$this->load->view('instructor/delete_course');
 					$this->load->view('template/footer');
 				}
-				elseif($this->Instructor_model->archieve_course($course_id,$course_authorpass,$_SESSION['user_id'],$_SESSION['user_email'])==false)
+				elseif($this->Instructor_model->delete_course($course_id,$course_authorpass,$_SESSION['user_id'],$_SESSION['user_email'])==false)
 				{
 					// delete fail
 					$this->session->set_flashdata('error','Invalid Password');
@@ -125,6 +125,61 @@ class Instructor extends CI_Controller {
 			show_404();
 		}
 	}
+	public function archive_course($course_id=null)
+	{
+		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type']=='instructor'))
+		{
+			if (!empty($course_id)&&$this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id)==true)
+			{
+				$course_title = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+				$this->form_validation->set_error_delimiters('<small class="text-danger">','</small>');
+				$this->form_validation->set_rules('courseAuthorPass', 'Account Password', 'trim|required');
+				$course_authorpass = $this->input->post('courseAuthorPass');
+				if ($this->form_validation->run()==false)
+				{
+					// delete fail
+					$page_data = array(
+						'page_title' => 'Archive Course',
+						'course_categories' => $this->Lookup_model->get_category(),
+						'course_id' => $course_id,
+						'course_title' => $course_title['course_title'],
+					);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/archive_course');
+					$this->load->view('template/footer');
+				}
+				elseif($this->Instructor_model->archive_course($course_id,$course_authorpass,$_SESSION['user_id'],$_SESSION['user_email'])==false)
+				{
+					// delete fail
+					$this->session->set_flashdata('error','Invalid Password');
+					$page_data = array(
+						'page_title' => 'Archive Course',
+						'course_id' => $course_id,
+						'course_title' => $course_title['course_title'],
+					);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/archive_course');
+					$this->load->view('template/footer');
+				}
+				else
+				{
+					// delete success
+					$page_data = array('page_title' => 'Archive Course Success', );
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/archive_course_success');
+					$this->load->view('template/footer');
+				}
+			}
+			else
+			{
+				show_404();
+			}
+		}
+		else
+		{
+			show_404();
+		}
+	}
 
 	// cours edit
 	public function course_info($course_id=null)
@@ -141,6 +196,7 @@ class Instructor extends CI_Controller {
 			$this->form_validation->set_rules('audience','Course Audience','trim|required');
 			$this->form_validation->set_rules('ktools','Course Knowledge and Tools','trim|required');
 			$this->form_validation->set_rules('goals','Course Goals','trim|required');
+			$this->form_validation->set_rules('project','Final Project','trim|required');
 			// /form rules
 			// inputs
 			$course_info = array(
@@ -153,6 +209,7 @@ class Instructor extends CI_Controller {
 				'course_audience' => $this->input->post('audience'),
 				'course_tools' => $this->input->post('ktools'),
 				'course_achievement' => $this->input->post('goals'),
+				'course_project' => $this->input->post('project'),
 			);
 			// / inputs
 			$page_data = array(

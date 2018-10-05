@@ -15,7 +15,7 @@
 				<a href="<?php echo base_url("course/manage/$course_id"); ?>"><?php echo ucwords($c['course_title']); ?></a>
 			</span>
 			 / 
-			<span>StudentsSSSSSSSSS</span>
+			<span>Students</span>
 		</h4>
 	</div>
 </div>

@@ -9,12 +9,43 @@
 <hr>
 <div class="row">
 	<div class="col-md-12">
-		<h4 class="text-muted text-center">Featured Courses</h4>
+		<h5 class="text-muted">Featured Courses</h5>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				asdasd
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				asdasd
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				asdasd
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="card">
+			<div class="card-body">
+				asdasd
+			</div>
+		</div>
 	</div>
 </div>
 <hr>
 <div class="row">
 	<div class="col-md-12">
+		<h5 class="text-muted">Course List</h5>
 		<table class="table table-sm">
 			<thead>
 				<tr>

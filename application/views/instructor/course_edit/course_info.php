@@ -85,6 +85,12 @@
 							<small class="text-muted">What are the things the students will learn by the end of the course</small>
 						</div>
 						<div class="form-group">
+							<label class="font-weight-bold c-lbl" id="course_project">Final Project</label>
+							<?php echo form_error('project'); ?>
+							<textarea class="form-control form-control-sm" maxlength="1000" name="project" rows="6"><?php if(set_value('project',null)!=null){echo set_value('project');}elseif(!empty($course['course_project'])){echo $course['course_project'];} ?></textarea>
+							<small class="text-muted">A Project that will will allow them to practice and share what they learned</small>
+						</div>
+						<div class="form-group">
 							<button class="btn btn-primary" type="submit">Save</button>
 						</div>
 					</form>

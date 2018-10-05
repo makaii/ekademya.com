@@ -55,6 +55,14 @@
 						<input class="form-control form-control-sm" placeholder="comments" name="comment_achievement" value="<?php echo set_value('comment_achievement',$review_info['review_achievement']); ?>"></input>
 						<?php echo form_error('comment_achievement'); ?>
 					</div>
+					<div class="form-group">
+						<label class="font-weight-bold">Final Project :</label>
+						<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
+							<?php echo nl2br($course['course_project']); ?>
+						</p>
+						<input class="form-control form-control-sm" placeholder="comments" name="course_project" value="<?php echo set_value('course_project',$review_info['review_achievement']); ?>"></input>
+						<?php echo form_error('course_project'); ?>
+					</div>
 				</div>
 			</div>
 		</div>

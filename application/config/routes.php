@@ -73,6 +73,8 @@ $route['category/(:any)'] = 'courses/category/$1';
 $route['course/create'] = 'instructor/create_course';
 	// delete course
 $route['course/delete/(:num)'] = 'instructor/delete_course/$1';
+	// archive course
+$route['course/archive/(:num)'] = 'instructor/archive_course/$1';
 	// edit course
 $route['course/edit/outline/(:num)'] = 'instructor/edit_outline/$1';
 $route['course/edit/info/(:num)'] = 'instructor/course_info/$1';
