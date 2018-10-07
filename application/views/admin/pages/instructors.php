@@ -29,7 +29,7 @@
 						<td><?php echo $i['user_lname']; ?></td>
 						<td><?php echo $i['user_email']; ?></td>
 						<td><?php echo $i['user_date_joined']; ?></td>
-						<td><a href="<?php echo base_url('u/'.$i['user_id']); ?>">link</a></td>
+						<td><a target="_blank" href="<?php echo base_url('u/'.$i['user_id']); ?>">link</a></td>
 					</tr>
 				<?php endforeach; ?>
 				</tbody>

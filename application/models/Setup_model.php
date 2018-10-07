@@ -97,7 +97,236 @@ class Setup_model extends CI_Model
 					'user_facebook' => '',
 					'user_twitter' => '',
 					'user_youtube' => ''
-				)
+				),
+				// FROM ERIKA
+				//Student
+				array(
+					'user_email' => 'tim_awa@email.com',
+					'user_password' => password_hash('timtimawa', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Tim',
+					'user_lname' => 'Awa',
+					'user_educ' => 'BS in Marketing',
+					'user_pubemail' => 'tim_awa@email.com',
+					'user_headline' => 'Dean Lister',
+					'user_bio' => 'Ready to learn new knowledge other than the things I already know',
+					'user_website' => 'about.me/tim_awa',
+					'user_facebook' => 'facebook.com/tim_awa',
+					'user_twitter' => 'twitter.com/tim_awa',
+					'user_youtube' => 'youtube.com/tim_awa'
+					),  
+				array(
+					'user_email' => 'angelayu@email.com',
+					'user_password' => password_hash('angelayu', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Angela',
+					'user_lname' => 'Yu',
+					'user_educ' => 'BS in Psychology',
+					'user_pubemail' => 'angelayu@email.com',
+					'user_headline' => ' ',
+					'user_bio' => ' ',
+					'user_website' => 'about.me/angelayu',
+					'user_facebook' => 'facebook.com/angelayu',
+					'user_twitter' => 'twitter.com/angelayu',
+					'user_youtube' => 'youtube.com/angelayu'
+					),
+				array(	
+					'user_email' => 'ailalee@email.com',
+					'user_password' => password_hash('ailaaila', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Aila',
+					'user_lname' => 'Lee',
+					'user_educ' => 'BS in Information Technology',
+					'user_pubemail' => 'ailalee@email.com',
+					'user_headline' => '',
+					'user_bio' => '',
+					'user_website' => 'about.me/ailalee',
+					'user_facebook' => 'facebook.com/ailalee',
+					'user_twitter' => 'twitter.com/ailalee',
+					'user_youtube' => 'youtube.com/ailalee'
+					),
+				array(
+					'user_email' => 'jackychan@email.com',
+					'user_password' => password_hash('chanchan', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Jacky',
+					'user_lname' => 'Chan',
+					'user_educ' => 'BS in Digital Arts',
+					'user_pubemail' => 'jackychan@email.com',
+					'user_headline' => ' Best Actor and Director',
+					'user_bio' => 'Cinema reflects culture and there is no harm in adapting technology, but not at the cost of losing your originality.',
+					'user_website' => 'about.me/jackychan',
+					'user_facebook' => 'facebook.com/jackychan',
+					'user_twitter' => 'twitter.com/jackychan',
+					'user_youtube' => 'youtube.com/jackychan'
+					),
+				array(
+					'user_email' => 'mickielee@email.com',
+					'user_password' => password_hash('mickmick', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Mickie',
+					'user_lname' => 'Lee',
+					'user_educ' => 'BS in Computer Science',
+					'user_pubemail' => 'mickielee@email.com',
+					'user_headline' => 'Dean Lister',
+					'user_bio' => 'It all started with a "mouse". If you can dream it, you can do it',
+					'user_website' => 'about.me/mickielee',
+					'user_facebook' => 'facebook.com/mickielee',
+					'user_twitter' => 'twitter.com/mickielee',
+					'user_youtube' => 'youtube.com/mickielee'
+					),
+				array(
+					'user_email' => 'sammycruz@email.com',
+					'user_password' => password_hash('sammysammy', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Sammy',
+					'user_lname' => 'Cruz',
+					'user_educ' => 'Political Science',
+					'user_pubemail' => 'sammycruz@email.com',
+					'user_headline' => ' ',
+					'user_bio' => ' ',
+					'user_website' => 'about.me/sammycruz',
+					'user_facebook' => 'facebook.com/sammycruz',
+					'user_twitter' => 'twitter.com/sammycruz',
+					'user_youtube' => 'youtube.com/sammycruz'
+					),
+				array(
+					'user_email' => 'jeonjeongkook@email.com',
+					'user_password' => password_hash('jungkook', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Jeong Kook',
+					'user_lname' => 'Jeon',
+					'user_educ' => 'College of Human Kinesthetics',
+					'user_pubemail' => 'jeonjeongkook@email.com',
+					'user_headline' => ' Golden Maknae',
+					'user_bio' => 'Living without a passion is like being dead',
+					'user_website' => 'about.me/jeonjeongkook',
+					'user_facebook' => 'facebook.com/jeonjeongkook',
+					'user_twitter' => 'twitter.com/jeonjeongkook',
+					'user_youtube' => 'youtube.com/jeonjeongkook'
+					),
+				array(
+					'user_email' => 'kimmingyu@email.com',
+					'user_password' => password_hash('mingming', PASSWORD_BCRYPT),
+					'user_type' => 'student',
+					'user_fname' => 'Min Gyu',
+					'user_lname' => 'Kim',
+					'user_educ' => 'Certificate of Acting',
+					'user_pubemail' => 'tim_awa@email.com',
+					'user_headline' => 'Tall Dark and Handsome',
+					'user_bio' => 'Even after time passes I wont become weak, we will keep it up I will give you thi shining promise.',
+					'user_website' => 'about.me/tim_awa',
+					'user_facebook' => 'facebook.com/tim_awa',
+					'user_twitter' => 'twitter.com/tim_awa',
+					'user_youtube' => 'youtube.com/tim_awa'
+					),
+				//Instructor
+				array(
+					'user_email' => 'jeonwonu@email.com',
+					'user_password' => password_hash('wonuwonu',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'Wonu',
+					'user_lname' => 'Jeon',
+					'user_educ' => 'BS Computer Science',
+					'user_pubemail' => 'jeonwonu@email.com',
+					'user_headline' => 'Manager of ABX Inc.',
+					'user_bio' => 'A leader is one who shows the way, goes the way, and shows the way',
+					'user_website' => 'about.me/jeonwonu',
+					'user_facebook' => 'facebook.com/jeonwonu',
+					'user_twitter' => 'twitter.com/jeonwonu',
+					'user_youtube' => 'youtube.com/jeonwonu'
+				),
+				array(
+					'user_email' => 'vernonhansol@email.com',
+					'user_password' => password_hash('vernonvernon',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'Hansol',
+					'user_lname' => 'Vernon',
+					'user_educ' => 'BS Broadcasting',
+					'user_pubemail' => 'vernonhansol@email.com',
+					'user_headline' => 'Producer of SVTHH',
+					'user_bio' => 'My motto "All of this problems are not anyones fault, its me, myself who acted how I felt"',
+					'user_website' => 'about.me/vernonhansol',
+					'user_facebook' => 'facebook.com/vernonhansol',
+					'user_twitter' => 'twitter.com/vernonhansol',
+					'user_youtube' => 'youtube.com/vernonhansol'
+				),
+				array(
+					'user_email' => 'shinohara@email.com',
+					'user_password' => password_hash('shinoshino',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'Shino',
+					'user_lname' => 'Hara',
+					'user_educ' => 'BS Marketing',
+					'user_pubemail' => 'shinohara@email.com',
+					'user_headline' => 'Teacher of LCS',
+					'user_bio' => 'Teaching is a work of HEART',
+					'user_website' => 'about.me/shinohara',
+					'user_facebook' => 'facebook.com/shinohara',
+					'user_twitter' => 'twitter.com/shinohara',
+					'user_youtube' => 'youtube.com/shinohara'
+				),
+				array(
+					'user_email' => 'maylee@email.com',
+					'user_password' => password_hash('mayleemay',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'May',
+					'user_lname' => 'Lee',
+					'user_educ' => 'Diploma of Sales Management',
+					'user_pubemail' => 'maylee@email.com',
+					'user_headline' => 'Sales Lady of Mally',
+					'user_bio' => 'Do what you do and outsource the rest',
+					'user_website' => 'about.me/maylee',
+					'user_facebook' => 'facebook.com/maylee',
+					'user_twitter' => 'twitter.com/maylee',
+					'user_youtube' => 'youtube.com/maylee'
+				),
+				array(
+					'user_email' => 'chaminseok@email.com',
+					'user_password' => password_hash('chamcham',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'Min Seok',
+					'user_lname' => 'Cha',
+					'user_educ' => 'Masteral of Computer Science',
+					'user_pubemail' => 'chaminseok@email.com',
+					'user_headline' => 'CEO of Freelance Company',
+					'user_bio' => 'If you are good at something, do not do it for FREE',
+					'user_website' => 'about.me/chaminseok',
+					'user_facebook' => 'facebook.com/chaminseok',
+					'user_twitter' => 'twitter.com/chaminseok',
+					'user_youtube' => 'youtube.com/chaminseok'
+				),
+				array(
+					'user_email' => 'jamescurry@email.com',
+					'user_password' => password_hash('jamesjames',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'James',
+					'user_lname' => 'Curry',
+					'user_educ' => 'Certified Animator',
+					'user_pubemail' => 'jamescurry@email.com',
+					'user_headline' => '3D Animator of DigTech',
+					'user_bio' => 'Do not animate the drawings, Animate the feelings',
+					'user_website' => 'about.me/jamescurry',
+					'user_facebook' => 'facebook.com/jamescurry',
+					'user_twitter' => 'twitter.com/jamescurry',
+					'user_youtube' => 'youtube.com/jamescurry'
+				),
+				array(
+					'user_email' => 'bogartbakal@email.com',
+					'user_password' => password_hash('bogartbogart',PASSWORD_BCRYPT),
+					'user_type' => 'instructor',
+					'user_fname' => 'Bogart',
+					'user_lname' => 'Batong Bakal',
+					'user_educ' => 'Bachelor of Education in English',
+					'user_pubemail' => 'bogartbakal@email.com',
+					'user_headline' => 'Associate Professor of YMCA',
+					'user_bio' => 'Just because someone stumble and loses their way, it does not mean they are lost forever',
+					'user_website' => 'about.me/bogartbakal',
+					'user_facebook' => 'facebook.com/bogartbakal',
+					'user_twitter' => 'twitter.com/bogartbakal',
+					'user_youtube' => 'youtube.com/bogartbakal'
+				),
+				// /FROM ERIKA
 			);
 			$this->db->insert_batch('user_tbl',$test_user);
 		}
@@ -210,6 +439,24 @@ class Setup_model extends CI_Model
 					FOREIGN KEY (lecture_outline_id) REFERENCES outline_tbl(outline_id),
 					lecture_title VARCHAR(50) NOT NULL,
 					lecture_body VARCHAR(1000) NOT NULL
+				);
+			");
+		}
+	}
+	public function create_quiz_table()
+	{
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'quiz_tbl';");
+		if ($check_tbl->num_rows()==0)
+		{
+			// create table if not exist
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS quiz_tbl (
+					quiz_id int(7) AUTO_INCREMENT PRIMARY KEY,
+					quiz_outline_id INT(7) NOT NULL,
+					FOREIGN KEY (quiz_outline_id) REFERENCES outline_tbl(outline_id),
+					quiz_title VARCHAR(250) NULL,
+					quiz_instructions VARCHAR(1000) NULL,
+					quiz_questions VARCHAR(20000) NULL
 				);
 			");
 		}

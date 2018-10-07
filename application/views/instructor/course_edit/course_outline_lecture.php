@@ -29,8 +29,8 @@
 							<input class="form-control form-control-sm" name="title" value="<?php echo set_value('title',null); ?>"></input>
 						</div>
 						<div class="form-group">
-							<label class="font-weight-bold mb-0">Body</label>
-							<small class="form-text text-muted mt-0 mb-1">do your best to explain things. markdown supported</small>
+							<!-- <label class="font-weight-bold mb-0">Body</label> -->
+							<small class="form-text text-muted mt-0 mb-1">do your best to explain things</small>
 							<?php echo form_error('body'); ?>
 							<textarea class="form-control form-control-sm" name="body" rows="14" maxlength=""><?php echo set_value('body',null); ?></textarea>
 						</div>

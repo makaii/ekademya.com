@@ -12,7 +12,6 @@ class Setup extends CI_Controller {
 
 	public function index()
 	{
-		// $this->Setup_model->create_tables();
 		$this->Setup_model->create_admin_table();
 		$this->Setup_model->create_user_table();
 		$this->Setup_model->create_category_table();
@@ -20,6 +19,7 @@ class Setup extends CI_Controller {
 		$this->Setup_model->create_outline_table();
 		$this->Setup_model->create_video_table();
 		$this->Setup_model->create_lecture_table();
+		$this->Setup_model->create_quiz_table();
 		$this->Setup_model->create_enroll_table();
 		$this->Setup_model->create_settings_table();
 		$this->Setup_model->create_review_table();
@@ -32,6 +32,7 @@ class Setup extends CI_Controller {
 			'outline' => $this->Setup_model->getTableStructure('outline_tbl'),
 			'video' => $this->Setup_model->getTableStructure('video_tbl'),
 			'lecture' => $this->Setup_model->getTableStructure('lecture_tbl'),
+			'quiz' => $this->Setup_model->getTableStructure('quiz_tbl'),
 			'enrollees' => $this->Setup_model->getTableStructure('enroll_tbl'),
 			'settings' => $this->Setup_model->getTableStructure('settings_tbl'),
 			'review' => $this->Setup_model->getTableStructure('review_tbl'),

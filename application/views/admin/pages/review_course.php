@@ -126,12 +126,19 @@
 			<div class="card mt-3">
 				<div class="card-body">
 					<div class="form-group">
-						<div>
-							<button type="submit" class="btn btn-sm btn-primary btn-block" href="#">Send Comments</button>
-							<a roles="button" class="btn btn-sm btn-dark btn-block" href="#">Hold</a>
+						<div id="pre-confirmation">
+							<div>
+								<button type="submit" class="btn btn-sm btn-primary btn-block">Send Comments</button>
+								<a role="button" class="btn btn-sm btn-dark btn-block" href="#">Hold</a>
+							</div>
+							<br>
+							<div>
+								<a role="button" class="btn btn-sm btn-success btn-block text-white" onclick="show_confirmation()">Approve</a>
+							</div>
 						</div>
-						<div>
-							<a roles="button" class="btn btn-sm btn-success btn-block" href="<?php echo base_url("admin/review/$course_id/approve"); ?>">Approve</a>
+						<div id="confirmation" style="display: none;">
+							<a href="<?php echo base_url("admin/review/$course_id/approve"); ?>" role="button" class="btn btn-sm btn-success btn-block">Yes</a>
+							<a role="button" onclick="close_confirmation()" class="btn btn-sm btn-danger btn-block text-white">No</a>
 						</div>
 					</div>
 				</div>
@@ -140,3 +147,15 @@
 	</div>
 	<!-- /BUTTONS -->
 </form>
+<script>
+	function show_confirmation()
+	{
+		document.getElementById('pre-confirmation').style.display = "none";
+		document.getElementById('confirmation').style.display = "block";
+	}
+	function close_confirmation()
+	{
+		document.getElementById('pre-confirmation').style.display = "block";
+		document.getElementById('confirmation').style.display = "none";
+	}
+</script>

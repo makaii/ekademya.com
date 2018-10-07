@@ -438,6 +438,67 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
+	public function course_outline_add_quiz($course_id=null)
+	{
+		if (!$this->session->has_userdata('quiz_data'))
+		{
+			$quiz_data = [
+				'quiz_title' => null,
+				'quiz_instruction' => null,
+				'quiz_questions' => [],
+			];
+			$this->session->set_userdata('quiz_data',$quiz_data);
+		}
+		//
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+		{
+			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$quiz = $this->session->userdata('quiz_data');
+			$category = $this->Lookup_model->get_category();
+			$page_data = [
+				'page_title' => 'Add New Quiz',
+				'course' => $course,
+				'course_categories' => $category,
+				'course_id' => $course_id,
+				'q' => $quiz,
+			];
+			// FORM RULES
+			$this->form_validation->set_rules('title','Title','trim|required');
+			$this->form_validation->set_rules('instruction','Instruction','trim|required');
+			// /FORM RULES
+			// STICKY KEYS
+			if (empty($_SESSION['quiz_data']['quiz_title']))
+			{
+				$_SESSION['quiz_data']['quiz_title'] = $this->input->post('title');
+			}
+			if (empty($_SESSION['quiz_data']['quiz_instruction']))
+			{
+				$_SESSION['quiz_data']['quiz_instruction'] = $this->input->post('instruction');
+			}
+			// /STICKY KEYS
+			if (!$this->form_validation->run())
+			{
+				$this->load->view('template/headerInstructor',$page_data);
+				$this->load->view('instructor/course_edit/course_outline_quiz');
+				$this->load->view('template/footer');
+			}
+			elseif ($this->form_validation->run())
+			{
+				$outline_data = [
+					'outline_course_id' => $course_id,
+					'outline_type' => 'quiz',
+				];
+				if ($this->Instructor_model->add_quiz($outline_data))
+				{
+					redirect(base_url('course/edit/outline/').$course_id);
+				}
+			}
+			else
+				show_404();
+		}
+		else
+			show_404();
+	}
 	public function course_outline_add_video_edit($course_id=null,$outline_id=null)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
@@ -457,6 +518,7 @@ class Instructor extends CI_Controller {
 				'course_categories' => $category,
 				'video' => $outline,
 				'upload_error' => null,
+				'page_alert' => null,
 			];
 			if ($this->form_validation->run())
 			{
@@ -576,7 +638,6 @@ class Instructor extends CI_Controller {
 				'course_categories' => $this->Lookup_model->get_category(),
 				'course_id' => $course_id,
 				'course' => $course,
-				'category' => $category,
 				'page_alert' => null,
 				'upload_error' => null,
 			);
@@ -690,7 +751,7 @@ class Instructor extends CI_Controller {
 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
 		$students = $this->Instructor_model->get_course_students($course_id);
 		$page_data = array(
-			'page_title' => 'Manage Students',
+			'page_title' => 'Students | '.ucwords($course['course_title']),
 			'course_categories' => $this->Lookup_model->get_category(),
 			'course_id' => $course_id,
 			'c' => $course,
@@ -698,6 +759,21 @@ class Instructor extends CI_Controller {
 		);
 		$this->load->view('template/headerInstructor',$page_data);
 		$this->load->view('instructor/course_manage/students');
+		$this->load->view('template/footer');
+	}
+	public function manage_final_projects($course_id)
+	{
+		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+		$students = $this->Instructor_model->get_course_students($course_id);
+		$page_data = array(
+			'page_title' => 'Final Projects | '.ucwords($course['course_title']),
+			'course_categories' => $this->Lookup_model->get_category(),
+			'course_id' => $course_id,
+			'c' => $course,
+			's' => $students,
+		);
+		$this->load->view('template/headerInstructor',$page_data);
+		$this->load->view('instructor/course_manage/projects');
 		$this->load->view('template/footer');
 	}
 	// / COURSE MANAGE

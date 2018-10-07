@@ -48,8 +48,9 @@
 								<div class="card-body text-center">
 									<small class="card-text text-muted">Ekademya courses consists of videos and lectures. To have your course published, you need to upload at least a handful of it.</small>
 									<hr>
-									<a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/")."video"; ?>">Add Video</a>
-									<a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/")."lecture"; ?>">Add Lecture</a>
+									<a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/video"); ?>">Add Video</a>
+									<a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/lecture"); ?>">Add Lecture</a>
+									<a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/quiz"); ?>">Add Quiz</a>
 								</div>
 							</div>
 						</div>

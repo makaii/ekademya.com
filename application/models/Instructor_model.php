@@ -369,6 +369,18 @@ class Instructor_model extends CI_Model
 		else
 			return null;
 	}
+	public function get_outline_quiz($outline_id)
+	{
+		$this->db->select();
+		$this->db->where('quiz_outline_id',$outline_id);
+		$query = $this->db->get('quiz_tbl');
+		if ($query->num_rows()==1)
+		{
+			return $query->row_array();
+		}
+		else
+			return null;
+	}
 	public function update_outline_video($title,$desc,$file,$iframe,$outline_id)
 	{
 		$video_data = array(

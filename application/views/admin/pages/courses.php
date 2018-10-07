@@ -53,6 +53,7 @@
 					<th>Name</th>
 					<th>Category</th>
 					<th>Author</th>
+					<th>Preview</th>
 				</tr>
 			</thead>
 			<?php if (!empty($courses)): ?>
@@ -63,6 +64,7 @@
 							<td><?php echo $c['course_title']; ?></td>
 							<td><?php echo $c['category_name']; ?></td>
 							<td><?php echo $c['user_email']; ?></td>
+							<td><a target="_blank" href="<?php echo base_url('course/'.$c['course_id']); ?>">link</a></td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>

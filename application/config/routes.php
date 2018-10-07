@@ -83,6 +83,7 @@ $route['course/edit/media/(:num)'] = 'instructor/course_promo_media/$1';
 $route['course/edit/preview/(:num)'] = 'instructor/course_preview/$1';
 $route['course/edit/outline/(:num)/video'] = 'instructor/course_outline_add_video/$1';
 $route['course/edit/outline/(:num)/lecture'] = 'instructor/course_outline_add_lecture/$1';
+$route['course/edit/outline/(:num)/quiz'] = 'instructor/course_outline_add_quiz/$1';
 $route['course/edit/outline/(:num)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2';
 $route['course/edit/outline/(:num)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2';
 	// review course
@@ -91,6 +92,7 @@ $route['course/edit/review/(:num)'] = 'instructor/course_review/$1';
 	// manage course
 $route['course/manage/(:num)'] = 'instructor/manage_course/$1';
 $route['course/manage/(:num)/students'] = 'instructor/manage_students/$1';
+$route['course/manage/(:num)/projects'] = 'instructor/manage_final_projects/$1';
 
 	
 // profile routes
