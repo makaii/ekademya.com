@@ -1,7 +1,6 @@
 <div class="container mt-5" style="margin-bottom: 8rem;">
 	<div class="row">
-		<div class="col"></div>
-		<div class="col-4">
+		<div class="col-md-4 offset-md-4 col-sm-8 offset-sm-2">
 			<div class="card">
 				<?php echo form_open(base_url('signin')); ?>
 					<div class="card-header bg-secondary text-white text-center">
@@ -31,6 +30,5 @@
 				<?php echo form_close(); ?>
 			</div>
 		</div>
-		<div class="col"></div>
 	</div>
 </div>

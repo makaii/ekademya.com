@@ -1,3 +1,4 @@
+<!-- <?php echo "<pre>";print_r($this->Instructor_model->get_next_lesson(1,2)); ?> -->
 <div class="jumbotron pb-1 pt-2" style="background-color: #E4F1FE;">
 	<dic class="container">
 		<div class="row">

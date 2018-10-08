@@ -17,8 +17,8 @@
 	</div>
 </div>
 <div class="container">
-	<div class="card">
-		<div class="card-body">
+	<div class="card mr-5 ml-5">
+		<div class="card-body mr-5 ml-5">
 			<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/quiz"); ?>">
 				<div class="form-group">
 					<label>Title</label>
@@ -85,53 +85,66 @@
 	</div>
 </div>
 <script>
-	var itemCount = <?php echo 1; ?>;
+	
 	$(document).ready(function(){
-	    $("#addNewItem").click(function(){
-	        $("#answers").append('\
-	        	<div class="card mb-3" id="q'+itemCount+'">\
-	        		<div class="card-body">\
-	        			<div class="input-group mb-3">\
-	        				<div class="input-group-prepend">\
-	        					<span class="input-group-text">Question '+itemCount+'</span>\
-	        				</div>\
-	        				<input type="text" class="form-control">\
-	        			</div>\
-	        			<div class="form-row mb-3">\
-	        				<div class="input-group input-group-sm col">\
-	        					<div class="input-group-prepend">\
-	        						<span class="input-group-text">Answer 1</span>\
-	        					</div>\
-	        					<input type="text" class="form-control is-valid">\
-	        				</div>\
-	        				<div class="input-group input-group-sm col">\
-	        					<div class="input-group-prepend">\
-	        						<span class="input-group-text">Answer 2</span>\
-	        					</div>\
-	        					<input type="text" class="form-control">\
-	        				</div>\
-	        			</div>\
-	        			<div class="form-row">\
-	        				<div class="input-group input-group-sm col">\
-	        					<div class="input-group-prepend">\
-	        						<span class="input-group-text">Answer 3</span>\
-	        					</div>\
-	        					<input type="text" class="form-control">\
-	        				</div>\
-	        				<div class="input-group input-group-sm col">\
-	        					<div class="input-group-prepend">\
-	        						<span class="input-group-text">Answer 4</span>\
-	        					</div>\
-	        					<input type="text" class="form-control">\
-	        				</div>\
-	        			</div>\
-	        		</div>\
-	        	</div>\
-	        	');
-	    });
+		$("#addNewItem").click(function(){
+			var itemCount = <?php echo count($_SESSION['quiz_data']['quiz_questions']); ?>+1;
+			$("#answers").append('\
+				<div class="card mb-3" id="q'+itemCount+'">\
+					<div class="card-body">\
+						<div class="input-group mb-3">\
+							<div class="input-group-prepend">\
+								<span class="input-group-text">Question '+itemCount+'</span>\
+							</div>\
+							<input type="text" class="form-control">\
+						</div>\
+						<div class="form-row mb-3">\
+							<div class="input-group input-group-sm col">\
+								<div class="input-group-prepend">\
+									<span class="input-group-text">Answer 1</span>\
+								</div>\
+								<input type="text" class="form-control is-valid" id="a'+itemCount+'">\
+							</div>\
+							<div class="input-group input-group-sm col">\
+								<div class="input-group-prepend">\
+									<span class="input-group-text">Answer 2</span>\
+								</div>\
+								<input type="text" class="form-control" id="a'+itemCount+'">\
+							</div>\
+						</div>\
+						<div class="form-row">\
+							<div class="input-group input-group-sm col">\
+								<div class="input-group-prepend">\
+									<span class="input-group-text">Answer 3</span>\
+								</div>\
+								<input type="text" class="form-control" id="a'+itemCount+'">\
+							</div>\
+							<div class="input-group input-group-sm col">\
+								<div class="input-group-prepend">\
+									<span class="input-group-text">Answer 4</span>\
+								</div>\
+								<input type="text" class="form-control" id="a'+itemCount+'">\
+							</div>\
+						</div>\
+					</div>\
+				</div>\
+			');
+			<?php $this->Instructor_model->make_new_qItem(); ?>
+		});
 	});
 
-
+	// <?php
+	// $_SESSION['quiz_data']['quiz_questions'] = [
+	// 	'quiz_q1' => [
+	// 		'q1' => null,
+	// 		'a1' => null,
+	// 		'a2' => null,
+	// 		'a3' => null,
+	// 		'a4' => null,
+	// 		'ar' => null,
+	// 	],
+	// ];
+	// ?>
 	// function newItem()
 	// {
 	// 	// card

@@ -92,7 +92,7 @@ class Lookup extends CI_Controller {
 				if ($this->session->has_userdata('user_type'))
 				{
 					$user_type = $this->session->userdata('user_type');
-					if ($user_type == 'user')
+					if ($user_type == 'student')
 					{
 						$this->load->view('template/headerUser',$page_data);
 						$this->load->view('main/search');

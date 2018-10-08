@@ -459,5 +459,20 @@ class Instructor_model extends CI_Model
 			return null;
 	}
 
+	public function get_next_lesson($course_id,$offset)
+	{
+		$query = $this->db->select()
+		->where('outline_course_id',$course_id)
+		->offset($offset)
+		->limit(2)
+		->get('outline_tbl');
+		if ($query->num_rows()>=1)
+		{
+			return $query->result_array();
+		}
+		else
+			return null;
+	}
+
 }
  ?>

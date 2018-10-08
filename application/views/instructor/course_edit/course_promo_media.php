@@ -5,7 +5,7 @@
 			<a target="_blank" href="<?php echo base_url("course/edit/preview/$course_id"); ?>">course preview</a>
 		</div>
 		<div class="col-md-5">
-			<?php if(!empty($page_alert)){echo $page_alert;} ?>
+			<?php echo $page_alert; ?>
 		</div>
 	</div>
 	<div class="row mt-5">
@@ -22,7 +22,7 @@
 					</ul>
 				</div>
 				<div class="card-body">
-					<form class="ml-5 mr-5" method="POST" enctype="multipart/form-data" action="<?php echo base_url("course/edit/media/$course_id"); ?>">
+					<form class="ml-5 mr-5" method="POST" enctype="multipart/form-data" action="<?php echo base_url("course/edit/media/$course_id/validate"); ?>">
 						<div class="form-group">
 							<label class="font-weight-bold">Thumbnail</label>
 							<small class="form-text">Make your course stand out with a great image. Your Course Thumbnail will be displyed on search results. </small>
@@ -35,9 +35,11 @@
 							<img class="rounded" width="360" height="202" src="<?php echo base_url("z/thumbnails/").$course['course_img_url']; ?>" id="thumnail_img" style="max-width: 360px;max-height: 202px;">
 						</div>
 						<div class="form-group">
-							<div class="custom-file">
-							  <input type="file" class="custom-file-input" name="thumbnail" id="customFile" value="<?php echo set_value("thumbnail",$course['course_img_url']); ?>">
-							  <label class="custom-file-label" for="customFile" id="filename">Choose Image</label>
+							<div class="form-row">
+								<div class="custom-file col-md-6">
+								  <input type="file" class="custom-file-input" name="thumbnail" id="customFile" value="<?php echo set_value("thumbnail",$course['course_img_url']); ?>">
+								  <label class="custom-file-label" for="customFile" id="filename">Choose Image</label>
+								</div>
 							</div>
 						</div>
 						<div class="form-group">

@@ -7,7 +7,7 @@
 			<a class="text-secondary" href="<?php echo base_url("course/edit/outline/$course_id"); ?>">go back to outline</a>
 		</div>
 		<div class="col-md-5">
-			<?php if(!empty($page_alert)){echo $page_alert;} ?>
+			<?php echo $page_alert; ?>
 		</div>
 	</div>
 	<div class="row mt-5">
@@ -61,7 +61,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5">
+			<!-- <div class="col-md-5">
 				<div class="card">
 					<div class="card-body bg-light">
 						<div class="form-group">
@@ -71,13 +71,13 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </form>	
 <script>
 	$('.custom-file-input').on('change', function() { 
-	   let fileName = $(this).val().split('\\').pop(); 
-	   $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+		let fileName = $(this).val().split('\\').pop(); 
+		$(this).next('.custom-file-label').addClass("selected").html(fileName); 
 	});
 </script>

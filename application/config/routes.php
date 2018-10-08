@@ -80,6 +80,7 @@ $route['course/edit/outline/(:num)'] = 'instructor/edit_outline/$1';
 $route['course/edit/info/(:num)'] = 'instructor/course_info/$1';
 $route['course/edit/outline/(:num)'] = 'instructor/course_outline/$1';
 $route['course/edit/media/(:num)'] = 'instructor/course_promo_media/$1';
+$route['course/edit/media/(:num)/validate'] = 'instructor/course_promo_media_validation/$1';
 $route['course/edit/preview/(:num)'] = 'instructor/course_preview/$1';
 $route['course/edit/outline/(:num)/video'] = 'instructor/course_outline_add_video/$1';
 $route['course/edit/outline/(:num)/lecture'] = 'instructor/course_outline_add_lecture/$1';

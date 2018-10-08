@@ -32,13 +32,28 @@
 			<?php echo nl2br($v['video_description']); ?>
 		</small>
 		<br>
-		<video height="405" width="720" controls="" autobuffer="">
+		<video height="405" width="720" controls="" autobuffer="" id="video_<?php echo $v['video_id']; ?>">
 			<?php $ext=pathinfo($v['video_url'],PATHINFO_EXTENSION); ?>
 			<?php if($ext=='mp4'): ?>
-				<source src="<?php echo base_url("z/course/".$v['video_url']); ?>" type="video/mp4">
+				<source src="<?php echo base_url('z/course/'.$v['video_url']); ?>" type="video/mp4">
 			<?php elseif($ext=='webm'): ?>
-				<source src="<?php echo base_url("z/course/".$v['video_url']); ?>" type="video/webm">
+				<source src="<?php echo base_url('z/course/'.$v['video_url']); ?>" type="video/webm">
 			<?php endif; ?>
 		</video>
+		<button class="float-right btn" style="display: none;" id="btn">Next</button>
 	</div>
 </div>
+
+<script type="text/javascript">
+	// $(document).ready(function(){
+	// 	$("#video_<?php echo $v['video_id']; ?>").bind("ended", function() {
+	// 		$("#video_<?php echo $v['video_id']; ?>").append('<button class="float-right btn">Next</button>');
+	// 		// console.log("hello");
+	// 	});
+	// });
+	document.getElementById("video_<?php echo $v['video_id']; ?>").addEventListener('ended',myHandler,false);
+	    function myHandler(e) {
+	        if(!e) { e = window.event; }
+	        document.getElementById("btn").style.display = "block";
+	    }
+</script>

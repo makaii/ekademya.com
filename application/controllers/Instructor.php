@@ -315,6 +315,7 @@ class Instructor extends CI_Controller {
 				'course_id' => $course_id,
 				'course' => $course,
 				'course_categories' => $category,
+				'page_alert' => null,
 				'upload_error' => null,
 			];
 			if (!$this->form_validation->run())
@@ -554,7 +555,7 @@ class Instructor extends CI_Controller {
 					$iframe = null;
 					if ($this->Instructor_model->update_outline_video($title,$desc,$file,$iframe,$outline_id))
 					{
-						$page_data['page_alert'] = '<div role="alert" class="alert alert-success">Update Success</div>';
+						$page_data['page_alert'] = '<div role="alert" class="alert alert-success font-weight-bold text-center">UPDATE SUCCESS</div>';
 						$this->load->view('template/headerInstructor',$page_data);
 						$this->load->view('instructor/course_edit/course_outline_video_edit');
 						$this->load->view('template/footer');
@@ -641,6 +642,24 @@ class Instructor extends CI_Controller {
 				'page_alert' => null,
 				'upload_error' => null,
 			);
+			$this->load->view('template/headerInstructor',$page_data);
+			$this->load->view('instructor/course_edit/course_promo_media');
+			$this->load->view('template/footer');
+		}
+	}
+	public function course_promo_media_validation($course_id=null)
+	{
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+		{
+			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$page_data = array(
+				'page_title' => 'Edit '.$course['course_title'],
+				'course_categories' => $this->Lookup_model->get_category(),
+				'course_id' => $course_id,
+				'course' => $course,
+				'page_alert' => null,
+				'upload_error' => null,
+			);
 			$video_config = array(
 				'upload_path' => './z/thumbnails',
 				'allowed_types' => 'jpg|jpeg|png',
@@ -670,11 +689,19 @@ class Instructor extends CI_Controller {
 				$file_name = $this->upload->data('file_name');
 				if ($this->Instructor_model->save_course_thumbnail($file_name,$course_id))
 				{
-					redirect(base_url('course/edit/media/'.$course_id));
-					// $page_data['page_alert'] = '<div class="alert alert-success text-center">upload success</div>';
-					// $this->load->view('template/headerInstructor',$page_data);
-					// $this->load->view('instructor/course_edit/course_promo_media');
-					// $this->load->view('template/footer');
+					// redirect(base_url('course/edit/media/'.$course_id));
+					$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+					$page_data = array(
+						'page_title' => 'Edit '.$course['course_title'],
+						'course_categories' => $this->Lookup_model->get_category(),
+						'course_id' => $course_id,
+						'course' => $course,
+						'page_alert' => '<div class="alert alert-success text-center font-weight-bold">UPLOAD SUCCESS</div>',
+						'upload_error' => null,
+					);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_edit/course_promo_media');
+					$this->load->view('template/footer');
 				}
 			}
 		}
