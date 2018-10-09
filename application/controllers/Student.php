@@ -148,6 +148,8 @@ class Student extends CI_Controller {
 		$course = $this->Student_model->get_mycourse_data($course_id);
 		$page_data = array(
 			'page_title' => 'Final Project - '.ucwords($course['course_title']),
+			'course_id' => $course_id,
+			'c' => $course,
 		);
 		$this->load->view('template/headerUser',$page_data);
 		$this->load->view('student/final_project');

@@ -72,7 +72,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card mt-3">
-				<div class="card-header">Course Outline</div>
+				<div class="card-header">Course Lessons</div>
 				<div class="card-body">
 					<?php if (!empty($outline)): ?>
 					<!-- IF OUTLINE EXIST -->

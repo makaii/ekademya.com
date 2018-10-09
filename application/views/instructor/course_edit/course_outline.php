@@ -14,7 +14,7 @@
 				<div class="card-header">
 					<ul class="nav nav-tabs card-header-tabs">
 						<li class="nav-item"><a href="<?php echo base_url("course/edit/info/").$course['course_id']; ?>" class="nav-link">Course Info.</a></li>
-						<li class="nav-item"><a href="<?php echo base_url("course/edit/outline/").$course['course_id']; ?>" class="nav-link active">Course Outline</a></li>
+						<li class="nav-item"><a href="<?php echo base_url("course/edit/outline/").$course['course_id']; ?>" class="nav-link active">Course Lessons</a></li>
 						<li class="nav-item"><a href="<?php echo base_url("course/edit/media/").$course['course_id']; ?>" class="nav-link">Promotional Media</a></li>
 						<?php if($course['course_review']==1): ?>
 							<li class="nav-item"><a href="<?php echo base_url("course/edit/review/").$course['course_id']; ?>" class="nav-link">Course Review</a></li>
@@ -25,7 +25,7 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="card border-info">
-								<div class="card-header border-info text-center">Outline</div>
+								<div class="card-header border-info text-center">Lesson Overview</div>
 									<?php if(!empty($outline)): ?>
 										<ul class="list-group list-group-flush">
 											<?php foreach($outline as $outln): ?>

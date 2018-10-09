@@ -4,7 +4,7 @@
 			<h3><?php echo $course['course_title']; ?></h3>
 			<a target="_blank" href="<?php echo base_url("course/edit/preview/$course_id"); ?>">course preview</a>
 			<br>
-			<a class="text-secondary" href="<?php echo base_url("course/edit/outline/$course_id"); ?>">go back to outline</a>
+			<a class="text-secondary" href="<?php echo base_url("course/edit/outline/$course_id"); ?>">go back to Lessons</a>
 		</div>
 		<div class="col-md-5">
 			<?php echo $page_alert; ?>

@@ -556,8 +556,28 @@ class Setup_model extends CI_Model
 					progress_course INT(7) NOT NULL,
 					FOREIGN KEY (progress_course) REFERENCES enroll_tbl(enroll_course),
 					progress_outline INT(7) NOT NULL,
-					FOREIGN KEY (progress_course_outline) REFERENCES outline_tbl(outline_id),
+					FOREIGN KEY (progress_outline) REFERENCES outline_tbl(outline_id),
 					progress_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+				);
+			");
+		}
+	}
+	public function create_final_project_table()
+	{
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'project_tbl';");
+		if ($check_tbl->num_rows()==0)
+		{
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS project_tbl (
+					project_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					project_student INT(7) NOT NULL,
+					FOREIGN KEY (project_student) REFERENCES enroll_tbl(enroll_student),
+					project_course INT(7) NOT NULL,
+					FOREIGN KEY (project_course) REFERENCES enroll_tbl(enroll_course),
+					project_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					project_remark VARCHAR(15) NULL,
+					project_status TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");
 		}

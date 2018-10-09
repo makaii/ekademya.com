@@ -18,7 +18,7 @@
 		<div class="col-md-4">
 			<?php if(!empty($outline)): ?>
 				<div class="card mb-3">
-					<div class="card-header font-weight-bold">Lessons</div>
+					<div class="card-header font-weight-bold">Lesson Overview</div>
 					<ul class="list-group list-group-flush">
 						<?php foreach($outline as $key => $o): ?>
 							<?php if($o['outline_type']=='video'): ?>

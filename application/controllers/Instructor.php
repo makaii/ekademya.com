@@ -228,7 +228,7 @@ class Instructor extends CI_Controller {
 			}
 			elseif ($this->Instructor_model->save_course_info($course_info)==true)
 			{
-				$page_data['page_alert'] = '<div class="alert alert-success text-center" role="alert">Saved Successfully</div>';
+				$page_data['page_alert'] = '<div class="alert alert-success text-center font-weight-bold" role="alert">Saved Successfully</div>';
 				$page_data['page_title'] = 'Saved '.$course['course_title'].' Information';
 				$this->load->view('template/headerInstructor',$page_data);
 				$this->load->view('instructor/course_edit/course_info');
