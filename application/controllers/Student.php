@@ -41,14 +41,17 @@ class Student extends CI_Controller {
 
 	public function mycourse($course_id)
 	{
+		$user_id = $this->session->userdata('user_id');
 		$course = $this->Student_model->get_mycourse_data($course_id);
 		$outline = $this->Student_model->get_mycourse_outline($course_id);
+		$progress = $this->Student_model->get_mycourse_progress($user_id,$course_id);
 		$page_data = array(
 			'page_title' => ucwords($course['course_title']),
 			'course_categories' => $this->Lookup_model->get_category(),
 			'course_id' => $course_id,
 			'course' => $course,
 			'outline' => $outline,
+			'p' => $progress,
 		);
 		$this->load->view('template/headerUser',$page_data);
 		$this->load->view('student/mycourse');

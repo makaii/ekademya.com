@@ -89,5 +89,19 @@ class Student_model extends CI_Model
 			return show_404();
 	}
 
+	public function get_mycourse_progress($student_id,$course_id)
+	{
+		$query = $this->db->select()
+		->from('outline_tbl')
+		->where('outline_course_id',$course_id)
+		->join('progress_tbl','progress_tbl.progress_outline = outline_tbl.outline_id','left')
+		->get();
+		if ($query->num_rows()>=1) {
+			return $query->result_array();
+		}
+		else
+			return null;
+	}
+
 }
  ?>

@@ -3,6 +3,7 @@
 		text-decoration: none;
 	}
 </style>
+<!-- <pre><?php print_r($p); ?></pre> -->
 <div style="background-color: #E4F1FE;" class="pb-3 pt-3 mb-5">
 	<div class="container">
 		<div class="row">
@@ -19,18 +20,30 @@
 				<div class="card">
 					<div class="card-header">Course Outline</div>
 					<ul class="list-group list-group-flush">
-						<?php foreach($outline as $o): ?>
+						<?php foreach($outline as $key => $o): ?>
 							<?php if($o['outline_type']=='video'): ?>
 								<li class="list-group-item">
-									<a href="<?php echo base_url("mycourse/$course_id/video/".$o['outline_id']); ?>">
-										<?php echo $o['video_title']; ?>
-									</a>
+									<?php if($o['outline_id']==$p[$key]['progress_outline']): ?>
+										<a href="<?php echo base_url("mycourse/$course_id/video/".$o['outline_id']); ?>">
+											<?php echo $o['video_title']; ?>
+										</a>
+									<?php else: ?>
+										<a>
+											<?php echo $o['video_title']; ?>
+										</a>
+									<?php endif; ?>
 								</li>
 							<?php elseif($o['outline_type']=='lecture'): ?>
 								<li class="list-group-item">
-									<a href="<?php echo base_url("mycourse/$course_id/lecture/".$o['outline_id']); ?>">
-										<?php echo $o['lecture_title']; ?>
-									</a>
+									<?php if($o['outline_id']==$p[$key]['progress_outline']): ?>
+										<a href="<?php echo base_url("mycourse/$course_id/lecture/".$o['outline_id']); ?>">
+											<?php echo $o['lecture_title']; ?>
+										</a>
+									<?php else: ?>
+										<a">
+											<?php echo $o['lecture_title']; ?>
+										</a>
+									<?php endif; ?>
 								</li>
 							<?php endif; ?>
 						<?php endforeach; ?>

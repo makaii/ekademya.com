@@ -46,12 +46,30 @@ class Courses_model extends CI_Model
 			$this->db->insert('enroll_tbl',$enroll_data);
 			if ($this->db->affected_rows()==1)
 			{
+				$this->access_first_outline($user_id,$course_id);
 				$this->session->unset_userdata('enroll_course_id');
 				return true;
 			}
 			else
 				return false;
 		}
+	}
+
+	public function access_first_outline($user_id,$course_id)
+	{
+		$first_outline = $this->db->select()
+		->from('outline_tbl')
+		->where('outline_course_id',$course_id)
+		->order_by('outline_id')
+		->get();
+		$first_outline = $first_outline->row_array();
+		$first_outline = $first_outline['outline_id'];
+		$data = array(
+			'progress_student' => $user_id,
+			'progress_course' => $course_id,
+			'progress_outline' => $first_outline,
+		);
+		$query = $this->db->insert('progress_tbl',$data);
 	}
 
 }

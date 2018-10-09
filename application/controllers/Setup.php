@@ -23,6 +23,7 @@ class Setup extends CI_Controller {
 		$this->Setup_model->create_enroll_table();
 		$this->Setup_model->create_settings_table();
 		$this->Setup_model->create_review_table();
+		$this->Setup_model->create_progress_table();
 		$page_data = array(
 			'page_title' => 'Database Installation',
 			'admin' => $this->Setup_model->getTableStructure('admin_tbl'),
