@@ -45,7 +45,7 @@
 		</small>
 		<?php $last_elem = end($p); ?>
 		<?php if(!empty($last_elem['progress_id'])): ?>
-			<a href="<?php echo base_url("mycourse/$course_id/final"); ?>" class="btn btn-block btn-primary c2 font-weight-bold mt-2" style="border: none;" role="button">Proceed to Final Project</a>
+			<a href="<?php echo base_url("mycourse/$course_id/project"); ?>" class="btn btn-block btn-primary c2 font-weight-bold mt-2" style="border: none;" role="button">Proceed to Final Project</a>
 		<?php endif; ?>
 		<?php if(!empty($next_lesson)): ?>
 			<a href="<?php echo base_url("mycourse/$course_id/$next_lesson_type/$next_lesson"); ?>" class="btn btn-block btn-info font-weight-bold mt-2" id="nextLesson" role="button" style="border: none;<?php if($this->Student_model->check_if_progress_exist($_SESSION['user_id'],$course_id,$next_lesson)){echo "display: block;";}else echo "display: none;"; ?>">Next</a>

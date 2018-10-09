@@ -576,6 +576,7 @@ class Setup_model extends CI_Model
 					project_course INT(7) NOT NULL,
 					FOREIGN KEY (project_course) REFERENCES enroll_tbl(enroll_course),
 					project_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					project_url VARCHAR(50) NOT NULL,
 					project_remark VARCHAR(15) NULL,
 					project_status TINYINT(1) NOT NULL DEFAULT 1
 				);

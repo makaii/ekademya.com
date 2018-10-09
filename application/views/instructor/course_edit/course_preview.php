@@ -51,15 +51,15 @@
 		<div class="col-md-6">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Lesson Ovewview</h5>
+					<h5 class="card-title">Lesson Overview</h5>
 					<ul class="list-group list-group-flush">
 						<?php if(!empty($outline)): ?>
 							<?php foreach($outline as $o): ?>
 								<li class="list-group-item">
 									<?php if(!empty($o['video_title'])): ?>
-										<?php echo $o['video_title']; ?>
+										<?php echo ucwords($o['video_title']); ?>
 									<?php elseif(!empty($o['lecture_title'])): ?>
-										<?php echo $o['lecture_title']; ?>
+										<?php echo ucwords($o['lecture_title']); ?>
 									<?php endif; ?>
 								</li>
 							<?php endforeach; ?>
@@ -83,6 +83,10 @@
 				<div class="card-body">
 					<h5 class="card-title">What are the requirements?</h5>
 					<p class="card-subtitle text-muted"><?php if(!empty($course['course_tools'])){echo nl2br($course['course_tools']);}else echo "N/A"; ?></p>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">Final Project</h5>
+					<p class="card-subtitle text-muted"><?php if(!empty($course['course_project'])){echo nl2br($course['course_project']);}else echo "N/A"; ?></p>
 				</div>
 			</div>
 		</div>

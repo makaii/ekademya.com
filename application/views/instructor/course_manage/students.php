@@ -21,5 +21,22 @@
 </div>
 
 <div class="container">
-	<?php print_r($s); ?>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<?php if (!empty($s)): ?>
+			<?php foreach($s as $key): ?>
+				<tr>
+					<td><?php echo $key['user_fname'].' '.$key['user_lnane']; ?></td>
+					<td><?php echo $key['user_pubemail']; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<section>No Students yet</section>
+		<?php endif ?>
+	</table>
 </div>

@@ -145,14 +145,82 @@ class Student extends CI_Controller {
 	}
 	public function mycourse_final_project($course_id)
 	{
+		$user_id = $this->session->userdata('user_id');
 		$course = $this->Student_model->get_mycourse_data($course_id);
+		$project = $this->Student_model->get_mycourse_project($user_id, $course_id);
 		$page_data = array(
 			'page_title' => 'Final Project - '.ucwords($course['course_title']),
+			'course_categories' => $this->Lookup_model->get_category(),
 			'course_id' => $course_id,
 			'c' => $course,
+			'project' => $project,
+			'upload_error' => null,
+			'page_alert' => null,
 		);
 		$this->load->view('template/headerUser',$page_data);
 		$this->load->view('student/final_project');
 		$this->load->view('template/footer');
+	}
+	public function mycourse_final_project_validation($course_id)
+	{
+		$user_id = $this->session->userdata('user_id');
+		$course = $this->Student_model->get_mycourse_data($course_id);
+		$project = $this->Student_model->get_mycourse_project($user_id, $course_id);
+		$page_data = array(
+			'page_title' => 'Final Project - '.ucwords($course['course_title']),
+			'course_categories' => $this->Lookup_model->get_category(),
+			'course_id' => $course_id,
+			'c' => $course,
+			'project' => $project,
+			'page_alert' => null,
+			'upload_error' => null,
+		);
+		$user_name = explode(" ",$this->session->userdata('user_name'));
+		$user_name = implode("_", $user_name);
+		$file_config = array(
+			'upload_path' => './z/projects',
+			'file_name' => $user_name,
+			'allowed_types' => 'zip|rar|7z',
+			'max_size' => 0,
+			// 'max_width' => 1024,
+			// 'max_height' => 576,
+			// 'min_width' => 384,
+			// 'min_height' => 216,
+			'remove_spaces' => true,
+			'file_ext_tolower' => true,
+			'detect_mime' => true,
+			'mod_mime_fix' => true,
+			'overwrite' => true,
+			'max_filename' => 255,
+		);
+		$this->upload->initialize($file_config);
+		if (!$this->upload->do_upload('project_file')) {
+			// fail
+			$page_data['upload_error'] = $this->upload->display_errors();
+			$this->load->view('template/headerUser',$page_data);
+			$this->load->view('student/final_project');
+			$this->load->view('template/footer');
+		}
+		else
+		{
+			// success
+			$project = $this->Student_model->get_mycourse_project($user_id, $course_id);
+			$page_data['project'] = $project;
+			$user_id = $this->session->userdata('user_id');
+			$file = $this->upload->data('file_name');
+			if ($this->Student_model->post_final_project($user_id, $course_id, $file)) {
+				$page_data['page_alert'] = 'post';
+				$this->load->view('template/headerUser',$page_data);
+				$this->load->view('student/final_project');
+				$this->load->view('template/footer');
+			}
+			elseif($this->Student_model->post_final_project($user_id, $course_id, $file)==false)
+			{
+				$page_data['page_alert'] = 'update';
+				$this->load->view('template/headerUser',$page_data);
+				$this->load->view('student/final_project');
+				$this->load->view('template/footer');
+			}
+		}
 	}
 }

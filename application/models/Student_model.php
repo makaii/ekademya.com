@@ -141,6 +141,52 @@ class Student_model extends CI_Model
 		else
 			return false;
 	}
+	public function post_final_project($user_id, $course_id, $file_name)
+	{
+		$query = $this->db->select()
+		->from('project_tbl')
+		->where('project_student',$user_id)
+		->where('project_course',$course_id)
+		->get();
+
+		if ($query->num_rows()>=1) {
+			$this->db->set('project_url',$file_name);
+			$this->db->where('project_student',$user_id);
+			$this->db->where('project_course',$course_id);
+			$this->db->update('project_tbl');
+			if ($this->db->affected_rows()==1) {
+				return true;
+			}
+			else
+				return false;
+		}
+		else
+		{
+			$data = array(
+				'project_student' => $user_id,
+				'project_course' => $course_id,
+				'project_url' => $file_name,
+			);
+			$this->db->insert('project_tbl',$data);
+			if ($this->db->affected_rows()==1) {
+				return true;
+			}
+			else
+				return false;
+		}
+	}
+	public function get_mycourse_project($user_id, $course_id)
+	{
+		$query = $this->db->select()
+		->where('project_student', $user_id)
+		->where('project_course', $course_id)
+		->get('project_tbl');
+		if ($query->num_rows()==1) {
+			return $query->row_array();
+		}
+		else
+			return null;
+	}
 
 }
  ?>

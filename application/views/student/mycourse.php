@@ -25,11 +25,11 @@
 								<li class="list-group-item">
 									<?php if($o['outline_id']==$p[$key]['progress_outline']): ?>
 										<a href="<?php echo base_url("mycourse/$course_id/video/".$o['outline_id']); ?>">
-											<?php echo $o['video_title']; ?>
+											<?php echo ucwords($o['video_title']); ?>
 										</a>
 									<?php else: ?>
 										<a>
-											<?php echo $o['video_title']; ?>
+											<?php echo ucwords($o['video_title']); ?>
 										</a>
 									<?php endif; ?>
 								</li>
@@ -52,7 +52,7 @@
 			<?php endif; ?>
 			<?php $last_elem = end($p); ?>
 			<?php if(!empty($last_elem['progress_id'])): ?>
-				<a href="<?php echo base_url("mycourse/$course_id/final"); ?>" role="button" class="btn btn-block c2 text-white font-weight-bold">Upload Final Project</a>
+				<a href="<?php echo base_url("mycourse/$course_id/project"); ?>" role="button" class="btn btn-block c2 text-white font-weight-bold">Upload Final Project</a>
 			<?php endif; ?>
 		</div>
 		<div class="col-md-8">

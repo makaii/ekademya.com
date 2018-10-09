@@ -30,9 +30,9 @@
 										<ul class="list-group list-group-flush">
 											<?php foreach($outline as $outln): ?>
 												<?php if($outln['outline_type']=='video'): ?>
-													<li class="list-group-item"><a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/video/").$outln['outline_id']; ?>"><?php echo $outln['video_title']; ?>&#9;<i class="fas fa-video"></i></a></li>
+													<li class="list-group-item"><a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/video/").$outln['outline_id']; ?>"><?php echo ucwords($outln['video_title']); ?>&#9;<i class="fas fa-video"></i></a></li>
 												<?php elseif($outln['outline_type']=='lecture'): ?>
-													<li class="list-group-item"><a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/lecture/").$outln['outline_id']; ?>"><?php echo $outln['lecture_title']; ?>&#9;<i class="far fa-newspaper"></i></a></li>
+													<li class="list-group-item"><a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/lecture/").$outln['outline_id']; ?>"><?php echo ucwords($outln['lecture_title']); ?>&#9;<i class="far fa-newspaper"></i></a></li>
 												<?php endif; ?>
 											<?php endforeach; ?>
 										</ul>

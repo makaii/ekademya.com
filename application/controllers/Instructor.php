@@ -302,7 +302,7 @@ class Instructor extends CI_Controller {
 			$category = $this->Lookup_model->get_category();
 			// form rules
 			$this->form_validation->set_rules('video_title','Video Title','trim|required');
-			$this->form_validation->set_rules('video_description','Video Description','trim|required');
+			$this->form_validation->set_rules('video_description','Video Description','trim');
 			$this->form_validation->set_rules('video_embed','Youtube Embed Code','trim|regex_match[/<iframe.+?src="(.+?)".+?<\/iframe>/]');
 			// / form rules
 			// input
@@ -792,12 +792,14 @@ class Instructor extends CI_Controller {
 	{
 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
 		$students = $this->Instructor_model->get_course_students($course_id);
+		$projects = $this->Instructor_model->get_final_projects($course_id);
 		$page_data = array(
 			'page_title' => 'Final Projects | '.ucwords($course['course_title']),
 			'course_categories' => $this->Lookup_model->get_category(),
 			'course_id' => $course_id,
 			'c' => $course,
 			's' => $students,
+			'p' => $projects,
 		);
 		$this->load->view('template/headerInstructor',$page_data);
 		$this->load->view('instructor/course_manage/projects');

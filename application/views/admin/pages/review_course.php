@@ -81,7 +81,7 @@
 							<?php if ($outln['outline_type']=='video'): ?>
 							<!-- VIDEO -->
 								<div class="form-group">
-									<label class="font-weight-bold">Lecture Title : <span class="text-info"><?php echo $outln['video_title']; ?></span></label>
+									<label class="font-weight-bold">Video Title : <span class="text-info"><?php echo $outln['video_title']; ?></span></label>
 									<p class="form-control-plaintext pb-0 mb-1 text-muted quote">
 										<?php echo nl2br($outln['video_description']); ?>
 									</p>

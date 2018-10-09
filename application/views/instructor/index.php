@@ -45,15 +45,15 @@
 						<div class="card-footer <?php if($data['course_published']==1){echo'border-success';} ?>">
 							<div id="course<?php echo $data['course_id']; ?>Options">
 								<?php if ($data['course_published']==0&&$data['course_review']!=2): ?>
-									<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fa fa-send"></i>&nbsp;Send for Review</button>
+									<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fas fa-seedling"></i>&nbsp;Send for Review</button>
 								<?php endif; ?>
 								<?php if ($data['course_published']==0&&$data['course_review']==1): ?>
-									<a href="<?php echo base_url('course/edit/review/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-success">See Review Comments</a>
+									<a href="<?php echo base_url('course/edit/review/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-success"><i class="fas fa-eye"></i>&nbsp;See Review Comments</a>
 								<?php endif; ?>
 								<?php if($data['course_published']==0): ?>
-									<a href="<?php echo base_url('course/edit/info/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+									<a href="<?php echo base_url('course/edit/info/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="far fa-edit"></i>&nbsp;Edit</button></a>
 								<?php elseif($data['course_published']==1): ?>
-									<a href="<?php echo base_url('course/manage/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="fa fa-pencil"></i>&nbsp;Manage</button></a>
+									<a href="<?php echo base_url('course/manage/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="far fa-list-alt"></i>&nbsp;Manage</button></a>
 								<?php endif; ?>
 								<!-- delete -->
 								<?php if($data['course_published']==0): ?>

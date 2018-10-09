@@ -31,7 +31,7 @@
 			<p><?php echo nl2br($l['lecture_body']); ?></p>
 			<?php $last_elem = end($p); ?>
 			<?php if(!empty($last_elem['progress_id'])): ?>
-				<a href="<?php echo base_url("mycourse/$course_id/final"); ?>" class="btn btn-block btn-primary c2 font-weight-bold mt-2" style="border: none;" id="nextLesson" role="button">Proceed to Final Project</a>
+				<a href="<?php echo base_url("mycourse/$course_id/project"); ?>" class="btn btn-block btn-primary c2 font-weight-bold mt-2" style="border: none;" id="nextLesson" role="button">Proceed to Final Project</a>
 			<?php endif; ?>
 			<?php if(!empty($next_lesson)): ?>
 				<a href="<?php echo base_url("mycourse/$course_id/$next_lesson_type/$next_lesson"); ?>" class="btn btn-block btn-info font-weight-bold mt-2" style="border: none;" id="nextLesson" role="button">Next</a>

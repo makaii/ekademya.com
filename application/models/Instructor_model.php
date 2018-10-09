@@ -474,5 +474,20 @@ class Instructor_model extends CI_Model
 			return null;
 	}
 
+	public function get_final_projects($course_id)
+	{
+		$query = $this->db->select()
+		->from('project_tbl')
+		->where('project_course',$course_id)
+		->where('project_status',1)
+		->join('user_tbl','user_tbl.user_id = project_tbl.project_student')
+		->get();
+		if ($query->num_rows()>=1) {
+			return $query->result_array();
+		}
+		else
+			return null;
+	}
+
 }
  ?>
