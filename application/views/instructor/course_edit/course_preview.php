@@ -37,7 +37,7 @@
 				</div>
 				<?php if($course['course_published']==1): ?>
 					<br>
-					<div class="card">
+					<div class="">
 						<a role="button" href="<?php echo base_url('course/enroll/'.$course['course_id']); ?>" class="btn btn-primary" style="width: 100%;">Enroll Now</a>
 					</div>
 				<?php endif; ?>

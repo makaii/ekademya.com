@@ -64,6 +64,18 @@ class Student_model extends CI_Model
 		else
 			return false;
 	}
+	public function get_mycourse_outline_only($course_id)
+	{
+		$query = $this->db->select()
+		->where('outline_course_id',$course_id)
+		->where('outline_status',1)
+		->get('outline_tbl');
+		if ($query->num_rows()>=1) {
+			return $query->result_array();
+		}
+		else
+			return null;
+	}
 	public function get_mycourse_outline_video($outline_id)
 	{
 		$query = $this->db->select()
@@ -101,6 +113,33 @@ class Student_model extends CI_Model
 		}
 		else
 			return null;
+	}
+	public function post_progress($student_id,$course_id,$outline_id)
+	{
+		$data = array(
+			'progress_student' => $student_id,
+			'progress_course' => $course_id,
+			'progress_outline' => $outline_id,
+		);
+		$this->db->insert('progress_tbl',$data);
+		if ($this->db->affected_rows()==1) {
+			return true;
+		}
+		else
+			return false;
+	}
+	public function check_if_progress_exist($student_id,$course_id,$outline_id)
+	{
+		$query = $this->db->select()
+		->where('progress_student', $student_id)
+		->where('progress_course', $course_id)
+		->where('progress_outline', $outline_id)
+		->get('progress_tbl');
+		if ($query->num_rows()==1) {
+			return true;
+		}
+		else
+			return false;
 	}
 
 }

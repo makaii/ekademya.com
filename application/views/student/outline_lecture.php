@@ -26,9 +26,16 @@
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 offset-md-1">
+		<div class="col-md-8 offset-md-2">
 			<h5><?php echo ucwords($l['lecture_title']); ?></h5>
 			<p><?php echo nl2br($l['lecture_body']); ?></p>
+			<?php $last_elem = end($p); ?>
+			<?php if(!empty($last_elem['progress_id'])): ?>
+				<a href="<?php echo base_url("mycourse/$course_id/final"); ?>" class="btn btn-block btn-primary c2 font-weight-bold mt-2" style="border: none;" id="nextLesson" role="button">Proceed to Final Project</a>
+			<?php endif; ?>
+			<?php if(!empty($next_lesson)): ?>
+				<a href="<?php echo base_url("mycourse/$course_id/$next_lesson_type/$next_lesson"); ?>" class="btn btn-block btn-info font-weight-bold mt-2" style="border: none;" id="nextLesson" role="button">Next</a>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

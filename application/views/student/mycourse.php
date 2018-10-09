@@ -17,8 +17,8 @@
 	<div class="row">
 		<div class="col-md-4">
 			<?php if(!empty($outline)): ?>
-				<div class="card">
-					<div class="card-header">Course Outline</div>
+				<div class="card mb-3">
+					<div class="card-header font-weight-bold">Lessons</div>
 					<ul class="list-group list-group-flush">
 						<?php foreach($outline as $key => $o): ?>
 							<?php if($o['outline_type']=='video'): ?>
@@ -49,6 +49,10 @@
 						<?php endforeach; ?>
 					</ul>
 				</div>
+			<?php endif; ?>
+			<?php $last_elem = end($p); ?>
+			<?php if(!empty($last_elem['progress_id'])): ?>
+				<a href="<?php echo base_url("mycourse/$course_id/final"); ?>" role="button" class="btn btn-block c2 text-white font-weight-bold">Upload Final Project</a>
 			<?php endif; ?>
 		</div>
 		<div class="col-md-8">

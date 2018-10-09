@@ -24,7 +24,8 @@
 		</div>
 	</div>
 </div>
-
+<!-- <pre><?php print_r($o); ?></pre> -->
+<!-- <pre><?php print_r($p); ?></pre> -->
 <div class="container">
 	<div class="col-md-10 offset-md-1">
 		<h5><?php echo ucwords($v['video_title']); ?></h5>
@@ -42,8 +43,13 @@
 		<small class="text-muted">
 			<?php echo nl2br($v['video_description']); ?>
 		</small>
-		
-		<a href="<?php echo base_url("mycourse/$course_id/$type/$next_outline_id"); ?>" class="btn btn-block btn-primary float-right c2 font-weight-bold mt-2" style="display: none; border: none;" id="nextLesson" role="button">Next</a>
+		<?php $last_elem = end($p); ?>
+		<?php if(!empty($last_elem['progress_id'])): ?>
+			<a href="<?php echo base_url("mycourse/$course_id/final"); ?>" class="btn btn-block btn-primary c2 font-weight-bold mt-2" style="border: none;" role="button">Proceed to Final Project</a>
+		<?php endif; ?>
+		<?php if(!empty($next_lesson)): ?>
+			<a href="<?php echo base_url("mycourse/$course_id/$next_lesson_type/$next_lesson"); ?>" class="btn btn-block btn-info font-weight-bold mt-2" id="nextLesson" role="button" style="border: none;<?php if($this->Student_model->check_if_progress_exist($_SESSION['user_id'],$course_id,$next_lesson)){echo "display: block;";}else echo "display: none;"; ?>">Next</a>
+		<?php endif; ?>
 	</div>
 </div>
 
