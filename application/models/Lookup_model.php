@@ -23,30 +23,36 @@ class Lookup_model extends CI_Model
 	public function search_course($input)
 	{
 		$query = $this->db->select()->from('course_tbl')
-				->where('course_status', 1)
-				->where('course_published',1)
-				->where('course_review',1)
-				->where('course_title',$input)
 					// ->group_start()
 					// 	->where('course_title',$input)
 					// 	->or_where('course_description',$input)
-						->or_group_start()
-							->like('course_title',$input,'before')
-							->or_like('course_title',$input,'after')
-							->or_like('course_title',$input,'both')
-							->or_like('course_description',$input,'after')
-							->or_like('course_description',$input,'after')
-							->or_like('course_description',$input,'both')
-						->group_end()
+						// ->and_group_start()
+						// 	->like('course_title',$input,'before')
+						// 	->or_like('course_title',$input,'after')
+						// 	->or_like('course_title',$input,'both')
+						// 	->or_like('course_description',$input,'after')
+						// 	->or_like('course_description',$input,'after')
+						// 	->or_like('course_description',$input,'both')
+						// ->group_end()
 					// ->group_end()
 				->join('user_tbl','user_tbl.user_id = course_tbl.course_author')
 				->join('category_tbl','category_tbl.category_id = course_tbl.course_category')
+				->where('course_status', 1)
+				->where('course_published',1)
+				->where('course_review',1)
+				->group_start()
+						->like('course_title',$input,'before')
+						->or_like('course_title',$input,'after')
+						->or_like('course_title',$input,'both')
+				->group_end()
 				->get();
 		if ($query->num_rows()>=1)
 		{
+			echo "<pre>".$this->db->last_query()."</pre>";
 			return $query->result_array();
 		}
 		else
+			echo "<pre>".$this->db->last_query()."</pre>";
 			return null;
 	}
 
