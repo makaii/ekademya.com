@@ -477,14 +477,14 @@ class Instructor_model extends CI_Model
 
 	public function get_course_students($course_id)
 	{
-		$query = $this->db->select('user_email,enroll_date')
+		$query = $this->db->select()
 		->where('enroll_course',$course_id)
 		->where('enroll_status',1)	
 		->from('enroll_tbl')
 		->join('user_tbl','user_tbl.user_id = enroll_tbl.enroll_student')
 		->get();
 		if ($query->num_rows()>=1) {
-			return $query->row_array();
+			return $query->result_array();
 		}
 		else
 			return null;

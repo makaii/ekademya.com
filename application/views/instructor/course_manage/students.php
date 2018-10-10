@@ -31,8 +31,8 @@
 		<?php if (!empty($s)): ?>
 			<?php foreach($s as $key): ?>
 				<tr>
-					<td><?php echo $key['user_fname'].' '.$key['user_lnane']; ?></td>
-					<td><?php echo $key['user_pubemail']; ?></td>
+					<td><?php echo $key['user_fname'].' '.$key['user_lname']; ?></td>
+					<td><?php echo $key['user_email']; ?></td>
 				</tr>
 			<?php endforeach; ?>
 		<?php else: ?>
