@@ -10,8 +10,8 @@
 
     <div class="jumbotron bg-white" style="margin-bottom: 0rem;">
       <div class="container">
-        <h4 class="text-center display-4">Access our Classes</h4>
-        <div class="card-deck" style="margin-top: 1rem;">
+        <h4 class="text-center display-4 mt-4 mb-4">Access our Classes</h4>
+        <!-- <div class="card-deck" style="margin-top: 1rem;">
           <div class="card">
             <img class="card-image-top img-fluid" src="<?php echo base_url('assets/img/1.jpeg'); ?>" alt="<?php  ?>"></img>
             <div class="card-body pb-0">
@@ -60,7 +60,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
