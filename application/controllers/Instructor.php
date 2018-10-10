@@ -526,20 +526,20 @@ class Instructor extends CI_Controller {
 				'course_id' => $course_id,
 				'q' => $quiz,
 			];
-			// FORM RULES
-			$this->form_validation->set_rules('title','Title','trim|required');
-			$this->form_validation->set_rules('instruction','Instruction','trim|required');
-			// /FORM RULES
-			// STICKY KEYS
-			if (empty($_SESSION['quiz_data']['quiz_title']))
-			{
-				$_SESSION['quiz_data']['quiz_title'] = $this->input->post('title');
-			}
-			if (empty($_SESSION['quiz_data']['quiz_instruction']))
-			{
-				$_SESSION['quiz_data']['quiz_instruction'] = $this->input->post('instruction');
-			}
-			// /STICKY KEYS
+				// FORM RULES
+				$this->form_validation->set_rules('title','Title','trim|required');
+				$this->form_validation->set_rules('instruction','Instruction','trim|required');
+				// /FORM RULES
+				// STICKY KEYS
+				if (empty($_SESSION['quiz_data']['quiz_title']))
+				{
+					$_SESSION['quiz_data']['quiz_title'] = $this->input->post('title');
+				}
+				if (empty($_SESSION['quiz_data']['quiz_instruction']))
+				{
+					$_SESSION['quiz_data']['quiz_instruction'] = $this->input->post('instruction');
+				}
+				// /STICKY KEYS
 			if (!$this->form_validation->run())
 			{
 				$this->load->view('template/headerInstructor',$page_data);

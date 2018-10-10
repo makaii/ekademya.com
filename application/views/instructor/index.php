@@ -24,7 +24,7 @@
 					</div>
 				</div>
 				<div class="col-md-10">
-					<div class="card <?php if($data['course_published']==1){echo'border-success';} ?>">
+					<div class="card <?php if($data['course_published']==1){echo'border-success';}elseif($data['course_archive']==1){echo'border-dark';} ?>">
 						<div class="card-header <?php if($data['course_published']==1){echo'border-success';} ?>">
 							<b><?php echo $data['course_title']; ?></b>
 							<!-- draft -->

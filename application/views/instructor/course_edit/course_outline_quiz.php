@@ -129,7 +129,6 @@
 					</div>\
 				</div>\
 			');
-			<?php $this->Instructor_model->make_new_qItem(); ?>
 		});
 	});
 
