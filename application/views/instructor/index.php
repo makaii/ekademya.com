@@ -27,7 +27,17 @@
 					<div class="card <?php if($data['course_published']==1){echo'border-success';} ?>">
 						<div class="card-header <?php if($data['course_published']==1){echo'border-success';} ?>">
 							<b><?php echo $data['course_title']; ?></b>
-							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} if($data['course_published']==1){echo "<span class='badge badge-success'>published</span>";} if($data['course_review']!=0&&$data['course_published']==0){echo "<span class='badge badge-info'>under review</span>";}?>
+							<!-- draft -->
+							<?php if($data['course_review']==0){echo "<span class='badge badge-secondary'>draft</span>";} ?>
+							<!-- under review -->
+							<?php if($data['course_review']!=0&&$data['course_published']==0&&$data['course_archive']==0){echo "<span class='badge badge-info'>under review</span>";} ?>
+							<!-- published -->
+							<?php if($data['course_published']==1): ?>
+								<span class='badge badge-success'>published</span>
+							<!-- archived -->
+							<?php elseif($data['course_published']==0&&$data['course_archive']==1): ?>
+								<span class='badge badge-dark'>archived</span>
+							<?php endif; ?>
 						</div>
 						<div class="card-body pt-3 pb-3">
 							<div class="card-text">
@@ -43,31 +53,38 @@
 							</div>
 						</div>
 						<div class="card-footer <?php if($data['course_published']==1){echo'border-success';} ?>">
-							<div id="course<?php echo $data['course_id']; ?>Options">
-								<?php if ($data['course_published']==0&&$data['course_review']!=2): ?>
-									<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fas fa-seedling"></i>&nbsp;Send for Review</button>
-								<?php endif; ?>
-								<?php if ($data['course_published']==0&&$data['course_review']==1): ?>
-									<a href="<?php echo base_url('course/edit/review/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-success"><i class="fas fa-eye"></i>&nbsp;See Review Comments</a>
-								<?php endif; ?>
-								<?php if($data['course_published']==0): ?>
-									<a href="<?php echo base_url('course/edit/info/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="far fa-edit"></i>&nbsp;Edit</button></a>
-								<?php elseif($data['course_published']==1): ?>
-									<a href="<?php echo base_url('course/manage/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="far fa-list-alt"></i>&nbsp;Manage</button></a>
-								<?php endif; ?>
-								<!-- delete -->
-								<?php if($data['course_published']==0): ?>
-									<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</a>
-								<!-- archive -->
-								<?php elseif($data['course_published']==1): ?>
-									<a href="<?php echo base_url('course/archive/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-dark float-right"><i class="fa fa-trash"></i>&nbsp;Archive</a>
-								<?php endif; ?>
-							</div>
-							<div style="display: none;" id="review<?php echo $data['course_id']; ?>Buttons">
-								<label class="font-weight-bold mb-0">Are you sure?</label>
-								<a href="<?php echo base_url("course/review/").$data['course_id']; ?>" role="button" class="btn btn-sm btn btn-primary">Yes</a>
-								<button class="btn btn-sm btn btn-danger" onclick="cancel_review(<?php echo $data['course_id']; ?>);">No</button>
-							</div>
+							<?php if($data['course_archive']!=1): ?>
+								<div id="course<?php echo $data['course_id']; ?>Options">
+									<?php if ($data['course_published']==0&&$data['course_review']!=2): ?>
+										<button class="btn btn-sm btn-primary" id="sendForReview" onclick="show_review_buttons(<?php echo $data['course_id']; ?>)"><i class="fas fa-seedling"></i>&nbsp;Send for Review</button>
+									<?php endif; ?>
+									<?php if ($data['course_published']==0&&$data['course_review']==1): ?>
+										<a href="<?php echo base_url('course/edit/review/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-success"><i class="fas fa-eye"></i>&nbsp;See Review Comments</a>
+									<?php endif; ?>
+									<?php if($data['course_published']==0): ?>
+										<a href="<?php echo base_url('course/edit/info/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="far fa-edit"></i>&nbsp;Edit</button></a>
+									<?php elseif($data['course_published']==1): ?>
+										<a href="<?php echo base_url('course/manage/'.$data['course_id']); ?>"><button class="btn btn-sm btn-info"><i class="far fa-list-alt"></i>&nbsp;Manage</button></a>
+									<?php endif; ?>
+									<!-- delete -->
+									<?php if($data['course_published']==0): ?>
+										<a href="<?php echo base_url('course/delete/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-danger float-right"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+									<!-- archive -->
+									<?php elseif($data['course_published']==1): ?>
+										<a href="<?php echo base_url('course/archive/'.$data['course_id']); ?>" role="button" class="btn btn-sm btn-dark float-right"><i class="fa fa-trash"></i>&nbsp;Archive</a>
+									<?php endif; ?>
+								</div>
+								<div style="display: none;" id="review<?php echo $data['course_id']; ?>Buttons">
+									<label class="font-weight-bold mb-0">Are you sure?</label>
+									<a href="<?php echo base_url("course/review/").$data['course_id']; ?>" role="button" class="btn btn-sm btn btn-primary">Yes</a>
+									<button class="btn btn-sm btn btn-danger" onclick="cancel_review(<?php echo $data['course_id']; ?>);">No</button>
+								</div>
+							<?php else: ?>
+								<div>
+									<a role="button" href="<?php echo base_url('course/unarchive/'.$data['course_id']); ?>" class="btn btn-sm btn-secondary">unarchived</a>
+									<a role="button" href="<?php echo base_url('course/delete/'.$data['course_id']); ?>" class="btn btn-sm btn-danger">delete</a>
+								</div>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>	

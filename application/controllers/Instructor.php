@@ -137,7 +137,7 @@ class Instructor extends CI_Controller {
 				$course_authorpass = $this->input->post('courseAuthorPass');
 				if ($this->form_validation->run()==false)
 				{
-					// delete fail
+					// archive fail
 					$page_data = array(
 						'page_title' => 'Archive Course',
 						'course_categories' => $this->Lookup_model->get_category(),
@@ -150,10 +150,11 @@ class Instructor extends CI_Controller {
 				}
 				elseif($this->Instructor_model->archive_course($course_id,$course_authorpass,$_SESSION['user_id'],$_SESSION['user_email'])==false)
 				{
-					// delete fail
+					// archive fail
 					$this->session->set_flashdata('error','Invalid Password');
 					$page_data = array(
 						'page_title' => 'Archive Course',
+						'course_categories' => $this->Lookup_model->get_category(),
 						'course_id' => $course_id,
 						'course_title' => $course_title['course_title'],
 					);
@@ -163,10 +164,72 @@ class Instructor extends CI_Controller {
 				}
 				else
 				{
-					// delete success
-					$page_data = array('page_title' => 'Archive Course Success', );
+					// archive success
+					$page_data = array(
+						'page_title' => 'Archive Course Success',
+						'course_title' => $course_title['course_title'],
+					);
 					$this->load->view('template/headerInstructor',$page_data);
 					$this->load->view('instructor/archive_course_success');
+					$this->load->view('template/footer');
+				}
+			}
+			else
+			{
+				show_404();
+			}
+		}
+		else
+		{
+			show_404();
+		}
+	}
+	public function unarchive_course($course_id=null)
+	{
+		if (($_SESSION['logged_in']==true)&&($_SESSION['user_type']=='instructor'))
+		{
+			if (!empty($course_id)&&$this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id)==true)
+			{
+				$course_title = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+				$this->form_validation->set_error_delimiters('<small class="text-danger">','</small>');
+				$this->form_validation->set_rules('courseAuthorPass', 'Account Password', 'trim|required');
+				$course_authorpass = $this->input->post('courseAuthorPass');
+				if ($this->form_validation->run()==false)
+				{
+					// unarchive fail
+					$page_data = array(
+						'page_title' => 'Unarchive Course',
+						'course_categories' => $this->Lookup_model->get_category(),
+						'course_id' => $course_id,
+						'course_title' => $course_title['course_title'],
+					);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/unarchive_course');
+					$this->load->view('template/footer');
+				}
+				elseif($this->Instructor_model->unarchive_course($course_id,$course_authorpass,$_SESSION['user_id'],$_SESSION['user_email'])==false)
+				{
+					// unarchive fail
+					$this->session->set_flashdata('error','Invalid Password');
+					$page_data = array(
+						'page_title' => 'Unrchive Course',
+						'course_categories' => $this->Lookup_model->get_category(),
+						'course_id' => $course_id,
+						'course_title' => $course_title['course_title'],
+					);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/unarchive_course');
+					$this->load->view('template/footer');
+				}
+				else
+				{
+					// unarchive success
+					$page_data = array(
+						'page_title' => 'Archive Course Success',
+						'course_title' => $course_title['course_title'],
+					);
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/unarchive_course_success');
 					$this->load->view('template/footer');
 				}
 			}

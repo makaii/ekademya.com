@@ -80,6 +80,37 @@ class Instructor_model extends CI_Model
 			{
 				$this->db->trans_begin();
 				$this->db->set('course_archive',1);
+				$this->db->set('course_published',0);
+				$this->db->where('course_id', $course_id);
+				$this->db->where('course_author', $instructor_id);
+				$query=$this->db->update('course_tbl');
+				if ($this->db->trans_status()===true)
+				{
+					// archive success
+					$this->db->trans_complete();
+					return true;
+				}
+				else
+					$this->db->trans_rollback();
+					return false;
+			}
+			else
+				return fasle;		
+		}
+		else
+			return false;
+	}
+	public function unarchive_course($course_id, $authorpass, $instructor_id, $instructor_email)
+	{
+		if (!empty($course_id)&&!empty($authorpass)&&!empty($instructor_id)&&!empty($instructor_email))
+		{
+			$this->load->model('Login_model');
+			$real_author = $this->Login_model->authenticate($instructor_email,$authorpass);
+			if ($real_author == true)
+			{
+				$this->db->trans_begin();
+				$this->db->set('course_archive',0);
+				$this->db->set('course_published',1);
 				$this->db->where('course_id', $course_id);
 				$this->db->where('course_author', $instructor_id);
 				$query=$this->db->update('course_tbl');
