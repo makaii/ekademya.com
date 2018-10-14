@@ -14,6 +14,7 @@ class Setup extends CI_Controller {
 	{
 		$this->Setup_model->create_admin_table();
 		$this->Setup_model->create_user_table();
+		$this->Setup_model->create_verify_table();
 		$this->Setup_model->create_category_table();
 		$this->Setup_model->create_course_table();
 		$this->Setup_model->create_outline_table();

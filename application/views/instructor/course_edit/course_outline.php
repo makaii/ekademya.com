@@ -32,7 +32,10 @@
 												<?php if($outln['outline_type']=='video'): ?>
 													<li class="list-group-item"><a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/video/").$outln['outline_id']; ?>"><?php echo ucwords($outln['video_title']); ?>&#9;<i class="fas fa-video"></i></a></li>
 												<?php elseif($outln['outline_type']=='lecture'): ?>
-													<li class="list-group-item"><a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/lecture/").$outln['outline_id']; ?>"><?php echo ucwords($outln['lecture_title']); ?>&#9;<i class="far fa-newspaper"></i></a></li>
+													<li class="list-group-item">
+														<a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/lecture/").$outln['outline_id']; ?>"><?php echo ucwords($outln['lecture_title']); ?>&#9;<i class="far fa-newspaper"></i></a>
+														<button class="btn btn-danger btn-sm float-right" type="button" id="delete-<?php echo $outln['outline_id']; ?>">delete</button>
+													</li>
 												<?php endif; ?>
 											<?php endforeach; ?>
 										</ul>
@@ -60,3 +63,29 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		// post
+		$("#delete-7").click(function(event){
+			event.preventDefault();
+			$.ajax({
+				type: "POST",
+				url: "<?php echo base_url('admin/add_admin'); ?>",
+				data: {
+					admin_email: 'mark@ekademya.com',
+					admin_password: 'adminadmin',
+					admin_type: 'admin',
+				},
+				success: function(response){
+					console.log(response);
+					$("#message").html(response);
+					$('#cartmessage').show();
+				},
+				error: function(){
+					alert("Invalide!");
+				}
+			});
+		});
+		// get
+	});
+</script>

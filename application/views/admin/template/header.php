@@ -58,6 +58,9 @@
 					<a href="<?php echo base_url('admin/categories'); ?>" class="list-group-item list-group-item-action <?php if(!empty($categories_active)){echo $categories_active;} ?>">
 						Categories
 					</a>
+					<a href="<?php echo base_url('admin/email'); ?>" class="list-group-item list-group-item-action <?php if(!empty($email_active)){echo $email_active;} ?>">
+						Send Mail
+					</a>
 					<a href="<?php echo base_url('admin/settings'); ?>" class="list-group-item list-group-item-action <?php if(!empty($settings_active)){echo $settings_active;} ?>">
 						Settings
 					</a>

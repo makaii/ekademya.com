@@ -58,6 +58,7 @@ $route['signup'] = 'login/signup_user';
 $route['signup/instructor'] = 'login/signup_instructor';
 $route['signin'] = 'login/signin';
 $route['signup/success'] = 'login/signup_success';
+$route['verify/(:any)'] = 'login/verify_user/$1';
 
 // user link
 $route['u/(:num)'] = 'lookup/user_profile/$1';

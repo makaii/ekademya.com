@@ -19,7 +19,7 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS admin_tbl (
 					admin_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-					admin_email VARCHAR(30) NOT NULL,
+					admin_email VARCHAR(50) NOT NULL,
 					admin_password VARCHAR(30) NOT NULL,
 					admin_type CHAR(11) NOT NULL,
 					admin_date_joined DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -47,13 +47,13 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS user_tbl (
 					user_id  INT(7) AUTO_INCREMENT PRIMARY KEY,
-					user_email VARCHAR(30) NOT NULL,
+					user_email VARCHAR(50) NOT NULL,
 					user_password VARCHAR(60) NOT NULL,
 					user_type CHAR(10) NOT NULL,
 					user_fname VARCHAR(30) NOT NULL,
 					user_lname VARCHAR(30) NOT NULL,
 					user_educ VARCHAR(60),
-					user_pubemail VARCHAR(30),
+					user_pubemail VARCHAR(50),
 					user_headline VARCHAR(50),
 					user_bio VARCHAR(1000),
 					user_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
@@ -64,6 +64,7 @@ class Setup_model extends CI_Model
 					user_twitter VARCHAR(50),
 					user_youtube VARCHAR(50),
 					user_date_joined DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					user_verify TINYINT(1) NOT NULL DEFAULT 0,
 					user_status TINYINT(1) NOT NULL DEFAULT 1
 				);
 			");
@@ -331,6 +332,21 @@ class Setup_model extends CI_Model
 			$this->db->insert_batch('user_tbl',$test_user);
 		}
 	}
+	public function create_verify_table()
+	{
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'verify_table';");
+		if ($check_tbl->num_rows()==0) {
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS verify_table (
+					verify_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					verify_email VARCHAR(30) NOT NULL,
+					verify_code VARCHAR(16) NOT NULL,
+					verify_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					verify_status TINYINT(1) NOT NULL DEFAULT 1
+				);
+			");
+		}
+	}
 	public function create_category_table()
 	{
 		$check_category_tbl = $this->db->query("SHOW TABLES LIKE 'category_tbl';");
@@ -366,11 +382,12 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS course_tbl (
 					course_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					course_code INT(7) NOT NULL,
 					course_title VARCHAR(50) NOT NULL,
 					course_description VARCHAR(3000) NOT NULL,
 					course_author INT(7) NOT NULL,
 					FOREIGN KEY (course_author) REFERENCES user_tbl(user_id),
-					course_category TINYINT(2) NULL,
+					course_category TINYINT(2) NOT NULL,
 					FOREIGN KEY (course_category) REFERENCES category_tbl(category_id),
 					course_img_url VARCHAR(50) NOT NULL DEFAULT 'default_thumbnail.png',
 					course_tools VARCHAR(1000) NOT NULL,
@@ -387,7 +404,17 @@ class Setup_model extends CI_Model
 			");
 		}
 	}
-	
+	// public function create_week_table()
+	// {
+	// 	$check_tbl = $this->db->query("SHOW TABLES LIKE 'week_tbl';");
+	// 	if ($check_tbl->num_rows()==0) {
+	// 		$this->db->query("
+	// 			CREATE TABLE IF NOT EXISTS week_tbl (
+	// 				week_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+	// 			);
+	// 		");
+	// 	}
+	// }
 	public function create_outline_table()
 	{
 		$check_outline_tbl = $this->db->query("SHOW TABLES LIKE 'outline_tbl';");

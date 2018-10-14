@@ -9,12 +9,12 @@
 					<div class="card-body bg-light">
 						<div class="form-group">
 							<label>Email</label>
-							<input class="form-control form-control-sm" type="email" placeholder="abc@domain.com" name="email" value="<?php echo set_value('email'); ?>" autofocus></input>
+							<input class="form-control form-control-sm" type="email" placeholder="abc@domain.com" name="email" maxlength="50" value="<?php echo set_value('email'); ?>" autofocus></input>
 							<?php echo form_error('email'); ?>
 						</div>
 						<div class="form-group">
 							<label>Password</label>
-							<input class="form-control form-control-sm" type="password" name="password" value="<?php echo set_value('password'); ?>"></input>
+							<input class="form-control form-control-sm" type="password" name="password" maxlength="60" value="<?php echo set_value('password'); ?>"></input>
 							<?php echo form_error('password'); ?>
 							<small class="text-danger">
 			                	<?php echo $this->session->flashdata('error'); ?>

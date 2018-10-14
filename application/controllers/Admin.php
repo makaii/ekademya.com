@@ -323,10 +323,77 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function add_category()
+	public function add_admin()
 	{
-		$this->form_validation->set_rules('categoryName','Category Name', 'required|alpha');
-		$this->form_validation->set_rules('categoryCode','Category Code','required|regex_match[/^[A-Za-z_]{2,30}$/]');
+		if ($this->Admin_model->add_new_admin($_POST['admin_email'],$_POST['admin_password'],$_POST['admin_type'])) {
+			echo "succes";
+		}
+		else
+			echo "fail";
+	}
+
+	public function email()
+	{
+		if ($this->session->userdata('admin_logged_in'))
+		{
+			$page_data = array(
+				'page_title' => 'Mail',
+				'email_active' => 'active',
+				'page_alert' => null,
+			);
+
+			// form rules
+			$this->form_validation->set_rules('reciever','Reciever','trim|required|valid_email');
+			$this->form_validation->set_rules('subject','Subject','trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('message','Message','trim');
+			// /form rules
+
+			if (!$this->form_validation->run()) {
+				// fail
+				$this->load->view('admin/template/header',$page_data);
+				$this->load->view('admin/pages/email');
+				$this->load->view('admin/template/footer');
+			}
+			else {
+				// success
+
+				// send mail
+				$config = array(
+					'protocol' => 'smtp',
+					'smtp_host' => 'ssl://smtp.googlemail.com',
+					'smtp_port' => 465,
+					'smtp_user' => 'dev.ekademya@gmail.com',
+					'smtp_pass' => 'plusultra',
+					'mailtype' => 'html',
+					'charset' => 'iso-8859-1',
+					'wordwrap' => TRUE,
+				);
+				$this->email->initialize($config);
+				$this->email->from('dev.ekademya@gmail.com');
+				$this->email->to($this->input->post('reciever'));
+				$this->email->subject($this->input->post('subject'));
+				$this->email->message($this->input->post('message'));
+				$this->email->set_newline("\r\n");
+				if (!$this->email->send()) {
+					// mail not sent
+					$page_data['page_alert'] = 'fail';
+					$this->load->view('admin/template/header',$page_data);
+					$this->load->view('admin/pages/email');
+					$this->load->view('admin/template/footer');
+				}
+				else {
+					// mail send
+					$page_data['page_alert'] = 'success';
+					$this->load->view('admin/template/header',$page_data);
+					$this->load->view('admin/pages/email');
+					$this->load->view('admin/template/footer');
+				}
+				
+			}
+
+		}
+		else
+			redirect(base_url('admin'));
 	}
 
 		

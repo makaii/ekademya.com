@@ -1,12 +1,12 @@
-<div class="container">
-	<div class="row mt-5">
+<div class="container" style="padding: 150px 0px 250px;">
+	<div class="row">
 		<div class="col-md-6 offset-md-3">
-			<div class="alert alert-success mt-5 mb-5 text-center">
-				<h4 class="alert-heading">Well done!</h4>
-				<p>Signup is a success</p>
-				<a href="<?php echo base_url('signin'); ?>">
-					<button class="btn btn-outline-success">Click here to signin</button>
-				</a>
+			<div class="card border-success">
+				<div class="card-body">
+					<h4 class="card-title">Well done!</h4>
+					<p class="card-text">We have sent a veriication code to your email.</p>
+					<a href="<?php echo base_url('signin'); ?>" role="button" class="btn btn-block btn-sm btn-success" btn-success>Click here to signin</a>
+				</div>
 			</div>
 		</div>
 	</div>

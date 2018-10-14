@@ -19,7 +19,7 @@
 						</div>
 						<div class="form-group">
 							<label>Email <span class="text-warning">*</span></label>
-							<input class="form-control form-control-sm" type="email" maxlength="30" placeholder="abc@domain.com" name="email" value="<?php echo set_value('email'); ?>"></input>
+							<input class="form-control form-control-sm" type="email" maxlength="50" placeholder="abc@domain.com" name="email" value="<?php echo set_value('email'); ?>"></input>
 							<?php echo form_error('email'); ?>
 						</div>
 						<div class="form-group">

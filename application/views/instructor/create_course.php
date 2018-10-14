@@ -33,9 +33,9 @@
 							</select>
 							<br>
 							<?php echo form_error('courseType'); ?>
-							<div class="text-info">
-							<small><b>Free:</b> Anyone can enroll in your class for free. You will not receive royalty payments for a free class.</small><br>
-							<small><b>Premium:</b> Only Premium members can watch your class. Teachers of a premium class will receive monthly royalties based on the number of minutes watched in their classes.</small>
+							<div class="form-text text-info">
+								<small><b>Free:</b> Anyone can enroll in your class for free. You will not receive royalty payments for a free class.</small><br>
+								<small><b>Premium:</b> Only Premium members can watch your class. Teachers of a premium class will receive monthly royalties based on the number of minutes watched in their classes.</small>
 							</div>
 						</div>
 						<div class="form-group">

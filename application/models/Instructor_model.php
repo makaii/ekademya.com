@@ -18,6 +18,7 @@ class Instructor_model extends CI_Model
 				'course_author' => $author,
 				'course_category' => $category,
 				'course_type' => $type,
+				'course_code' => random_string('alnum',16),
 			);
 			$this->db->insert('course_tbl', $course_data);
 			$course_id = $this->db->insert_id();

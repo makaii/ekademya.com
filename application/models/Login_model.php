@@ -62,5 +62,56 @@ class Login_model extends CI_Model
 			return false;
 	}
 
+	public function post_verification($email,$code)
+	{
+		$data = array(
+			'verify_email' => $email,
+			'verify_code' => $code,
+		);
+		$this->db->insert('verify_tbl',$data);
+		if ($this->db->affected_rows()==1) {
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public function get_verification($code)
+	{
+		$query = $this->db->select()
+		->where('verify_code',$code)
+		->where('verify_status',1)
+		->get('verify_tbl');
+		$verify_row = $query->row_array();
+		if ($query->num_rows()==1) {
+			$query = $this->db->select()
+			->where('user_email',$verify_row['verify_email'])
+			->where('user_verify',0)
+			->get('user_tbl');
+			if ($query->num_rows()==1) {
+
+				$verify_update = $this->db->set('verify_status', 0)
+				->where('verify_code', $code)
+				->update('verify_tbl');
+				if ($this->db->affected_rows()==1) {
+					$user_update = $this->db->set('user_verify', 1)
+					->where('user_email', $verify_row['verify_email'])
+					->update('user_tbl');
+					if ($this->db->affected_rows()==1) {
+						return true;
+					}
+					else
+						return false;
+				}
+				else
+					return false;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+
 }
  ?>

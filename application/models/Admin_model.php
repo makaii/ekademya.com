@@ -272,5 +272,21 @@ class Admin_model extends CI_Model
 			return false;
 	}
 
+	// new admin
+	public function add_new_admin($email, $password, $type)
+	{
+		$data = array(
+			'admin_email' => $email,
+			'admin_password' => $password,
+			'admin_type' => $type,
+		);
+		$this->db->insert('admin_tbl',$data);
+		if ($this->db->affected_rows()==1) {
+			return true;
+		}
+		else
+			return false;
+	}
+
 }
  ?>

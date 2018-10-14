@@ -21,6 +21,58 @@ class Login extends CI_Controller {
 		}
 	}
 
+	private function send_verification_mail($email_add)
+	{
+		$config = array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'dev.ekademya@gmail.com',
+			'smtp_pass' => 'plusultra',
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE,
+		);
+		$this->email->initialize($config);
+		$this->email->from('dev.ekademya@gmail.com');
+		$this->email->to($email_add);
+		$this->email->subject('EKademya Registration Verification');
+		$code = random_string('alnum',16);
+		$message = 'Click <a href="'.base_url('verify/'.$code).'">here</a> to verify your account.';
+		$this->email->message($message);
+		$this->email->set_newline("\r\n");
+		if (!$this->email->send()) {
+			// fail
+			return false;
+		}
+		else {
+			// success
+			if ($this->Login_model->post_verification($email_add,$code)) {
+				return true;
+			}
+			else
+				return false;
+		}
+	}
+	public function verify_user($code)
+	{
+		if (!empty($code)) {
+			if ($this->Login_model->get_verification($code)) {
+				$page_data = array(
+					'page_title' => 'Verification Complete',
+					'course_categories' => $this->Lookup_model->get_category(),
+				);
+				$this->load->view('template/header', $page_data);
+				$this->load->view('login/verify_success');
+				$this->load->view('template/footer');
+			}
+			else
+				show_404();
+		}
+		else
+			show_404();
+	}
+
 	public function signup_user()
 	{
 		$page_data = array(
@@ -44,13 +96,15 @@ class Login extends CI_Controller {
 		else
 		{
 			// signup successful
-			$reg_data['user_email'] = $this->input->post('email');
+			$email = $this->input->post('email');
+			$reg_data['user_email'] = $email;
 			$reg_data['user_password'] = $this->input->post('password');
 			$reg_data['user_fname'] = $this->input->post('fname');
 			$reg_data['user_lname'] = $this->input->post('lname');
 			$reg_data['user_type'] = 'student';
 			if ($this->Login_model->register($reg_data)==true)
 			{
+				$this->send_verification_mail($email);
 				$this->session->set_userdata('signup_success', true);
 				redirect(base_url('signup/success'));
 			}
@@ -94,7 +148,8 @@ class Login extends CI_Controller {
 		else
 		{
 			// signup successful
-			$reg_data['user_email'] = $this->input->post('email');
+			$email = $this->input->post('email');
+			$reg_data['user_email'] = $email;
 			$reg_data['user_password'] = $this->input->post('password');
 			$reg_data['user_type'] = "instructor";
 			$reg_data['user_fname'] = $this->input->post('fname');
@@ -111,6 +166,7 @@ class Login extends CI_Controller {
 			$reg_data['user_youtube'] = $this->input->post('youtube');
 			if ($this->Login_model->register($reg_data)==true)
 			{
+				$this->send_verification_mail($email);
 				$this->session->set_userdata('signup_success', true);
 				redirect(base_url('signup/success'));
 			}
