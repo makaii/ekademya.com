@@ -404,17 +404,21 @@ class Setup_model extends CI_Model
 			");
 		}
 	}
-	// public function create_week_table()
-	// {
-	// 	$check_tbl = $this->db->query("SHOW TABLES LIKE 'week_tbl';");
-	// 	if ($check_tbl->num_rows()==0) {
-	// 		$this->db->query("
-	// 			CREATE TABLE IF NOT EXISTS week_tbl (
-	// 				week_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-	// 			);
-	// 		");
-	// 	}
-	// }
+	public function create_week_table()
+	{
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'week_tbl';");
+		if ($check_tbl->num_rows()==0) {
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS week_tbl (
+					week_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					week_course_id INT(7) NOT NULL,
+					FOREIGN KEY (week_course_id) REFERENCES course_tbl(course_id),
+					week_date_added DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					week_status TINYINT(1) NOT NULL DEFAULT 1
+				);
+			");
+		}
+	}
 	public function create_outline_table()
 	{
 		$check_outline_tbl = $this->db->query("SHOW TABLES LIKE 'outline_tbl';");
@@ -426,6 +430,8 @@ class Setup_model extends CI_Model
 					outline_id INT(7) AUTO_INCREMENT PRIMARY KEY,
 					outline_course_id INT(7) NOT NULL,
 					FOREIGN KEY (outline_course_id) REFERENCES course_tbl(course_id),
+					outline_week_id INT(7) NOT NULL,
+					FOREIGN KEY (outline_week_id) REFERENCES week_tbl(week_id),
 					outline_type CHAR(15) NOT NULL,
 					outline_date_added DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 					outline_status TINYINT(1) NOT NULL DEFAULT 1

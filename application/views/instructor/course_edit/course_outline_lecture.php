@@ -1,4 +1,27 @@
-<div class="container">
+<style>
+	a{
+		text-decoration: none;
+		color: inherit;
+	}
+	a:hover{
+		text-decoration: none;
+		color: inherit;
+	}
+</style>
+<div style="background-color: #17505D;" class="pb-3 pt-3 mb-5 mb-5">
+	<div class="container text-white">
+		<h4>
+			<span class="text-info">
+				<a href="<?php echo base_url("course/edit/outline/$course_id"); ?>"><?php echo ucwords($course['course_title']); ?></a>
+			</span>
+		</h4>
+		<div>
+			<a target="_blank" href="<?php echo base_url("course/edit/preview/$course_id"); ?>">course preview
+			</a>
+		</div>
+	</div>
+</div>
+<!-- <div class="container">
 	<div class="row mt-5">
 		<div class="col-md-7">
 			<h3><?php echo $course['course_title']; ?></h3>
@@ -15,13 +38,13 @@
 			
 		</div>
 	</div>
-</div>
+</div> -->
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
-					<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/lecture"); ?>">
+					<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/lecture"); ?>">
 						<div class="form-group">
 							<label class="font-weight-bold mb-0">Lecture Title</label>
 							<small class="form-text text-muted mt-0 mb-1">your title should captivate your students and to perfecly capture your lecture's gist</small>

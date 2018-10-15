@@ -34,3 +34,20 @@ function cancel_add_lecture()
 	document.getElementById('outlineButtons').style.display = 'block';
 	document.getElementById('lectureForm').style.display = 'none';
 }
+
+
+
+
+
+
+
+
+function showDelWeek(week_id) {
+	document.getElementById('week-'+week_id).style.display = 'none';
+	document.getElementById('opts-'+week_id).style.display = 'block';
+
+}
+function hideDelWeek(week_id) {
+	document.getElementById('week-'+week_id).style.display = 'block';
+	document.getElementById('opts-'+week_id).style.display = 'none';
+}

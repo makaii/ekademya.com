@@ -17,6 +17,7 @@ class Setup extends CI_Controller {
 		$this->Setup_model->create_verify_table();
 		$this->Setup_model->create_category_table();
 		$this->Setup_model->create_course_table();
+		$this->Setup_model->create_week_table();
 		$this->Setup_model->create_outline_table();
 		$this->Setup_model->create_video_table();
 		$this->Setup_model->create_lecture_table();
@@ -32,6 +33,7 @@ class Setup extends CI_Controller {
 			'user' => $this->Setup_model->getTableStructure('user_tbl'),
 			'category' => $this->Setup_model->getTableStructure('category_tbl'),
 			'course' => $this->Setup_model->getTableStructure('course_tbl'),
+			'week' => $this->Setup_model->getTableStructure('week_tbl'),
 			'outline' => $this->Setup_model->getTableStructure('outline_tbl'),
 			'video' => $this->Setup_model->getTableStructure('video_tbl'),
 			'lecture' => $this->Setup_model->getTableStructure('lecture_tbl'),

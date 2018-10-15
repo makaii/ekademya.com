@@ -334,18 +334,84 @@ class Instructor extends CI_Controller {
 		else
 			show_40();
 	}
-	public function course_outline($course_id=null)
+	public function add_new_week($course_id)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
-			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$week_id = $this->Instructor_model->add_new_week($course_id);
+			if (!empty($week_id)) {
+				$week_code = $this->Instructor_model->get_week_code($week_id);
+				redirect(base_url('course/edit/outline/'.$course_id.'/week/'.$week_code['week_code']));
+			}
+			else
+				return false;
+		}
+		else
+			show_404();
+	}
+	public function del_week($course_id,$week_id)
+	{
+		if ($this->Instructor_model->del_week($week_id)) {
+			redirect(base_url("course/edit/outline/$course_id"));
+		}
+	}
+	public function course_week($course_id, $week_code)
+	{
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+		{
 			$category = $this->Lookup_model->get_category();
-			$outline = $this->Instructor_model->get_outline($course_id);
+			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$weeks = $this->Instructor_model->get_course_weeks($course_id);
+
+			// week num
+			$week_num = '';
+			$week_id = '';
+			foreach ($weeks as $key => $value) {
+				if ($value['week_code']==$week_code) {
+					$week_id = $value['week_id'];
+					$week_num = $key+1;
+				}
+			}
+			$outline = $this->Instructor_model->get_weekly_outline($course_id,$week_id);
+
+			$page_data = array(
+				'page_title' => 'Course Week '.$week_num,
+				'course_categories' => $this->Lookup_model->get_category(),
+				'course_id' => $course_id,
+				'course' => $course,
+				'weeks' => $weeks,
+				'week_num' => $week_num,
+				'week_id' => $week_id,
+				'week_code' =>$week_code,
+				'category' => $category,
+				'outline' => $outline,
+				'page_alert' => null,
+			);
+			$this->load->view('template/headerInstructor',$page_data);
+			$this->load->view('instructor/course_edit/course_week');
+			$this->load->view('template/footer');
+		}
+		else
+			show_404();
+	}
+	public function course_outline($course_id)
+	{
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+		{
+			$category = $this->Lookup_model->get_category();
+			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+			$weeks = $this->Instructor_model->get_course_weeks($course_id);
+			$outline = [];
+			foreach ($weeks as $key => $value) {
+				$outline[] = $this->Instructor_model->get_weekly_outline($course_id,$value['week_id']);
+			}
+			// $outline = $this->Instructor_model->get_outline($course_id);
 			$page_data = array(
 				'page_title' => 'Edit '.$course['course_title'].' Outline',
 				'course_categories' => $this->Lookup_model->get_category(),
 				'course_id' => $course_id,
 				'course' => $course,
+				'weeks' => $weeks,
 				'category' => $category,
 				'outline' => $outline,
 				'page_alert' => null,
@@ -357,7 +423,7 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
-	public function course_outline_add_video($course_id=null)
+	public function course_outline_add_video($course_id,$week_id,$week_code)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
@@ -376,6 +442,8 @@ class Instructor extends CI_Controller {
 			$page_data = [
 				'page_title' => 'Add New Video',
 				'course_id' => $course_id,
+				'week_id' => $week_id,
+				'week_code' => $week_code,
 				'course' => $course,
 				'course_categories' => $category,
 				'page_alert' => null,
@@ -393,6 +461,7 @@ class Instructor extends CI_Controller {
 				{
 					$outline_data = [
 						'outline_course_id' => $course_id,
+						'outline_week_id' => $week_id,
 						'outline_type' => 'video',
 						'video_title' => $title,
 						'video_description' => $desc,
@@ -439,6 +508,7 @@ class Instructor extends CI_Controller {
 						$outline_data = [
 							'outline_course_id' => $course_id,
 							'outline_type' => 'video',
+							'outline_week_id' => $week_id,
 							'video_title' => $title,
 							'video_description' => $desc,
 							'video_embed_url' => null,
@@ -461,7 +531,7 @@ class Instructor extends CI_Controller {
 				show_404();
 		}
 	}
-	public function course_outline_add_lecture($course_id=null)
+	public function course_outline_add_lecture($course_id,$week_id,$week_code)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
@@ -472,6 +542,8 @@ class Instructor extends CI_Controller {
 				'course' => $course,
 				'course_categories' => $category,
 				'course_id' => $course_id,
+				'week_id' => $week_id,
+				'week_code' => $week_code,
 			];
 			# form rules
 			$this->form_validation->set_rules('title','Lecture Title', 'required|trim');
@@ -487,13 +559,14 @@ class Instructor extends CI_Controller {
 			{
 				$outline_data = [
 					'outline_course_id' => $course_id,
+					'outline_week_id' => $week_id,
 					'outline_type' => 'lecture',
 					'lecture_title' => $this->input->post('title'),
 					'lecture_body' => $this->input->post('body'),
 				];
 				if ($this->Instructor_model->add_outline($outline_data))
 				{
-					redirect(base_url('course/edit/outline/').$course_id);
+					redirect(base_url('course/edit/outline/'.$course_id.'/week/'.$week_code));
 				}
 			}
 			else

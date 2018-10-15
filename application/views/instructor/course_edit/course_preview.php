@@ -51,7 +51,7 @@
 		<div class="col-md-6">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Lesson Overview</h5>
+					<h5 class="card-title">Outline Overview</h5>
 					<ul class="list-group list-group-flush">
 						<?php if(!empty($outline)): ?>
 							<?php foreach($outline as $o): ?>

@@ -244,6 +244,7 @@ class Instructor_model extends CI_Model
 	{
 		// $outline_array = [
 		// 	'outline_course_id' => $course_id,
+		//  'outline_week_id' =>
 		// 	'outline_type' => 'video|lecture',
 		// 	'video_title' =>
 		// 	'video_description' =>
@@ -257,6 +258,7 @@ class Instructor_model extends CI_Model
 			$outline = $outline_array;
 			$outline_data = array(
 				'outline_course_id' => $outline['outline_course_id'],
+				'outline_week_id' => $outline['outline_week_id'],
 				'outline_type' => $outline['outline_type'],
 			);
 			$query = $this->db->insert('outline_tbl',$outline_data);
@@ -332,6 +334,65 @@ class Instructor_model extends CI_Model
 		{
 			return false;
 		}
+	}
+	public function add_new_week($course_id)
+	{
+		$this->db->set('week_code',	random_string('alnum',16))
+		->set('week_course_id',$course_id)
+		->insert('week_tbl');
+		if ($this->db->affected_rows()==1) {
+			return $this->db->insert_id();
+		}
+		else
+			return false;
+	}
+	public function get_week_code($week_id)
+	{
+		$query = $this->db->select('week_code')
+		->where('week_id',$week_id)
+		->where('week_status',1)
+		->get('week_tbl');
+		if ($query->num_rows()==1) {
+			return $query->row_array();
+		}
+		else
+			return null;
+	}
+	public function get_course_weeks($course_id)
+	{
+		$query = $this->db->select()
+		->where('week_course_id',$course_id)
+		->where('week_status',1)
+		->get('week_tbl');
+		if ($query->num_rows()>=1) {
+			return $query->result_array();
+		}
+		else
+			return null;
+	}
+	public function del_week($week_id)
+	{
+		$this->db->set('week_status',0)
+		->where('week_id',$week_id)
+		->update('week_tbl');
+		if ($this->db->affected_rows()==1) {
+			return true;
+		}
+		else
+			return false;
+	}
+	public function get_weekly_outline($course_id,$week_id)
+	{
+		$query = $this->db->select()
+		->from('outline_tbl')
+		->join('video_tbl', 'video_tbl.video_outline_id = outline_id', 'left')
+		->join('lecture_tbl', 'lecture_tbl.lecture_outline_id = outline_id', 'left')
+		->join('week_tbl', 'week_tbl.week_id = outline_tbl.outline_week_id')
+		->where('outline_course_id',$course_id)
+		->where('outline_status',1)
+		->where('week_id', $week_id)
+		->get();
+		return $query->result_array();
 	}
 	public function get_outline($course_id)
 	{
