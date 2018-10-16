@@ -453,9 +453,10 @@ class Instructor_model extends CI_Model
 	}
 	public function get_outline_video($outline_id)
 	{
-		$this->db->select();
-		$this->db->where('video_outline_id',$outline_id);
-		$query = $this->db->get('video_tbl');
+		$query = $this->db->select()
+		->join('outline_tbl','outline_tbl.outline_id = lecture_tbl.lecture_outline_id','left')
+		->where('video_outline_id',$outline_id)
+		->get('video_tbl');
 		if ($query->num_rows()==1)
 		{
 			return $query->row_array();
@@ -465,9 +466,10 @@ class Instructor_model extends CI_Model
 	}
 	public function get_outline_lecture($outline_id)
 	{
-		$this->db->select();
-		$this->db->where('lecture_outline_id',$outline_id);
-		$query = $this->db->get('lecture_tbl');
+		$query = $this->db->select()
+		->join('outline_tbl','outline_tbl.outline_id = lecture_tbl.lecture_outline_id','left')
+		->where('lecture_outline_id',$outline_id)
+		->get('lecture_tbl');
 		if ($query->num_rows()==1)
 		{
 			return $query->row_array();

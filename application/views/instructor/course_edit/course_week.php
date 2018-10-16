@@ -28,6 +28,7 @@
 		<div class="col-md-8">
 			<div class="card border-info">
 				<div class="card-header border-info text-center">Week Overview</div>
+				<!-- <small><pre><?php print_r($outline); ?></pre></small> -->
 					<?php if(!empty($outline)): ?>
 						<ul class="list-group list-group-flush">
 							<?php foreach($outline as $outln): ?>
@@ -36,7 +37,7 @@
 								<?php elseif($outln['outline_type']=='lecture'): ?>
 									<li class="list-group-item">
 										<a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/lecture/").$outln['outline_id']; ?>"><?php echo ucwords($outln['lecture_title']); ?>&#9;<i class="far fa-newspaper"></i></a>
-										<button class="btn btn-danger btn-sm float-right" type="button" id="delete-<?php echo $outln['outline_id']; ?>">delete</button>
+										<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" role="button" class="btn btn-sm btn-danger float-right">remove</a>
 									</li>
 								<?php endif; ?>
 							<?php endforeach; ?>

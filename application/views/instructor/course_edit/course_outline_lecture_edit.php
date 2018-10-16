@@ -60,6 +60,7 @@
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary btn-sm">Update Lecture</button>
 							<button type="reset" class="btn btn-secondary btn-sm">Clear</button>
+							<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outline['outline_id'].'/'.$outline['outline_week_id']); ?>" role="button" class="btn btn-sm btn-danger float-right">remove</a>
 						</div>
 					</form>
 				</div>
