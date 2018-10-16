@@ -423,6 +423,19 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
+	public function del_outline($course_id,$outline_id,$week_id)
+	{
+		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+		{
+			if ($this->Instructor_model->del_outline($course_id,$outline_id,$week_id)) {
+				redirect(base_url("course/edit/outline/$course_id"));
+			}
+			else
+				show_404();
+		}
+		else
+			show_404();
+	}
 	public function course_outline_add_video($course_id,$week_id,$week_code)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))

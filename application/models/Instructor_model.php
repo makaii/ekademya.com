@@ -239,7 +239,20 @@ class Instructor_model extends CI_Model
 	}
 
 
-
+	public function del_outline($course_id,$outline_id,$week_id)
+	{
+		$this->db
+		->set('outline_status',0)
+		->where('outline_id',$outline_id)
+		->where('outline_course_id',$course_id)
+		->where('outline_week_id',$week_id)
+		->update('outline_tbl');
+		if ($this->db->affected_rows()==1) {
+			return true;
+		}
+		else
+			return fale;
+	}
 	public function add_outline($outline_array)
 	{
 		// $outline_array = [

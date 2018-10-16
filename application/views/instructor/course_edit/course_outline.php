@@ -72,14 +72,14 @@
 																	<a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/video/").$outln['outline_id']; ?>"><?php echo ucwords($outln['video_title']); ?>&#9;
 																		<i class="fas fa-video"></i>
 																	</a>
-																	<button class="btn btn-dark btn-sm float-right" type="button" id="delete-<?php echo $outln['outline_id']; ?>">remove</button>
+																	<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" class="btn btn-dark btn-sm float-right" role="button">remove</a>
 																</li>
 															<?php elseif($outln['outline_type']=='lecture'): ?>
 																<li class="list-group-item">
 																	<a class="outline-list" href="<?php echo base_url("course/edit/outline/$course_id/lecture/").$outln['outline_id']; ?>"><?php echo ucwords($outln['lecture_title']); ?>&#9;
 																		<i class="far fa-newspaper"></i>
 																	</a>
-																	<button class="btn btn-dark btn-sm float-right" type="button" id="delete-<?php echo $outln['outline_id']; ?>">remove</button>
+																	<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" class="btn btn-dark btn-sm float-right" role="button">remove</a>
 																</li>
 															<?php endif; ?>
 														<?php endforeach; ?>
