@@ -35,3 +35,9 @@ z/user/*.jpg
 z/user/*.jpeg
 z/user/*.png
 !z/user/default_thumbnail.png
+#projects
+z/projects/*.zip
+z/projects/*.rar
+z/projects/*.7z
+#pdf
+z/pdf/*.pdf
