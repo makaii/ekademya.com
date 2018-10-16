@@ -52,7 +52,6 @@
 							<?php echo form_error('video_description'); ?>
 						</div>
 						<div class="form-group">
-							<!-- <input type="file" name="video_file"> -->
 							<label class="font-weight-bold">Video File</label>
 							<div class="custom-file">
 								<input type="file" class="custom-file-input" id="customFile" name="video_file">

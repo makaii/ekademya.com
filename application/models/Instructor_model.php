@@ -291,7 +291,7 @@ class Instructor_model extends CI_Model
 				}
 				elseif ($outline_array['outline_type']=="lecture")
 				{
-					if ($this->add_lecture($outline['lecture_title'],$outline['lecture_body'],$ref_outline_id))
+					if ($this->add_lecture($outline['lecture_title'],$outline['lecture_body'],$outline['lecture_url'],$ref_outline_id))
 					{
 						return true;
 					}
@@ -331,11 +331,12 @@ class Instructor_model extends CI_Model
 		}
 		else return false;
 	}
-	public function add_lecture($lecture_title, $lecture_body, $outline_id)
+	public function add_lecture($lecture_title, $lecture_body, $lecture_url, $outline_id)
 	{
 		$lecture_data = array(
 			'lecture_title' => $lecture_title,
 			'lecture_body' => $lecture_body,
+			'lecture_url' => $lecture_url,
 			'lecture_outline_id' => $outline_id,
 		);
 		$query = $this->db->insert('lecture_tbl',$lecture_data);

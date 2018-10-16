@@ -472,6 +472,7 @@ class Setup_model extends CI_Model
 					FOREIGN KEY (lecture_outline_id) REFERENCES outline_tbl(outline_id),
 					lecture_title VARCHAR(50) NOT NULL,
 					lecture_body VARCHAR(1000) NOT NULL
+					lecture_url VARCHAR(50) NULL,
 				);
 			");
 		}

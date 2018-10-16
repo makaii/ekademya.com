@@ -557,10 +557,11 @@ class Instructor extends CI_Controller {
 				'course_id' => $course_id,
 				'week_id' => $week_id,
 				'week_code' => $week_code,
+				'upload_error' => null,
 			];
 			# form rules
 			$this->form_validation->set_rules('title','Lecture Title', 'required|trim');
-			$this->form_validation->set_rules('body', 'Lecture Body', 'required|trim');
+			$this->form_validation->set_rules('body', 'Lecture Body', 'trim');
 			# /form rules
 			if (!$this->form_validation->run())
 			{
@@ -570,16 +571,40 @@ class Instructor extends CI_Controller {
 			}
 			elseif ($this->form_validation->run())
 			{
-				$outline_data = [
-					'outline_course_id' => $course_id,
-					'outline_week_id' => $week_id,
-					'outline_type' => 'lecture',
-					'lecture_title' => $this->input->post('title'),
-					'lecture_body' => $this->input->post('body'),
-				];
-				if ($this->Instructor_model->add_outline($outline_data))
+				$pdf_config = array(
+					'upload_path' => './z/pdf',
+					'allowed_types' => 'pdf',
+					'encrypt_name' => true,
+					'max_size' => 0,
+					'remove_spaces' => true,
+					'file_ext_tolower' => true,
+					'detect_mime' => true,
+					'mod_mime_fix' => true,
+					'overwrite' => false,
+					'max_filename' => 255,
+				);
+				$this->upload->initialize($pdf_config);
+				if (!$this->upload->do_upload('pdf_file'))
 				{
-					redirect(base_url('course/edit/outline/'.$course_id.'/week/'.$week_code));
+					$page_data['upload_error'] = $this->upload->display_errors();
+					$this->load->view('template/headerInstructor',$page_data);
+					$this->load->view('instructor/course_edit/course_outline_lecture');
+					$this->load->view('template/footer');
+				}
+				else
+				{
+					$outline_data = [
+						'outline_course_id' => $course_id,
+						'outline_week_id' => $week_id,
+						'outline_type' => 'lecture',
+						'lecture_title' => $this->input->post('title'),
+						'lecture_body' => $this->input->post('body'),
+						'lecture_url' => $this->upload->data('file_name'),
+					];
+					if ($this->Instructor_model->add_outline($outline_data))
+					{
+						redirect(base_url('course/edit/outline/'.$course_id.'/week/'.$week_code));
+					}
 				}
 			}
 			else

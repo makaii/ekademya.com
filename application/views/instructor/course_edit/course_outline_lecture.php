@@ -44,7 +44,7 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
-					<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/lecture"); ?>">
+					<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/lecture"); ?>" enctype="multipart/form-data" accept-charset="utf-8">
 						<div class="form-group">
 							<label class="font-weight-bold mb-0">Lecture Title</label>
 							<small class="form-text text-muted mt-0 mb-1">your title should captivate your students and to perfecly capture your lecture's gist</small>
@@ -57,6 +57,20 @@
 							<?php echo form_error('body'); ?>
 							<textarea class="form-control form-control-sm" name="body" rows="14" maxlength=""><?php echo set_value('body',null); ?></textarea>
 						</div>
+						<div class="form-row">
+							<div class="col-md-8">
+								<div class="form-group">
+									<label class="font-weight-bold">Upload PDF</label>
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" name="pdf_file" id="pdfFile">
+										<label class="custom-file-label" for="pdfFile">Choose file</label>
+									</div>
+									<small class="text-danger">
+										<?php echo $upload_error; ?>
+									</small>
+								</div>
+							</div>
+						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary btn-sm">Add Lecture</button>
 							<button type="reset" class="btn btn-secondary btn-sm">Clear</button>
@@ -65,5 +79,26 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- <div class="col-md-4">
+			<div class="card">
+				<div class="card-header">Or Upload Here</div>
+				<div class="card-body">
+					<form>
+						<div class="form-group">
+							<label class="font-weight-bold">Lecture Title</label>
+							<input class="form-control form-control-sm"></input>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div> -->
 	</div>
 </div>
+<script>
+	// sticky video file
+	$('.custom-file-input').on('change', function() { 
+	   let fileName = $(this).val().split('\\').pop(); 
+	   $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+	});
+</script>
