@@ -42,9 +42,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
+			<?php echo $page_alert; ?>
 			<div class="card">
 				<div class="card-body">
-					<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/lecture/$outline_id"); ?>">
+					<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/lecture/$outline_id"); ?>" enctype="multipart/form-data" accept-charset="utf-8">
 						<div class="form-group">
 							<label class="font-weight-bold mb-0">Edit Lecture Title</label>
 							<small class="form-text text-muted mt-0 mb-1">your title should captivate your students and to perfecly capture your lecture's gist</small>
@@ -60,10 +61,13 @@
 						<div class="form-row">
 							<div class="col-md-8">
 								<div class="form-group">
-									<label class="font-weight-bold">Upload PDF</label>
+									<label class="font-weight-bold">Update PDF</label>
+									<?php if(!empty($outline['lecture_url'])): ?>
+										<a href="<?php echo base_url("z/pdf/".$outline['lecture_url']); ?>" target="_blank" role="button" class="btn btn-sm btn-info">view <?php echo $outline['lecture_url']; ?></a>
+									<?php endif; ?>
 									<div class="custom-file">
 										<input type="file" class="custom-file-input" name="pdf_file" id="pdfFile">
-										<label class="custom-file-label" for="pdfFile"><?php if(!empty($outline['lecture_url'])){echo $outline['lecture_url'];}else echo "Choose file"; ?></label>
+										<label class="custom-file-label" for="pdfFile">Choose file</label>
 									</div>
 									<small class="text-danger">
 										<?php echo $upload_error; ?>
@@ -82,3 +86,10 @@
 		</div>
 	</div>
 </div>
+<script>
+	// sticky video file
+	$('.custom-file-input').on('change', function() { 
+	   let fileName = $(this).val().split('\\').pop(); 
+	   $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+	});
+</script>

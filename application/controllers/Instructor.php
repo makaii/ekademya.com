@@ -571,39 +571,57 @@ class Instructor extends CI_Controller {
 			}
 			elseif ($this->form_validation->run())
 			{
-				$pdf_config = array(
-					'upload_path' => './z/pdf',
-					'allowed_types' => 'pdf',
-					'encrypt_name' => true,
-					'max_size' => 0,
-					'remove_spaces' => true,
-					'file_ext_tolower' => true,
-					'detect_mime' => true,
-					'mod_mime_fix' => true,
-					'overwrite' => false,
-					'max_filename' => 255,
-				);
-				$this->upload->initialize($pdf_config);
-				if (!$this->upload->do_upload('pdf_file'))
-				{
-					$page_data['upload_error'] = $this->upload->display_errors();
-					$this->load->view('template/headerInstructor',$page_data);
-					$this->load->view('instructor/course_edit/course_outline_lecture');
-					$this->load->view('template/footer');
-				}
-				else
-				{
+				if ($this->input->post('pdf_file')==null) {
 					$outline_data = [
 						'outline_course_id' => $course_id,
 						'outline_week_id' => $week_id,
 						'outline_type' => 'lecture',
 						'lecture_title' => $this->input->post('title'),
 						'lecture_body' => $this->input->post('body'),
-						'lecture_url' => $this->upload->data('file_name'),
 					];
 					if ($this->Instructor_model->add_outline($outline_data))
 					{
 						redirect(base_url('course/edit/outline/'.$course_id.'/week/'.$week_code));
+					}
+				}
+				else
+				{
+					$pdf_config = array(
+						'upload_path' => './z/pdf',
+						'allowed_types' => 'pdf',
+						'file_name' => ucwords($this->input->post('title')),
+						'max_filename' => 50,
+						'max_size' => 0,
+						'remove_spaces' => true,
+						'file_ext_tolower' => true,
+						'detect_mime' => true,
+						'mod_mime_fix' => true,
+						'overwrite' => false,
+						'max_filename' => 255,
+					);
+					$this->upload->initialize($pdf_config);
+					if (!$this->upload->do_upload('pdf_file'))
+					{
+						$page_data['upload_error'] = $this->upload->display_errors();
+						$this->load->view('template/headerInstructor',$page_data);
+						$this->load->view('instructor/course_edit/course_outline_lecture');
+						$this->load->view('template/footer');
+					}
+					else
+					{
+						$outline_data = [
+							'outline_course_id' => $course_id,
+							'outline_week_id' => $week_id,
+							'outline_type' => 'lecture',
+							'lecture_title' => $this->input->post('title'),
+							'lecture_body' => $this->input->post('body'),
+							'lecture_url' => $this->upload->data('file_name'),
+							'lecture_orig' => $this->upload->data('orig_name'),
+						];
+						if ($this->Instructor_model->add_outline($outline_data))
+						{
+							redirect(base_url('course/edit/outline/'.$course_id.'/week/'.$week_code));
+						}
 					}
 				}
 			}
@@ -688,6 +706,8 @@ class Instructor extends CI_Controller {
 			$page_data = [
 				'page_title' => 'Edit Video',
 				'course_id' => $course_id,
+				'week_id' => $week_id,
+				'week_code' => $week_code,
 				'outline_id' => $outline_id,
 				'course' => $course,
 				'course_categories' => $category,
@@ -762,7 +782,7 @@ class Instructor extends CI_Controller {
 			$outline = $this->Instructor_model->get_outline_lecture($outline_id);
 			# form rules
 			$this->form_validation->set_rules('title','Lecture Title', 'required|trim');
-			$this->form_validation->set_rules('body', 'Lecture Body', 'required|trim');
+			$this->form_validation->set_rules('body', 'Lecture Body', 'trim');
 			# /form rules
 			# input
 			$title = $this->input->post('title');
@@ -771,27 +791,77 @@ class Instructor extends CI_Controller {
 			$page_data = [
 				'page_title' => 'Edit Lecture',
 				'course_id' => $course_id,
+				'week_id' => $week_id,
+				'week_code' => $week_code,
 				'outline_id' => $outline_id,
 				'course' => $course,
 				'course_categories' => $this->Lookup_model->get_category(),
 				'outline' => $outline,
 				'upload_error' => null,
+				'page_alert' => null,
 			];
 			if ($this->form_validation->run())
 			{
-				if ($this->Instructor_model->update_outline_lecture($outline_id,$title,$body))
-				{
-					$page_data['page_alert'] = '<div role="alert" class="alert alert-success">Update Success</div>';
-					$this->load->view('template/headerInstructor',$page_data);
-					$this->load->view('instructor/course_edit/course_outline_lecture_edit');
-					$this->load->view('template/footer');
+				if ($this->input->post('pdf_file')==null) {
+					// update pdf
+					$pdf_config = array(
+						'upload_path' => './z/pdf',
+						'allowed_types' => 'pdf',
+						'file_name' => ucwords($this->input->post('title')),
+						'max_filename' => 50,
+						'max_filename_increment' => 100,
+						'max_size' => 0,
+						'remove_spaces' => true,
+						'file_ext_tolower' => true,
+						'detect_mime' => true,
+						'mod_mime_fix' => true,
+						'overwrite' => false,
+						'max_filename' => 255,
+					);
+					$this->upload->initialize($pdf_config);
+					if (!$this->upload->do_upload('pdf_file')) {
+						$page_data['upload_error'] = $this->upload->display_errors();
+						$page_data['page_alert'] = '<div role="alert" class="alert alert-danger">Update PDF Failed</div>';
+						$this->load->view('template/headerInstructor',$page_data);
+						$this->load->view('instructor/course_edit/course_outline_lecture_edit');
+						$this->load->view('template/footer');
+					}
+					else
+					{
+						$url = $this->upload->data('file_name');
+						if ($this->Instructor_model->update_outline_lecture($outline_id,$title,$body,$url,null)) {
+							$page_data['page_alert'] = '<div role="alert" class="alert alert-success">Update Success</div>';
+							$this->load->view('template/headerInstructor',$page_data);
+							$this->load->view('instructor/course_edit/course_outline_lecture_edit');
+							$this->load->view('template/footer');
+						}
+						else
+						{
+							$page_data['page_alert'] = '<div role="alert" class="alert alert-danger">Update PDF Failed</div>';
+							$this->load->view('template/headerInstructor',$page_data);
+							$this->load->view('instructor/course_edit/course_outline_lecture_edit');
+							$this->load->view('template/footer');
+						}
+					}
 				}
 				else
 				{
-					$page_data['page_alert'] = '<div role="alert" class="alert alert-danger">Update Failed</div>';
-					$this->load->view('template/headerInstructor',$page_data);
-					$this->load->view('instructor/course_edit/course_outline_lecture_edit');
-					$this->load->view('template/footer');
+					// just update
+					if ($this->Instructor_model->update_outline_lecture($outline_id,$title,$body,null,null))
+					{
+						$page_data['page_alert'] = '<div role="alert" class="alert alert-success">Update Success</div>';
+						$this->load->view('template/headerInstructor',$page_data);
+						$this->load->view('instructor/course_edit/course_outline_lecture_edit');
+						$this->load->view('template/footer');
+					}
+					else
+					{
+						$page_data['page_alert'] = '<div role="alert" class="alert alert-danger">Update Failed</div>';
+						$this->load->view('template/headerInstructor',$page_data);
+						$this->load->view('instructor/course_edit/course_outline_lecture_edit');
+						$this->load->view('template/footer');
+					}
+
 				}
 			}
 			else
