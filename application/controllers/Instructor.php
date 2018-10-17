@@ -674,7 +674,7 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
-	public function course_outline_add_video_edit($course_id=null,$outline_id=null)
+	public function course_outline_add_video_edit($course_id,$week_id,$week_code,$outline_id)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
@@ -754,7 +754,7 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
-	public function course_outline_add_lecture_edit($course_id=null,$outline_id=null)
+	public function course_outline_add_lecture_edit($course_id,$week_id,$week_code,$outline_id)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
 		{
@@ -775,6 +775,7 @@ class Instructor extends CI_Controller {
 				'course' => $course,
 				'course_categories' => $this->Lookup_model->get_category(),
 				'outline' => $outline,
+				'upload_error' => null,
 			];
 			if ($this->form_validation->run())
 			{

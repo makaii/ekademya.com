@@ -89,8 +89,11 @@ $route['course/edit/preview/(:num)'] = 'instructor/course_preview/$1';
 $route['course/edit/outline/(:num)/new_week'] = 'instructor/add_new_week/$1';
 $route['course/edit/outline/(:num)/week/(:any)'] = 'instructor/course_week/$1/$2';
 // /weeks
+
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/video'] = 'instructor/course_outline_add_video/$1/$2/$3';
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture'] = 'instructor/course_outline_add_lecture/$1/$2/$3';
+$route['course/edit/outline/(:num)/week/(:num)/(:any)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2/$3/$4';
+$route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2/$3/$4';
 
 // $route['course/edit/outline/(:num)/video'] = 'instructor/course_outline_add_video/$1';
 // $route['course/edit/outline/(:num)/lecture'] = 'instructor/course_outline_add_lecture/$1';

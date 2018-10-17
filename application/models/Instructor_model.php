@@ -455,7 +455,7 @@ class Instructor_model extends CI_Model
 	public function get_outline_video($outline_id)
 	{
 		$query = $this->db->select()
-		->join('outline_tbl','outline_tbl.outline_id = lecture_tbl.lecture_outline_id','left')
+		->join('outline_tbl','outline_tbl.outline_id = video_tbl.video_outline_id','left')
 		->where('video_outline_id',$outline_id)
 		->get('video_tbl');
 		if ($query->num_rows()==1)

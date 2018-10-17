@@ -57,6 +57,20 @@
 							<?php echo form_error('body'); ?>
 							<textarea class="form-control form-control-sm" name="body" rows="14" maxlength=""><?php echo set_value('body',$outline['lecture_body']); ?></textarea>
 						</div>
+						<div class="form-row">
+							<div class="col-md-8">
+								<div class="form-group">
+									<label class="font-weight-bold">Upload PDF</label>
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" name="pdf_file" id="pdfFile">
+										<label class="custom-file-label" for="pdfFile"><?php if(!empty($outline['lecture_url'])){echo $outline['lecture_url'];}else echo "Choose file"; ?></label>
+									</div>
+									<small class="text-danger">
+										<?php echo $upload_error; ?>
+									</small>
+								</div>
+							</div>
+						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary btn-sm">Update Lecture</button>
 							<button type="reset" class="btn btn-secondary btn-sm">Clear</button>
