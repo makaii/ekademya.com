@@ -402,10 +402,11 @@ class Instructor extends CI_Controller {
 			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
 			$weeks = $this->Instructor_model->get_course_weeks($course_id);
 			$outline = [];
-			foreach ($weeks as $key => $value) {
-				$outline[] = $this->Instructor_model->get_weekly_outline($course_id,$value['week_id']);
+			if (!empty($weeks)) {
+				foreach ($weeks as $key => $value) {
+					$outline[] = $this->Instructor_model->get_weekly_outline($course_id,$value['week_id']);
+				}
 			}
-			// $outline = $this->Instructor_model->get_outline($course_id);
 			$page_data = array(
 				'page_title' => 'Edit '.$course['course_title'].' Outline',
 				'course_categories' => $this->Lookup_model->get_category(),
