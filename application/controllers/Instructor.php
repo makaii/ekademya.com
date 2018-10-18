@@ -952,10 +952,16 @@ class Instructor extends CI_Controller {
 			}
 		}
 	}
-	public function course_preview($course_id=null)
+	public function course_preview($course_id)
 	{
 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-		$outline = $this->Instructor_model->get_outline($course_id);
+		$weeks = $this->Instructor_model->get_course_weeks($course_id);
+		$outline = [];
+		if (!empty($weeks)) {
+			foreach ($weeks as $key => $value) {
+				$outline[] = $this->Instructor_model->get_weekly_outline($course_id,$value['week_id']);
+			}
+		}
 		$this->load->model('Account_model');
 		$author = $this->Account_model->get_profile_info($course['course_author']);
 		$page_data = [

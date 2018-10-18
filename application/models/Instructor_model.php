@@ -391,7 +391,14 @@ class Instructor_model extends CI_Model
 		->where('week_id',$week_id)
 		->update('week_tbl');
 		if ($this->db->affected_rows()==1) {
-			return true;
+			$this->db->set('outline_status',0)
+			->where('outline_week_id',$week_id)
+			->update('outline_tbl');
+			if ($this->db->affected_rows()==1) {
+				return true;
+			}
+			else
+				return false;
 		}
 		else
 			return false;

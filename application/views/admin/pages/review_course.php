@@ -74,6 +74,14 @@
 			<div class="card mt-3">
 				<div class="card-header">Course Lessons</div>
 				<div class="card-body">
+					<?php 
+						foreach ($outline as $week => $w) {
+							foreach ($w as $outline => $o) {
+								echo $o['outline_type'];
+							}
+						}
+					 ?>
+					
 					<?php if (!empty($outline)): ?>
 					<!-- IF OUTLINE EXIST -->
 						<?php foreach($outline as $key => $outln): ?>

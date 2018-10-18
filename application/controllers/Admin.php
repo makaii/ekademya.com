@@ -187,7 +187,13 @@ class Admin extends CI_Controller {
 		if ($admin_logged_in==true)
 		{
 			$course = $this->Admin_model->get_unreviewed_courses($course_id);
-			$outline = $this->Instructor_model->get_outline($course_id);
+			$weeks = $this->Instructor_model->get_course_weeks($course_id);
+			$outline = [];
+			if (!empty($weeks)) {
+				foreach ($weeks as $key => $value) {
+					$outline[] = $this->Instructor_model->get_weekly_outline($course_id,$value['week_id']);
+				}
+			}
 			$review = $this->Admin_model->get_review_data($course_id);
 				$review_info = unserialize($review['review_course_info']);
 				$review_outline = unserialize($review['review_course_outline']);

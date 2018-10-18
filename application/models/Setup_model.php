@@ -411,7 +411,7 @@ class Setup_model extends CI_Model
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS week_tbl (
 					week_id INT(7) AUTO_INCREMENT PRIMARY KEY,
-					weel code VARCHAR(16) NOT NULL,
+					weel_code VARCHAR(16) NOT NULL,
 					week_course_id INT(7) NOT NULL,
 					FOREIGN KEY (week_course_id) REFERENCES course_tbl(course_id),
 					week_date_added DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

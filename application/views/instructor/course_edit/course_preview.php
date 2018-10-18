@@ -46,7 +46,6 @@
 	</div>
 </div>
 <div class="container">
-	
 	<div class="row">
 		<div class="col-md-6">
 			<div class="card">
@@ -54,13 +53,20 @@
 					<h5 class="card-title">Outline Overview</h5>
 					<ul class="list-group list-group-flush">
 						<?php if(!empty($outline)): ?>
-							<?php foreach($outline as $o): ?>
-								<li class="list-group-item">
-									<?php if(!empty($o['video_title'])): ?>
-										<?php echo ucwords($o['video_title']); ?>
-									<?php elseif(!empty($o['lecture_title'])): ?>
-										<?php echo ucwords($o['lecture_title']); ?>
-									<?php endif; ?>
+							<?php foreach($outline as $week => $w): ?>
+								<li class="list-group-item font-weight-bold">
+									<?php echo "Week ".($week+1); ?>
+									<ul>
+										<?php foreach($outline[$week] as $lesson => $o): ?>
+											<li class="text-secondary">
+												<?php if(!empty($o['video_title'])): ?>
+													<?php echo ucwords($o['video_title']); ?>
+												<?php elseif(!empty($o['lecture_title'])): ?>
+													<?php echo ucwords($o['lecture_title']); ?>
+												<?php endif; ?>
+											</li>
+										<?php endforeach; ?>
+									</ul>
 								</li>
 							<?php endforeach; ?>
 						<?php else: ?>
