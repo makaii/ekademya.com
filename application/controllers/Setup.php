@@ -46,4 +46,13 @@ class Setup extends CI_Controller {
 		$this->load->view('setup/success_view');
 		$this->load->view('template/footer');
 	}
+
+	public function test() {
+		$videos = get_filenames('z/course/');
+		foreach ($videos as $key => $value) {
+			if ($value!='default_thumbnail.png') {
+				delete_files('z/course/').$value;
+			}
+		}
+	}
 }

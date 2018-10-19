@@ -620,10 +620,65 @@ class Setup_model extends CI_Model
 		}
 	}
 
+	public function create_quiz_tables()
+	{
+		// quiz_tbl
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'quiz_tbl';");
+		if ($check_tbl->num_rows()==0) {
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS quiz_tbl (
+					quiz_id INT(7) AUTO_INCREMENT PRIMARY KEY
+				);
+			");
+		}
+
+		// question_tbl
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'question_tbl';");
+		if ($check_tbl->num_rows()==0) {
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS question_tbl (
+					question_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+				);
+			");
+		}
+
+		// choice_tbl
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'choice_tbl';");
+		if ($check_tbl->num_rows()==0) {
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS choice_tbl (
+					choice_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+				);
+			");
+		}
+
+		// answer_tbl
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'answer_tbl';");
+		if ($check_tbl->num_rows()==0) {
+			// create table if not exists
+			$this->db->query("
+				CREATE TABLE IF NOT EXISTS answer_tbl (
+					answer_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+				);
+			");
+		}
+	}
+
 	public function getTableStructure($tableName)
 	{
 		$fields = $this->db->field_data($tableName);
 		return $fields;
+	}
+
+	public function delete_all_content()
+	{
+		$videos = get_filenames(base_url('z/'));
+		echo "<pre>";
+		print_r($videos);
+		echo "<pre>";
 	}
 
 }
