@@ -48,7 +48,7 @@
 										<a class="outline-list" href="<?php echo base_url().'course/edit/outline/'.$course_id.'/week/'.$outln['outline_week_id'].'/'.$outln['week_code'].'/quiz/'.$outln['outline_id']; ?>">Quiz&#9;
 											<i class="far fa-question-circle"></i>
 										</a>
-										<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" class="btn btn-dark btn-sm float-right" role="button">remove</a>
+										<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" class="btn btn-danger btn-sm float-right" role="button">remove</a>
 									</li>
 								<?php endif; ?>
 							<?php endforeach; ?>

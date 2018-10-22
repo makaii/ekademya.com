@@ -78,7 +78,7 @@
 					
 				</div>
 				<div class="form-group">
-					<a href="<?php echo base_url("instructor/course_outline_add_new_quiz_question/$course_id/$week_id/$week_code/".$quiz['quiz_id']); ?>" role="button" class="btn btn-sm btn-block btn-dark" id="newQuestion">Add Question</a>
+					<a href="<?php echo base_url("instructor/course_outline_add_new_quiz_question/$course_id/$week_id/$week_code/$outline_id/".$quiz['quiz_id']); ?>" role="button" class="btn btn-sm btn-block btn-dark" id="newQuestion">Add Question</a>
 				</div>
 				<div class="form-group">
 					<button class="btn btn-sm btn-primary" type="submit">Update Quiz</button>

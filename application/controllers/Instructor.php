@@ -744,10 +744,10 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
-	public function course_outline_add_new_quiz_question($course_id,$week_id,$week_code,$quiz_id)
+	public function course_outline_add_new_quiz_question($course_id,$week_id,$week_code,$outline_id,$quiz_id)
 	{
 		if ($this->Instructor_model->post_new_question($quiz_id)) {
-			redirect(base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz/$quiz_id"));
+			redirect(base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz/$outline_id"));
 		}
 		else
 			show_404();

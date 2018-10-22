@@ -414,6 +414,7 @@ class Instructor_model extends CI_Model
 		->where('outline_course_id',$course_id)
 		->where('outline_status',1)
 		->where('week_id', $week_id)
+		->order_by('outline_id')
 		->get();
 		return $query->result_array();
 	}
@@ -663,7 +664,7 @@ class Instructor_model extends CI_Model
 				return $quiz;
 			}
 			else
-				return null;
+				return $quiz;
 		}
 		else
 			return null;
@@ -700,19 +701,19 @@ class Instructor_model extends CI_Model
 			$choices_data = array(
 				[
 					'choice_question_id' => $choice_question_id,
-					'choice_is_corect' => 1,
+					'choice_is_correct' => 1,
 				],
 				[
 					'choice_question_id' => $choice_question_id,
-					'choice_is_corect' => 0,
+					'choice_is_correct' => 0,
 				],
 				[
 					'choice_question_id' => $choice_question_id,
-					'choice_is_corect' => 0,
+					'choice_is_correct' => 0,
 				],
 				[
 					'choice_question_id' => $choice_question_id,
-					'choice_is_corect' => 0,
+					'choice_is_correct' => 0,
 				]
 			);
 			$this->db->insert_batch('quiz_choice_tbl',$choices_data);

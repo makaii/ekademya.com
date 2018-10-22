@@ -1,3 +1,4 @@
+<!-- <small><pre><?php print_r($outline); ?></pre></small> -->
 <form method="POST" accept="<?php echo base_url("admin/review/$course_id"); ?>">
 	<!-- INFO -->
 	<div class="row">
@@ -78,7 +79,11 @@
 						<?php foreach ($outline as $week => $w): ?>
 							<?php foreach ($w as $outline => $o): ?>
 								<?php if($o['outline_type']=='quiz'): ?>
-
+									<div class="form-group">
+										<label class="font-weight-bold"><?php echo $o['quiz_title']; ?></label>
+										<input class="form-control form-control-sm" placeholder="comments" name="<?php echo "review_outline_$outline"; ?>" value="<?php echo set_value("review_outline_$outline",$review_outline[$outline]); ?>"></input>
+										<?php echo form_error("review_outline_$outline"); ?>
+									</div>
 								<?php elseif($o['outline_type']=='video'): ?>
 									<div class="form-group">
 										<label class="font-weight-bold">Video Title : <span class="text-info"><?php echo $o['video_title']; ?></span></label>
