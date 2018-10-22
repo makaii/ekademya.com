@@ -67,7 +67,7 @@
 					<hr>
 					<a role="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/video"); ?>">Add Video</a>
 					<a role="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/lecture"); ?>">Add Lecture</a>
-					<a role="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz"); ?>">Add Quiz</a>
+					<a href="<?php echo base_url("instructor/course_outline_add_new_quiz/$course_id/$week_id/$week_code"); ?>" role="button" class="btn btn-block btn-sm btn-info">Add Quiz</a>
 				</div>
 			</div>
 		</div>

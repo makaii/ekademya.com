@@ -597,6 +597,7 @@ class Instructor_model extends CI_Model
 	}
 
 	// quiz
+
 	public function post_new_quiz($course_id, $week_id) {
 		$outline_data = array(
 			'outline_course_id' => $course_id,
@@ -611,8 +612,8 @@ class Instructor_model extends CI_Model
 					'quiz_outline_id' => $outline_id,
 				);
 				$this->db->insert('quiz_tbl',$quiz_data);
-				if ($this->db->affected_rows==1) {
-					return true;
+				if ($this->db->affected_rows()==1) {
+					return $this->db->insert_id();
 				}
 				else
 					return fale;

@@ -39,39 +39,41 @@
 				</div>
 				<div id="questions">
 					<div class="form-group">
-						<small class="text-muted">(questions are randomized)</small>
+						<small class="text-muted">(questions are randomized for the student)</small>
 					</div>
-					<?php foreach($quiz['quiz_questions'] as $key => $value): ?>
-						<div class="card mb-3">
-							<div class="card-body">
-								<!-- question -->
-								<div class="form-group">
-									<label class="font-weight-bold">Question <?php echo $key+1; ?></label>
-									<input type="text" name="<?php echo 'question_#'.$value['question_id']; ?>" class="form-control form-control-sm" value="<?php if(!empty($value['question_title'])){echo set_value("question_#".$value['question_id'],$value['question_title']);}else echo set_value("question_#".$value['question_id'],null); ?>"></input>
-									<?php echo form_error("question_#".$value['question_id']); ?>
+					<?php if(!empty($quiz['quiz_questions'])): ?>
+						<?php foreach($quiz['quiz_questions'] as $key => $value): ?>
+							<div class="card mb-3">
+								<div class="card-body">
+									<!-- question -->
+									<div class="form-group">
+										<label class="font-weight-bold">Question <?php echo $key+1; ?></label>
+										<input type="text" name="<?php echo 'question_#'.$value['question_id']; ?>" class="form-control form-control-sm" value="<?php if(!empty($value['question_title'])){echo set_value("question_#".$value['question_id'],$value['question_title']);}else echo set_value("question_#".$value['question_id'],null); ?>"></input>
+										<?php echo form_error("question_#".$value['question_id']); ?>
+									</div>
+									<!-- /question -->
+									<label><span class="font-weight-bold">Choices</span> <span class="text-muted">(first row is reserved for the correct answer, but will always be randomized for the student)</span></label>
+									<!-- choices -->
+									<div class="ml-5">
+										<!--  -->
+										<?php echo form_error('choice_#'.$value['question_choices'][0]['choice_id']); ?>
+										<input name="<?php echo 'choice_#'.$value['question_choices'][0]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][0]['choice_id'], $value['question_choices'][0]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm border-primary"></input>
+										<!--  -->
+										<?php echo form_error('choice_#'.$value['question_choices'][1]['choice_id']); ?>
+										<input name="<?php echo 'choice_#'.$value['question_choices'][1]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][1]['choice_id'], $value['question_choices'][1]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
+										<!--  -->
+										<?php echo form_error('choice_#'.$value['question_choices'][2]['choice_id']); ?>
+										<input name="<?php echo 'choice_#'.$value['question_choices'][2]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][2]['choice_id'],$value['question_choices'][2]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
+										<!--  -->
+										<?php echo form_error('choice_#'.$value['question_choices'][3]['choice_id']); ?>
+										<input name="<?php echo 'choice_#'.$value['question_choices'][3]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][3]['choice_id'],$value['question_choices'][3]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
+									</div>
+									<a href="" role="button" class="btn btn-sm btn-dark float-right">remove</a>
 								</div>
-								<!-- /question -->
-								<label><span class="font-weight-bold">Choices</span> <span class="text-muted">(first row is reserved for the correct answer, but will always be randomized for the student)</span></label>
-								<!-- choices -->
-								<div class="ml-5">
-									<!--  -->
-									<?php echo form_error('choice_#'.$value['question_choices'][0]['choice_id']); ?>
-									<input name="<?php echo 'choice_#'.$value['question_choices'][0]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][0]['choice_id'], $value['question_choices'][0]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm border-primary"></input>
-									<!--  -->
-									<?php echo form_error('choice_#'.$value['question_choices'][1]['choice_id']); ?>
-									<input name="<?php echo 'choice_#'.$value['question_choices'][1]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][1]['choice_id'], $value['question_choices'][1]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
-									<!--  -->
-									<?php echo form_error('choice_#'.$value['question_choices'][2]['choice_id']); ?>
-									<input name="<?php echo 'choice_#'.$value['question_choices'][2]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][2]['choice_id'],$value['question_choices'][2]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
-									<!--  -->
-									<?php echo form_error('choice_#'.$value['question_choices'][3]['choice_id']); ?>
-									<input name="<?php echo 'choice_#'.$value['question_choices'][3]['choice_id']; ?>" value="<?php echo set_value('choice_#'.$value['question_choices'][3]['choice_id'],$value['question_choices'][3]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
-								</div>
-								<a href="" role="button" class="btn btn-sm btn-dark float-right">remove</a>
 							</div>
-						</div>
-						<!-- /choices -->
-					<?php endforeach; ?>
+							<!-- /choices -->
+						<?php endforeach; ?>
+					<?php endif; ?>
 					
 					
 				</div>

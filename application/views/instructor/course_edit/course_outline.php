@@ -93,8 +93,9 @@
 													</div>
 												<?php endif; ?>
 												<div class="card-footer bg-dark">
-													<a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/".$w['week_id']."/".$w['week_code']."/video"); ?>">Add Video</a>
-													<a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/".$w['week_id']."/".$w['week_code']."/lecture"); ?>">Add Lecture</a>
+													<a role="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/".$w['week_id']."/".$w['week_code']."/video"); ?>">Add Video</a>
+													<a role="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/".$w['week_id']."/".$w['week_code']."/lecture"); ?>">Add Lecture</a>
+													<a role="button" class="btn btn-sm btn-info" href="<?php echo base_url("instructor/course_outline_add_new_quiz/$course_id/".$w['week_id']."/".$w['week_code']); ?>">Add Quiz</a>
 													<button id="week-<?php echo $w['week_id']; ?>" onclick="showDelWeek(<?php echo $w['week_id']; ?>)" type="button" class="btn btn-sm btn-danger float-right">delete week</button>
 													<div id="opts-<?php echo $w['week_id']; ?>" class="float-right" style="display: none;">
 														<a id="yes-week-<?php echo $w['week_id']; ?>" role="button" class="btn btn-sm btn-danger" href="<?php echo base_url("instructor/del_week/$course_id/".$w['week_id']); ?>">Yes</a>

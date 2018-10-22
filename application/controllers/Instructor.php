@@ -632,48 +632,54 @@ class Instructor extends CI_Controller {
 		else
 			show_404();
 	}
-	public function course_outline_add_quiz($course_id,$week_id,$week_code)
+	
+	public function course_outline_add_new_quiz($course_id,$week_id,$week_code)
 	{
-		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
-		{
-			$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
-			$category = $this->Lookup_model->get_category();
-			$quiz = $this->Instructor_model->get_quiz($course_id);
-			$page_data = [
-				'page_title' => 'Add New Quiz',
-				'course' => $course,
-				'course_categories' => $category,
-				'course_id' => $course_id,
-				'week_id' => $week_id,
-				'week_code' => $week_code,
-				'quiz' => $quiz,
-			];
-				// FORM RULES
-				$this->form_validation->set_rules('quiz_title','Quiz Title','trim|required');
-				// /FORM RULES
-			if (!$this->form_validation->run())
-			{
-				$this->load->view('template/headerInstructor',$page_data);
-				$this->load->view('instructor/course_edit/course_outline_quiz');
-				$this->load->view('template/footer');
-			}
-			elseif ($this->form_validation->run())
-			{
-				// $outline_data = [
-				// 	'outline_course_id' => $course_id,
-				// 	'outline_type' => 'quiz',
-				// ];
-				// if ($this->Instructor_model->add_quiz($outline_data))
-				// {
-				// 	redirect(base_url('course/edit/outline/').$course_id);
-				// }
-			}
-			else
-				show_404();
-		}
-		else
-			show_404();
+		$quiz_id = $this->Instructor_model->post_new_quiz($course_id, $week_id);
+		redirect(base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz/$quiz_id"));
 	}
+	// public function course_outline_add_quiz($course_id,$week_id,$week_code)
+	// {
+	// 	if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
+	// 	{
+	// 		$course = $this->Instructor_model->get_course_info($_SESSION['user_id'],$course_id);
+	// 		$category = $this->Lookup_model->get_category();
+	// 		$quiz = $this->Instructor_model->get_quiz($course_id);
+	// 		$page_data = [
+	// 			'page_title' => 'Add New Quiz',
+	// 			'course' => $course,
+	// 			'course_categories' => $category,
+	// 			'course_id' => $course_id,
+	// 			'week_id' => $week_id,
+	// 			'week_code' => $week_code,
+	// 			'quiz' => $quiz,
+	// 		];
+	// 			// FORM RULES
+	// 			$this->form_validation->set_rules('quiz_title','Quiz Title','trim|required');
+	// 			// /FORM RULES
+	// 		if (!$this->form_validation->run())
+	// 		{
+	// 			$this->load->view('template/headerInstructor',$page_data);
+	// 			$this->load->view('instructor/course_edit/course_outline_quiz');
+	// 			$this->load->view('template/footer');
+	// 		}
+	// 		elseif ($this->form_validation->run())
+	// 		{
+	// 			// $outline_data = [
+	// 			// 	'outline_course_id' => $course_id,
+	// 			// 	'outline_type' => 'quiz',
+	// 			// ];
+	// 			// if ($this->Instructor_model->add_quiz($outline_data))
+	// 			// {
+	// 			// 	redirect(base_url('course/edit/outline/').$course_id);
+	// 			// }
+	// 		}
+	// 		else
+	// 			show_404();
+	// 	}
+	// 	else
+	// 		show_404();
+	// }
 	public function course_outline_add_quiz_edit($course_id,$week_id,$week_code,$outline_id)
 	{
 		if ($this->Instructor_model->check_if_their_course($_SESSION['user_id'],$course_id))
@@ -693,10 +699,12 @@ class Instructor extends CI_Controller {
 			];
 				// FORM RULES
 				$this->form_validation->set_rules('quiz_title','Quiz Title','trim|required');
-				foreach ($quiz['quiz_questions'] as $key => $value) {
-					$this->form_validation->set_rules('question_#'.$value['question_id'], 'Question Title', 'trim|required');
-					foreach ($value['question_choices'] as $ckey => $cvalue) {
-						$this->form_validation->set_rules('choice_#'.$cvalue['choice_id'], 'Question Choice', 'trim|required');
+				if(!empty($quiz['quiz_questions'])) {
+					foreach ($quiz['quiz_questions'] as $key => $value) {
+						$this->form_validation->set_rules('question_#'.$value['question_id'], 'Question Title', 'trim|required');
+						foreach ($value['question_choices'] as $ckey => $cvalue) {
+							$this->form_validation->set_rules('choice_#'.$cvalue['choice_id'], 'Question Choice', 'trim|required');
+						}
 					}
 				}
 				// /FORM RULES
@@ -739,7 +747,7 @@ class Instructor extends CI_Controller {
 	public function course_outline_add_new_quiz_question($course_id,$week_id,$week_code,$quiz_id)
 	{
 		if ($this->Instructor_model->post_new_question($quiz_id)) {
-			redirect(base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz"));
+			redirect(base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz/$quiz_id"));
 		}
 		else
 			show_404();
