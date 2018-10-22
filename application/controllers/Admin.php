@@ -217,9 +217,13 @@ class Admin extends CI_Controller {
 			$this->form_validation->set_rules('comment_project','Final Project Comment','trim');
 			$outln_num = 1;
 			if (!empty($outline)) {
-				foreach ($outline as $key => $value) {
-					$this->form_validation->set_rules("review_outline_$key","Outline #$outln_num",'trim');
-					$outln_num++;
+				foreach ($outline as $week => $w) {
+					foreach ($w as $key => $value) {
+						// echo "review_outline_$key";
+						$this->form_validation->set_rules("review_outline_$key","Outline #$outln_num",'trim');
+						$outln_num++;
+					}
+					
 				}
 			}
 			// form rules

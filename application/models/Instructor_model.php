@@ -409,6 +409,7 @@ class Instructor_model extends CI_Model
 		->from('outline_tbl')
 		->join('video_tbl', 'video_tbl.video_outline_id = outline_id', 'left')
 		->join('lecture_tbl', 'lecture_tbl.lecture_outline_id = outline_id', 'left')
+		->join('quiz_tbl', 'quiz_tbl.quiz_outline_id = outline_id', 'left')
 		->join('week_tbl', 'week_tbl.week_id = outline_tbl.outline_week_id')
 		->where('outline_course_id',$course_id)
 		->where('outline_status',1)

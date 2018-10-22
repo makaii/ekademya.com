@@ -15,6 +15,7 @@
 					<th>Title</th>
 					<th>Author</th>
 					<th>Category</th>
+					<th>Status</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -25,6 +26,7 @@
 							<th><?php echo $course['course_title']; ?></th>
 							<td><?php echo $course['user_email'] ?></td>
 							<td><?php echo $course['category_name']; ?></td>
+							<td><?php $status=$course['course_review'];if($status==2){echo "Under Review";} ?></td>
 							<td><a href="<?php echo base_url("admin/review/").$course['course_id']; ?>" role="button" class="btn btn-sm btn-primary">view</a></td>
 						</tr>
 					<?php endforeach; ?>
