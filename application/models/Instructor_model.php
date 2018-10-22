@@ -666,6 +666,26 @@ class Instructor_model extends CI_Model
 		else
 			return null;
 	}
+	public function update_quiz($quiz_data) {
+		// update quiz
+		$this->db->set('quiz_title', $quiz_data['quiz']['quiz_title'])
+		->where('quiz_id', $quiz_data['quiz']['quiz_id'])
+		->update('quiz_tbl');
+
+		// update questions
+		foreach ($quiz_data['questions'] as $key => $value) {
+			$this->db->set('question_title', $value['question_title'])
+			->where('question_id', $value['question_id'])
+			->update('quiz_question_tbl');
+		}
+
+		// update choices
+		foreach ($quiz_data['choices'] as $key => $value) {
+			$this->db->set('choice_text', $value['choice_text'])
+			->where('choice_id', $value['choice_id'])
+			->update('quiz_choice_tbl');
+		}
+	}
 	public function post_new_question($quiz_id) {
 		$question_data = array(
 			'question_quiz_id' => $quiz_id,
@@ -678,15 +698,19 @@ class Instructor_model extends CI_Model
 			$choices_data = array(
 				[
 					'choice_question_id' => $choice_question_id,
+					'choice_is_corect' => 1,
 				],
 				[
 					'choice_question_id' => $choice_question_id,
+					'choice_is_corect' => 0,
 				],
 				[
 					'choice_question_id' => $choice_question_id,
+					'choice_is_corect' => 0,
 				],
 				[
 					'choice_question_id' => $choice_question_id,
+					'choice_is_corect' => 0,
 				]
 			);
 			$this->db->insert_batch('quiz_choice_tbl',$choices_data);

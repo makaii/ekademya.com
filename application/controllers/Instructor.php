@@ -682,7 +682,7 @@ class Instructor extends CI_Controller {
 			$category = $this->Lookup_model->get_category();
 			$quiz = $this->Instructor_model->get_quiz($outline_id);
 			$page_data = [
-				'page_title' => 'Add New Quiz',
+				'page_title' => 'Update Quiz',
 				'course' => $course,
 				'course_categories' => $category,
 				'course_id' => $course_id,
@@ -695,10 +695,8 @@ class Instructor extends CI_Controller {
 				$this->form_validation->set_rules('quiz_title','Quiz Title','trim|required');
 				foreach ($quiz['quiz_questions'] as $key => $value) {
 					$this->form_validation->set_rules('question_#'.$value['question_id'], 'Question Title', 'trim|required');
-					echo 'question_#'.$value['question_id'];
 					foreach ($value['question_choices'] as $ckey => $cvalue) {
 						$this->form_validation->set_rules('choice_#'.$cvalue['choice_id'], 'Question Choice', 'trim|required');
-						// echo 'choice_#'.$cvalue['choice_id'];
 					}
 				}
 				// /FORM RULES
@@ -710,15 +708,27 @@ class Instructor extends CI_Controller {
 			}
 			elseif ($this->form_validation->run())
 			{
-				// $outline_data = [
-				// 	'outline_course_id' => $course_id,
-				// 	'outline_type' => 'quiz',
-				// ];
-				// if ($this->Instructor_model->add_quiz($outline_data))
-				// {
-				// 	redirect(base_url('course/edit/outline/').$course_id);
-				// }
-				1;
+				$quiz_data['quiz'] = [
+					'quiz_id' => $quiz['quiz_id'],
+					'quiz_outline_id' => $quiz['quiz_outline_id'],
+					'quiz_title' => $this->input->post('quiz_title'),
+				];
+				foreach ($quiz['quiz_questions'] as $qkey => $qvalue) {
+					$quiz_data['questions'][] = [
+						'question_id' => $qvalue['question_id'],
+						'question_quiz_id' => $qvalue['question_quiz_id'],
+						'question_title' => $this->input->post('question_#'.$qvalue['question_id']),
+					];
+					foreach ($qvalue['question_choices'] as $ckey => $cvalue) {
+						$quiz_data['choices'][] = [
+							'choice_id' => $cvalue['choice_id'],
+							'choice_question_id' => $cvalue['choice_question_id'],
+							'choice_text' => $this->input->post('choice_#'.$cvalue['choice_id']),
+						];
+					}
+				}
+				($this->Instructor_model->update_quiz($quiz_data));
+				redirect(base_url('course/edit/outline/').$course_id);
 			}
 			else
 				show_404();
