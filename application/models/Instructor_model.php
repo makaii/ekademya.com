@@ -486,18 +486,6 @@ class Instructor_model extends CI_Model
 		else
 			return null;
 	}
-	public function get_outline_quiz($outline_id)
-	{
-		$this->db->select();
-		$this->db->where('quiz_outline_id',$outline_id);
-		$query = $this->db->get('quiz_tbl');
-		if ($query->num_rows()==1)
-		{
-			return $query->row_array();
-		}
-		else
-			return null;
-	}
 	public function update_outline_video($title,$desc,$file,$iframe,$outline_id)
 	{
 		$video_data = array(
@@ -607,6 +595,111 @@ class Instructor_model extends CI_Model
 		else
 			return null;
 	}
+
+	// quiz
+	public function post_new_quiz($course_id, $week_id) {
+		$outline_data = array(
+			'outline_course_id' => $course_id,
+			'outline_week_id' => $week_id,
+			'outline_type' => 'quiz',
+		);
+		$this->db->insert('outline_tbl', $outline_data);
+		if ($this->db->affected_rows()==1) {
+			$outline_id = $this->db->insert_id();
+			if (!empty($outline_id)) {
+				$quiz_data = array(
+					'quiz_outline_id' => $outline_id,
+				);
+				$this->db->insert('quiz_tbl',$quiz_data);
+				if ($this->db->affected_rows==1) {
+					return true;
+				}
+				else
+					return fale;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+	public function get_quiz($outline_id) {
+		$quiz = [];
+
+		// quiz
+		$query = $this->db->select()
+		->where('quiz_outline_id',$outline_id)
+		->where('quiz_status', 1)
+		->get('quiz_tbl');
+		if ($query->num_rows()==1)
+		{
+			$query = $query->row_array();
+			$quiz = $query;
+
+
+			// questions
+			$query = $this->db->select()
+			->where('question_quiz_id', $quiz['quiz_id'])
+			->where('question_status', 1)
+			->get('quiz_question_tbl');
+			if ($query->num_rows()>=1) {
+				$query = $query->result_array();
+				$quiz['quiz_questions'] = $query;
+
+
+				// choices
+				foreach ($quiz['quiz_questions'] as $key => $value) {
+					$query = $this->db->select()
+					->where('choice_question_id',$value['question_id'])
+					->where('choice_status', 1)
+					->get('quiz_choice_tbl');
+					if ($query->num_rows()>=1) {
+						$query = $query->result_array();
+						$quiz['quiz_questions'][$key]['question_choices'] = $query;
+					}
+				}
+				return $quiz;
+			}
+			else
+				return null;
+		}
+		else
+			return null;
+	}
+	public function post_new_question($quiz_id) {
+		$question_data = array(
+			'question_quiz_id' => $quiz_id,
+		);
+		$this->db->insert('quiz_question_tbl',$question_data);
+
+		$choice_question_id = $this->db->insert_id();
+
+		if ($this->db->affected_rows()==1) {
+			$choices_data = array(
+				[
+					'choice_question_id' => $choice_question_id,
+				],
+				[
+					'choice_question_id' => $choice_question_id,
+				],
+				[
+					'choice_question_id' => $choice_question_id,
+				],
+				[
+					'choice_question_id' => $choice_question_id,
+				]
+			);
+			$this->db->insert_batch('quiz_choice_tbl',$choices_data);
+			if ($this->db->affected_rows()==4) {
+				return true;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+	// /quiz
 
 }
  ?>

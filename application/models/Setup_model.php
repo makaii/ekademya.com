@@ -479,24 +479,6 @@ class Setup_model extends CI_Model
 			");
 		}
 	}
-	public function create_quiz_table()
-	{
-		$check_tbl = $this->db->query("SHOW TABLES LIKE 'quiz_tbl';");
-		if ($check_tbl->num_rows()==0)
-		{
-			// create table if not exist
-			$this->db->query("
-				CREATE TABLE IF NOT EXISTS quiz_tbl (
-					quiz_id int(7) AUTO_INCREMENT PRIMARY KEY,
-					quiz_outline_id INT(7) NOT NULL,
-					FOREIGN KEY (quiz_outline_id) REFERENCES outline_tbl(outline_id),
-					quiz_title VARCHAR(250) NULL,
-					quiz_instructions VARCHAR(1000) NULL,
-					quiz_questions VARCHAR(20000) NULL
-				);
-			");
-		}
-	}
 	public function create_enroll_table()
 	{
 		$check_enroll_tbl = $this->db->query("SHOW TABLES LIKE 'enroll';");
@@ -628,40 +610,63 @@ class Setup_model extends CI_Model
 			// create table if not exists
 			$this->db->query("
 				CREATE TABLE IF NOT EXISTS quiz_tbl (
-					quiz_id INT(7) AUTO_INCREMENT PRIMARY KEY
+					quiz_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					quiz_outline_id INT(7) NOT NULL,
+					FOREIGN KEY (quiz_outline_id) REFERENCES outline_tbl(outline_id),
+					quiz_title VARCHAR(500) NULL,
+					quiz_status TINYINT(1) NOT NULL DEFAULT 1,
+					quiz_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 				);
 			");
 		}
 
-		// question_tbl
-		$check_tbl = $this->db->query("SHOW TABLES LIKE 'question_tbl';");
+		// quiz_question_tbl
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'quiz_question_tbl';");
 		if ($check_tbl->num_rows()==0) {
 			// create table if not exists
 			$this->db->query("
-				CREATE TABLE IF NOT EXISTS question_tbl (
+				CREATE TABLE IF NOT EXISTS quiz_question_tbl (
 					question_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					question_quiz_id INT(7) NOT NULL,
+					FOREIGN KEY (question_quiz_id) REFERENCES quiz_tbl(quiz_id),
+					question_title VARCHAR (500) NULL,
+					question_status TINYINT(1) NOT NULL DEFAULT 1,
+					question_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 				);
 			");
 		}
 
-		// choice_tbl
-		$check_tbl = $this->db->query("SHOW TABLES LIKE 'choice_tbl';");
+		// quiz_choice_tbl
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'quiz_choice_tbl';");
 		if ($check_tbl->num_rows()==0) {
 			// create table if not exists
 			$this->db->query("
-				CREATE TABLE IF NOT EXISTS choice_tbl (
+				CREATE TABLE IF NOT EXISTS quiz_choice_tbl (
 					choice_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					choice_question_id INT(7) NOT NULL,
+					FOREIGN KEY (choice_question_id) REFERENCES quiz_question_tbl(question_id),
+					choice_text VARCHAR(500) NULL,
+					choice_is_correct TINYINT(1) NOT NULL DEFAULT 0,
+					choice_status TINYINT(1) NOT NULL DEFAULT 1,
+					choice_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 				);
 			");
 		}
 
-		// answer_tbl
-		$check_tbl = $this->db->query("SHOW TABLES LIKE 'answer_tbl';");
+		// quiz_answer_tbl
+		$check_tbl = $this->db->query("SHOW TABLES LIKE 'quiz_answer_tbl';");
 		if ($check_tbl->num_rows()==0) {
 			// create table if not exists
 			$this->db->query("
-				CREATE TABLE IF NOT EXISTS answer_tbl (
+				CREATE TABLE IF NOT EXISTS quiz_answer_tbl (
 					answer_id INT(7) AUTO_INCREMENT PRIMARY KEY,
+					answer_user_id INT(7) NOT NULL,
+					FOREIGN KEY (answer_user_id) REFERENCES enroll_tbl(enroll_student),
+					answer_question_id INT(7) NOT NULL,
+					FOREIGN KEY (answer_question_id) REFERENCES quiz_question_tbl(question_id),
+					answer_choice INT(7) NULL,
+					answer_status TINYINT(1) NOT NULL DEFAULT 1,
+					question_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 				);
 			");
 		}
@@ -671,14 +676,6 @@ class Setup_model extends CI_Model
 	{
 		$fields = $this->db->field_data($tableName);
 		return $fields;
-	}
-
-	public function delete_all_content()
-	{
-		$videos = get_filenames(base_url('z/'));
-		echo "<pre>";
-		print_r($videos);
-		echo "<pre>";
 	}
 
 }

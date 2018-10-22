@@ -92,14 +92,17 @@ $route['course/edit/outline/(:num)/week/(:any)'] = 'instructor/course_week/$1/$2
 
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/video'] = 'instructor/course_outline_add_video/$1/$2/$3';
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture'] = 'instructor/course_outline_add_lecture/$1/$2/$3';
+$route['course/edit/outline/(:num)/week/(:num)/(:any)/quiz'] = 'instructor/course_outline_add_quiz/$1/$2/$3';
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2/$3/$4';
-$route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2/$3/$4';
+$route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture/(:num)'] = 'instructor/
+course_outline_add_lecture_edit/$1/$2/$3/$4';
+$route['course/edit/outline/(:num)/week/(:num)/(:any)/quiz/(:num)'] = 'instructor/course_outline_add_quiz_edit/$1/$2/$3/$4';
 
 // $route['course/edit/outline/(:num)/video'] = 'instructor/course_outline_add_video/$1';
 // $route['course/edit/outline/(:num)/lecture'] = 'instructor/course_outline_add_lecture/$1';
 // $route['course/edit/outline/(:num)/quiz'] = 'instructor/course_outline_add_quiz/$1';
-$route['course/edit/outline/(:num)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2';
-$route['course/edit/outline/(:num)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2';
+// $route['course/edit/outline/(:num)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2';
+// $route['course/edit/outline/(:num)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2';
 	// review course
 $route['course/review/(:num)'] = 'instructor/send_course_review/$1';
 $route['course/edit/review/(:num)'] = 'instructor/course_review/$1';

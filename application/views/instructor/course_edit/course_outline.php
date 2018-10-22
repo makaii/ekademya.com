@@ -32,10 +32,6 @@
 </div>
 <div class="container">
 	<div class="row mt-5">
-		<!-- <div class="col-md-7">
-			<h3><?php echo $course['course_title']; ?></h3>
-			<a target="_blank" href="<?php echo base_url("course/edit/preview/$course_id"); ?>">course preview</a>
-		</div> -->
 		<div class="col-md-5">
 			<?php if(!empty($page_alert)){echo $page_alert;} ?>
 		</div>
@@ -78,6 +74,13 @@
 																<li class="list-group-item">
 																	<a class="outline-list" href="<?php echo base_url().'course/edit/outline/'.$course_id.'/week/'.$outln['outline_week_id'].'/'.$outln['week_code'].'/lecture/'.$outln['outline_id']; ?>"><?php echo ucwords($outln['lecture_title']); ?>&#9;
 																		<i class="far fa-newspaper"></i>
+																	</a>
+																	<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" class="btn btn-dark btn-sm float-right" role="button">remove</a>
+																</li>
+															<?php elseif($outln['outline_type']=='quiz'): ?>
+																<li class="list-group-item">
+																	<a class="outline-list" href="<?php echo base_url().'course/edit/outline/'.$course_id.'/week/'.$outln['outline_week_id'].'/'.$outln['week_code'].'/quiz/'.$outln['outline_id']; ?>">Quiz&#9;
+																		<i class="far fa-question-circle"></i>
 																	</a>
 																	<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" class="btn btn-dark btn-sm float-right" role="button">remove</a>
 																</li>

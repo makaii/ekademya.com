@@ -1,84 +1,82 @@
-<div class="container">
-	<div class="row mt-5">
-		<div class="col-md-7">
-			<h3><?php echo $course['course_title']; ?></h3>
-			<a target="_blank" href="<?php echo base_url("course/edit/preview/$course_id"); ?>">course preview</a>
-			<br>
-			<a class="text-secondary" href="<?php echo base_url("course/edit/outline/$course_id"); ?>">go back to Lessons</a>
-		</div>
-		<div class="col-md-5">
-			<?php if(!empty($page_alert)){echo $page_alert;} ?>
-		</div>
-	</div>
-	<div class="row mt-5">
-		<div class="col-md-12">
-			
+<style>
+	a{
+		text-decoration: none;
+		color: inherit;
+	}
+	a:hover{
+		text-decoration: none;
+		color: inherit;
+	}
+	#quizForm label.error {
+		width: auto;
+		display: inline;
+		float: none;
+		color: red;
+		padding-left: .5em;
+		vertical-align: top;
+</style>
+<div style="background-color: #17505D;" class="pb-3 pt-3 mb-5 mb-5">
+	<div class="container text-white">
+		<h4>
+			<span class="text-info">
+				<a href="<?php echo base_url("course/edit/outline/$course_id"); ?>"><?php echo ucwords($course['course_title']); ?></a>
+			</span>
+		</h4>
+		<div>
+			<a target="_blank" href="<?php echo base_url("course/edit/preview/$course_id"); ?>">course preview
+			</a>
 		</div>
 	</div>
 </div>
+<!-- <small><pre><?php echo print_r($quiz); ?></pre></small> -->
 <div class="container">
 	<div class="card mr-5 ml-5">
 		<div class="card-body mr-5 ml-5">
-			<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/quiz"); ?>">
+			<form method="POST" action="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz/$outline_id"); ?>" id="quizForm">
 				<div class="form-group">
-					<label>Title</label>
-					<input class="form-control" type="text" name="title" value="<?php if(!empty($quiz['quiz_title'])){echo set_value('title',null);}else echo set_value('title',$q['quiz_title']); ?>">
-					<?php echo form_error('title') ?>
+					<label class="font-weight-bold">Quiz Title</label>
+					<input class="form-control form-control-sm" type="text" name="quiz_title" value="<?php echo set_value('quiz_title',$quiz['quiz_title']); ?>"></input>
+					<?php echo form_error('quiz_title'); ?>
 				</div>
-				<div class="form-group">
-					<label>Instructions</label>
-					<textarea class="form-control" type="text" name="instruction"><?php if(!empty($quiz['quiz_instruction'])){echo set_value('instruction',null);}else echo set_value('instruction',$q['quiz_instruction']); ?></textarea>
-					<?php echo form_error('instruction') ?>
-				</div>
-				<div id="answers">
-					<?php if(!empty($c['quiz_questions'])): ?>
-						<div class="card mb-3" id="<?php  ?>">
+				<div id="questions">
+					<div class="form-group">
+						<small class="text-muted">(questions are randomized)</small>
+					</div>
+					<?php foreach($quiz['quiz_questions'] as $key => $value): ?>
+						<div class="card mb-3">
 							<div class="card-body">
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Question <?php  ?></span>
-									</div>
-									<input type="text" class="form-control">
+								<!-- question -->
+								<div class="form-group">
+									<label class="font-weight-bold">Question <?php echo $key+1; ?></label>
+									<input type="text" name="<?php echo 'question_#'.$value['question_id']; ?>" class="form-control form-control-sm" value="<?php if(!empty($value['question_title'])){echo set_value("question_#".$value['question_id'],$value['question_title']);}else echo set_value("question_#".$value['question_id'],null); ?>"></input>
+									<?php echo form_error("question_#".$value['question_id']); ?>
 								</div>
-								<div class="form-row mb-3">
-									<div class="input-group input-group-sm col">
-										<div class="input-group-prepend">
-											<span class="input-group-text">Answer 1</span>
-										</div>
-										<input type="text" class="form-control">
-									</div>
-									<div class="input-group input-group-sm col">
-										<div class="input-group-prepend">
-											<span class="input-group-text">Answer 2</span>
-										</div>
-										<input type="text" class="form-control">
-									</div>
+								<!-- /question -->
+								<label><span class="font-weight-bold">Choices</span> <span class="text-muted">(first row is reserved for the correct answer, but will always be randomized for the student)</span></label>
+								<!-- choices -->
+								<div class="ml-5">
+									<?php echo form_error('choice_#'.$value['question_choices'][0]['choice_id']); ?>
+									<input name="<?php echo 'choice_#'.$value['question_choices'][0]['choice_id']; ?>" value="<?php echo set_value('',$value['question_choices'][0]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm border-primary"></input>
+									<?php echo form_error('choice_#'.$value['question_choices'][1]['choice_id']); ?>
+									<input name="<?php echo 'choice_#'.$value['question_choices'][1]['choice_id']; ?>" value="<?php echo set_value('',$value['question_choices'][1]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
+									<?php echo form_error('choice_#'.$value['question_choices'][2]['choice_id']); ?>
+									<input name="<?php echo 'choice_#'.$value['question_choices'][2]['choice_id']; ?>" value="<?php echo set_value('',$value['question_choices'][2]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
+									<?php echo form_error('choice_#'.$value['question_choices'][3]['choice_id']); ?>
+									<input name="<?php echo 'choice_#'.$value['question_choices'][3]['choice_id']; ?>" value="<?php echo set_value('',$value['question_choices'][3]['choice_text']); ?>" type="text" class="form-group form-control form-control-sm"></input>
 								</div>
-								<div class="form-row">
-									<div class="input-group input-group-sm col">
-										<div class="input-group-prepend">
-											<span class="input-group-text">Answer 3</span>
-										</div>
-										<input type="text" class="form-control">
-									</div>
-									<div class="input-group input-group-sm col">
-										<div class="input-group-prepend">
-											<span class="input-group-text">Answer 4</span>
-										</div>
-										<input type="text" class="form-control">
-									</div>
-								</div>
+								<a href="" role="button" class="btn btn-sm btn-dark float-right">remove</a>
 							</div>
 						</div>
-					<?php endif ?>
+						<!-- /choices -->
+					<?php endforeach; ?>
+					
+					
 				</div>
 				<div class="form-group">
-					<button class="btn btn-sm btn-block btn-dark" type="button" id="addNewItem">add new item</button>
+					<a href="<?php echo base_url("instructor/course_outline_add_new_quiz_question/$course_id/$week_id/$week_code/".$quiz['quiz_id']); ?>" role="button" class="btn btn-sm btn-block btn-dark" id="newQuestion">Add Question</a>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-primary" type="submit">add quiz</button>
-					<button class="btn btn-info" type="button">save</button>
-					<button class="btn btn-secondary" type="reset">clear</button>
+					<button class="btn btn-sm btn-primary" type="submit">Update Quiz</button>
 				</div>
 			</form>
 		</div>
@@ -87,80 +85,34 @@
 <script>
 	
 	$(document).ready(function(){
-		$("#addNewItem").click(function(){
-			var itemCount = <?php echo count($_SESSION['quiz_data']['quiz_questions']); ?>+1;
-			$("#answers").append('\
-				<div class="card mb-3" id="q'+itemCount+'">\
-					<div class="card-body">\
-						<div class="input-group mb-3">\
-							<div class="input-group-prepend">\
-								<span class="input-group-text">Question '+itemCount+'</span>\
-							</div>\
-							<input type="text" class="form-control">\
-						</div>\
-						<div class="form-row mb-3">\
-							<div class="input-group input-group-sm col">\
-								<div class="input-group-prepend">\
-									<span class="input-group-text">Answer 1</span>\
-								</div>\
-								<input type="text" class="form-control is-valid" id="a'+itemCount+'">\
-							</div>\
-							<div class="input-group input-group-sm col">\
-								<div class="input-group-prepend">\
-									<span class="input-group-text">Answer 2</span>\
-								</div>\
-								<input type="text" class="form-control" id="a'+itemCount+'">\
-							</div>\
-						</div>\
-						<div class="form-row">\
-							<div class="input-group input-group-sm col">\
-								<div class="input-group-prepend">\
-									<span class="input-group-text">Answer 3</span>\
-								</div>\
-								<input type="text" class="form-control" id="a'+itemCount+'">\
-							</div>\
-							<div class="input-group input-group-sm col">\
-								<div class="input-group-prepend">\
-									<span class="input-group-text">Answer 4</span>\
-								</div>\
-								<input type="text" class="form-control" id="a'+itemCount+'">\
-							</div>\
-						</div>\
-					</div>\
-				</div>\
-			');
-		});
+		// $("#newQuestion").click(function(){
+		// 	$("#questions").append('<label>some label</label><input class="form-group form-control form-control-sm" type="text" name="question" value="<?php echo set_value('title',null); ?>" id="question" required>');
+		// });
+
+		// $("#quizForm").validate({
+		// 	rules: {
+		// 		question: "required"
+		// 	},
+		// 	messages:
+		// 	{
+		// 		question: "this is required"
+		// 	}
+		// });
+
+		// $("#addQuiz").click(function(e){
+		// 	e.preventDefault();	
+		// 	$.ajax({
+		// 		type: "AJAX",
+		// 		method: "POST",
+		// 		url: "<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz"); ?>",
+		// 		success: function(){
+		// 			alert("working!");
+		// 		},
+		// 		error: function(){
+		// 			alert("error!");
+		// 		}
+		// 	});
+		// });
+		
 	});
-
-	// <?php
-	// $_SESSION['quiz_data']['quiz_questions'] = [
-	// 	'quiz_q1' => [
-	// 		'q1' => null,
-	// 		'a1' => null,
-	// 		'a2' => null,
-	// 		'a3' => null,
-	// 		'a4' => null,
-	// 		'ar' => null,
-	// 	],
-	// ];
-	// ?>
-	// function newItem()
-	// {
-	// 	// card
-	// 	var newQuestionDiv = document.createElement("div");
-	// 		newQuestionDiv.setAttribute("class", "card mb-3");
-	// 		newQuestionDiv.setAttribute("id", "new id");
-
-	// 	// card body
-	// 	var newQuestionBody = document.createElement("div");
-	// 		newQuestionBody.setAttribute("class", "card-body");
-
-	// 	// form row
-	// 	var newquestionRow = document.createElement("div");
-	// 		newquestionRow.setAttribute("form-row mb-3");
-
-	// 	newQuestionBody.appendChild(newquestionRow);
-	// 	newQuestionDiv.appendChild(newQuestionBody);
-	// 	document.getElementById("answers").appendChild(newQuestionDiv);
-	// }
 </script>

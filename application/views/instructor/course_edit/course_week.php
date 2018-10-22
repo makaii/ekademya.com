@@ -43,6 +43,13 @@
 										</a>
 										<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" role="button" class="btn btn-sm btn-danger float-right">remove</a>
 									</li>
+								<?php elseif($outln['outline_type']=='quiz'): ?>
+									<li class="list-group-item">
+										<a class="outline-list" href="<?php echo base_url().'course/edit/outline/'.$course_id.'/week/'.$outln['outline_week_id'].'/'.$outln['week_code'].'/quiz/'.$outln['outline_id']; ?>">Quiz&#9;
+											<i class="far fa-question-circle"></i>
+										</a>
+										<a href="<?php echo base_url("instructor/del_outline/$course_id/".$outln['outline_id'].'/'.$outln['outline_week_id']); ?>" class="btn btn-dark btn-sm float-right" role="button">remove</a>
+									</li>
 								<?php endif; ?>
 							<?php endforeach; ?>
 						</ul>
@@ -58,9 +65,9 @@
 				<div class="card-body text-center">
 					<small class="card-text text-muted">Ekademya courses consists of videos and lectures. To have your course published, you need to upload at least a handful of it.</small>
 					<hr>
-					<a rolse="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/video"); ?>">Add Video</a>
-					<a rolse="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/lecture"); ?>">Add Lecture</a>
-					<!-- <a rolse="button" class="btn btn-sm btn-info" href="<?php echo base_url("course/edit/outline/$course_id/quiz"); ?>">Add Quiz</a> -->
+					<a role="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/video"); ?>">Add Video</a>
+					<a role="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/lecture"); ?>">Add Lecture</a>
+					<a role="button" class="btn btn-sm btn-block btn-info" href="<?php echo base_url("course/edit/outline/$course_id/week/$week_id/$week_code/quiz"); ?>">Add Quiz</a>
 				</div>
 			</div>
 		</div>
