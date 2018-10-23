@@ -59,10 +59,12 @@
 									<ul>
 										<?php foreach($outline[$week] as $lesson => $o): ?>
 											<li class="text-secondary">
-												<?php if(!empty($o['video_title'])): ?>
-													<?php echo ucwords($o['video_title']); ?>
-												<?php elseif(!empty($o['lecture_title'])): ?>
-													<?php echo ucwords($o['lecture_title']); ?>
+												<?php if($o['outline_type'] == 'video'): ?>
+													<?php echo $o['video_title']; ?>
+												<?php elseif($o['outline_type'] == 'lecture'): ?>
+													<?php echo $o['lecture_title']; ?>
+												<?php elseif($o['outline_type'] == 'quiz'): ?>
+													<?php echo "Quiz"; ?>
 												<?php endif; ?>
 											</li>
 										<?php endforeach; ?>

@@ -169,11 +169,20 @@ class Lookup extends CI_Controller {
 	{
 		if (!empty($course_id))
 		{
-			$course = $this->Lookup_model->get_course($course_id);
 			$this->load->model('Instructor_model');
-			$outline = $this->Instructor_model->get_outline($course_id);
 			$this->load->model('Account_model');
+
+			$course = $this->Lookup_model->get_course($course_id);
 			$author = $this->Account_model->get_profile_info($course['course_author']);
+
+			$outline = [];
+			$weeks = $this->Instructor_model->get_course_weeks($course_id);
+			if (!empty($weeks)) {
+				foreach ($weeks as $key => $value) {
+					$outline[] = $this->Instructor_model->get_weekly_outline($course_id, $value['week_id']);
+				}	
+			}
+
 			$page_data = array(
 				'page_title' => ucwords($course['course_title']),
 				'course_categories' => $this->Lookup_model->get_category(),

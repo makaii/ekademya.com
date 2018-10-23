@@ -94,8 +94,7 @@ $route['course/edit/outline/(:num)/week/(:num)/(:any)/video'] = 'instructor/cour
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture'] = 'instructor/course_outline_add_lecture/$1/$2/$3';
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/quiz'] = 'instructor/course_outline_add_quiz/$1/$2/$3';
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/video/(:num)'] = 'instructor/course_outline_add_video_edit/$1/$2/$3/$4';
-$route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture/(:num)'] = 'instructor/
-course_outline_add_lecture_edit/$1/$2/$3/$4';
+$route['course/edit/outline/(:num)/week/(:num)/(:any)/lecture/(:num)'] = 'instructor/course_outline_add_lecture_edit/$1/$2/$3/$4';
 $route['course/edit/outline/(:num)/week/(:num)/(:any)/quiz/(:num)'] = 'instructor/course_outline_add_quiz_edit/$1/$2/$3/$4';
 
 // $route['course/edit/outline/(:num)/video'] = 'instructor/course_outline_add_video/$1';
@@ -128,6 +127,7 @@ $route['admin/review/(:num)/approve'] = 'admin/course_review_approve/$1';
 $route['mycourse/(:num)'] = 'student/mycourse/$1';
 $route['mycourse/(:num)/video/(:num)'] = 'student/mycourse_outline_video/$1/$2';
 $route['mycourse/(:num)/lecture/(:num)'] = 'student/mycourse_outline_lecture/$1/$2';
+$route['mycourse/(:num)/quiz/(:num)'] = 'student/mycourse_outline_quiz/$1/$2';
 $route['mycourse/(:num)/project']  = 'student/mycourse_final_project/$1';
 $route['mycourse/(:num)/project/validate']  = 'student/mycourse_final_project_validation/$1';
 	// enroll course

@@ -418,50 +418,6 @@ class Instructor_model extends CI_Model
 		->get();
 		return $query->result_array();
 	}
-	public function get_outline($course_id)
-	{
-		$query = $this->db->query("
-			SELECT joined.* 
-			FROM   (SELECT ot.outline_id, 
-			               ot.outline_type, 
-			               ot.outline_course_id, 
-			               lt.lecture_id, 
-			               lt.lecture_title,
-			               lt.lecture_body,
-			               NULL AS video_id, 
-			               NULL AS video_title, 
-			               NULL AS video_description, 
-			               NULL AS video_url,
-			               NULL AS video_thumbnail
-			        FROM   outline_tbl ot 
-			               INNER JOIN lecture_tbl lt 
-			                       ON lt.lecture_outline_id = ot.outline_id 
-			                          AND ot.outline_type = 'lecture' 
-			        UNION ALL 
-			        SELECT ot.outline_id, 
-			               ot.outline_type, 
-			               ot.outline_course_id, 
-			               NULL AS lecture_id, 
-			               NULL AS lecture_title, 
-			               NULL AS lecture_body, 
-			               vt.video_id, 
-			               vt.video_title, 
-			               vt.video_description, 
-			               vt.video_url,
-			               vt.video_thumbnail
-			        FROM   outline_tbl ot 
-			               INNER JOIN video_tbl vt 
-			                       ON vt.video_outline_id = ot.outline_id 
-			                          AND ot.outline_type = 'video') AS joined 
-			WHERE  outline_course_id = $course_id
-			ORDER BY outline_id;
-		");
-		if ($query->num_rows()>=1)
-		{
-			return $query->result_array();
-		}
-		else return null;
-	}
 	public function get_outline_video($outline_id)
 	{
 		$query = $this->db->select()
@@ -634,8 +590,7 @@ class Instructor_model extends CI_Model
 		->where('quiz_outline_id',$outline_id)
 		->where('quiz_status', 1)
 		->get('quiz_tbl');
-		if ($query->num_rows()==1)
-		{
+		if ($query->num_rows()==1) {
 			$query = $query->row_array();
 			$quiz = $query;
 

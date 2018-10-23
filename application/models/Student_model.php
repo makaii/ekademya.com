@@ -106,6 +106,7 @@ class Student_model extends CI_Model
 		$query = $this->db->select()
 		->from('outline_tbl')
 		->where('outline_course_id',$course_id)
+		->where('outline_status', 1)
 		->join('progress_tbl','progress_tbl.progress_outline = outline_tbl.outline_id','left')
 		->get();
 		if ($query->num_rows()>=1) {

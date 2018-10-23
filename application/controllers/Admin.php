@@ -277,7 +277,7 @@ class Admin extends CI_Controller {
 	{
 		$course = $this->Admin_model->get_unreviewed_courses($course_id);
 		$page_data = array(
-			'page_title' => 'Coure Approve',
+			'page_title' => 'Course Approve',
 			'course' => $course,
 			'review_active' => 'active',
 		);

@@ -41,9 +41,17 @@ class Student extends CI_Controller {
 
 	public function mycourse($course_id)
 	{
+		$this->load->model('Instructor_model');
 		$user_id = $this->session->userdata('user_id');
+		$outline = [];
+
 		$course = $this->Student_model->get_mycourse_data($course_id);
-		$outline = $this->Student_model->get_mycourse_outline($course_id);
+		$weeks = $this->Instructor_model->get_course_weeks($course_id);
+		if (!empty($weeks)) {
+			foreach ($weeks as $key => $value) {
+				$outline[] = $this->Instructor_model->get_weekly_outline($course_id,$value['week_id']);
+			}	
+		}
 		$progress = $this->Student_model->get_mycourse_progress($user_id,$course_id);
 		$page_data = array(
 			'page_title' => ucwords($course['course_title']),
